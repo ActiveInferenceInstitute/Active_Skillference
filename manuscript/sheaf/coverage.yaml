@@ -1,0 +1,10 @@
+evidence_constants:
+  coverage_floor: 0.9
+  maximal_enumeration_floor: 600
+  noisy_sensor:
+    prior_present: 0.01
+    prior_absent: 0.99
+    sensitivity_positive_given_present: 0.99
+    false_positive_given_absent: 0.05
+    false_negative_given_present: 0.01
+    specificity_negative_given_absent: 0.95

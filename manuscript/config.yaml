@@ -1,0 +1,145 @@
+# Active Skillference — Active Inference micro-learning platform
+# This file links the manuscript prose to the execution layer. It is loaded by
+# `yaml.safe_load` inside the rendering pipeline (manuscript metadata) and by the
+# project scripts (curriculum/experiment parameters).
+
+# Consumed by: `infrastructure/rendering/pdf_renderer.py` and `infrastructure/reporting/pipeline_report_model.py`
+paper:
+  # RASP Standard: Title must be descriptive and objective
+  title: "Active Skillference: A Provenance-Bound Curriculum and Reproducible Learning Infrastructure for Active Inference"
+  subtitle: "A Validated Prerequisite Graph, Computational Claim Registry, and SkillTree Delivery Contract"
+  version: "1.0.0"
+  date: "" # Auto-generated via `infrastructure/validation/output/validator.py` if empty
+
+book:
+  title: "Active Skillference"
+  subtitle: "A Validated Prerequisite Graph, Computational Claim Registry, and SkillTree Delivery Contract"
+  edition: "1.0.0"
+  year: "2026"
+  license: "MIT"
+  code_license: "MIT"
+  cover:
+    image: "../figures/active_skillference_cover.png"
+
+front_matter:
+  page_two_visual:
+    image: "../figures/active_skillference_skill_atlas.png"
+    title: "Named Skill Atlas"
+    caption: "All exported skill names are tokenized into a deterministic front-matter atlas; visible labels are readable representatives rather than a complete printed index."
+
+# Consumed by: `infrastructure.publishing.extract_publication_metadata` (in `infrastructure/publishing/metadata.py`)
+authors:
+  - name: "Daniel Ari Friedman"
+    orcid: "0000-0001-6232-9096"
+    email: "daniel@activeinference.institute"
+    affiliation: "Active Inference Institute"
+    corresponding: true
+
+# Consumed by: `infrastructure.publishing.publish_to_zenodo` (in `infrastructure/publishing/platforms.py`)
+# DOIs are left blank until a real Zenodo deposit is reserved (reserve-DOI-first),
+# at which point publish_project_release.py fills them.
+publication:
+  # A reserved DOI is allocated but does not resolve until the draft is published,
+  # so it must not become a clickable doi.org link. It is carried in doi_status,
+  # which the cover renders as plain text, and `doi` stays blank until the deposit
+  # is actually published. Provenance: data/zenodo_reservation.json.
+  doi: "10.5281/zenodo.21865644"       # published Zenodo deposit; resolves
+  version_doi: ""      # set by publish_project_release.py on real deposit
+  version_record: ""
+  # The intended target is documented in release-readiness docs, but renderer-facing
+  # repository fields stay blank until the public repository is reachable.
+  github_repository: "ActiveInferenceInstitute/Active_Skillference"
+  repository_url: "https://github.com/ActiveInferenceInstitute/Active_Skillference"
+  repository_label: "Source repository"
+  transmission_bookends:
+    enabled: false
+    max_prior_releases: 5
+    show_steganography: false
+  deposit_filename:
+    enabled: true
+    topic: ""  # optional; default = first significant title word
+  journal: ""          # not submitted to a journal
+  volume: ""
+  pages: ""
+  year: "2026"
+
+keywords:
+  - "active inference"
+  - "free energy principle"
+  - "variational inference"
+  - "micro-learning"
+  - "SkillTree"
+  - "curriculum design"
+  - "content provenance"
+  - "reproducible research"
+
+metadata:
+  license: "MIT"
+  language: "en"
+
+# Steganography profile for secure_run.sh and transmission bookend summary.
+# Disabled: this is an open (MIT) educational manuscript — no confidential watermarking.
+# Precedence: infrastructure/config/secure_config.yaml < this block.
+steganography:
+  enabled: false
+  overlays_enabled: false
+  barcodes_enabled: false
+  metadata_enabled: false
+  hashing_enabled: false
+  encryption_enabled: false
+  overlay_mode: "text"
+  overlay_text: ""
+
+# Render format toggles — gate per-renderer in infrastructure/rendering/pipeline.py.
+# Defaults: pdf/html/slides on, docx/epub off. Setting `false` makes the pipeline
+# log `[skip] <format> rendering disabled in config` and emit no artifacts.
+# Consumed by: `infrastructure/rendering/config.py::RenderingConfig.from_project_config`.
+# Documented in `docs/operational/logging/output-design.md`.
+render:
+  formats:
+    pdf: true
+    html: true
+    slides: true
+    docx: true
+    epub: true
+
+# Consumed by: `infrastructure.llm.LLMClient` (in `infrastructure/llm/core/client.py`)
+# See docs/ for details
+llm:
+  reviews:
+    # Explicitly enabled for this exemplar to demonstrate AI-aided analysis
+    enabled: true
+    types:
+      - executive_summary
+      - quality_review
+      - methodology_review
+  translations:
+    enabled: true
+    languages:
+      - zh
+
+# Consumed by: `infrastructure/reporting/pipeline_report_model.py` and CI/CD gates
+# ZERO-MOCK TOLERANCE: Any failure blocks manuscript rendering
+testing:
+  max_test_failures: 0
+  max_infra_test_failures: 0
+  max_project_test_failures: 0
+
+# Curriculum / platform parameters — read by scripts/build_curriculum.py and run_kernels.py.
+# These are descriptors of the deliverable, not free knobs: the eight strata are the
+# pedagogical layers, and the SkillTree fields mirror the export target's data model.
+experiment:
+  strata:
+    - math_foundations
+    - probability
+    - information_theory
+    - variational_methods
+    - free_energy_principle
+    - active_inference
+    - computation
+    - applications
+  min_skill_count: 630          # current maximal-enumeration floor
+  skilltree_project_id: "activeInference"
+  self_reporting_types: ["HonorSystem", "Approval", "Quiz"]
+  kernel_seed: 20260609         # deterministic claim generation
+  units: "nats"                 # natural-log information units throughout

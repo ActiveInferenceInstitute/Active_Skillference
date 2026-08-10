@@ -1,0 +1,96 @@
+{
+  "contractVersion": 1,
+  "status": "protocol-only",
+  "purpose": "Define feasibility and measurement readiness before any learner-outcome claim.",
+  "claimsBoundary": {
+    "allowed": [
+      "recruitment and consent feasibility",
+      "export completeness and measurement readiness",
+      "descriptive completion and missingness summaries"
+    ],
+    "prohibited": [
+      "learner efficacy, retention, transfer, or population-level impact",
+      "causal claims about the curriculum or adaptive recommendations",
+      "security or privacy assurance beyond the observed pilot controls"
+    ]
+  },
+  "participants": {
+    "identifier": "Random study identifier generated before export; never an email or account name.",
+    "directIdentifiersAllowed": false,
+    "requiredFields": [
+      "participant_id_hash",
+      "consent_version",
+      "consent_timestamp",
+      "age_band",
+      "prior_experience_band",
+      "withdrawn"
+    ]
+  },
+  "events": {
+    "allowedEventTypes": [
+      "enrollment",
+      "skill_started",
+      "quiz_attempt",
+      "skill_completed",
+      "withdrawal"
+    ],
+    "requiredFields": [
+      "participant_id_hash",
+      "event_type",
+      "skill_id",
+      "event_timestamp",
+      "source_system",
+      "schema_version"
+    ]
+  },
+  "outcomes": {
+    "primary": {
+      "id": "measurement_readiness",
+      "estimand": "proportion of consented participants with complete, linkable event records",
+      "measure": "record completeness by required event field and participant",
+      "feasibilityBoundary": "A complete record supports a future study; it does not show that learning occurred."
+    },
+    "secondary": [
+      {
+        "id": "recruitment_feasibility",
+        "measure": "consented participants divided by eligible invitees",
+        "interpretationBoundary": "Descriptive feasibility only; no generalization beyond the recruited sample."
+      },
+      {
+        "id": "quiz_attempt_descriptives",
+        "measure": "attempt count, completion status, and missingness by skill",
+        "interpretationBoundary": "Do not interpret as item validity, mastery, efficacy, or transfer."
+      }
+    ]
+  },
+  "privacy": {
+    "consent": "Collect explicit consent before any export; record version and timestamp.",
+    "retention": "Delete raw event exports after the preregistered retention window; retain only approved aggregates.",
+    "access": "Restrict raw exports to the named analysis team; log access and prohibit ad hoc learner lookup.",
+    "minimization": "Export only fields needed for the preregistered feasibility and missingness analyses."
+  },
+  "missingData": {
+    "classification": "Classify structural, intermittent, withdrawal-related, and unknown missingness before analysis.",
+    "primaryAnalysis": "Report denominators and observed missingness; do not silently impute completion or quiz outcomes.",
+    "sensitivityAnalysis": "Repeat descriptive summaries under documented best-case and worst-case bounds; label them as sensitivity bounds."
+  },
+  "analysis": {
+    "unitOfAnalysis": "participant for feasibility and event for completeness diagnostics",
+    "preregistration": "Record outcomes, exclusions, windows, and stopping rules before inspecting learner outcomes.",
+    "stoppingRule": "Stop collection if consent, privacy, export integrity, or adverse-event review fails.",
+    "notebookContract": "A versioned notebook must load only the declared schema, emit deterministic tables, and write a run manifest with code and input hashes."
+  },
+  "export": {
+    "sourceBoundary": "SkillTree remains the system of record for progress and quiz state; this contract describes a read-only analysis export.",
+    "fields": [
+      "participant_id_hash",
+      "event_type",
+      "skill_id",
+      "event_timestamp",
+      "quiz_attempt_number",
+      "quiz_passed",
+      "source_system",
+      "schema_version"
+    ]
+  }
+}

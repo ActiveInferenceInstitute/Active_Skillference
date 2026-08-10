@@ -1,0 +1,80 @@
+HTTP/1.0 200 OK
+Server: ActiveSkillferenceDashboard/1.0 Python/3.12.13
+Date: Sun, 21 Jun 2026 02:29:56 GMT
+Content-Type: text/html; charset=utf-8
+Content-Length: 8473
+Cache-Control: no-store
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Active Skillference Learner Dashboard</title>
+    <script>
+      window.dashboardMathJaxFailed = false;
+      window.MathJax = {
+        tex: {
+          inlineMath: [["$", "$"], ["\\(", "\\)"]],
+          displayMath: [["$$", "$$"], ["\\[", "\\]"]]
+        },
+        options: {
+          skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"]
+        }
+      };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" onerror="window.dashboardMathJaxFailed = true"></script>
+    <link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="12" fill="%232563eb"/><path d="M16 42h32M18 32h28M22 22h20" stroke="white" stroke-width="6" stroke-linecap="round"/></svg>'>
+    <link rel="stylesheet" href="/assets/styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <header class="app-header">
+      <div>
+        <p class="eyebrow">Active Skillference</p>
+        <h1>Learner Dashboard</h1>
+      </div>
+      <nav class="header-actions" aria-label="External destinations">
+        <a id="skilltree-dashboard-link" class="button primary" href="http://localhost:8080/skills-login?redirect=/progress-and-rankings">SkillTree login/admin</a>
+        <a id="project-json-link" class="button" href="/artifacts/skilltree_project">Project JSON</a>
+        <a id="manuscript-link" class="button" href="/artifacts/manuscript_pdf">Manuscript</a>
+      </nav>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <section class="status-grid" aria-label="Runtime status">
+        <article class="metric">
+          <span class="label">SkillTree</span>
+          <strong id="service-state" aria-live="polite">checking</strong>
+        </article>
+        <article class="metric">
+          <span class="label">Skills</span>
+          <strong id="skill-count">0</strong>
+        </article>
+        <article class="metric">
+          <span class="label">Subjects</span>
+          <strong id="subject-count">0</strong>
+        </article>
+        <article class="metric">
+          <span class="label">Dependencies</span>
+          <strong id="dependency-count">0</strong>
+        </article>
+        <article class="metric">
+          <span class="label">Quizzes</span>
+          <strong id="quiz-count">0</strong>
+        </article>
+        <article class="metric">
+          <span class="label">Max Depth</span>
+          <strong id="max-depth">0</strong>
+        </article>
+        <article class="metric">
+          <span class="label">Claims</span>
+          <strong id="claim-count">0</strong>
+        </article>
+        <article class="metric">
+          <span class="label">Artifacts</span>
+          <strong id="artifact-health">0/0</strong>
+        </article>
+      </section>
+
+      <section class="system-summary" aria-label="System summary">

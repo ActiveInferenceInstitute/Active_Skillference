@@ -1,0 +1,27 @@
+authors:
+- affiliation: Active Inference Institute
+  family-names: Friedman
+  given-names: Daniel Ari
+  orcid: 0000-0001-6232-9096
+cff-version: 1.2.0
+date-released: '2026-08-09'
+doi: 10.5281/zenodo.21865644
+keywords:
+- active inference
+- free energy principle
+- variational inference
+- Bayesian inference
+- information theory
+- curriculum
+- prerequisite graph
+- SkillTree
+- computational provenance
+- micro-learning
+- reproducible research
+license: MIT
+message: If you use this software, please cite it using the metadata from this file.
+title: Active Skillference — Active Inference & Free Energy Principle micro-learning platform
+type: software
+version: 1.0.0
+repository-code: https://github.com/ActiveInferenceInstitute/Active_Skillference
+url: https://github.com/ActiveInferenceInstitute/Active_Skillference

@@ -1,0 +1,39 @@
+{
+  "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
+  "@type": "SoftwareSourceCode",
+  "author": [
+    {
+      "@id": "https://orcid.org/0000-0001-6232-9096",
+      "@type": "Person",
+      "affiliation": {
+        "@type": "Organization",
+        "name": "Active Inference Institute"
+      },
+      "familyName": "Friedman",
+      "givenName": "Daniel Ari"
+    }
+  ],
+  "codeRepository": "https://github.com/ActiveInferenceInstitute/Active_Skillference",
+  "dateModified": "2026-08-09",
+  "datePublished": "2026-08-09",
+  "description": "A high-integrity micro-learning platform that renders the Active Inference / Free Energy Principle body of knowledge as a validated prerequisite graph whose quantitative claims are produced by tested computational kernels and exported to the SkillTree framework.",
+  "identifier": "https://doi.org/10.5281/zenodo.21865644",
+  "keywords": [
+    "active inference",
+    "free energy principle",
+    "variational inference",
+    "Bayesian inference",
+    "information theory",
+    "curriculum",
+    "prerequisite graph",
+    "knowledge graph",
+    "SkillTree",
+    "computational provenance",
+    "micro-learning",
+    "reproducible research"
+  ],
+  "license": "https://spdx.org/licenses/MIT",
+  "name": "Active Skillference \u2014 Active Inference & Free Energy Principle micro-learning platform",
+  "url": "https://github.com/ActiveInferenceInstitute/Active_Skillference",
+  "version": "1.0.0"
+}

@@ -1,0 +1,218 @@
+"""Frontier, practice, and open-science extension subjects."""
+
+from __future__ import annotations
+
+from .._ext_frontier_topics import (
+    _FRONTIER_ACTIVE_INFERENCE,
+    _FRONTIER_APPLICATIONS,
+    _FRONTIER_COMPUTATION,
+    _FRONTIER_FEP,
+    _FRONTIER_INFORMATION,
+    _FRONTIER_MATH,
+    _FRONTIER_PROBABILITY,
+    _FRONTIER_VARIATIONAL,
+)
+from .._ext_open_science import (
+    _OPEN_ACTIVE_INFERENCE,
+    _OPEN_APPLICATIONS,
+    _OPEN_COMPUTATION,
+    _OPEN_FEP,
+    _OPEN_INFORMATION,
+    _OPEN_MATH,
+    _OPEN_PROBABILITY,
+    _OPEN_VARIATIONAL,
+)
+from .._ext_practice_translation import (
+    _PRACTICE_ACTIVE_INFERENCE,
+    _PRACTICE_APPLICATIONS,
+    _PRACTICE_COMPUTATION,
+    _PRACTICE_FEP,
+    _PRACTICE_INFORMATION,
+    _PRACTICE_MATH,
+    _PRACTICE_PROBABILITY,
+    _PRACTICE_VARIATIONAL,
+)
+from ..authoring import (
+    _AI,
+    _APP,
+    _C,
+    _FEP,
+    _IT,
+    _M,
+    _P,
+    _VM,
+)
+from ..model import Subject
+
+
+def track_extension_subjects() -> list[Subject]:
+    return [
+        Subject(
+            "sub_frontier_math",
+            "Frontier Mathematical Foundations",
+            _M,
+            "Measure spaces, transport, identifiability and compositional modelling.",
+            tuple(_FRONTIER_MATH),
+        ),
+        Subject(
+            "sub_frontier_probability",
+            "Frontier Probability & Causality",
+            _P,
+            "Exchangeability, graphical models, interventions, filtering and nonparametric priors.",
+            tuple(_FRONTIER_PROBABILITY),
+        ),
+        Subject(
+            "sub_frontier_information",
+            "Frontier Information Theory",
+            _IT,
+            "Description length, predictive efficiency, decomposition and semantic information.",
+            tuple(_FRONTIER_INFORMATION),
+        ),
+        Subject(
+            "sub_frontier_variational",
+            "Frontier Variational Methods",
+            _VM,
+            "Black-box gradients, flows, local projections, weighted bounds and streaming updates.",
+            tuple(_FRONTIER_VARIATIONAL),
+        ),
+        Subject(
+            "sub_frontier_fep",
+            "Frontier Free Energy Principle",
+            _FEP,
+            "Particular blankets, trajectory objectives, synchrony, autonomy and scale separation.",
+            tuple(_FRONTIER_FEP),
+        ),
+        Subject(
+            "sub_frontier_ai",
+            "Frontier Active Inference",
+            _AI,
+            "Affordances, counterfactual policies, multifactor planning and open-ended exploration.",
+            tuple(_FRONTIER_ACTIVE_INFERENCE),
+        ),
+        Subject(
+            "sub_frontier_computation",
+            "Frontier Implementation & Operations",
+            _C,
+            "Schema validation, live seeding, replay, observability and local secret hygiene.",
+            tuple(_FRONTIER_COMPUTATION),
+        ),
+        Subject(
+            "sub_frontier_applications",
+            "Frontier Applications & Institutions",
+            _APP,
+            "Digital support, adaptive tutoring, teaming, urban sensing and institutional design.",
+            tuple(_FRONTIER_APPLICATIONS),
+        ),
+        Subject(
+            "sub_practice_math",
+            "Mathematical Model-Checking Practice",
+            _M,
+            "Dimension checks, assumption checklists and sensitivity probes for validating the formal machinery before it is reused downstream.",
+            tuple(_PRACTICE_MATH),
+        ),
+        Subject(
+            "sub_practice_probability",
+            "Probabilistic Modelling Practice",
+            _P,
+            "Story-to-factorisation, missing-data handling and prior predictive checks for turning scenarios into inspectable probabilistic models.",
+            tuple(_PRACTICE_PROBABILITY),
+        ),
+        Subject(
+            "sub_practice_information",
+            "Information-Diagnostic Practice",
+            _IT,
+            "Surprise decomposition, information budgets and observation-channel audits that train learners to reason about usable evidence.",
+            tuple(_PRACTICE_INFORMATION),
+        ),
+        Subject(
+            "sub_practice_variational",
+            "Variational Workflow Practice",
+            _VM,
+            "Approximation choice, ELBO failure diagnosis and message-trace reviews for making approximate inference auditable.",
+            tuple(_PRACTICE_VARIATIONAL),
+        ),
+        Subject(
+            "sub_practice_fep",
+            "FEP Interpretation Practice",
+            _FEP,
+            "Blanket critique, timescale mapping and claim-boundary setting for keeping Free Energy Principle explanations precise.",
+            tuple(_PRACTICE_FEP),
+        ),
+        Subject(
+            "sub_practice_active_inference",
+            "Active-Inference Design Practice",
+            _AI,
+            "Policy-space design, preference elicitation and counterfactual debugging for constructing behaviourally meaningful agents.",
+            tuple(_PRACTICE_ACTIVE_INFERENCE),
+        ),
+        Subject(
+            "sub_practice_computation",
+            "Implementation Review Practice",
+            _C,
+            "Invariant tests, trace artifacts and SkillTree export reviews that preserve the mathematical contract in code.",
+            tuple(_PRACTICE_COMPUTATION),
+        ),
+        Subject(
+            "sub_practice_applications",
+            "Application Translation Practice",
+            _APP,
+            "Domain-fit reviews, ethics checks and evaluation designs for moving active-inference ideas into responsible applied work.",
+            tuple(_PRACTICE_APPLICATIONS),
+        ),
+        Subject(
+            "sub_open_science_math",
+            "Open-Science Mathematical Learning",
+            _M,
+            "Notation contracts, assumption ledgers and reusable exercise reviews for public mathematical course material.",
+            tuple(_OPEN_MATH),
+        ),
+        Subject(
+            "sub_open_science_probability",
+            "Open-Science Probabilistic Learning",
+            _P,
+            "Generative stories, priors, calibration and uncertainty communication for inspectable public examples.",
+            tuple(_OPEN_PROBABILITY),
+        ),
+        Subject(
+            "sub_open_science_information",
+            "Open-Science Information Literacy",
+            _IT,
+            "Information-gain goals, channel diagrams and semantic relevance checks for educational active-inference material.",
+            tuple(_OPEN_INFORMATION),
+        ),
+        Subject(
+            "sub_open_science_variational",
+            "Open-Science Variational Workflows",
+            _VM,
+            "Approximation records, ELBO diagnostics and reusable notebooks for public variational-inference teaching.",
+            tuple(_OPEN_VARIATIONAL),
+        ),
+        Subject(
+            "sub_open_science_fep",
+            "Open-Science FEP Interpretation",
+            _FEP,
+            "Claim boundaries, blanket critiques and timescale notes for responsible public Free Energy Principle exposition.",
+            tuple(_OPEN_FEP),
+        ),
+        Subject(
+            "sub_open_science_active_inference",
+            "Open-Science Active-Inference Studios",
+            _AI,
+            "Policy spaces, preference elicitation and counterfactual debugging studios for active-inference course pathways.",
+            tuple(_OPEN_ACTIVE_INFERENCE),
+        ),
+        Subject(
+            "sub_open_science_computation",
+            "Open-Science Computational Reproducibility",
+            _C,
+            "Executable notebooks, schema-checked exports, replayable validation and visualization QA for educational tooling.",
+            tuple(_OPEN_COMPUTATION),
+        ),
+        Subject(
+            "sub_open_science_applications",
+            "Open-Science Applications & Community Learning",
+            _APP,
+            "Community review loops, responsible application boundaries and capstone source dossiers for public education.",
+            tuple(_OPEN_APPLICATIONS),
+        ),
+    ]

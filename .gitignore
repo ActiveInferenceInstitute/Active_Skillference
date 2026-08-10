@@ -1,0 +1,23 @@
+# Generated outputs are regeneratable; never commit them.
+output/
+.coverage
+.coverage.*
+# Coverage JSON export drifts the instant src/ changes (a committed copy reported
+# 98.85% while measuring only 16 of 78 tracked files). Regenerate on demand via
+# `uv run pytest --cov=src --cov-report=json:coverage_project.json`; never commit it.
+coverage_project.json
+.pytest_cache/
+__pycache__/
+*.pyc
+.benchmarks/
+tmp/
+.playwright-cli/
+
+# Egg-info from local installs (any location — guards against renamed-fork drift).
+**/*.egg-info/
+
+# Project-local virtualenvs (root .venv is shared)
+.venv/
+
+# Local SkillTree bootstrap credentials and trusted-client secrets.
+.active_skillference_local/

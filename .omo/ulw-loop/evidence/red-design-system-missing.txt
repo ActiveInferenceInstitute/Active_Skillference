@@ -1,0 +1,33 @@
+command: test -f DESIGN.md
+exit: 1
+result: DESIGN.md missing before frontend work
+
+command: rg -n "#[0-9A-Fa-f]{3,8}|Inter|rgba\(" src/dashboard/assets/styles.css src/dashboard/assets/index.html
+src/dashboard/assets/styles.css:3:  --ink: #152238;
+src/dashboard/assets/styles.css:4:  --muted: #64748b;
+src/dashboard/assets/styles.css:5:  --line: #d8dee9;
+src/dashboard/assets/styles.css:6:  --surface: #ffffff;
+src/dashboard/assets/styles.css:7:  --surface-2: #f8fafc;
+src/dashboard/assets/styles.css:8:  --blue: #2563eb;
+src/dashboard/assets/styles.css:9:  --teal: #0f766e;
+src/dashboard/assets/styles.css:10:  --green: #15803d;
+src/dashboard/assets/styles.css:11:  --violet: #7c3aed;
+src/dashboard/assets/styles.css:12:  --amber: #b45309;
+src/dashboard/assets/styles.css:13:  --red: #b91c1c;
+src/dashboard/assets/styles.css:14:  --blue-soft: #eff6ff;
+src/dashboard/assets/styles.css:15:  --teal-soft: #ecfdf5;
+src/dashboard/assets/styles.css:16:  --shadow: 0 12px 40px rgba(21, 34, 56, 0.08);
+src/dashboard/assets/styles.css:31:  font: 15px/1.5 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+src/dashboard/assets/styles.css:47:  color: #ffffff;
+src/dashboard/assets/styles.css:164:  color: #ffffff;
+src/dashboard/assets/styles.css:271:  background: linear-gradient(135deg, #fff7ed 0%, #ffffff 54%, #eff6ff 100%);
+src/dashboard/assets/styles.css:280:  color: #7c2d12;
+src/dashboard/assets/styles.css:294:  border: 1px solid rgba(180, 83, 9, 0.22);
+src/dashboard/assets/styles.css:296:  background: rgba(255, 255, 255, 0.78);
+src/dashboard/assets/styles.css:337:  color: #134e4a;
+src/dashboard/assets/styles.css:392:  background: #ffffff;
+src/dashboard/assets/styles.css:787:  background: #f7fbff;
+src/dashboard/assets/styles.css:883:  stroke: rgba(37, 99, 235, 0.28);
+src/dashboard/assets/styles.css:888:  fill: rgba(255, 255, 255, 0.72);
+src/dashboard/assets/styles.css:926:  background: #111827;
+src/dashboard/assets/styles.css:927:  color: #e5e7eb;
