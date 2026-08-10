@@ -1,0 +1,2130 @@
+{
+  "anchors": [
+    {
+      "id": "abstract_graph_counts",
+      "line": 11,
+      "section": "00_abstract.md"
+    },
+    {
+      "id": "abstract_delivery_contract",
+      "line": 27,
+      "section": "00_abstract.md"
+    },
+    {
+      "id": "intro_fep_lineage",
+      "line": 7,
+      "section": "01_introduction.md"
+    },
+    {
+      "id": "intro_situation_awareness",
+      "line": 47,
+      "section": "01_introduction.md"
+    },
+    {
+      "id": "intro_prerequisite_opacity",
+      "line": 82,
+      "section": "01_introduction.md"
+    },
+    {
+      "id": "intro_provenance_problem",
+      "line": 98,
+      "section": "01_introduction.md"
+    },
+    {
+      "id": "intro_scholarship_drift",
+      "line": 105,
+      "section": "01_introduction.md"
+    },
+    {
+      "id": "intro_graph_approach",
+      "line": 119,
+      "section": "01_introduction.md"
+    },
+    {
+      "id": "intro_evaluation_questions",
+      "line": 133,
+      "section": "01_introduction.md"
+    },
+    {
+      "id": "intro_claim_tokens",
+      "line": 143,
+      "section": "01_introduction.md"
+    },
+    {
+      "id": "intro_skilltree_delivery",
+      "line": 151,
+      "section": "01_introduction.md"
+    },
+    {
+      "id": "method_evidence_classes",
+      "line": 14,
+      "section": "02_methodology.md"
+    },
+    {
+      "id": "method_kernels_scope",
+      "line": 5,
+      "section": "02a_methodology_kernels_statistics_and_provenance.md"
+    },
+    {
+      "id": "method_model_boundary",
+      "line": 39,
+      "section": "02a_methodology_kernels_statistics_and_provenance.md"
+    },
+    {
+      "id": "method_kernel_identities",
+      "line": 50,
+      "section": "02a_methodology_kernels_statistics_and_provenance.md"
+    },
+    {
+      "id": "method_statistical_status",
+      "line": 60,
+      "section": "02a_methodology_kernels_statistics_and_provenance.md"
+    },
+    {
+      "id": "method_provenance_binding",
+      "line": 79,
+      "section": "02a_methodology_kernels_statistics_and_provenance.md"
+    },
+    {
+      "id": "method_provenance_standards",
+      "line": 95,
+      "section": "02a_methodology_kernels_statistics_and_provenance.md"
+    },
+    {
+      "id": "method_scholarship_matrix",
+      "line": 5,
+      "section": "02b_methodology_scholarship_curriculum_and_strata.md"
+    },
+    {
+      "id": "method_curriculum_quality",
+      "line": 38,
+      "section": "02b_methodology_scholarship_curriculum_and_strata.md"
+    },
+    {
+      "id": "method_stratum_ordering",
+      "line": 75,
+      "section": "02b_methodology_scholarship_curriculum_and_strata.md"
+    },
+    {
+      "id": "method_skilltree_export",
+      "line": 5,
+      "section": "02c_methodology_skilltree_dashboard_and_publication_surfaces.md"
+    },
+    {
+      "id": "method_dashboard_handoff",
+      "line": 18,
+      "section": "02c_methodology_skilltree_dashboard_and_publication_surfaces.md"
+    },
+    {
+      "id": "method_cover_asset",
+      "line": 41,
+      "section": "02c_methodology_skilltree_dashboard_and_publication_surfaces.md"
+    },
+    {
+      "id": "results_curriculum_graph",
+      "line": 5,
+      "section": "03a_results_curriculum_graph_and_assessment_quality.md"
+    },
+    {
+      "id": "results_dependency_flow",
+      "line": 70,
+      "section": "03a_results_curriculum_graph_and_assessment_quality.md"
+    },
+    {
+      "id": "results_graph_diagnostics",
+      "line": 86,
+      "section": "03a_results_curriculum_graph_and_assessment_quality.md"
+    },
+    {
+      "id": "results_assessment_depth",
+      "line": 127,
+      "section": "03a_results_curriculum_graph_and_assessment_quality.md"
+    },
+    {
+      "id": "results_stratum_balance",
+      "line": 140,
+      "section": "03a_results_curriculum_graph_and_assessment_quality.md"
+    },
+    {
+      "id": "results_scholarship_coverage",
+      "line": 5,
+      "section": "03b_results_scholarship_source_health_and_evidence_audits.md"
+    },
+    {
+      "id": "results_open_science_sources",
+      "line": 23,
+      "section": "03b_results_scholarship_source_health_and_evidence_audits.md"
+    },
+    {
+      "id": "results_source_health",
+      "line": 44,
+      "section": "03b_results_scholarship_source_health_and_evidence_audits.md"
+    },
+    {
+      "id": "results_validation_surface",
+      "line": 59,
+      "section": "03b_results_scholarship_source_health_and_evidence_audits.md"
+    },
+    {
+      "id": "results_scientific_evidence_matrix",
+      "line": 113,
+      "section": "03b_results_scholarship_source_health_and_evidence_audits.md"
+    },
+    {
+      "id": "results_kernel_examples",
+      "line": 5,
+      "section": "03c_results_kernel_examples.md"
+    },
+    {
+      "id": "results_export_delivery",
+      "line": 5,
+      "section": "03d_results_skilltree_dashboard_and_front_matter_delivery.md"
+    },
+    {
+      "id": "results_dashboard_delivery",
+      "line": 16,
+      "section": "03d_results_skilltree_dashboard_and_front_matter_delivery.md"
+    },
+    {
+      "id": "results_captured_delivery_evidence",
+      "line": 26,
+      "section": "03d_results_skilltree_dashboard_and_front_matter_delivery.md"
+    },
+    {
+      "id": "results_cover_asset",
+      "line": 49,
+      "section": "03d_results_skilltree_dashboard_and_front_matter_delivery.md"
+    },
+    {
+      "id": "conclusion_evidence_status",
+      "line": 5,
+      "section": "04_conclusion.md"
+    },
+    {
+      "id": "conclusion_scholarship_thread",
+      "line": 17,
+      "section": "04_conclusion.md"
+    },
+    {
+      "id": "conclusion_delivery",
+      "line": 40,
+      "section": "04_conclusion.md"
+    },
+    {
+      "id": "conclusion_roadmap",
+      "line": 73,
+      "section": "04_conclusion.md"
+    },
+    {
+      "id": "setup_learner_outcome_pilot",
+      "line": 96,
+      "section": "05_experimental_setup.md"
+    },
+    {
+      "id": "reproducibility_release_evidence",
+      "line": 74,
+      "section": "06_reproducibility.md"
+    },
+    {
+      "id": "scope_platform_boundary",
+      "line": 5,
+      "section": "07a_scope_platform_and_curriculum_boundaries.md"
+    },
+    {
+      "id": "scope_curriculum_boundary",
+      "line": 18,
+      "section": "07a_scope_platform_and_curriculum_boundaries.md"
+    },
+    {
+      "id": "related_fep_lineage",
+      "line": 7,
+      "section": "07b_related_work_active_inference_and_information_sources.md"
+    },
+    {
+      "id": "related_pre1800_foundations",
+      "line": 37,
+      "section": "07b_related_work_active_inference_and_information_sources.md"
+    },
+    {
+      "id": "related_fep_evidence_status",
+      "line": 109,
+      "section": "07b_related_work_active_inference_and_information_sources.md"
+    },
+    {
+      "id": "related_variational_information_sources",
+      "line": 142,
+      "section": "07b_related_work_active_inference_and_information_sources.md"
+    },
+    {
+      "id": "related_skilltree_delivery",
+      "line": 5,
+      "section": "07c_related_work_skilltree_security_reporting_and_open_science.md"
+    },
+    {
+      "id": "related_skilltree_security_posture",
+      "line": 27,
+      "section": "07c_related_work_skilltree_security_reporting_and_open_science.md"
+    },
+    {
+      "id": "related_national_security_boundary",
+      "line": 37,
+      "section": "07c_related_work_skilltree_security_reporting_and_open_science.md"
+    },
+    {
+      "id": "related_reproducible_reporting",
+      "line": 50,
+      "section": "07c_related_work_skilltree_security_reporting_and_open_science.md"
+    },
+    {
+      "id": "related_ip_license_boundary",
+      "line": 77,
+      "section": "07c_related_work_skilltree_security_reporting_and_open_science.md"
+    },
+    {
+      "id": "related_scholarship_audit",
+      "line": 89,
+      "section": "07c_related_work_skilltree_security_reporting_and_open_science.md"
+    },
+    {
+      "id": "related_open_science_ecosystem",
+      "line": 103,
+      "section": "07c_related_work_skilltree_security_reporting_and_open_science.md"
+    },
+    {
+      "id": "limitations_delivery_and_scope",
+      "line": 7,
+      "section": "07d_limitations_delivery_dependencies_and_learner_outcomes.md"
+    },
+    {
+      "id": "supplement_skilltree_bridge",
+      "line": 24,
+      "section": "08_supplement_variational_free_energy.md"
+    },
+    {
+      "id": "supplement_vfe_computed",
+      "line": 52,
+      "section": "08_supplement_variational_free_energy.md"
+    },
+    {
+      "id": "supplement_vfe_sweep",
+      "line": 70,
+      "section": "08_supplement_variational_free_energy.md"
+    },
+    {
+      "id": "supplement_efe_computed",
+      "line": 91,
+      "section": "08_supplement_variational_free_energy.md"
+    },
+    {
+      "id": "supplement_efe_boundary",
+      "line": 132,
+      "section": "08_supplement_variational_free_energy.md"
+    },
+    {
+      "id": "supplement_kernel_sensitivity",
+      "line": 157,
+      "section": "08_supplement_variational_free_energy.md"
+    },
+    {
+      "id": "supplement_message_passing",
+      "line": 179,
+      "section": "08_supplement_variational_free_energy.md"
+    },
+    {
+      "id": "supplement_parameter_learning",
+      "line": 208,
+      "section": "08_supplement_variational_free_energy.md"
+    },
+    {
+      "id": "supplement_model_reduction",
+      "line": 220,
+      "section": "08_supplement_variational_free_energy.md"
+    },
+    {
+      "id": "supplement_efe_ambiguity",
+      "line": 239,
+      "section": "08_supplement_variational_free_energy.md"
+    },
+    {
+      "id": "supplement_multistep_planning",
+      "line": 250,
+      "section": "08_supplement_variational_free_energy.md"
+    },
+    {
+      "id": "supplement_predictive_coding",
+      "line": 292,
+      "section": "08_supplement_variational_free_energy.md"
+    },
+    {
+      "id": "availability_artifact_scope",
+      "line": 3,
+      "section": "09_code_and_data_availability.md"
+    },
+    {
+      "id": "availability_public_target",
+      "line": 13,
+      "section": "09_code_and_data_availability.md"
+    },
+    {
+      "id": "availability_generated_artifacts",
+      "line": 25,
+      "section": "09_code_and_data_availability.md"
+    }
+  ],
+  "issues": [],
+  "rows": [
+    {
+      "allowStrongWords": [
+        "validated"
+      ],
+      "citations": [],
+      "claimTokens": [],
+      "figures": [],
+      "id": "abstract_graph_counts",
+      "limitationMarkers": [],
+      "section": "00_abstract.md",
+      "summary": "Abstract live graph counts and provenance-bound curriculum status.",
+      "type": "descriptive_count",
+      "validators": [
+        "scripts/build_curriculum.py",
+        "scripts/validate_manuscript_variables.py"
+      ],
+      "variables": [
+        "skill_count",
+        "subject_count",
+        "edge_count",
+        "max_depth"
+      ]
+    },
+    {
+      "allowStrongWords": [
+        "validated"
+      ],
+      "citations": [],
+      "claimTokens": [],
+      "figures": [],
+      "id": "abstract_delivery_contract",
+      "limitationMarkers": [],
+      "section": "00_abstract.md",
+      "summary": "Abstract SkillTree export and regenerated artifact delivery contract.",
+      "type": "delivery",
+      "validators": [
+        "scripts/export_skilltree.py",
+        "scripts/run_kernels.py"
+      ],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [
+        "empirical"
+      ],
+      "citations": [
+        "helmholtz1867handbuch",
+        "knill2004bayesian",
+        "bogacz2017tutorial",
+        "sprevak2023predictive",
+        "bernoulli1713ars_conjectandi",
+        "demoivre1718doctrine_chances",
+        "bayes1763doctrine_chances",
+        "laplace1774inverse_probability",
+        "berkeley1709new_theory_vision",
+        "hume1739treatise",
+        "condillac1754sensations",
+        "hartley1749observations",
+        "locke1690essay",
+        "kant1781critique_pure_reason",
+        "friston2006free",
+        "friston2010free",
+        "friston2023simpler",
+        "zhang2024overview",
+        "friston2017process",
+        "dacosta2020synthesis",
+        "parr2022active",
+        "pezzulo2024sentient_behavior"
+      ],
+      "claimTokens": [],
+      "figures": [],
+      "id": "intro_fep_lineage",
+      "limitationMarkers": [],
+      "section": "01_introduction.md",
+      "summary": "Introductory lineage from Helmholtz and Bayesian brain to active inference.",
+      "type": "literature",
+      "validators": [],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [
+        "empirical"
+      ],
+      "citations": [
+        "smith2022tutorial",
+        "millidge2021whence",
+        "champion2026reframing",
+        "dipaolo2024school",
+        "anokhin2024associative_active_inference"
+      ],
+      "claimTokens": [],
+      "figures": [],
+      "id": "intro_prerequisite_opacity",
+      "limitationMarkers": [],
+      "section": "01_introduction.md",
+      "summary": "Prerequisite-depth and term-calibration problem grounded in tutorials, EFE derivations and active-learning education context.",
+      "type": "literature",
+      "validators": [],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [
+        "empirical"
+      ],
+      "citations": [
+        "friston2023simpler",
+        "aguilera2022particular",
+        "gershman2019free",
+        "hodson2024empirical",
+        "friston2017process",
+        "dacosta2020synthesis",
+        "parr2022active",
+        "millidge2021whence",
+        "heins2022pymdp",
+        "vanoostrum2025concise",
+        "dipaolo2024school",
+        "doignon1985knowledge_spaces",
+        "falmagne2011learning_spaces",
+        "fu2025curriculum_aware_gncd",
+        "liu2023_learning_analytics_privacy",
+        "sclater2015learning_analytics_code",
+        "skilltree2026docs",
+        "skilltree2020nsa"
+      ],
+      "claimTokens": [],
+      "figures": [],
+      "id": "intro_situation_awareness",
+      "limitationMarkers": [
+        "not",
+        "model",
+        "require",
+        "without"
+      ],
+      "section": "01_introduction.md",
+      "summary": "Situation map separating theory, model, software, education, delivery, and future learner-evaluation layers.",
+      "type": "literature",
+      "validators": [],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [],
+      "citations": [],
+      "claimTokens": [],
+      "figures": [],
+      "id": "intro_provenance_problem",
+      "limitationMarkers": [
+        "drift",
+        "invented"
+      ],
+      "section": "01_introduction.md",
+      "summary": "Integrity problem statement about hand-typed numbers and drift.",
+      "type": "scope_limit",
+      "validators": [],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [
+        "empirical"
+      ],
+      "citations": [
+        "aguilera2022particular",
+        "aguilera2023confederation",
+        "hodson2024empirical",
+        "badcock2024psychology_psychiatry",
+        "gershman2019free"
+      ],
+      "claimTokens": [],
+      "figures": [],
+      "id": "intro_scholarship_drift",
+      "limitationMarkers": [],
+      "section": "01_introduction.md",
+      "summary": "Scholarship drift and evidence-status concern grounded in critiques and reviews.",
+      "type": "literature",
+      "validators": [],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [
+        "validated"
+      ],
+      "citations": [
+        "bloom1956taxonomy",
+        "liang2018prerequisite",
+        "doignon1985knowledge_spaces",
+        "falmagne2011learning_spaces"
+      ],
+      "claimTokens": [],
+      "figures": [],
+      "id": "intro_graph_approach",
+      "limitationMarkers": [],
+      "section": "01_introduction.md",
+      "summary": "Validated prerequisite graph approach and prerequisite-sensitive curriculum support.",
+      "type": "delivery",
+      "validators": [
+        "scripts/build_curriculum.py"
+      ],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [],
+      "citations": [],
+      "claimTokens": [],
+      "figures": [],
+      "id": "intro_evaluation_questions",
+      "limitationMarkers": [],
+      "section": "01_introduction.md",
+      "summary": "Four bounded evaluation questions for graph, provenance, evidence-surface, and SkillTree delivery properties.",
+      "type": "delivery",
+      "validators": [
+        "scripts/build_curriculum.py",
+        "scripts/run_kernels.py",
+        "scripts/validate_manuscript_artifacts.py",
+        "scripts/export_skilltree.py"
+      ],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [],
+      "citations": [],
+      "claimTokens": [
+        "entropy_fair_coin",
+        "surprise_rare_event"
+      ],
+      "figures": [],
+      "id": "intro_claim_tokens",
+      "limitationMarkers": [],
+      "section": "01_introduction.md",
+      "summary": "Introductory claim-token example backed by registered kernel outputs.",
+      "type": "computed",
+      "validators": [
+        "scripts/run_kernels.py"
+      ],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [],
+      "citations": [
+        "skilltree2020nsa",
+        "skilltree2026docs",
+        "skilltree2026github",
+        "nsa2026opensource",
+        "activeinferenceinstitute2026website"
+      ],
+      "claimTokens": [],
+      "figures": [],
+      "id": "intro_skilltree_delivery",
+      "limitationMarkers": [],
+      "section": "01_introduction.md",
+      "summary": "SkillTree delivery target described from public SkillTree sources.",
+      "type": "literature",
+      "validators": [],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [],
+      "citations": [
+        "munafo2017reproducible_science",
+        "wilkinson2016fair"
+      ],
+      "claimTokens": [],
+      "figures": [],
+      "id": "method_evidence_classes",
+      "limitationMarkers": [
+        "rather than",
+        "prevent",
+        "not"
+      ],
+      "section": "02_methodology.md",
+      "summary": "Evidence-class separation between structural, computed, simulation, literature, delivery, and scope-limit evidence.",
+      "type": "delivery",
+      "validators": [
+        "scripts/run_kernels.py",
+        "scripts/validate_claim_support.py",
+        "scripts/validate_manuscript_artifacts.py"
+      ],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [],
+      "citations": [
+        "shannon1948mathematical",
+        "cover2006elements",
+        "beal2003variational",
+        "bishop2006pattern",
+        "blei2017variational",
+        "buckley2017free"
+      ],
+      "claimTokens": [],
+      "figures": [],
+      "id": "method_kernels_scope",
+      "limitationMarkers": [
+        "small",
+        "model-dependent",
+        "do not provide",
+        "not"
+      ],
+      "section": "02a_methodology_kernels_statistics_and_provenance.md",
+      "summary": "Kernel method scope tied to information, variational and active-inference sources.",
+      "type": "delivery",
+      "validators": [
+        "uv run pytest --cov=src --cov-fail-under=90"
+      ],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [],
+      "citations": [],
+      "claimTokens": [],
+      "figures": [],
+      "id": "method_kernel_identities",
+      "limitationMarkers": [],
+      "section": "02a_methodology_kernels_statistics_and_provenance.md",
+      "summary": "Analytic kernel identities and test coverage status.",
+      "type": "delivery",
+      "validators": [
+        "uv run pytest --cov=src --cov-fail-under=90"
+      ],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [
+        "empirical"
+      ],
+      "citations": [
+        "friston2017process",
+        "dacosta2020synthesis",
+        "aguilera2022particular",
+        "hodson2024empirical"
+      ],
+      "claimTokens": [],
+      "figures": [],
+      "id": "method_model_boundary",
+      "limitationMarkers": [
+        "model-specific",
+        "does not",
+        "not",
+        "assumptions"
+      ],
+      "section": "02a_methodology_kernels_statistics_and_provenance.md",
+      "summary": "Model-specific boundary separating tested mathematical behavior from biological, learner, and theory-level claims.",
+      "type": "scope_limit",
+      "validators": [
+        "scripts/run_kernels.py",
+        "uv run pytest --cov=src --cov-fail-under=90"
+      ],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [
+        "empirical",
+        "statistically"
+      ],
+      "citations": [],
+      "claimTokens": [],
+      "figures": [],
+      "id": "method_statistical_status",
+      "limitationMarkers": [
+        "does not report",
+        "not evidence",
+        "not"
+      ],
+      "section": "02a_methodology_kernels_statistics_and_provenance.md",
+      "summary": "Statistical status distinguishes deterministic artifacts from empirical inference.",
+      "type": "scope_limit",
+      "validators": [],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [],
+      "citations": [
+        "xie2015knitr",
+        "sandve2013reproducible"
+      ],
+      "claimTokens": [],
+      "figures": [],
+      "id": "method_provenance_binding",
+      "limitationMarkers": [],
+      "section": "02a_methodology_kernels_statistics_and_provenance.md",
+      "summary": "Claim registry, resolver and bare-number linter contract.",
+      "type": "delivery",
+      "validators": [
+        "scripts/run_kernels.py",
+        "scripts/validate_manuscript_variables.py"
+      ],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [],
+      "citations": [
+        "groth2013prov_overview",
+        "moreau2013prov_dm",
+        "cheney2013prov_constraints",
+        "leo2024workflow_run_rocrate"
+      ],
+      "claimTokens": [],
+      "figures": [],
+      "id": "method_provenance_standards",
+      "limitationMarkers": [
+        "does not emit",
+        "validate against",
+        "roadmap-level"
+      ],
+      "section": "02a_methodology_kernels_statistics_and_provenance.md",
+      "summary": "W3C and RO-Crate workflow-provenance framing for entities, activities, agents, derivations, bundles and local artifact-chain boundaries.",
+      "type": "literature",
+      "validators": [],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [],
+      "citations": [],
+      "claimTokens": [],
+      "figures": [],
+      "id": "method_scholarship_matrix",
+      "limitationMarkers": [],
+      "section": "02b_methodology_scholarship_curriculum_and_strata.md",
+      "summary": "Scholarship matrix and source-health gate methodology.",
+      "type": "delivery",
+      "validators": [
+        "scripts/analyze_scholarship.py",
+        "scripts/validate_scholarship_sources.py"
+      ],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [],
+      "citations": [
+        "sandve2013reproducible",
+        "wilson2014scientific_computing",
+        "munafo2017reproducible_science",
+        "wilkinson2016fair",
+        "nosek2015top",
+        "smith2016softwarecitation",
+        "citationfileformat2026",
+        "codemeta2026schema",
+        "github2026citingcontent",
+        "zenodo2026github",
+        "spdx2026mit",
+        "opensourceinitiative2026mit",
+        "reuse2024spec"
+      ],
+      "claimTokens": [],
+      "figures": [],
+      "id": "reproducibility_release_evidence",
+      "limitationMarkers": [
+        "local",
+        "not",
+        "until",
+        "blockers",
+        "legal advice",
+        "relicense"
+      ],
+      "section": "06_reproducibility.md",
+      "summary": "Local release-evidence ledger and release-readiness inventory gate.",
+      "type": "delivery",
+      "validators": [
+        "scripts/validate_release_readiness_inventory.py",
+        "scripts/validate_manuscript_artifacts.py",
+        "scripts/validate_rendered_freshness.py"
+      ],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [],
+      "citations": [
+        "cormen2022introduction",
+        "sarkka2013bayesian",
+        "tishby1999information",
+        "dayan1995helmholtz",
+        "friston2010generalised",
+        "doignon1985knowledge_spaces",
+        "falmagne2011learning_spaces"
+      ],
+      "claimTokens": [],
+      "figures": [],
+      "id": "method_curriculum_quality",
+      "limitationMarkers": [],
+      "section": "02b_methodology_scholarship_curriculum_and_strata.md",
+      "summary": "Curriculum DAG, graph algorithm and quality-gate methodology.",
+      "type": "delivery",
+      "validators": [
+        "scripts/build_curriculum.py"
+      ],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [
+        "empirically"
+      ],
+      "citations": [
+        "bloom1956taxonomy",
+        "bloom1968learning_for_mastery",
+        "liang2018prerequisite",
+        "bacon1620novum_organum",
+        "comenius1657great_didactic",
+        "locke1693education",
+        "clark2016surfing",
+        "dipaolo2024school",
+        "doignon1985knowledge_spaces",
+        "falmagne2011learning_spaces",
+        "fu2025curriculum_aware_gncd",
+        "hugo2026teacher_development",
+        "septiani2021gamified_microlearning",
+        "monib2024microlearning_boundaries",
+        "rof2024microlearning_satisfaction",
+        "freeman2014activelearning",
+        "emin2026epistemic_curiosity_mind_wandering",
+        "chi2014icap",
+        "roediger2006testenhanced",
+        "mislevy2003ecd",
+        "biggs1996constructive_alignment",
+        "black1998assessment",
+        "shute2008formative_feedback"
+      ],
+      "claimTokens": [],
+      "figures": [],
+      "id": "method_stratum_ordering",
+      "limitationMarkers": [
+        "not as",
+        "design parameter",
+        "does not evaluate",
+        "infer learner states",
+        "cannot infer"
+      ],
+      "section": "02b_methodology_scholarship_curriculum_and_strata.md",
+      "summary": "Stratum ordering framed as an inspectable prerequisite-design choice with active-learning alternatives.",
+      "type": "literature",
+      "validators": [],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [
+        "validated"
+      ],
+      "citations": [],
+      "claimTokens": [],
+      "figures": [],
+      "id": "method_skilltree_export",
+      "limitationMarkers": [],
+      "section": "02c_methodology_skilltree_dashboard_and_publication_surfaces.md",
+      "summary": "SkillTree export and seeding order methodology.",
+      "type": "delivery",
+      "validators": [
+        "scripts/export_skilltree.py"
+      ],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [],
+      "citations": [],
+      "claimTokens": [],
+      "figures": [],
+      "id": "method_dashboard_handoff",
+      "limitationMarkers": [],
+      "section": "02c_methodology_skilltree_dashboard_and_publication_surfaces.md",
+      "summary": "Learner dashboard as local lesson surface plus read-only SkillTree handoff shell.",
+      "type": "delivery",
+      "validators": [
+        "scripts/build_course_materials.py",
+        "scripts/serve_learner_dashboard.py",
+        "tests/test_course_materials.py",
+        "tests/test_dashboard.py"
+      ],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [],
+      "citations": [
+        "freeman2014activelearning",
+        "chi2014icap",
+        "roediger2006testenhanced",
+        "mislevy2003ecd",
+        "black1998assessment",
+        "shute2008formative_feedback",
+        "monib2024microlearning_boundaries",
+        "rof2024microlearning_satisfaction",
+        "emin2026epistemic_curiosity_mind_wandering",
+        "designbasedresearchcollective2003",
+        "barab2004design_based",
+        "liu2025learning_analytics_intervention_meta",
+        "hernandezcampos2025_learning_analytics_outcomes",
+        "liu2023_learning_analytics_privacy",
+        "sclater2015learning_analytics_code",
+        "eldridge2016consort_pilot",
+        "hoffmann2014tidier"
+      ],
+      "claimTokens": [],
+      "figures": [],
+      "id": "setup_learner_outcome_pilot",
+      "limitationMarkers": [
+        "design-only",
+        "not as a result",
+        "does not report",
+        "no efficacy",
+        "privacy",
+        "data protection"
+      ],
+      "section": "05_experimental_setup.md",
+      "summary": "Preregistered learner-outcome pilot design and no-efficacy-claim boundary.",
+      "type": "scope_limit",
+      "validators": [
+        "scripts/validate_claim_support.py"
+      ],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [],
+      "citations": [],
+      "claimTokens": [],
+      "figures": [],
+      "id": "method_cover_asset",
+      "limitationMarkers": [],
+      "section": "02c_methodology_skilltree_dashboard_and_publication_surfaces.md",
+      "summary": "Generated cover and page-two atlas assets plus publication-asset audit methodology.",
+      "type": "delivery",
+      "validators": [
+        "scripts/run_kernels.py",
+        "scripts/validate_manuscript_artifacts.py"
+      ],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [
+        "valid"
+      ],
+      "citations": [],
+      "claimTokens": [],
+      "figures": [
+        "fig:curriculum_dag"
+      ],
+      "id": "results_curriculum_graph",
+      "limitationMarkers": [],
+      "section": "03a_results_curriculum_graph_and_assessment_quality.md",
+      "summary": "Results graph counts and curriculum-quality claim.",
+      "type": "descriptive_count",
+      "validators": [
+        "scripts/build_curriculum.py"
+      ],
+      "variables": [
+        "skill_count",
+        "subject_count",
+        "edge_count",
+        "max_depth"
+      ]
+    },
+    {
+      "allowStrongWords": [],
+      "citations": [],
+      "claimTokens": [],
+      "figures": [
+        "fig:dependency_strata_flow"
+      ],
+      "id": "results_dependency_flow",
+      "limitationMarkers": [],
+      "section": "03a_results_curriculum_graph_and_assessment_quality.md",
+      "summary": "Dependency-strata flow figure prevents backward-edge drift.",
+      "type": "visual",
+      "validators": [],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [],
+      "citations": [],
+      "claimTokens": [],
+      "figures": [
+        "fig:graph_bottlenecks",
+        "fig:skill_neighborhood_paths"
+      ],
+      "id": "results_graph_diagnostics",
+      "limitationMarkers": [],
+      "section": "03a_results_curriculum_graph_and_assessment_quality.md",
+      "summary": "Graph bottleneck and neighborhood diagnostic figures.",
+      "type": "visual",
+      "validators": [],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [],
+      "citations": [],
+      "claimTokens": [],
+      "figures": [
+        "fig:assessment_depth"
+      ],
+      "id": "results_assessment_depth",
+      "limitationMarkers": [],
+      "section": "03a_results_curriculum_graph_and_assessment_quality.md",
+      "summary": "Assessment-depth heatmap demonstrates quiz-depth floor by stratum.",
+      "type": "visual",
+      "validators": [],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [],
+      "citations": [],
+      "claimTokens": [],
+      "figures": [
+        "fig:stratum_balance"
+      ],
+      "id": "results_stratum_balance",
+      "limitationMarkers": [],
+      "section": "03a_results_curriculum_graph_and_assessment_quality.md",
+      "summary": "Stratum-balance audit figure for expansion distribution.",
+      "type": "visual",
+      "validators": [],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [],
+      "citations": [],
+      "claimTokens": [],
+      "figures": [
+        "fig:scholarship_coverage"
+      ],
+      "id": "results_scholarship_coverage",
+      "limitationMarkers": [],
+      "section": "03b_results_scholarship_source_health_and_evidence_audits.md",
+      "summary": "Scholarship coverage count and source-lane figure.",
+      "type": "descriptive_count",
+      "validators": [
+        "scripts/analyze_scholarship.py"
+      ],
+      "variables": [
+        "citation_count"
+      ]
+    },
+    {
+      "allowStrongWords": [],
+      "citations": [
+        "activeinferenceinstitute2026courses",
+        "activeinferenceinstitute2026start",
+        "activeinferenceinstitute2026home",
+        "activeinferenceinstitute2026cognitive"
+      ],
+      "claimTokens": [],
+      "figures": [],
+      "id": "results_open_science_sources",
+      "limitationMarkers": [],
+      "section": "03b_results_scholarship_source_health_and_evidence_audits.md",
+      "summary": "Requested Active Inference Institute education ecosystem citations.",
+      "type": "literature",
+      "validators": [],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [],
+      "citations": [],
+      "claimTokens": [],
+      "figures": [
+        "fig:scholarship_source_health"
+      ],
+      "id": "results_source_health",
+      "limitationMarkers": [],
+      "section": "03b_results_scholarship_source_health_and_evidence_audits.md",
+      "summary": "Scholarship source-health figure and optional online currentness boundary.",
+      "type": "visual",
+      "validators": [],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [],
+      "citations": [],
+      "claimTokens": [],
+      "figures": [
+        "fig:validation_surface_matrix"
+      ],
+      "id": "results_validation_surface",
+      "limitationMarkers": [],
+      "section": "03b_results_scholarship_source_health_and_evidence_audits.md",
+      "summary": "Validation-surface matrix binds live counts to explicit gates.",
+      "type": "visual",
+      "validators": [],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [
+        "statistical"
+      ],
+      "citations": [],
+      "claimTokens": [],
+      "figures": [
+        "fig:scientific_evidence_matrix"
+      ],
+      "id": "results_scientific_evidence_matrix",
+      "limitationMarkers": [],
+      "section": "03b_results_scholarship_source_health_and_evidence_audits.md",
+      "summary": "Evidence-taxonomy figure generated from claim-support anchors.",
+      "type": "visual",
+      "validators": [
+        "scripts/validate_claim_support.py"
+      ],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [],
+      "citations": [],
+      "claimTokens": [],
+      "figures": [
+        "fig:free_energy",
+        "fig:efe"
+      ],
+      "id": "results_kernel_examples",
+      "limitationMarkers": [],
+      "section": "03c_results_kernel_examples.md",
+      "summary": "Kernel figures are supplemental walkthroughs rather than headline evidence.",
+      "type": "visual",
+      "validators": [],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [],
+      "citations": [],
+      "claimTokens": [],
+      "figures": [],
+      "id": "results_export_delivery",
+      "limitationMarkers": [],
+      "section": "03d_results_skilltree_dashboard_and_front_matter_delivery.md",
+      "summary": "Export counts and validator-backed SkillTree handoff.",
+      "type": "descriptive_count",
+      "validators": [
+        "scripts/run_kernels.py",
+        "scripts/export_skilltree.py"
+      ],
+      "variables": [
+        "skill_count",
+        "subject_count",
+        "edge_count",
+        "quiz_count",
+        "assessment_count"
+      ]
+    },
+    {
+      "allowStrongWords": [],
+      "citations": [],
+      "claimTokens": [],
+      "figures": [],
+      "id": "results_dashboard_delivery",
+      "limitationMarkers": [],
+      "section": "03d_results_skilltree_dashboard_and_front_matter_delivery.md",
+      "summary": "Dashboard status payload and official SkillTree handoff route behavior.",
+      "type": "delivery",
+      "validators": [
+        "tests/test_dashboard.py",
+        "scripts/serve_learner_dashboard.py"
+      ],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [],
+      "citations": [],
+      "claimTokens": [],
+      "figures": [
+        "fig:app_operational_snapshot",
+        "fig:app_official_learner_view",
+        "fig:app_curriculum_learn_material",
+        "fig:app_dependency_graph",
+        "fig:app_runtime_deployment_matrix"
+      ],
+      "id": "results_captured_delivery_evidence",
+      "limitationMarkers": [],
+      "section": "03d_results_skilltree_dashboard_and_front_matter_delivery.md",
+      "summary": "Captured browser evidence for the delivery surface, marked as recordings rather than deterministic renders.",
+      "type": "visual",
+      "validators": [],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [],
+      "citations": [],
+      "claimTokens": [],
+      "figures": [],
+      "id": "results_cover_asset",
+      "limitationMarkers": [],
+      "section": "03d_results_skilltree_dashboard_and_front_matter_delivery.md",
+      "summary": "Generated cover and page-two atlas are checked separately from registered manuscript figures.",
+      "type": "delivery",
+      "validators": [
+        "scripts/run_kernels.py",
+        "scripts/validate_manuscript_artifacts.py"
+      ],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [
+        "validated"
+      ],
+      "citations": [],
+      "claimTokens": [],
+      "figures": [],
+      "id": "conclusion_evidence_status",
+      "limitationMarkers": [],
+      "section": "04_conclusion.md",
+      "summary": "Conclusion states checked contracts rather than empirical learner outcomes.",
+      "type": "delivery",
+      "validators": [
+        "scripts/build_curriculum.py",
+        "scripts/run_kernels.py"
+      ],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [
+        "empirical"
+      ],
+      "citations": [
+        "rao1999predictive",
+        "friston2013life",
+        "ramstead2018answering",
+        "friston2019particular",
+        "piech2015deep_knowledge_tracing",
+        "tao2024q_matrix_constraint"
+      ],
+      "claimTokens": [],
+      "figures": [],
+      "id": "conclusion_scholarship_thread",
+      "limitationMarkers": [
+        "depend",
+        "not universal",
+        "comparison",
+        "not"
+      ],
+      "section": "04_conclusion.md",
+      "summary": "Conclusion links applications to cited predictive-processing and FEP sources.",
+      "type": "literature",
+      "validators": [],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [
+        "validated"
+      ],
+      "citations": [
+        "doignon1985knowledge_spaces",
+        "fu2025curriculum_aware_gncd",
+        "designbasedresearchcollective2003",
+        "liu2023_learning_analytics_privacy",
+        "piech2015deep_knowledge_tracing",
+        "tao2024q_matrix_constraint",
+        "activeinferenceinstitute2026website"
+      ],
+      "claimTokens": [],
+      "figures": [],
+      "id": "conclusion_delivery",
+      "limitationMarkers": [
+        "candidate foundation",
+        "not an adaptive system",
+        "require",
+        "not components",
+        "not an endorsement"
+      ],
+      "section": "04_conclusion.md",
+      "summary": "Conclusion describes operational SkillTree export and dashboard inspection.",
+      "type": "delivery",
+      "validators": [
+        "scripts/export_skilltree.py",
+        "tests/test_dashboard.py"
+      ],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [],
+      "citations": [],
+      "claimTokens": [],
+      "figures": [
+        "fig:roadmap_risk"
+      ],
+      "id": "conclusion_roadmap",
+      "limitationMarkers": [],
+      "section": "04_conclusion.md",
+      "summary": "Current release-state paragraph is generated from roadmap variables.",
+      "type": "descriptive_count",
+      "validators": [
+        "scripts/validate_roadmap.py"
+      ],
+      "variables": [
+        "roadmap_updated",
+        "roadmap_task_count",
+        "roadmap_completed_count",
+        "roadmap_open_count",
+        "roadmap_next_surfaces"
+      ]
+    },
+    {
+      "allowStrongWords": [
+        "validated"
+      ],
+      "citations": [
+        "heins2022pymdp",
+        "vanoostrum2025concise",
+        "friston2007variational",
+        "friston2008dem"
+      ],
+      "claimTokens": [],
+      "figures": [],
+      "id": "scope_platform_boundary",
+      "limitationMarkers": [],
+      "section": "07a_scope_platform_and_curriculum_boundaries.md",
+      "summary": "Platform boundary compared with production inference toolboxes.",
+      "type": "literature",
+      "validators": [],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [],
+      "citations": [],
+      "claimTokens": [],
+      "figures": [],
+      "id": "scope_curriculum_boundary",
+      "limitationMarkers": [],
+      "section": "07a_scope_platform_and_curriculum_boundaries.md",
+      "summary": "Scope boundary for broad curriculum and non-operational advice.",
+      "type": "descriptive_count",
+      "validators": [],
+      "variables": [
+        "skill_count"
+      ]
+    },
+    {
+      "allowStrongWords": [],
+      "citations": [
+        "helmholtz1867handbuch",
+        "knill2004bayesian",
+        "bogacz2017tutorial",
+        "sprevak2023predictive",
+        "friston2006free",
+        "friston2010free",
+        "friston2023simpler",
+        "zhang2024overview",
+        "buckley2017free",
+        "parr2022active",
+        "smith2022tutorial",
+        "pezzulo2024sentient_behavior",
+        "anokhin2024associative_active_inference",
+        "friston2017process",
+        "dacosta2020synthesis",
+        "friston2015epistemic",
+        "friston2017curiosity",
+        "millidge2021whence",
+        "sajid2021demystified",
+        "champion2026reframing",
+        "nuijten2026what_type_inference",
+        "nuijten2026efe_planning_vi",
+        "nuijten2025message_passing_efe"
+      ],
+      "claimTokens": [],
+      "figures": [],
+      "id": "related_fep_lineage",
+      "limitationMarkers": [],
+      "section": "07b_related_work_active_inference_and_information_sources.md",
+      "summary": "Related-work FEP lineage, POMDP formulation and epistemic-value sources.",
+      "type": "literature",
+      "validators": [],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [],
+      "citations": [
+        "bernoulli1713ars_conjectandi",
+        "demoivre1718doctrine_chances",
+        "bayes1763doctrine_chances",
+        "laplace1774inverse_probability",
+        "berkeley1709new_theory_vision",
+        "hume1739treatise",
+        "hume1748enquiry",
+        "condillac1754sensations",
+        "hartley1749observations",
+        "locke1690essay",
+        "kant1781critique_pure_reason",
+        "aristotle_posterior_analytics",
+        "bacon1620novum_organum",
+        "locke1693education",
+        "comenius1657great_didactic",
+        "alhazen1989optics_direct_vision",
+        "quintilian95institutio_oratoria",
+        "descartes1628rules_direction_mind",
+        "huygens1657ratiociniis",
+        "newton1704opticks",
+        "rousseau1762emile"
+      ],
+      "claimTokens": [],
+      "figures": [],
+      "id": "related_pre1800_foundations",
+      "limitationMarkers": [
+        "not as claims",
+        "before their mathematical formulations",
+        "weaker but useful",
+        "historical"
+      ],
+      "section": "07b_related_work_active_inference_and_information_sources.md",
+      "summary": "Pre-1800 historical foundations for probability, perception, association, method, and sequenced learning, with explicit modern-FEP boundary.",
+      "type": "literature",
+      "validators": [],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [
+        "empirical"
+      ],
+      "citations": [
+        "aguilera2022particular",
+        "aguilera2023confederation",
+        "hodson2024empirical",
+        "badcock2024psychology_psychiatry",
+        "gershman2019free",
+        "yuille2006vision_bayesian",
+        "clark2013predictive_brain",
+        "hohwy2013predictive_mind",
+        "kersten2004object_perception",
+        "bastos2012canonical_microcircuits",
+        "spratling2017predictive_algorithms",
+        "summerfield2014perceptual_decision",
+        "wei2015efficient_bayesian_perception",
+        "millidge2021predictive_coding_review",
+        "smith2020predictive_neurophysiology",
+        "seth2020predictive_consciousness"
+      ],
+      "claimTokens": [],
+      "figures": [],
+      "id": "related_fep_evidence_status",
+      "limitationMarkers": [
+        "scope",
+        "empirical-status",
+        "rather than",
+        "not"
+      ],
+      "section": "07b_related_work_active_inference_and_information_sources.md",
+      "summary": "FEP critique and empirical-status paragraph support.",
+      "type": "literature",
+      "validators": [],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [
+        "experimental"
+      ],
+      "citations": [
+        "shannon1948mathematical",
+        "cover2006elements",
+        "beal2003variational",
+        "tishby1999information",
+        "bishop2006pattern",
+        "jordan1999variational",
+        "winn2005variational",
+        "blei2017variational",
+        "sarkka2013bayesian",
+        "dayan1995helmholtz",
+        "rao1999predictive",
+        "friston2008hierarchical",
+        "friston2017graphical",
+        "friston2008dem",
+        "friston2010generalised",
+        "parr2019generalised",
+        "kataoka2026extended_predictive_coding",
+        "tschantz2023hybrid_predictive_coding",
+        "clark2016surfing",
+        "friston2013life",
+        "tschantz2020learning",
+        "ramstead2018answering",
+        "friston2019particular",
+        "greco2024predictive_learning_geometry",
+        "bagaev2023reactive_message_passing",
+        "bagaev2023rxinfer",
+        "nelson2025coupled_free_energy",
+        "rao2024active_predictive_coding",
+        "sennesh2024dcpc",
+        "isomura2023experimental",
+        "mackay2003information_inference",
+        "jaynes2003probability_logic",
+        "murphy2012probabilistic_ml",
+        "gelman2013bayesian_analysis",
+        "murphy2022probabilistic_ml",
+        "pezzulo2012cognitive_control",
+        "pezzulo2018hierarchical_active_inference",
+        "vilas2022active_consciousness",
+        "smith2021clinical_predictive_coding",
+        "pezzulo2023generating_meaning",
+        "watson2020active_control_inference",
+        "millidge2020active_control_relationship",
+        "schwartenbeck2015addiction_active_bayes",
+        "lanillos2021active_robotics_survey",
+        "catal2021robot_navigation_active_inference",
+        "queisser2021robot_active_inference",
+        "sales2019cognitive_flexibility_active_inference"
+      ],
+      "claimTokens": [],
+      "figures": [],
+      "id": "related_variational_information_sources",
+      "limitationMarkers": [
+        "scope-extending scholarship",
+        "not as implemented kernels",
+        "learner-outcome evidence"
+      ],
+      "section": "07b_related_work_active_inference_and_information_sources.md",
+      "summary": "Information, variational, filtering and application source set.",
+      "type": "literature",
+      "validators": [],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [],
+      "citations": [
+        "skilltree2020nsa",
+        "skilltree2026docs",
+        "skilltree2026github",
+        "bloom1956taxonomy",
+        "bloom1968learning_for_mastery",
+        "liang2018prerequisite",
+        "doignon1985knowledge_spaces",
+        "falmagne2011learning_spaces",
+        "biggs1996constructive_alignment",
+        "black1998assessment",
+        "shute2008formative_feedback",
+        "dicheva2015gamification",
+        "burau2022deciduous",
+        "septiani2021gamified_microlearning"
+      ],
+      "claimTokens": [],
+      "figures": [],
+      "id": "related_skilltree_delivery",
+      "limitationMarkers": [],
+      "section": "07c_related_work_skilltree_security_reporting_and_open_science.md",
+      "summary": "SkillTree substrate and curriculum prerequisite learning sources.",
+      "type": "literature",
+      "validators": [],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [],
+      "citations": [
+        "skilltree2020nsa",
+        "skilltree2026github",
+        "nsa2026opensource"
+      ],
+      "claimTokens": [],
+      "figures": [],
+      "id": "related_skilltree_security_posture",
+      "limitationMarkers": [],
+      "section": "07c_related_work_skilltree_security_reporting_and_open_science.md",
+      "summary": "NSA-origin SkillTree substrate and platform ownership boundary.",
+      "type": "literature",
+      "validators": [],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [],
+      "citations": [
+        "nist2020zerotrust",
+        "nist2022ssdf",
+        "slsa2026framework",
+        "sigstore2026overview",
+        "cisa2026sbom",
+        "mitre2026attack"
+      ],
+      "claimTokens": [],
+      "figures": [],
+      "id": "related_national_security_boundary",
+      "limitationMarkers": [
+        "does not certify",
+        "harden",
+        "replace",
+        "imply NSA approval"
+      ],
+      "section": "07c_related_work_skilltree_security_reporting_and_open_science.md",
+      "summary": "National-security posture and misuse boundaries for educational delivery.",
+      "type": "scope_limit",
+      "validators": [],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [
+        "statistical"
+      ],
+      "citations": [
+        "knuth1984literate",
+        "xie2015knitr",
+        "peng2011reproducible",
+        "sandve2013reproducible",
+        "wilson2014scientific_computing",
+        "groth2013prov_overview",
+        "moreau2013prov_dm",
+        "cheney2013prov_constraints",
+        "munafo2017reproducible_science",
+        "wilkinson2016fair",
+        "nosek2015top",
+        "cormen2022introduction",
+        "wong2011color",
+        "acm2023accessiblefigures",
+        "section508alttext",
+        "w3c2023wcag22"
+      ],
+      "claimTokens": [],
+      "figures": [],
+      "id": "related_reproducible_reporting",
+      "limitationMarkers": [],
+      "section": "07c_related_work_skilltree_security_reporting_and_open_science.md",
+      "summary": "Reproducible reporting, graph algorithms, color and alt-text guidance.",
+      "type": "literature",
+      "validators": [],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [],
+      "citations": [
+        "smith2016softwarecitation",
+        "citationfileformat2026",
+        "codemeta2026schema",
+        "github2026citingcontent",
+        "zenodo2026github",
+        "spdx2026mit",
+        "opensourceinitiative2026mit",
+        "reuse2024spec"
+      ],
+      "claimTokens": [],
+      "figures": [],
+      "id": "related_ip_license_boundary",
+      "limitationMarkers": [
+        "not as scientific",
+        "legal advice",
+        "relicense",
+        "static review",
+        "production deployment"
+      ],
+      "section": "07c_related_work_skilltree_security_reporting_and_open_science.md",
+      "summary": "License, citation metadata, DOI and third-party notice boundaries for static public review.",
+      "type": "scope_limit",
+      "validators": [
+        "scripts/validate_release_readiness_inventory.py",
+        "scripts/validate_scholarship_sources.py"
+      ],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [],
+      "citations": [],
+      "claimTokens": [],
+      "figures": [],
+      "id": "related_scholarship_audit",
+      "limitationMarkers": [],
+      "section": "07c_related_work_skilltree_security_reporting_and_open_science.md",
+      "summary": "Source matrix role coverage beyond normal citation resolution.",
+      "type": "delivery",
+      "validators": [
+        "scripts/analyze_scholarship.py",
+        "scripts/audit_scholarship_gaps.py"
+      ],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [],
+      "citations": [
+        "activeinferenceinstitute2026courses",
+        "activeinferenceinstitute2026start",
+        "activeinferenceinstitute2026home",
+        "activeinferenceinstitute2026cognitive",
+        "dipaolo2024school",
+        "activeinferenceinstitute2026website"
+      ],
+      "claimTokens": [],
+      "figures": [],
+      "id": "related_open_science_ecosystem",
+      "limitationMarkers": [
+        "does not replace",
+        "not as copied prose",
+        "not an endorsement",
+        "not institutional"
+      ],
+      "section": "07c_related_work_skilltree_security_reporting_and_open_science.md",
+      "summary": "Active Inference Institute open-science education ecosystem.",
+      "type": "literature",
+      "validators": [],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [],
+      "citations": [
+        "bagaev2023reactive_message_passing",
+        "bagaev2023rxinfer",
+        "nelson2025coupled_free_energy",
+        "rao2024active_predictive_coding",
+        "sennesh2024dcpc",
+        "friston2008dem",
+        "friston2010generalised",
+        "parr2019generalised",
+        "levine2018probabilistic",
+        "badcock2024psychology_psychiatry",
+        "monib2024microlearning_boundaries",
+        "rof2024microlearning_satisfaction",
+        "emin2026epistemic_curiosity_mind_wandering",
+        "liu2025learning_analytics_intervention_meta",
+        "hernandezcampos2025_learning_analytics_outcomes",
+        "liu2023_learning_analytics_privacy",
+        "designbasedresearchcollective2003",
+        "barab2004design_based"
+      ],
+      "claimTokens": [],
+      "figures": [],
+      "id": "limitations_delivery_and_scope",
+      "limitationMarkers": [
+        "does not provide",
+        "remain cited roadmap context",
+        "not learner-outcome evidence",
+        "privacy",
+        "data-protection"
+      ],
+      "section": "07d_limitations_delivery_dependencies_and_learner_outcomes.md",
+      "summary": "Limitations of dashboard, live SkillTree, kernels and RL comparison.",
+      "type": "scope_limit",
+      "validators": [
+        "tests/test_skilltree_client.py",
+        "tests/test_dashboard.py"
+      ],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [
+        "validated"
+      ],
+      "citations": [
+        "buckley2017free",
+        "parr2022active",
+        "smith2022tutorial",
+        "millidge2021whence",
+        "champion2026reframing",
+        "nuijten2026what_type_inference",
+        "nuijten2026efe_planning_vi"
+      ],
+      "claimTokens": [],
+      "figures": [
+        "fig:vfe_efe_skilltree_bridge"
+      ],
+      "id": "supplement_skilltree_bridge",
+      "limitationMarkers": [],
+      "section": "08_supplement_variational_free_energy.md",
+      "summary": "Generated SkillTree bridge tying VFE/EFE supplement figures to real subjects, skills, edges, quizzes and routes.",
+      "type": "visual",
+      "validators": [
+        "scripts/run_kernels.py",
+        "scripts/export_skilltree.py"
+      ],
+      "variables": [
+        "vfe_efe_skilltree_bridge_table"
+      ]
+    },
+    {
+      "allowStrongWords": [],
+      "citations": [
+        "cosmides1996intuitive",
+        "gigerenzer1995bayesian"
+      ],
+      "claimTokens": [
+        "bayes_posterior_present_given_positive",
+        "evidence_probability_positive",
+        "neg_log_evidence_positive"
+      ],
+      "figures": [],
+      "id": "supplement_vfe_computed",
+      "limitationMarkers": [],
+      "section": "08_supplement_variational_free_energy.md",
+      "summary": "Noisy-sensor posterior, evidence probability and surprise claims.",
+      "type": "computed",
+      "validators": [],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [
+        "universal"
+      ],
+      "citations": [],
+      "claimTokens": [
+        "vfe_descent_start",
+        "vfe_descent_end"
+      ],
+      "figures": [
+        "fig:free_energy"
+      ],
+      "id": "supplement_vfe_sweep",
+      "limitationMarkers": [],
+      "section": "08_supplement_variational_free_energy.md",
+      "summary": "VFE belief sweep and model-specific bound tightness figure.",
+      "type": "simulation",
+      "validators": [],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [],
+      "citations": [
+        "friston2015epistemic",
+        "friston2017curiosity",
+        "dacosta2020synthesis",
+        "sajid2021demystified",
+        "millidge2021whence",
+        "champion2026reframing",
+        "nuijten2026what_type_inference",
+        "nuijten2026efe_planning_vi"
+      ],
+      "claimTokens": [
+        "efe_epistemic_uncertain",
+        "efe_epistemic_certain",
+        "agent_g_sample",
+        "agent_g_commit",
+        "agent_epistemic_sample",
+        "agent_epistemic_commit"
+      ],
+      "figures": [],
+      "id": "supplement_efe_computed",
+      "limitationMarkers": [],
+      "section": "08_supplement_variational_free_energy.md",
+      "summary": "Expected-free-energy epistemic and policy claims.",
+      "type": "computed",
+      "validators": [],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [
+        "universal"
+      ],
+      "citations": [
+        "millidge2021whence",
+        "champion2026reframing",
+        "nuijten2026what_type_inference",
+        "nuijten2026efe_planning_vi"
+      ],
+      "claimTokens": [
+        "agent_regime_switch_precision"
+      ],
+      "figures": [
+        "fig:efe"
+      ],
+      "id": "supplement_efe_boundary",
+      "limitationMarkers": [],
+      "section": "08_supplement_variational_free_energy.md",
+      "summary": "Sensor precision sample/commit boundary and EFE figure.",
+      "type": "simulation",
+      "validators": [],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [
+        "biological"
+      ],
+      "citations": [],
+      "claimTokens": [],
+      "figures": [
+        "fig:kernel_sensitivity_profiles"
+      ],
+      "id": "supplement_kernel_sensitivity",
+      "limitationMarkers": [],
+      "section": "08_supplement_variational_free_energy.md",
+      "summary": "Kernel sensitivity profiles for base rate, VFE and EFE regime boundaries.",
+      "type": "visual",
+      "validators": [],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [],
+      "citations": [
+        "kschischang2001factor_graphs",
+        "pearl1988probabilistic_reasoning",
+        "parr2022active",
+        "nuijten2025message_passing_efe"
+      ],
+      "claimTokens": [
+        "bp_marginal_observed_node_state0",
+        "bp_marginal_neighbor_node_state0",
+        "bp_smoothing_lift_over_prior"
+      ],
+      "figures": [],
+      "id": "supplement_message_passing",
+      "limitationMarkers": [],
+      "section": "08_supplement_variational_free_energy.md",
+      "summary": "Sum-product belief-propagation marginals on a three-node chain, exact vs brute force.",
+      "type": "computed",
+      "validators": [],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [],
+      "citations": [
+        "dacosta2020synthesis"
+      ],
+      "claimTokens": [
+        "dirichlet_prior_mean_positive",
+        "dirichlet_posterior_mean_positive",
+        "dirichlet_expected_log_positive"
+      ],
+      "figures": [],
+      "id": "supplement_parameter_learning",
+      "limitationMarkers": [],
+      "section": "08_supplement_variational_free_energy.md",
+      "summary": "Dirichlet-conjugate parameter learning sharpening a sensor column from observed counts.",
+      "type": "computed",
+      "validators": [],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [],
+      "citations": [
+        "friston2018bayesian_model_reduction",
+        "parr2022active"
+      ],
+      "claimTokens": [
+        "bmr_log_evidence_full",
+        "bmr_log_evidence_reduced",
+        "bmr_log_bayes_factor"
+      ],
+      "figures": [],
+      "id": "supplement_model_reduction",
+      "limitationMarkers": [],
+      "section": "08_supplement_variational_free_energy.md",
+      "summary": "Bayesian model reduction log Bayes factor between full and reduced noisy-sensor models.",
+      "type": "computed",
+      "validators": [],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [],
+      "citations": [
+        "parr2022active",
+        "sajid2021demystified"
+      ],
+      "claimTokens": [
+        "efe_ambiguity_crisp_state",
+        "efe_ambiguity_uniform_belief"
+      ],
+      "figures": [],
+      "id": "supplement_efe_ambiguity",
+      "limitationMarkers": [],
+      "section": "08_supplement_variational_free_energy.md",
+      "summary": "State-dependent ambiguity term as expected likelihood entropy on an asymmetric sensor.",
+      "type": "computed",
+      "validators": [],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [],
+      "citations": [
+        "parr2022active",
+        "dacosta2020synthesis"
+      ],
+      "claimTokens": [
+        "plan_greedy_policy_g",
+        "plan_optimal_policy_g",
+        "plan_lookahead_gain_coupled",
+        "plan_lookahead_gain_decoupled",
+        "plan_best_policy_posterior"
+      ],
+      "figures": [
+        "fig:planning_lookahead"
+      ],
+      "id": "supplement_multistep_planning",
+      "limitationMarkers": [],
+      "section": "08_supplement_variational_free_energy.md",
+      "summary": "Multi-step policy posterior and measured greedy-vs-optimal look-ahead gain across coupled and decoupled models.",
+      "type": "simulation",
+      "validators": [],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [],
+      "citations": [
+        "kalman1960linear_filtering",
+        "sarkka2013bayesian",
+        "buckley2017free",
+        "parr2022active",
+        "kataoka2026extended_predictive_coding"
+      ],
+      "claimTokens": [
+        "pc_observation",
+        "pc_posterior_estimate",
+        "pc_sensory_prediction_error",
+        "pc_prior_prediction_error"
+      ],
+      "figures": [
+        "fig:predictive_coding"
+      ],
+      "id": "supplement_predictive_coding",
+      "limitationMarkers": [],
+      "section": "08_supplement_variational_free_energy.md",
+      "summary": "Continuous predictive-coding descent settling to the analytic Gaussian posterior with balanced precision-weighted prediction errors.",
+      "type": "simulation",
+      "validators": [],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [],
+      "citations": [],
+      "claimTokens": [],
+      "figures": [],
+      "id": "availability_artifact_scope",
+      "limitationMarkers": [],
+      "section": "09_code_and_data_availability.md",
+      "summary": "Artifact contents, license, and third-party notice boundary.",
+      "type": "delivery",
+      "validators": [
+        "scripts/validate_release_readiness_inventory.py",
+        "tests/test_publication_readiness.py"
+      ],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [],
+      "citations": [],
+      "claimTokens": [],
+      "figures": [],
+      "id": "availability_public_target",
+      "limitationMarkers": [],
+      "section": "09_code_and_data_availability.md",
+      "summary": "Public repository target exists but is unpublished; identifier fields stay blank and a test enforces it.",
+      "type": "delivery",
+      "validators": [
+        "scripts/validate_release_readiness_inventory.py",
+        "tests/test_publication_readiness.py"
+      ],
+      "variables": []
+    },
+    {
+      "allowStrongWords": [],
+      "citations": [],
+      "claimTokens": [],
+      "figures": [],
+      "id": "availability_generated_artifacts",
+      "limitationMarkers": [],
+      "section": "09_code_and_data_availability.md",
+      "summary": "Generated outputs are rebuilt from source; captured browser evidence is version-controlled with a provenance record.",
+      "type": "delivery",
+      "validators": [
+        "scripts/run_kernels.py",
+        "scripts/capture_dashboard_screenshots.py"
+      ],
+      "variables": []
+    }
+  ],
+  "summary": {
+    "anchors": 74,
+    "claimRows": 74,
+    "evidenceClasses": {
+      "citations": 40,
+      "claimTokens": 11,
+      "figures": 18,
+      "limitationMarkers": 19,
+      "validators": 33,
+      "variables": 7
+    },
+    "issueCount": 0,
+    "typeCounts": {
+      "computed": 7,
+      "delivery": 21,
+      "descriptive_count": 6,
+      "literature": 18,
+      "scope_limit": 7,
+      "simulation": 4,
+      "visual": 11
+    },
+    "uniqueAnchoredClaims": 74
+  }
+}

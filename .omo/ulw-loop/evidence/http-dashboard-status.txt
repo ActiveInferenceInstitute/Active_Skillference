@@ -1,0 +1,120 @@
+HTTP/1.0 200 OK
+Server: ActiveSkillferenceDashboard/1.0 Python/3.12.13
+Date: Sun, 21 Jun 2026 02:29:57 GMT
+Content-Type: application/json; charset=utf-8
+Content-Length: 5076822
+Cache-Control: no-store
+
+{
+  "artifacts": [
+    {
+      "bytes": 11304,
+      "category": "docs",
+      "exists": true,
+      "id": "readme",
+      "mediaType": "text/markdown; charset=utf-8",
+      "modified": 1781874643.5484898,
+      "path": "README.md",
+      "title": "Project README",
+      "url": "/artifacts/readme"
+    },
+    {
+      "bytes": 10794,
+      "category": "docs",
+      "exists": true,
+      "id": "quickstart",
+      "mediaType": "text/markdown; charset=utf-8",
+      "modified": 1781877749.7073984,
+      "path": "docs/quickstart.md",
+      "title": "Quick Start",
+      "url": "/artifacts/quickstart"
+    },
+    {
+      "bytes": 19958,
+      "category": "docs",
+      "exists": true,
+      "id": "rendering_pipeline",
+      "mediaType": "text/markdown; charset=utf-8",
+      "modified": 1781989340.0284693,
+      "path": "docs/rendering_pipeline.md",
+      "title": "Rendering Pipeline",
+      "url": "/artifacts/rendering_pipeline"
+    },
+    {
+      "bytes": 3701854,
+      "category": "data",
+      "exists": true,
+      "id": "skilltree_project",
+      "mediaType": "application/json; charset=utf-8",
+      "modified": 1781991929.72121,
+      "path": "output/data/skilltree_project.json",
+      "title": "SkillTree Project JSON",
+      "url": "/artifacts/skilltree_project"
+    },
+    {
+      "bytes": 7385,
+      "category": "data",
+      "exists": true,
+      "id": "claims",
+      "mediaType": "application/json; charset=utf-8",
+      "modified": 1781991925.0787246,
+      "path": "output/data/claims.json",
+      "title": "Provenance Claims",
+      "url": "/artifacts/claims"
+    },
+    {
+      "bytes": 642,
+      "category": "data",
+      "exists": true,
+      "id": "curriculum_stats",
+      "mediaType": "application/json; charset=utf-8",
+      "modified": 1781991828.445618,
+      "path": "output/data/curriculum_stats.json",
+      "title": "Curriculum Stats",
+      "url": "/artifacts/curriculum_stats"
+    },
+    {
+      "bytes": 5016,
+      "category": "data",
+      "exists": true,
+      "id": "manuscript_variables",
+      "mediaType": "application/json; charset=utf-8",
+      "modified": 1781991927.8246603,
+      "path": "output/data/manuscript_variables.json",
+      "title": "Manuscript Variables",
+      "url": "/artifacts/manuscript_variables"
+    },
+    {
+      "bytes": 47276,
+      "category": "data",
+      "exists": true,
+      "id": "scholarship_coverage_data",
+      "mediaType": "application/json; charset=utf-8",
+      "modified": 1781991925.0794215,
+      "path": "output/data/scholarship_coverage.json",
+      "title": "Scholarship Coverage JSON",
+      "url": "/artifacts/scholarship_coverage_data"
+    },
+    {
+      "bytes": 158,
+      "category": "data",
+      "exists": true,
+      "id": "scholarship_source_health_data",
+      "mediaType": "application/json; charset=utf-8",
+      "modified": 1781991925.0915172,
+      "path": "output/data/scholarship_source_health.json",
+      "title": "Scholarship Source Health JSON",
+      "url": "/artifacts/scholarship_source_health_data"
+    },
+    {
+      "bytes": 94583,
+      "category": "data",
+      "exists": true,
+      "id": "manuscript_artifacts",
+      "mediaType": "application/json; charset=utf-8",
+      "modified": 1781991931.0033102,
+      "path": "output/data/manuscript_artifacts.json",
+      "title": "Manuscript Artifact Audit",
+      "url": "/artifacts/manuscript_artifacts"
+    },
+    {

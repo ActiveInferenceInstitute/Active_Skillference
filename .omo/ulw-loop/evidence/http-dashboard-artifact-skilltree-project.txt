@@ -1,0 +1,80 @@
+HTTP/1.0 200 OK
+Server: ActiveSkillferenceDashboard/1.0 Python/3.12.13
+Date: Sun, 21 Jun 2026 02:29:57 GMT
+Content-Type: application/json; charset=utf-8
+Content-Length: 3701854
+Cache-Control: no-store
+
+{
+  "dependencies": [
+    {
+      "dependsOnSkillId": "m_sets",
+      "skillId": "m_vectors"
+    },
+    {
+      "dependsOnSkillId": "m_vectors",
+      "skillId": "m_matrix"
+    },
+    {
+      "dependsOnSkillId": "m_vectors",
+      "skillId": "m_dotproduct"
+    },
+    {
+      "dependsOnSkillId": "m_matrix",
+      "skillId": "m_eigen"
+    },
+    {
+      "dependsOnSkillId": "m_sets",
+      "skillId": "m_functions_real"
+    },
+    {
+      "dependsOnSkillId": "m_functions_real",
+      "skillId": "m_derivative"
+    },
+    {
+      "dependsOnSkillId": "m_vectors",
+      "skillId": "m_derivative"
+    },
+    {
+      "dependsOnSkillId": "m_derivative",
+      "skillId": "m_chain_rule"
+    },
+    {
+      "dependsOnSkillId": "m_chain_rule",
+      "skillId": "m_jacobian_hessian"
+    },
+    {
+      "dependsOnSkillId": "m_eigen",
+      "skillId": "m_jacobian_hessian"
+    },
+    {
+      "dependsOnSkillId": "m_jacobian_hessian",
+      "skillId": "m_convexity"
+    },
+    {
+      "dependsOnSkillId": "m_derivative",
+      "skillId": "m_gradient_descent"
+    },
+    {
+      "dependsOnSkillId": "m_gradient_descent",
+      "skillId": "m_lagrange"
+    },
+    {
+      "dependsOnSkillId": "m_convexity",
+      "skillId": "m_lagrange"
+    },
+    {
+      "dependsOnSkillId": "m_lagrange",
+      "skillId": "m_functional"
+    },
+    {
+      "dependsOnSkillId": "m_functional",
+      "skillId": "m_euler_lagrange"
+    },
+    {
+      "dependsOnSkillId": "p_axioms",
+      "skillId": "p_random_var"
+    },
+    {
+      "dependsOnSkillId": "p_random_var",
+      "skillId": "p_joint_marginal"

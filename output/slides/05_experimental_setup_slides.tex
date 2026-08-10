@@ -1,0 +1,465 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\documentclass[
+  ignorenonframetext,
+]{beamer}
+\newif\ifbibliography
+\usepackage{pgfpages}
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{caption label separator}{: }
+\setbeamercolor{caption name}{fg=normal text.fg}
+\beamertemplatenavigationsymbolsempty
+% remove section numbering
+\setbeamertemplate{part page}{
+  \centering
+  \begin{beamercolorbox}[sep=16pt,center]{part title}
+    \usebeamerfont{part title}\insertpart\par
+  \end{beamercolorbox}
+}
+\setbeamertemplate{section page}{
+  \centering
+  \begin{beamercolorbox}[sep=12pt,center]{section title}
+    \usebeamerfont{section title}\insertsection\par
+  \end{beamercolorbox}
+}
+\setbeamertemplate{subsection page}{
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center]{subsection title}
+    \usebeamerfont{subsection title}\insertsubsection\par
+  \end{beamercolorbox}
+}
+% Prevent slide breaks in the middle of a paragraph
+\widowpenalties 1 10000
+\raggedbottom
+\AtBeginPart{
+  \frame{\partpage}
+}
+\AtBeginSection{
+  \ifbibliography
+  \else
+    \frame{\sectionpage}
+  \fi
+}
+\AtBeginSubsection{
+  \frame{\subsectionpage}
+}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\newenvironment{Shaded}{}{}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{#1}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.50,0.00}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{#1}}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.50,0.00}{\textbf{#1}}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs,array}
+\usepackage{caption}
+\captionsetup[table]{skip=6pt}
+\newcounter{none} % for unnumbered tables
+\usepackage{calc} % for calculating minipage widths
+\usepackage{caption}
+% Make caption package work with longtable
+\makeatletter
+\def\fnum@table{\tablename~\thetable}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+% Auto-generated by infrastructure/rendering/_pdf_latex_helpers.py::extract_math_font_preamble.
+% Minimal header passed to Pandoc via -H so Beamer slides pick up the same math font
+% as the combined-PDF path. Adjust the manuscript's preamble.md to change the font globally.
+\usepackage{unicode-math}
+\setmathfont{latinmodern-math.otf}
+
+% Slide layout defaults for warning-clean scientific decks.
+\usepackage{etoolbox}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{}
+\IfFileExists{seqsplit.sty}{\usepackage{seqsplit}}{\newcommand{\seqsplit}[1]{#1}}
+\protected\def\breakseq#1{\seqsplit{#1}}
+\protected\def\breaktt#1{\begingroup\ttfamily\seqsplit{#1}\endgroup}
+\setlength{\emergencystretch}{6em}
+\tolerance=5000
+\hbadness=10000
+\hfuzz=1pt
+\setlength{\tabcolsep}{2pt}
+\AtBeginEnvironment{longtable}{\tiny\renewcommand{\arraystretch}{0.86}\setlength{\tabcolsep}{1pt}}
+\AtBeginEnvironment{tabular}{\tiny\renewcommand{\arraystretch}{0.86}\setlength{\tabcolsep}{1pt}}
+\AtBeginEnvironment{equation}{\tiny}
+\AtBeginEnvironment{equation*}{\tiny}
+\AtBeginEnvironment{align}{\tiny}
+\AtBeginEnvironment{align*}{\tiny}
+\AtBeginEnvironment{itemize}{\footnotesize}
+\AtBeginEnvironment{enumerate}{\footnotesize}
+\AtBeginEnvironment{description}{\footnotesize}
+\setbeamerfont{caption}{size=\tiny}
+\setbeamerfont{caption name}{size=\tiny}
+\setbeamerfont{normal text}{size=\small}
+\setbeamerfont{frametitle}{size=\small}
+\setbeamerfont{section title}{size=\footnotesize}
+\setbeamerfont{subsection title}{size=\footnotesize}
+\setbeamertemplate{section page}{%
+  \centering
+  \begin{beamercolorbox}[sep=12pt,center,wd=\paperwidth]{section title}
+    \parbox{0.86\paperwidth}{\centering\usebeamerfont{section title}\insertsection\par}
+  \end{beamercolorbox}
+}
+\setbeamertemplate{subsection page}{%
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center,wd=\paperwidth]{subsection title}
+    \parbox{0.86\paperwidth}{\centering\usebeamerfont{subsection title}\insertsubsection\par}
+  \end{beamercolorbox}
+}
+\setlength{\abovecaptionskip}{2pt}
+\setlength{\belowcaptionskip}{0pt}
+
+% Natbib and cross-reference fallbacks — slides don't load natbib
+% or cleveref, but combined-PDF manuscript prose may emit these
+% commands. The fallback renders citations as a bracketed key list
+% and cross-references as detokenized labels so slides don't fail on
+% undefined control sequences or raw underscores. \providecommand is
+% a no-op if packages load later.
+\providecommand{\citep}[1]{[#1]}
+\providecommand{\citet}[1]{#1}
+\providecommand{\citealp}[1]{#1}
+\providecommand{\citeauthor}[1]{#1}
+\providecommand{\citeyear}[1]{#1}
+\providecommand{\cref}[1]{\texttt{\detokenize{#1}}}
+\providecommand{\Cref}[1]{\texttt{\detokenize{#1}}}
+
+\newtheorem{proposition}{Proposition}
+\newtheorem{hypothesis}{Hypothesis}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+% fallback for those not using the hyperref driver hyperxmp:
+\makeatletter
+\@ifundefined{xmpquote}{\newcommand{\xmpquote}[1]{#1}}{}
+\makeatother
+\hypersetup{
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\author{\texorpdfstring{}{}}
+\date{}
+
+\begin{document}
+
+\section{Evaluation Setup: Deterministic Artifact Tests and Planned
+Learner
+Study}\label{sec:evaluation-setup-deterministic-tests-learner-study}
+
+\subsection{Deterministic model suite and fixed
+inputs}\label{deterministic-model-suite-and-fixed-inputs}
+
+\begin{frame}[fragile,allowframebreaks]{Deterministic model suite and
+fixed inputs}
+All quantitative results derive from small, fully specified discrete
+models evaluated by the kernels with a fixed seed (\texttt{20260609}).
+Within the supported Python, NumPy and Matplotlib environment, the model
+inputs and graph ordering are deterministic; this is a
+software-environment reproducibility claim, not a cross-hardware bitwise
+proof.
+
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]{Deterministic model suite and
+fixed inputs}
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Noisy-sensor model} (Bayes and VFE results): two latent
+  states, \texttt{present} and \texttt{absent}, with prior
+  \(D=[0.01, 0.99]\) and likelihood rows \([0.99, 0.05]\) and
+  \([0.01, 0.95]\) over \texttt{positive} and \texttt{negative}
+  observations. These model parameters are registered as kernel claims,
+  so the prose cannot drift from \breaktt{src/kernels/examples.py}. This
+  model emits the posterior, evidence probability, negative
+  log-evidence, and free-energy sweep.
+\item
+  \textbf{Informative-sensor model} (EFE decomposition): likelihood rows
+  \([0.9, 0.1]\) and \([0.1, 0.9]\) with observation preference
+  \(C=[0.9, 0.1]\). This isolates epistemic value under uncertain versus
+  certain beliefs.
+\item
+  \textbf{Two-action agent}: a neutral-preference sample/commit model
+  with prior \(D=[0.5,0.5]\). The \emph{sample} action preserves the
+  uncertain belief; the \emph{commit} action collapses belief mass
+  toward one state. A sensor-precision sweep over this same model
+  identifies the sample/commit switch.
+\item
+  \textbf{Information examples}: a fair coin, a fair six-sided die, a
+  biased \(0.9/0.1\) coin, a one-in-a-hundred event, and a correlated
+  joint distribution with entries \([0.4,0.1,0.1,0.4]\).
+\end{itemize}
+\end{frame}
+
+\subsection{Curriculum export and runtime ownership
+boundary}\label{curriculum-export-and-runtime-ownership-boundary}
+
+\begin{frame}[fragile,allowframebreaks]{Curriculum export and runtime
+ownership boundary}
+The curriculum spans the eight strata declared in
+\breaktt{manuscript/config.yaml}. The maximal-enumeration floor is 630
+skills (achieved: 630), and the current catalog adds
+practice-and-translation material across all strata. That material
+specifies opportunities to rehearse model checking, debugging, policy
+design, implementation review, and application evaluation; it does not
+establish that learners will acquire those abilities. Skills default to
+100 points, one occurrence to completion, and \texttt{Quiz}
+self-reporting so completion is assessment-gated. SkillTree export
+targets project id \texttt{activeInference}.
+\end{frame}
+
+\subsection{Reproduction, delivery, and release
+checks}\label{reproduction-delivery-and-release-checks}
+
+\begin{frame}[fragile,allowframebreaks]{Reproduction, delivery, and
+release checks}
+The generation pipeline is deterministic and runs from the project root
+with no Docker daemon and no browser. Only
+\breaktt{validate\_course\_material\_sources.py\ -\/-online} leaves the
+machine, and only to re-resolve the cited course-material sources:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{uv}\NormalTok{ run python scripts/build\_curriculum.py   }\CommentTok{\# validate the DAG, emit stats}
+\ExtensionTok{uv}\NormalTok{ run python scripts/run\_kernels.py        }\CommentTok{\# claims, scholarship, figures, artifact audit}
+\ExtensionTok{uv}\NormalTok{ run python scripts/build\_course\_materials.py}
+\ExtensionTok{uv}\NormalTok{ run python scripts/validate\_course\_material\_sources.py }\AttributeTok{{-}{-}online}
+\ExtensionTok{uv}\NormalTok{ run python scripts/validate\_manuscript\_artifacts.py}
+\ExtensionTok{uv}\NormalTok{ run python scripts/validate\_docker\_digests.py}
+\ExtensionTok{uv}\NormalTok{ run python scripts/validate\_release\_readiness\_inventory.py}
+\ExtensionTok{uv}\NormalTok{ run python scripts/export\_skilltree.py   }\CommentTok{\# provenance{-}gated SkillTree JSON}
+\ExtensionTok{uv}\NormalTok{ run pytest }\AttributeTok{{-}{-}cov}\OperatorTok{=}\NormalTok{src }\AttributeTok{{-}{-}cov{-}fail{-}under}\OperatorTok{=}\NormalTok{90 }\CommentTok{\# coverage gate}
+\end{Highlighting}
+\end{Shaded}
+
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]{Reproduction, delivery, and
+release checks}
+\breaktt{validate\_docker\_digests.py} belongs in that offline list
+because it reads \breaktt{docker-compose.yml} as a file rather than
+talking to a daemon: it fails when any Compose image is named by a
+mutable tag instead of a \texttt{sha256} digest, which is what keeps the
+live rehearsal below reproducible instead of tag-dependent. Its
+\texttt{-\/-file} flag points the same check at another Compose file.
+
+The remaining checks are live. All of them need a reachable Docker
+daemon, and the browser-facing ones additionally need the
+\breaktt{chrome-devtools-axi} Chrome driver. They fail closed rather than
+downgrading to the artifact-only dashboard:
+
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]{Reproduction, delivery, and
+release checks}
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{./scripts/run\_skilltree.sh}                  \CommentTok{\# docker compose up + seed}
+\ExtensionTok{./scripts/run\_learning\_dashboard.sh}         \CommentTok{\# SkillTree + seed + local dashboard}
+\ExtensionTok{uv}\NormalTok{ run python scripts/reconcile\_live\_dependencies.py }\AttributeTok{{-}{-}check{-}only}
+\ExtensionTok{uv}\NormalTok{ run python scripts/validate\_live\_skilltree\_dashboard.py }\AttributeTok{{-}{-}require{-}live{-}admin} \AttributeTok{{-}{-}require{-}live{-}dependencies} \AttributeTok{{-}{-}require{-}figure{-}contracts}
+\ExtensionTok{uv}\NormalTok{ run python scripts/validate\_skilltree\_form\_login.py}
+\ExtensionTok{uv}\NormalTok{ run python scripts/validate\_dashboard\_console.py }\AttributeTok{{-}{-}require{-}browser} \AttributeTok{{-}{-}require{-}dashboard}
+\ExtensionTok{uv}\NormalTok{ run python scripts/validate\_full\_app\_stack.py }\AttributeTok{{-}{-}app{-}ready} \AttributeTok{{-}{-}skip{-}regenerate}
+\ExtensionTok{uv}\NormalTok{ run python scripts/validate\_full\_app\_stack.py }\AttributeTok{{-}{-}skip{-}regenerate}
+\end{Highlighting}
+\end{Shaded}
+
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]{Reproduction, delivery, and
+release checks}
+\breaktt{run\_learning\_dashboard.sh} regenerates the curriculum, claims,
+course-material index, figure registry, manuscript artifact audit,
+figures, and SkillTree export before seeding, so the learner surface is
+inspected as an actual course interface rather than a static preview.
+With local auth enabled, the dashboard serves
+\breaktt{http://127.0.0.1:8765/api/skilltree/token} as a trusted-client
+bridge for the official SkillTree display; it never embeds the project
+client secret in static JavaScript. The dashboard can also run in
+artifact-only mode with
+\breaktt{uv\ run\ python\ scripts/serve\_learner\_dashboard.py\ -\/-check},
+which verifies that the server, route map, and artifact inventory load
+without requiring Docker.
+
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]{Reproduction, delivery, and
+release checks}
+The live gates divide by what they are willing to assert.
+\breaktt{reconcile\_live\_dependencies.py\ -\/-check-only} reports live
+prerequisite parity against \breaktt{output/data/skilltree\_project.json}
+without writing anything; dropping \texttt{-\/-check-only} writes the
+missing edges into the running service, with
+\breaktt{-\/-attempts-per-edge}, \texttt{-\/-max-edges}, and
+\breaktt{-\/-max-runtime-seconds} bounding a chunked local run.
+\breaktt{validate\_live\_skilltree\_dashboard.py} checks the SkillTree
+and dashboard status endpoints, export-count agreement, artifact
+completeness, and the trusted-client token exchange by default; its
+\breaktt{-\/-require-live-admin}, \breaktt{-\/-require-live-dependencies},
+and \breaktt{-\/-require-figure-contracts} flags escalate that to live
+admin skill-count parity, exact live dependency parity, and
+figure-registry-to-dashboard contract agreement.
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]{Reproduction, delivery, and
+release checks}
+\breaktt{validate\_skilltree\_form\_login.py} drives the raw SkillTree
+\texttt{FORM} login in a real browser through to the administrator
+surface and redacts local credentials from its JSON summary.
+\breaktt{validate\_dashboard\_console.py} with
+\breaktt{-\/-require-browser\ -\/-require-dashboard} fails on any
+dashboard console error other than the allow-listed upstream
+\texttt{Inception} status probe; without those flags it reports a skip
+when the browser or dashboard is absent.
+
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]{Reproduction, delivery, and
+release checks}
+\breaktt{validate\_full\_app\_stack.py} composes the live sequence end to
+end: Compose bring-up, seeding, dashboard start, dependency
+reconciliation, the live dashboard checks, the form login, and the
+console gate. \texttt{-\/-app-ready} skips dependency reconciliation and
+labels its JSON summary app-ready; the flagless run additionally
+requires every exported prerequisite edge to be present in the live
+service and labels the summary full-parity. \breaktt{-\/-skip-regenerate}
+reuses existing \texttt{output/} artifacts instead of rerunning the
+generation sequence, \breaktt{-\/-skip-browser} drops the browser stage,
+and \breaktt{-\/-keep-running} leaves the dashboard up for manual
+inspection. Each successful run writes a redacted JSON summary under the
+local state directory. That evidence is per-run and host-local: it
+records what one rehearsal observed on one machine, not a public
+deployment.
+\end{frame}
+
+\subsection{Planned learner-outcome study (design
+only)}\label{planned-learner-outcome-study-design-only}
+
+\begin{frame}[fragile,allowframebreaks]{Planned learner-outcome study
+(design only)}
+The next learner-outcome step is preregistered in
+\breaktt{experiment\_plan.yaml} as design-only work, not as a result. The
+planned pilot uses adult volunteer consent, data minimization, and
+deidentified study ids before any SkillTree-owned progress export is
+analyzed. Learner progress, quiz attempts, completion, and ranking
+remain owned by SkillTree; the local dashboard is not treated as a
+learner-truth database.
+
+The planned measurement sequence is baseline concept items, an assigned
+SkillTree learning path, immediate post-items, delayed-retention items,
+and an optional transfer prompt scored by a frozen rubric.
+Active-learning, cognitive-engagement, retrieval-practice, and
+evidence-centered assessment sources motivate that design envelope, but
+they do not substitute for data from this curriculum (Freeman et al.
+2014; Chi and Wylie 2014; Roediger and Karpicke 2006; Mislevy et al.
+2003; Black and Wiliam 1998; Shute 2008; Monib et al. 2025; Rof et al.
+2024; Emin et al. 2026).
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]{Planned learner-outcome study
+(design only)}
+
+Design-based research is the intended study posture because the
+intervention is a curriculum artifact, a SkillTree delivery
+configuration, and a measurement workflow that must be studied in
+context and iterated before stronger outcome language would be
+appropriate (Design-Based Research Collective 2003; Barab and Squire
+2004). Learning-analytics reviews and intervention meta-analyses
+motivate the outcome-evaluation path but also make privacy, data
+protection, and instrumentation validity part of the study boundary (Liu
+et al. 2025; Hernández-Campos et al. 2025; Liu and Khalil 2023; Sclater
+and Bailey 2015). The protocol will use pilot-and-feasibility reporting
+and an intervention-description checklist so that implementation
+readiness is reported separately from definitive learner outcomes
+(Eldridge et al. 2016; Hoffmann et al. 2014). The analysis plan is
+within-learner baseline-to-post change with delayed retention reported
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]{Planned learner-outcome study
+(design only)}
+separately after the sample size, item families, exclusions, and rubric
+are frozen. This manuscript does not report those learner data and makes
+no efficacy, retention, or transfer claim.
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]{Browser-facing validation path}
+\protect\phantomsection\label{browser-facing-validation-path}
+For end-to-end browser validation, open the dashboard, confirm the
+official SkillTree panel mounts the \texttt{activeInference} project,
+switch to the curriculum panel, and open a skill's \textbf{Learn},
+\textbf{Open Subject}, and \textbf{Quiz} actions. \textbf{Learn} opens
+the local modular lesson record and should not emit a direct
+\texttt{/subjects/\{subjectId\}/skills/\{skillId\}} SkillTree target.
+\textbf{Open Subject} reopens the dashboard with
+\texttt{skillsClientDisplayPath=/subjects/\{subjectId\}} so the subject
+learning path, skill list, progress, and rank are exercised inside the
+official SkillTree display. \textbf{Quiz} opens
+\texttt{skillsClientDisplayPath=/subjects/\{subjectId\}/skills/\{skillId\}/quizzes/\{quizId\}},
+so quiz loading, scoring rules, and completion remain SkillTree-owned
+rather than dashboard-owned.
+\end{frame}
+
+\end{document}

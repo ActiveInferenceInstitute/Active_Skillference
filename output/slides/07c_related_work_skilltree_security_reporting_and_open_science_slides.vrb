@@ -1,0 +1,16 @@
+\frametitle{Reproducible reporting, accessible artifacts, and source-role auditing}
+relicense third-party course materials or vendored browser bundles, and
+do not turn a static review checkout into a production deployment.
+
+The scholarship audit extends that reproducible-reporting idea from
+numbers to source coverage. Ordinary citation validators can show that
+\texttt{\breakseq{[@key]}} resolves, but not that the key has a stated role in
+the argument. The source matrix makes that role explicit and keeps the
+bibliography aligned with the manuscript's actual lanes. The frontier
+gap report adds a narrower check for newly emphasized source areas: a
+pedagogy, assessment, formal provenance, workflow provenance,
+knowledge-space, cognitive-diagnosis, message-passing,
+predictive-coding, design-based evaluation, open-science, security,
+accessibility, reproducibility, or course-material source must be cited
+and tied to an explicit claim-support class and, where needed, a
+boundary row before it can count as a scholarship upgrade.

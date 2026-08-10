@@ -1,0 +1,80 @@
+HTTP/1.0 200 OK
+Server: ActiveSkillferenceDashboard/1.0 Python/3.12.13
+Date: Sun, 21 Jun 2026 02:29:57 GMT
+Content-Type: application/json; charset=utf-8
+Content-Length: 4851649
+Cache-Control: no-store
+
+{
+  "available": true,
+  "coverage": {
+    "cognitiveKnowledgeBaseTopicSkills": 504,
+    "matchScopePointerCounts": {
+      "stratum": 1260,
+      "topic": 998
+    },
+    "rolePointerCounts": {
+      "application-reference": 85,
+      "course-module": 786,
+      "implementation-reference": 313,
+      "knowledge-base-index": 139,
+      "topic-reference": 703
+    },
+    "roleSkillCounts": {
+      "application-reference": 85,
+      "course-module": 630,
+      "implementation-reference": 313,
+      "knowledge-base-index": 139,
+      "topic-reference": 486
+    },
+    "skills": 630,
+    "sourcePointerCounts": {
+      "aii_cognitive_kb": 1240,
+      "aii_courses": 786
+    },
+    "sourceSkillCounts": {
+      "aii_cognitive_kb": 630,
+      "aii_courses": 630
+    },
+    "stratumFallbackSkills": 630,
+    "stratumOnlySkillIds": [
+      "app_dopamine_precision",
+      "audit_applications_01",
+      "audit_applications_03",
+      "audit_applications_04",
+      "audit_computation_01",
+      "audit_computation_02",
+      "audit_fep_04",
+      "audit_math_01",
+      "audit_math_04",
+      "audit_probability_04",
+      "cog_trust_precision",
+      "comp_normalize_softmax",
+      "comp_provenance_gate",
+      "comp_skilltree_export_dep",
+      "comp_tmaze",
+      "dyn_linearisation",
+      "fep_precision",
+      "front_ai_meta_precision_learning",
+      "front_app_digital_mental_health",
+      "front_comp_batch_seed",
+      "front_comp_runtime_secret_hygiene",
+      "front_comp_schema_validation",
+      "front_math_categorical_composition",
+      "front_math_disintegration",
+      "front_prob_graphical_models",
+      "geo_statistical_manifold",
+      "hier_cortical_hierarchies",
+      "hier_prediction_error_passing",
+      "impl_gradient_checking",
+      "impl_message_passing",
+      "m_convexity",
+      "m_derivative",
+      "m_jacobian_hessian",
+      "m_log_exp",
+      "m_sets",
+      "mp_factor_graphs",
+      "mp_sum_product",
+      "natsec_computation_01",
+      "natsec_computation_03",
+      "natsec_computation_04",

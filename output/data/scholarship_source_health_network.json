@@ -1,0 +1,520 @@
+{
+  "botBlocks": [],
+  "boundarySources": [
+    {
+      "area": "active_inference_open_science_infrastructure",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "lane": "pedagogy_and_learning_paths",
+      "requiresBoundary": true,
+      "sourceKey": "activeinferenceinstitute2026website",
+      "supportRows": [
+        "intro_skilltree_delivery",
+        "conclusion_delivery",
+        "related_open_science_ecosystem"
+      ]
+    },
+    {
+      "area": "reactive_message_passing_scalability",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "lane": "mathematical_foundations",
+      "requiresBoundary": true,
+      "sourceKey": "bagaev2023reactive_message_passing",
+      "supportRows": [
+        "related_variational_information_sources",
+        "limitations_delivery_and_scope"
+      ]
+    },
+    {
+      "area": "rxinfer_reactive_software",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "lane": "active_inference_core",
+      "requiresBoundary": true,
+      "sourceKey": "bagaev2023rxinfer",
+      "supportRows": [
+        "related_variational_information_sources",
+        "limitations_delivery_and_scope"
+      ]
+    },
+    {
+      "area": "design_based_research_context",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "lane": "pedagogy_and_learning_paths",
+      "requiresBoundary": true,
+      "sourceKey": "barab2004design_based",
+      "supportRows": [
+        "setup_learner_outcome_pilot",
+        "limitations_delivery_and_scope"
+      ]
+    },
+    {
+      "area": "variational_bayes_foundation",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "lane": "mathematical_foundations",
+      "requiresBoundary": true,
+      "sourceKey": "beal2003variational",
+      "supportRows": [
+        "method_kernels_scope",
+        "related_variational_information_sources"
+      ]
+    },
+    {
+      "area": "pedagogy_constructive_alignment",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "lane": "pedagogy_and_learning_paths",
+      "requiresBoundary": true,
+      "sourceKey": "biggs1996constructive_alignment",
+      "supportRows": [
+        "method_stratum_ordering",
+        "related_skilltree_delivery"
+      ]
+    },
+    {
+      "area": "pedagogy_formative_assessment",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "lane": "pedagogy_and_learning_paths",
+      "requiresBoundary": true,
+      "sourceKey": "black1998assessment",
+      "supportRows": [
+        "method_stratum_ordering",
+        "setup_learner_outcome_pilot",
+        "related_skilltree_delivery"
+      ]
+    },
+    {
+      "area": "pedagogy_cognitive_engagement",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "lane": "pedagogy_and_learning_paths",
+      "requiresBoundary": true,
+      "sourceKey": "chi2014icap",
+      "supportRows": [
+        "method_stratum_ordering",
+        "setup_learner_outcome_pilot"
+      ]
+    },
+    {
+      "area": "citation_file_metadata",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "lane": "delivery_and_reporting",
+      "requiresBoundary": true,
+      "sourceKey": "citationfileformat2026",
+      "supportRows": [
+        "reproducibility_release_evidence",
+        "related_ip_license_boundary"
+      ]
+    },
+    {
+      "area": "codemeta_metadata_schema",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "lane": "delivery_and_reporting",
+      "requiresBoundary": true,
+      "sourceKey": "codemeta2026schema",
+      "supportRows": [
+        "reproducibility_release_evidence",
+        "related_ip_license_boundary"
+      ]
+    },
+    {
+      "area": "helmholtz_inference_foundation",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "lane": "perception_as_inference",
+      "requiresBoundary": true,
+      "sourceKey": "dayan1995helmholtz",
+      "supportRows": [
+        "method_curriculum_quality",
+        "related_variational_information_sources"
+      ]
+    },
+    {
+      "area": "design_based_research_collective",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "lane": "pedagogy_and_learning_paths",
+      "requiresBoundary": true,
+      "sourceKey": "designbasedresearchcollective2003",
+      "supportRows": [
+        "setup_learner_outcome_pilot",
+        "conclusion_delivery",
+        "limitations_delivery_and_scope"
+      ]
+    },
+    {
+      "area": "knowledge_space_foundation",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "lane": "pedagogy_and_learning_paths",
+      "requiresBoundary": true,
+      "sourceKey": "doignon1985knowledge_spaces",
+      "supportRows": [
+        "intro_situation_awareness",
+        "intro_graph_approach",
+        "method_curriculum_quality",
+        "method_stratum_ordering",
+        "conclusion_delivery",
+        "related_skilltree_delivery"
+      ]
+    },
+    {
+      "area": "pilot_feasibility_reporting",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "lane": "pedagogy_and_learning_paths",
+      "requiresBoundary": true,
+      "sourceKey": "eldridge2016consort_pilot",
+      "supportRows": [
+        "setup_learner_outcome_pilot"
+      ]
+    },
+    {
+      "area": "learning_space_foundation",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "lane": "pedagogy_and_learning_paths",
+      "requiresBoundary": true,
+      "sourceKey": "falmagne2011learning_spaces",
+      "supportRows": [
+        "intro_situation_awareness",
+        "intro_graph_approach",
+        "method_curriculum_quality",
+        "method_stratum_ordering",
+        "related_skilltree_delivery"
+      ]
+    },
+    {
+      "area": "pedagogy_active_learning",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "lane": "pedagogy_and_learning_paths",
+      "requiresBoundary": true,
+      "sourceKey": "freeman2014activelearning",
+      "supportRows": [
+        "method_stratum_ordering",
+        "setup_learner_outcome_pilot"
+      ]
+    },
+    {
+      "area": "curriculum_aware_cognitive_diagnosis",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "lane": "pedagogy_and_learning_paths",
+      "requiresBoundary": true,
+      "sourceKey": "fu2025curriculum_aware_gncd",
+      "supportRows": [
+        "intro_situation_awareness",
+        "method_stratum_ordering",
+        "conclusion_delivery"
+      ]
+    },
+    {
+      "area": "repository_archive_workflow",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "lane": "delivery_and_reporting",
+      "requiresBoundary": true,
+      "sourceKey": "github2026citingcontent",
+      "supportRows": [
+        "reproducibility_release_evidence",
+        "related_ip_license_boundary"
+      ]
+    },
+    {
+      "area": "application_scope_evidence_status",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "lane": "applications_and_scope",
+      "requiresBoundary": true,
+      "sourceKey": "hodson2024empirical",
+      "supportRows": [
+        "intro_situation_awareness",
+        "intro_scholarship_drift",
+        "method_model_boundary",
+        "related_fep_evidence_status"
+      ]
+    },
+    {
+      "area": "intervention_replication_reporting",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "lane": "pedagogy_and_learning_paths",
+      "requiresBoundary": true,
+      "sourceKey": "hoffmann2014tidier",
+      "supportRows": [
+        "setup_learner_outcome_pilot"
+      ]
+    },
+    {
+      "area": "active_inference_teacher_development",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "lane": "pedagogy_and_learning_paths",
+      "requiresBoundary": true,
+      "sourceKey": "hugo2026teacher_development",
+      "supportRows": [
+        "method_stratum_ordering"
+      ]
+    },
+    {
+      "area": "workflow_run_rocrate",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "lane": "delivery_and_reporting",
+      "requiresBoundary": true,
+      "sourceKey": "leo2024workflow_run_rocrate",
+      "supportRows": [
+        "method_provenance_standards"
+      ]
+    },
+    {
+      "area": "assessment_design",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "lane": "pedagogy_and_learning_paths",
+      "requiresBoundary": true,
+      "sourceKey": "mislevy2003ecd",
+      "supportRows": [
+        "method_stratum_ordering",
+        "setup_learner_outcome_pilot"
+      ]
+    },
+    {
+      "area": "reproducible_science_boundary",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "lane": "delivery_and_reporting",
+      "requiresBoundary": true,
+      "sourceKey": "munafo2017reproducible_science",
+      "supportRows": [
+        "method_evidence_classes",
+        "reproducibility_release_evidence",
+        "related_reproducible_reporting"
+      ]
+    },
+    {
+      "area": "coupled_free_energy_robustness",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "lane": "mathematical_foundations",
+      "requiresBoundary": true,
+      "sourceKey": "nelson2025coupled_free_energy",
+      "supportRows": [
+        "related_variational_information_sources",
+        "limitations_delivery_and_scope"
+      ]
+    },
+    {
+      "area": "secure_development_posture",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "lane": "delivery_and_reporting",
+      "requiresBoundary": true,
+      "sourceKey": "nist2022ssdf",
+      "supportRows": [
+        "related_national_security_boundary"
+      ]
+    },
+    {
+      "area": "transparent_open_science",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "lane": "delivery_and_reporting",
+      "requiresBoundary": true,
+      "sourceKey": "nosek2015top",
+      "supportRows": [
+        "reproducibility_release_evidence",
+        "related_reproducible_reporting"
+      ]
+    },
+    {
+      "area": "knowledge_tracing_comparison",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "lane": "pedagogy_and_learning_paths",
+      "requiresBoundary": true,
+      "sourceKey": "piech2015deep_knowledge_tracing",
+      "supportRows": [
+        "conclusion_scholarship_thread",
+        "conclusion_delivery"
+      ]
+    },
+    {
+      "area": "active_predictive_coding_frontier",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "lane": "perception_as_inference",
+      "requiresBoundary": true,
+      "sourceKey": "rao2024active_predictive_coding",
+      "supportRows": [
+        "related_variational_information_sources",
+        "limitations_delivery_and_scope"
+      ]
+    },
+    {
+      "area": "license_notice_boundary",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "lane": "delivery_and_reporting",
+      "requiresBoundary": true,
+      "sourceKey": "reuse2024spec",
+      "supportRows": [
+        "reproducibility_release_evidence",
+        "related_ip_license_boundary"
+      ]
+    },
+    {
+      "area": "pedagogy_retrieval_practice",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "lane": "pedagogy_and_learning_paths",
+      "requiresBoundary": true,
+      "sourceKey": "roediger2006testenhanced",
+      "supportRows": [
+        "method_stratum_ordering",
+        "setup_learner_outcome_pilot"
+      ]
+    },
+    {
+      "area": "reproducible_computational_workflow",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "lane": "delivery_and_reporting",
+      "requiresBoundary": true,
+      "sourceKey": "sandve2013reproducible",
+      "supportRows": [
+        "method_provenance_binding",
+        "reproducibility_release_evidence",
+        "related_reproducible_reporting"
+      ]
+    },
+    {
+      "area": "responsible_learning_analytics",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "lane": "pedagogy_and_learning_paths",
+      "requiresBoundary": true,
+      "sourceKey": "sclater2015learning_analytics_code",
+      "supportRows": [
+        "intro_situation_awareness",
+        "setup_learner_outcome_pilot"
+      ]
+    },
+    {
+      "area": "dcpc_predictive_coding_scaling",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "lane": "perception_as_inference",
+      "requiresBoundary": true,
+      "sourceKey": "sennesh2024dcpc",
+      "supportRows": [
+        "related_variational_information_sources",
+        "limitations_delivery_and_scope"
+      ]
+    },
+    {
+      "area": "pedagogy_formative_feedback",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "lane": "pedagogy_and_learning_paths",
+      "requiresBoundary": true,
+      "sourceKey": "shute2008formative_feedback",
+      "supportRows": [
+        "method_stratum_ordering",
+        "setup_learner_outcome_pilot",
+        "related_skilltree_delivery"
+      ]
+    },
+    {
+      "area": "software_citation_principles",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "lane": "delivery_and_reporting",
+      "requiresBoundary": true,
+      "sourceKey": "smith2016softwarecitation",
+      "supportRows": [
+        "reproducibility_release_evidence",
+        "related_ip_license_boundary"
+      ]
+    },
+    {
+      "area": "q_matrix_diagnostic_boundary",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "lane": "pedagogy_and_learning_paths",
+      "requiresBoundary": true,
+      "sourceKey": "tao2024q_matrix_constraint",
+      "supportRows": [
+        "conclusion_scholarship_thread",
+        "conclusion_delivery"
+      ]
+    },
+    {
+      "area": "reproducible_open_data",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "lane": "delivery_and_reporting",
+      "requiresBoundary": true,
+      "sourceKey": "wilkinson2016fair",
+      "supportRows": [
+        "method_evidence_classes",
+        "reproducibility_release_evidence",
+        "related_reproducible_reporting"
+      ]
+    },
+    {
+      "area": "scientific_computing_practice",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "lane": "delivery_and_reporting",
+      "requiresBoundary": true,
+      "sourceKey": "wilson2014scientific_computing",
+      "supportRows": [
+        "reproducibility_release_evidence",
+        "related_reproducible_reporting"
+      ]
+    },
+    {
+      "area": "zenodo_doi_workflow",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "lane": "delivery_and_reporting",
+      "requiresBoundary": true,
+      "sourceKey": "zenodo2026github",
+      "supportRows": [
+        "reproducibility_release_evidence",
+        "related_ip_license_boundary"
+      ]
+    }
+  ],
+  "claimBoundary": "Source-health network separates local metadata, optional online reachability and manuscript boundary support; it does not certify source truth.",
+  "deadLinks": [],
+  "metadataIssues": [],
+  "roleGaps": [],
+  "statusBuckets": {},
+  "summary": {
+    "botBlocks": 0,
+    "boundarySources": 40,
+    "checkedOnline": false,
+    "deadLinks": 0,
+    "frontierSources": 45,
+    "metadataIssues": 0,
+    "roleGaps": 0,
+    "sourceHealthIssues": 0,
+    "sources": 188,
+    "uncitedDrift": 0
+  },
+  "uncitedDrift": {
+    "singleSectionWithoutClaimSupport": [],
+    "uncitedBibEntries": [],
+    "underweightedLanes": [],
+    "unusedMatrixEntries": []
+  }
+}

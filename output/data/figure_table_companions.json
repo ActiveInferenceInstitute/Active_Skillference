@@ -1,0 +1,209 @@
+{
+  "claimBoundary": "Companion tables expose generated rows behind dense figures; they are navigation aids, not new analytical claims.",
+  "figures": {
+    "fig:graph_bottlenecks": {
+      "columns": [
+        "rank",
+        "skillId",
+        "skillName",
+        "stratum",
+        "subject",
+        "downstreamDependents",
+        "depth"
+      ],
+      "companionId": "companion:graph_bottlenecks",
+      "figureLabel": "fig:graph_bottlenecks",
+      "rows": [
+        {
+          "depth": 0,
+          "downstreamDependents": 585,
+          "rank": 1,
+          "skillId": "m_sets",
+          "skillName": "Sets & Functions",
+          "stratum": "math_foundations",
+          "subject": "Linear Algebra & Calculus"
+        },
+        {
+          "depth": 1,
+          "downstreamDependents": 572,
+          "rank": 2,
+          "skillId": "m_vectors",
+          "skillName": "Vectors & Vector Spaces",
+          "stratum": "math_foundations",
+          "subject": "Linear Algebra & Calculus"
+        },
+        {
+          "depth": 0,
+          "downstreamDependents": 548,
+          "rank": 3,
+          "skillId": "p_axioms",
+          "skillName": "Probability Axioms",
+          "stratum": "probability",
+          "subject": "Probability Foundations"
+        },
+        {
+          "depth": 1,
+          "downstreamDependents": 547,
+          "rank": 4,
+          "skillId": "p_random_var",
+          "skillName": "Random Variables",
+          "stratum": "probability",
+          "subject": "Probability Foundations"
+        },
+        {
+          "depth": 2,
+          "downstreamDependents": 530,
+          "rank": 5,
+          "skillId": "m_matrix",
+          "skillName": "Matrices & Matrix Multiplication",
+          "stratum": "math_foundations",
+          "subject": "Linear Algebra & Calculus"
+        },
+        {
+          "depth": 2,
+          "downstreamDependents": 530,
+          "rank": 6,
+          "skillId": "p_joint_marginal",
+          "skillName": "Joint, Marginal & Conditional",
+          "stratum": "probability",
+          "subject": "Probability Foundations"
+        },
+        {
+          "depth": 1,
+          "downstreamDependents": 525,
+          "rank": 7,
+          "skillId": "m_functions_real",
+          "skillName": "Limits & Continuity",
+          "stratum": "math_foundations",
+          "subject": "Linear Algebra & Calculus"
+        },
+        {
+          "depth": 3,
+          "downstreamDependents": 520,
+          "rank": 8,
+          "skillId": "p_bayes_theorem",
+          "skillName": "Bayes' Theorem",
+          "stratum": "probability",
+          "subject": "Probability Foundations"
+        }
+      ],
+      "title": "Top graph bottlenecks by downstream fan-out"
+    },
+    "fig:scholarship_source_health": {
+      "columns": [
+        "status",
+        "key",
+        "code",
+        "message"
+      ],
+      "companionId": "companion:scholarship_source_health",
+      "figureLabel": "fig:scholarship_source_health",
+      "rows": [
+        {
+          "code": "pass",
+          "key": "all-sources",
+          "message": "188 local source rows passed; online checked=False; frontier sources=45",
+          "status": "pass"
+        }
+      ],
+      "title": "Scholarship source-health issue ledger"
+    },
+    "fig:vfe_efe_skilltree_bridge": {
+      "columns": [
+        "subjectId",
+        "subjectName",
+        "stratum",
+        "skillCount",
+        "prerequisiteEdges",
+        "depthRange",
+        "representativeSkills"
+      ],
+      "companionId": "companion:vfe_efe_skilltree_bridge",
+      "figureLabel": "fig:vfe_efe_skilltree_bridge",
+      "rows": [
+        {
+          "depthRange": "23-29",
+          "prerequisiteEdges": 12,
+          "representativeSkills": "aiviz_policy_landscape_reading, aiviz_precision_regime_visuals, aiviz_efe_component_contrast, aiviz_preference_surface_caveats",
+          "skillCount": 6,
+          "stratum": "active_inference",
+          "subjectId": "sub_active_inference_visual_explanation",
+          "subjectName": "Active-Inference Visual Explanation"
+        },
+        {
+          "depthRange": "17-21",
+          "prerequisiteEdges": 11,
+          "representativeSkills": "ai_risk_ambiguity, ai_sophisticated, ai_habits, ai_state_factorisation",
+          "skillCount": 6,
+          "stratum": "active_inference",
+          "subjectId": "sub_ai_adv",
+          "subjectName": "Advanced Active Inference"
+        },
+        {
+          "depthRange": "19-20",
+          "prerequisiteEdges": 7,
+          "representativeSkills": "ai_predictive_coding, ai_generalised_coords, ai_active_inference_loop",
+          "skillCount": 3,
+          "stratum": "active_inference",
+          "subjectId": "sub_continuous",
+          "subjectName": "Continuous Active Inference & the Loop"
+        },
+        {
+          "depthRange": "18-20",
+          "prerequisiteEdges": 15,
+          "representativeSkills": "ai_expected_free_energy, ai_epistemic_value, ai_pragmatic_value, ai_explore_exploit",
+          "skillCount": 7,
+          "stratum": "active_inference",
+          "subjectId": "sub_efe",
+          "subjectName": "Expected Free Energy & Policy Selection"
+        },
+        {
+          "depthRange": "20-26",
+          "prerequisiteEdges": 9,
+          "representativeSkills": "front_ai_affordance_fields, front_ai_counterfactual_policies, front_ai_multifactor_planning, front_ai_meta_precision_learning",
+          "skillCount": 5,
+          "stratum": "active_inference",
+          "subjectId": "sub_frontier_ai",
+          "subjectName": "Frontier Active Inference"
+        },
+        {
+          "depthRange": "19-27",
+          "prerequisiteEdges": 25,
+          "representativeSkills": "hier_generative_models, hier_empirical_priors, hier_prediction_error_passing, hier_deep_temporal",
+          "skillCount": 11,
+          "stratum": "active_inference",
+          "subjectId": "sub_hierarchical",
+          "subjectName": "Hierarchical, Deep & Mixed Models"
+        },
+        {
+          "depthRange": "17-27",
+          "prerequisiteEdges": 29,
+          "representativeSkills": "learn_dirichlet_params, learn_likelihood_A, learn_transition_B, learn_prior_D",
+          "skillCount": 11,
+          "stratum": "active_inference",
+          "subjectId": "sub_learning",
+          "subjectName": "Learning, Novelty & Structure Learning"
+        },
+        {
+          "depthRange": "19-26",
+          "prerequisiteEdges": 16,
+          "representativeSkills": "os_active_inference_01, os_active_inference_02, os_active_inference_03, os_active_inference_04",
+          "skillCount": 8,
+          "stratum": "active_inference",
+          "subjectId": "sub_open_science_active_inference",
+          "subjectName": "Open-Science Active-Inference Studios"
+        }
+      ],
+      "title": "VFE/EFE subject rows and route handoff evidence"
+    }
+  },
+  "summary": {
+    "companionFigures": 3,
+    "labels": [
+      "fig:graph_bottlenecks",
+      "fig:vfe_efe_skilltree_bridge",
+      "fig:scholarship_source_health"
+    ],
+    "rows": 17
+  }
+}

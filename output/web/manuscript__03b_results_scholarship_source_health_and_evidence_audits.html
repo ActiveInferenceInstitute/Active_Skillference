@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.10.1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>03b_results_scholarship_source_health_and_evidence_audits.md.web</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      white-space: pre-wrap;
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+
+<link data-template-favicon rel="icon" href="favicon.ico">
+
+<style>
+:root {
+  --brand-1: #5b6ee0;
+  --web-bg: #f8f8f8;
+  --web-surface: #ffffff;
+  --web-text: #2c3e50;
+  --web-border: #bdc3c7;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --brand-1: #7e8ce8;
+    --web-bg: #0f1420;
+    --web-surface: #161c2b;
+    --web-text: #e6eaf2;
+    --web-border: #2a3447;
+  }
+}
+.theorem-box {
+  border-left: 4px solid var(--brand-1);
+  background: var(--web-surface);
+  padding: 0.6em 1em;
+  margin: 1.1em 0;
+  border-radius: 0 4px 4px 0;
+}
+.theorem-box.definition { border-left-style: dashed; }
+.theorem-box > p:first-child { margin-top: 0; }
+.theorem-box > p:last-child { margin-bottom: 0; }
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  max-width: 100%;
+}
+
+body {
+  font-family: 'Liberation Serif', 'Times New Roman', serif;
+  line-height: 1.6;
+  width: min(100%, 800px);
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f8f8f8;
+  color: #1a1a1a;
+  overflow-x: visible;
+}
+
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  padding: 0.65rem 0.9rem;
+  transform: translateY(-120%);
+  background-color: #1a1a1a;
+  color: #ffffff;
+  font-family: sans-serif;
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.skip-link:visited {
+  color: #ffffff;
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
+@media (max-width: 600px) {
+  body {
+    width: 100%;
+    max-width: 100%;
+    padding: 16px;
+  }
+
+  figure img {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 800px) {
+  body {
+    width: 100%;
+    max-width: 100vw;
+    margin: 0 auto;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #2c3e50;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 5px;
+  overflow-wrap: anywhere;
+}
+
+code {
+  background-color: #ecf0f1;
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-family: 'Liberation Mono', 'Courier New', monospace;
+}
+
+pre {
+  background-color: #2c3e50;
+  color: #ecf0f1;
+  padding: 15px;
+  border-radius: 5px;
+  overflow-x: auto;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 20px 0;
+}
+
+figure {
+  max-width: 100%;
+  margin: 1.5rem 0;
+}
+
+th, td {
+  border: 1px solid #bdc3c7;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #1f6f8b;
+  color: white;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid #bdc3c7;
+  border-radius: 5px;
+  margin: 20px 0;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+a {
+  color: #b91c1c;
+  text-decoration: underline;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.14em;
+  overflow-wrap: anywhere;
+}
+
+a:visited {
+  color: #8f1d1d;
+}
+
+a:hover {
+  text-decoration-thickness: 0.14em;
+}
+
+a:focus-visible {
+  outline: 3px solid #1f6f8b;
+  outline-offset: 3px;
+}
+
+.toc {
+  background-color: #ecf0f1;
+  padding: 20px;
+  border-radius: 5px;
+  margin-bottom: 30px;
+}
+
+.toc a,
+#TOC a {
+  color: #b91c1c;
+  display: inline-block;
+  min-height: 28px;
+  line-height: 1.5;
+  padding-block: 2px;
+}
+
+.toc li,
+#TOC li {
+  margin-block: 1px;
+}
+
+.math {
+  text-align: center;
+  margin: 20px 0;
+  font-size: 1.1em;
+}
+
+mjx-container[display="true"] {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 0.25rem;
+}
+
+.figure {
+  text-align: center;
+  margin: 30px 0;
+}
+
+.figure img {
+  max-width: 100%;
+  height: auto;
+  border: 2px solid #3498db;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* A reading column keeps prose comfortable, but dense scientific figures need
+   a larger inspection surface.  The rendered image remains responsive and the
+   explicit link opens its source-resolution asset without changing the PDF. */
+.figure-full-size-link {
+  color: inherit;
+  display: block;
+  max-width: 100%;
+  text-align: center;
+}
+
+.figure-full-size-link img {
+  cursor: zoom-in;
+  margin-bottom: 0.45rem;
+}
+
+.figure-full-size-label {
+  color: #1f6f8b;
+  display: inline-block;
+  font-family: sans-serif;
+  font-size: 0.875rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+  text-decoration: underline;
+  text-underline-offset: 0.14em;
+}
+
+.figure-full-size-link:focus-visible {
+  outline: 3px solid #1f6f8b;
+  outline-offset: 4px;
+}
+
+@media (min-width: 1000px) {
+  .figure-full-size-link {
+    left: 50%;
+    max-width: none;
+    position: relative;
+    transform: translateX(-50%);
+    width: min(1080px, calc(100vw - 3rem));
+  }
+}
+
+.figure-caption {
+  font-style: italic;
+  color: #4b5563;
+  margin-top: 10px;
+  text-align: center;
+}
+
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<main id="main-content" tabindex="-1">
+<h1 id="sec:results-scholarship-source-health-evidence">Results:
+Scholarship Coverage and Evidence-Status Audits</h1>
+<h2
+id="citation-coverage-locator-health-and-evidence-class-auditing">Citation
+coverage, locator health, and evidence-class auditing</h2>
+<!-- claim-support:results_scholarship_coverage -->
+<p>The manuscript’s source coverage is also treated as a generated
+result. Every authored citation is parsed from the section files,
+matched against <code>references.bib</code>, and mapped through
+<code>data/scholarship_sources.yaml</code> into a source lane and
+support role before the build writes figures. The current audit covers
+188 cited sources; that number is generated from the manuscript and
+source matrix, not maintained as a prose claim. <span class="citation"
+data-cites="fig:scholarship_coverage">[@fig:scholarship_coverage]</span>
+shows both sides of the contract: the left panel compares cited sources
+with the matrixed source pool for each lane, while the right panel shows
+which manuscript sections carry each lane. The audit is deliberately
+orthogonal to the numeric claim registry: one gate protects computed
+quantities; the other protects the scholarly support surface.</p>
+<figure id="fig:scholarship_coverage">
+<a class="figure-full-size-link" href="../figures/scholarship_coverage.png" target="_blank" rel="noopener" aria-label="Open full-size figure"><img src="../figures/scholarship_coverage.png" style="width:100.0%"
+alt="Scholarship coverage audit generated from manuscript citations, BibTeX keys, and the source-role matrix." /><span class="figure-full-size-label" aria-hidden="true">Open full-size figure</span></a>
+<figcaption>Scholarship coverage audit generated from
+manuscript citations, BibTeX keys, and the source-role matrix. The left
+panel compares cited versus matrixed sources by scholarship lane; the
+right panel maps manuscript sections to citation lanes. This figure
+makes support distribution inspectable: a large bibliography is not
+treated as sufficient unless sources are cited in the sections and roles
+where they support specific claims.</figcaption>
+</figure>
+<!-- claim-support:results_open_science_sources -->
+<p>The open-science education layer is also explicit. Active
+Skillference cites the Active Inference Institute’s public education
+ecosystem, including the open-source course infrastructure, the START
+curriculum-generation project, and the Institute website’s open-science
+educational mission [activeinferenceinstitute2026courses;
+activeinferenceinstitute2026start; activeinferenceinstitute2026home].
+The generated local Learn material also links every exported skill to
+commit-pinned external material pointers, including the Active Inference
+Institute cognitive knowledge base
+[activeinferenceinstitute2026cognitive]. <span class="citation"
+data-cites="fig:open_science_sources">[@fig:open_science_sources]</span>
+shows both surfaces together: cited public sources remain visible, and
+the course-material source rows expose how the cognitive knowledge base
+enters the generated skill records.</p>
+<figure id="fig:open_science_sources">
+<a class="figure-full-size-link" href="../figures/open_science_source_map.png" target="_blank" rel="noopener" aria-label="Open full-size figure"><img src="../figures/open_science_source_map.png" style="width:88.0%"
+alt="Active Inference Institute open-science learning sources across scholarship support and generated course-material pointers." /><span class="figure-full-size-label" aria-hidden="true">Open full-size figure</span></a>
+<figcaption>Active Inference Institute open-science
+learning sources across scholarship support and generated
+course-material pointers. Summary cards report local material records,
+external pointers, cognitive knowledge-base pointers, and topic-matched
+KB skills; ledger rows distinguish the course repository, cognitive
+knowledge-base source, Institute homepage, website repository, and START
+source with locator and role text. The website repository is a
+community/resource-hub pointer rather than a course or knowledge-base
+record. The figure records pinned links and cited support surfaces; it
+does not claim endorsement, completeness, or copied ownership of the
+public education ecosystem.</figcaption>
+</figure>
+<!-- claim-support:results_source_health -->
+<p>The source matrix is then checked a second way: source locators must
+be syntactically specific, documentation entries must use URL locators,
+and each support role must be substantive enough to explain why the
+source is present. <span class="citation"
+data-cites="fig:scholarship_source_health">[@fig:scholarship_source_health]</span>
+reports the resulting offline source-health audit and provides a place
+for optional online DOI/URL reachability checks to surface when release
+review requires currentness evidence.</p>
+<figure id="fig:scholarship_source_health">
+<a class="figure-full-size-link" href="../figures/scholarship_source_health.png" target="_blank" rel="noopener" aria-label="Open full-size figure"><img src="../figures/scholarship_source_health.png" style="width:88.0%"
+alt="Scholarship source-health audit generated from locator syntax, lane assignment, and support-role checks." /><span class="figure-full-size-label" aria-hidden="true">Open full-size figure</span></a>
+<figcaption>Scholarship source-health audit generated
+from locator syntax, lane assignment, and support-role checks. Status
+cards separate matrixed source count, offline validation issues, and
+online-check mode, while the ledger rows distinguish local metadata
+health from optional network reachability. The figure separates two
+different claims: a source can be present in the matrix and still
+require locator, role, or currentness repair before
+release.</figcaption>
+</figure>
+<!-- claim-support:results_validation_surface -->
+<p>The validation surface is intentionally visible rather than left as a
+hidden CI detail. <span class="citation"
+data-cites="fig:validation_surface_matrix">[@fig:validation_surface_matrix]</span>
+summarizes which gates bind generated JSON, negative controls,
+manuscript text, dashboard artifacts, release documentation, and
+SkillTree handoffs. Its count panel is rebuilt from the same graph,
+claim registry, scholarship audit and roadmap state that produce the
+curriculum and manuscript variables. The result is a falsifiable release
+claim: if a count, citation, figure, dashboard artifact, release
+inventory row, or roadmap item drifts away from its generator, the
+validator fails before the manuscript or SkillTree export can be
+presented as current.</p>
+<figure id="fig:validation_surface_matrix">
+<a class="figure-full-size-link" href="../figures/validation_surface_matrix.png" target="_blank" rel="noopener" aria-label="Open full-size figure"><img src="../figures/validation_surface_matrix.png" style="width:100.0%"
+alt="Validation-surface matrix for Active Skillference." /><span class="figure-full-size-label" aria-hidden="true">Open full-size figure</span></a>
+<figcaption>Validation-surface matrix for Active
+Skillference. Each cell is derived from the on-disk presence of the
+validator or test file that binds that artifact surface: a cell reads
+“bound” only when every file named in its binding exists, so deleting a
+gate flips its cell to “n/a” rather than leaving a stale “bound” claim.
+Row and column labels state bound-cell totals, and each cell carries
+text, so the figure remains readable without heatmap color. The side
+panel reports live evidence counts for skills, subjects, dependencies,
+assessment questions, claims, cited sources, and registered figures,
+read directly from the graph, claim registry, scholarship audit, and
+figure inventory. The interpretation boundary is important: a bound cell
+means a named validator file exists for that artifact surface (not that
+the gate is guaranteed sound), while an unbound cell marks a surface
+that is out of scope for that gate.</figcaption>
+</figure>
+<p><span class="citation"
+data-cites="fig:validation_intent_mismatch_matrix">[@fig:validation_intent_mismatch_matrix]</span>
+makes the negative controls behind that release view explicit. It
+separates missing registry rows, missing files, missing manuscript
+labels, missing dashboard artifacts, missing roadmap metrics, and stale
+manifests so the validation layer is judged by concrete
+false-certification classes rather than by the presence of a polished
+figure alone.</p>
+<figure id="fig:validation_intent_mismatch_matrix">
+<a class="figure-full-size-link" href="../figures/validation_intent_mismatch_matrix.png" target="_blank" rel="noopener" aria-label="Open full-size figure"><img src="../figures/validation_intent_mismatch_matrix.png"
+style="width:98.0%"
+alt="Validation-intent mismatch matrix for Active Skillference." /><span class="figure-full-size-label" aria-hidden="true">Open full-size figure</span></a>
+<figcaption>Validation-intent mismatch matrix for
+Active Skillference. Rows enumerate concrete false-certification
+classes: a rendered PNG omitted from the registry, a registered figure
+without a readable file, a registered label omitted from the manuscript,
+a registered figure omitted from the dashboard artifact roster, a
+missing roadmap live metric, and a stale generated manifest. Columns
+show whether the source-of-truth, manuscript gate, or dashboard gate is
+expected to reject each mismatch before release. The right panel records
+the planned registered-figure count and which optional audit surfaces
+were enabled for the render.</figcaption>
+</figure>
+<p>The same contract is now represented inside the curriculum rather
+than only enforced at release time. The visual-evidence slice adds a
+prerequisite-gated authoring path for question contracts, data grain,
+encoding strength, annotation boundaries, static/mobile readability, and
+negative-control validation. <span class="citation"
+data-cites="fig:visual_evidence_contract_ladder">[@fig:visual_evidence_contract_ladder]</span>
+shows that path as generated curriculum evidence: each rung names the
+live skill that carries the review step, while the registry and
+dashboard expose the same structured chart-contract fields. This is a
+deterministic artifact-integrity claim, not a claim that the visual
+curriculum has been externally tested with learners.</p>
+<figure id="fig:visual_evidence_contract_ladder">
+<a class="figure-full-size-link" href="../figures/visual_evidence_contract_ladder.png" target="_blank" rel="noopener" aria-label="Open full-size figure"><img src="../figures/visual_evidence_contract_ladder.png"
+style="width:98.0%"
+alt="Visual-evidence contract ladder generated from the live curriculum graph and figure registry metadata." /><span class="figure-full-size-label" aria-hidden="true">Open full-size figure</span></a>
+<figcaption>Visual-evidence contract ladder generated
+from the live curriculum graph and figure registry metadata. Six
+numbered rungs move from question contract through data grain, encoding
+strength, annotation boundary, static/mobile survival, and
+negative-control validation. Each rung names the skill identifier that
+carries the review obligation and reports whether the skill is
+registered in the graph. The figure documents the authoring and
+validation lifecycle for visual evidence; it does not claim learner
+effectiveness or external deployment performance.</figcaption>
+</figure>
+<!-- claim-support:results_scientific_evidence_matrix -->
+<p>The scientific-claim layer adds one more audit view. <span
+class="citation"
+data-cites="fig:scientific_evidence_matrix">[@fig:scientific_evidence_matrix]</span>
+is generated from manuscript <code>claim-support</code> anchors and the
+support matrix in <code>data/manuscript_claim_support.yaml</code>. Its
+rows separate computed, descriptive-count, simulation, literature,
+scope-limit, delivery and visual claims; its columns show whether each
+class is backed by claim tokens, manuscript variables, citations,
+figures, validators or limitation markers. This is not a statistical
+result. It is a release integrity check that prevents strong scientific
+wording from passing without a declared evidence class.</p>
+<figure id="fig:scientific_evidence_matrix">
+<a class="figure-full-size-link" href="../figures/scientific_evidence_matrix.png" target="_blank" rel="noopener" aria-label="Open full-size figure"><img src="../figures/scientific_evidence_matrix.png" style="width:96.0%"
+alt="Scientific evidence matrix for manuscript claims generated from claim-support anchors and data/manuscript_claim_support.yaml." /><span class="figure-full-size-label" aria-hidden="true">Open full-size figure</span></a>
+<figcaption>Scientific evidence matrix for manuscript
+claims generated from claim-support anchors and
+data/manuscript_claim_support.yaml. Rows are claim-support types,
+columns are evidence classes, cell counts show how many anchored claims
+use each evidence class, and the side panel counts claims per type. The
+purpose is epistemic classification rather than statistical inference:
+computed, descriptive, simulation, literature, scope-limit, delivery,
+and visual claims are forced to declare the kind of support they
+actually have.</figcaption>
+</figure>
+<p>The platform evidence above is intentionally separated from the small
+mathematical examples. Those examples are still central teaching
+artifacts, but their scientific meaning depends on the supplement’s
+model assumptions and regime boundaries.</p>
+</main>
+</body>
+</html>

@@ -1,0 +1,21 @@
+{
+  "configuredImage": "../figures/active_skillference_cover.png",
+  "dashboardCategory": "cover",
+  "imageMetrics": {
+    "bytes": 593538,
+    "channels": 4,
+    "filename": "active_skillference_cover.png",
+    "height": 2880,
+    "maxValue": 1.0,
+    "minValue": 0.066667,
+    "stddev": 0.153069,
+    "width": 2880
+  },
+  "issues": [],
+  "resolvedPath": "output/figures/active_skillference_cover.png",
+  "summary": {
+    "issues": 0,
+    "missingDashboardArtifact": false,
+    "registeredAsFigure": false
+  }
+}

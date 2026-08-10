@@ -1,0 +1,6 @@
+\frametitle{Disposable generated artifacts and output inventory}
+\breaktt{output/data/skilltree\_project.json}, the import-ready SkillTree
+project. \breaktt{scripts/z\_generate\_manuscript\_variables.py} is the
+parent-template render hook: it runs the kernel/provenance gate and
+writes resolved manuscript copies under \breaktt{output/manuscript/}
+before PDF, HTML, slide, DOCX, or EPUB rendering.

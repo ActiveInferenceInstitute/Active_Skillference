@@ -1,0 +1,77 @@
+\frametitle{SkillTree export, learner-surface handoff, and generated front matter}
+\begin{figure}
+\centering
+\includegraphics[width=1\linewidth,height=0.40\textheight,keepaspectratio,alt={Learner dashboard landing view captured from the running local stack. The metric row reports exported skills, subjects, quizzes, maximum prerequisite depth, registered claims, and artifact presence, while the dependency metric shows live SkillTree parity against the export rather than the exported count alone. The evidence list below restates those machine-checked conditions in words: export counts, live graph parity, local auth readiness, course-material coverage, and figure-contract completeness are surfaced together on one page instead of being scattered across separate reports. The list continues past the fold; the frame shows the first ten of its rows. The artifact tally counts this evidence family among the tracked artifacts, so it is a completeness check on the roster rather than an independent audit of these images.}]{../figures/app_operational_snapshot.png}
+\caption{Learner dashboard landing view captured from the running local
+stack. The metric row reports exported skills, subjects, quizzes,
+maximum prerequisite depth, registered claims, and artifact presence,
+while the dependency metric shows live SkillTree parity against the
+export rather than the exported count alone. The evidence list below
+restates those machine-checked conditions in words: export counts, live
+graph parity, local auth readiness, course-material coverage, and
+figure-contract completeness are surfaced together on one page instead
+of being scattered across separate reports. The list continues past the
+fold; the frame shows the first ten of its rows. The artifact tally
+counts this evidence family among the tracked artifacts, so it is a
+completeness check on the roster rather than an independent audit of
+these images.}\label{fig:app_operational_snapshot}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\linewidth,height=0.40\textheight,keepaspectratio,alt={The Official Display tab captured while the embedded SkillTree learner client is mounted against the seeded project. The overview header, overall points, level and level progress rings, the achieved-skills bar reading zero of the full exported skill count, the personal rank card, and the point-history panel are all rendered by SkillTree's own client library inside the project dashboard, which is the demonstration that the export lands in the platform runtime rather than in a project reimplementation of it. Every progress value reads zero and the point-history panel shows its first-point empty state, because the capture uses a freshly seeded local identity that has completed nothing.}]{../figures/app_official_learner_view.png}
+\caption{The Official Display tab captured while the embedded SkillTree
+learner client is mounted against the seeded project. The overview
+header, overall points, level and level progress rings, the
+achieved-skills bar reading zero of the full exported skill count, the
+personal rank card, and the point-history panel are all rendered by
+SkillTree's own client library inside the project dashboard, which is
+the demonstration that the export lands in the platform runtime rather
+than in a project reimplementation of it. Every progress value reads
+zero and the point-history panel shows its first-point empty state,
+because the capture uses a freshly seeded local identity that has
+completed nothing.}\label{fig:app_official_learner_view}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\linewidth,height=0.40\textheight,keepaspectratio,alt={The Curriculum tab captured with the generated lesson record for the variational free energy skill opened through its Learn action. The panel shows the concept context, prerequisite position, downstream role, assessment summary, and the commit-pinned external source pointers generated for that skill, alongside the handoff buttons that return the learner to the official SkillTree subject and quiz routes. It is the delivery counterpart to the course-material provenance rule: local lessons link out to pinned upstream sources instead of copying them.}]{../figures/app_curriculum_learn_material.png}
+\caption{The Curriculum tab captured with the generated lesson record
+for the variational free energy skill opened through its Learn action.
+The panel shows the concept context, prerequisite position, downstream
+role, assessment summary, and the commit-pinned external source pointers
+generated for that skill, alongside the handoff buttons that return the
+learner to the official SkillTree subject and quiz routes. It is the
+delivery counterpart to the course-material provenance rule: local
+lessons link out to pinned upstream sources instead of copying
+them.}\label{fig:app_curriculum_learn_material}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\linewidth,height=0.40\textheight,keepaspectratio,alt={The accessible prerequisite-flow table in the Graph tab, scrolled past the subject lane canvas that sits above it in the same panel. Table and canvas are built from the same server-computed flow summaries, so the prerequisite structure reaches a keyboard or screen-reader user as captioned rows with real header cells rather than only as a drawing. Each row is one directed subject-to-subject relation: a prerequisite subject, the dependent subject that requires it, and how many skill dependencies run between them, ordered by weight.}]{../figures/app_dependency_graph.png}
+\caption{The accessible prerequisite-flow table in the Graph tab,
+scrolled past the subject lane canvas that sits above it in the same
+panel. Table and canvas are built from the same server-computed flow
+summaries, so the prerequisite structure reaches a keyboard or
+screen-reader user as captioned rows with real header cells rather than
+only as a drawing. Each row is one directed subject-to-subject relation:
+a prerequisite subject, the dependent subject that requires it, and how
+many skill dependencies run between them, ordered by
+weight.}\label{fig:app_dependency_graph}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\linewidth,height=0.40\textheight,keepaspectratio,alt={The browser-visible runtime payload in the Runtime tab, scrolled past the deployment-mode matrix to the local development block. The default password field is an empty string and its availability flag is false, so the page reports the local username and the recovery commands while withholding the credential itself; no client secret and no bearer token appear anywhere in the payload. The same view carries the SkillTree reachability block and the live dependency parity block reporting complete parity with no missing or extra edges, which is the auth-boundary evidence in the form the browser actually receives it.}]{../figures/app_runtime_deployment_matrix.png}
+\caption{The browser-visible runtime payload in the Runtime tab,
+scrolled past the deployment-mode matrix to the local development block.
+The default password field is an empty string and its availability flag
+is false, so the page reports the local username and the recovery
+commands while withholding the credential itself; no client secret and
+no bearer token appear anywhere in the payload. The same view carries
+the SkillTree reachability block and the live dependency parity block
+reporting complete parity with no missing or extra edges, which is the
+auth-boundary evidence in the form the browser actually receives
+it.}\label{fig:app_runtime_deployment_matrix}
+\end{figure}

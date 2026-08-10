@@ -1,0 +1,145 @@
+{
+  "algorithm": "web-renderer-combine-v1",
+  "binding_sha256": "7c2859cf94280d98c0965e829c235f54d4075862b5116a3b44aca2e5933812a2",
+  "combined_path": "output/web/_combined_manuscript.md",
+  "combined_sha256": "67bc671de4aa24be1aea8f50690aded7d87234ce6a469962ac82937bd6694bbb",
+  "combined_size_bytes": 153184,
+  "input_root_kind": "hydrated",
+  "ordered_inputs": [
+    {
+      "ordinal": 1,
+      "path": "output/manuscript/00_abstract.md",
+      "sha256": "542e29c17e2cafcfb9eb795bee1cd5ee3cc220ecf5ebca14f2c05afc13f2f453",
+      "size_bytes": 2563
+    },
+    {
+      "ordinal": 2,
+      "path": "output/manuscript/01_introduction.md",
+      "sha256": "e58d9322644e4d14af4fb682a030c16f0d1725699064d615fa46a803308d569d",
+      "size_bytes": 14293
+    },
+    {
+      "ordinal": 3,
+      "path": "output/manuscript/02_methodology.md",
+      "sha256": "3dee7184b6e88134d523bad132fde45a74d4d906c9a2ea398d9a4a225189e0f9",
+      "size_bytes": 1513
+    },
+    {
+      "ordinal": 4,
+      "path": "output/manuscript/02a_methodology_kernels_statistics_and_provenance.md",
+      "sha256": "9234f871be1650e3540be82a23ebcaf29649dec450a0af169d8a342d56dc80e3",
+      "size_bytes": 8853
+    },
+    {
+      "ordinal": 5,
+      "path": "output/manuscript/02b_methodology_scholarship_curriculum_and_strata.md",
+      "sha256": "c382fa44b0431a01d242518190af7cd49e616a36ed3011a44309be06514f203a",
+      "size_bytes": 8195
+    },
+    {
+      "ordinal": 6,
+      "path": "output/manuscript/02c_methodology_skilltree_dashboard_and_publication_surfaces.md",
+      "sha256": "d8181aa598ee31eae93fee7c4176563c8370aac74ee93df44bb743e7780b9eff",
+      "size_bytes": 3484
+    },
+    {
+      "ordinal": 7,
+      "path": "output/manuscript/03_results.md",
+      "sha256": "3da564cf0c89c795a67ce36c78b3efe4915545e2943381a8c832872369eba37d",
+      "size_bytes": 380
+    },
+    {
+      "ordinal": 8,
+      "path": "output/manuscript/03a_results_curriculum_graph_and_assessment_quality.md",
+      "sha256": "21279613664e5e62fae93cad85284de0043dff9c3477b74c02cf6e398a96a3de",
+      "size_bytes": 11564
+    },
+    {
+      "ordinal": 9,
+      "path": "output/manuscript/03b_results_scholarship_source_health_and_evidence_audits.md",
+      "sha256": "dd8e97dde6f309adb182dacd705f34d774272b164d8d74c1cb6bf8a35cd8747a",
+      "size_bytes": 9949
+    },
+    {
+      "ordinal": 10,
+      "path": "output/manuscript/03c_results_kernel_examples.md",
+      "sha256": "9b9aa7d3f19831681bd469de4c41ba80826f434d9cfb582b10ccdbdf6a33708d",
+      "size_bytes": 1114
+    },
+    {
+      "ordinal": 11,
+      "path": "output/manuscript/03d_results_skilltree_dashboard_and_front_matter_delivery.md",
+      "sha256": "f8fcf2e69ab76752505ebbe460b5e36848d8561893e1cf5fd68f2c7bf37beca2",
+      "size_bytes": 8116
+    },
+    {
+      "ordinal": 12,
+      "path": "output/manuscript/04_conclusion.md",
+      "sha256": "4df7c1dfead16d0717148449f3efb0295cac7e8fd3504450b582ce5d3074f952",
+      "size_bytes": 7193
+    },
+    {
+      "ordinal": 13,
+      "path": "output/manuscript/05_experimental_setup.md",
+      "sha256": "0959d6b8b7b8d72d6bccf1dcd8f622580254fe830577bb11ca6735f9d2bc0290",
+      "size_bytes": 10439
+    },
+    {
+      "ordinal": 14,
+      "path": "output/manuscript/06_reproducibility.md",
+      "sha256": "cae70e132639d51bf7107cdb1deb238dfa8d2783693dedadc5c2a239aa650e09",
+      "size_bytes": 12260
+    },
+    {
+      "ordinal": 15,
+      "path": "output/manuscript/07_scope_and_related_work.md",
+      "sha256": "08abd2960e30c8831b802b62a295b91315621623de1f21e3c4ae1a3a5f3344eb",
+      "size_bytes": 270
+    },
+    {
+      "ordinal": 16,
+      "path": "output/manuscript/07a_scope_platform_and_curriculum_boundaries.md",
+      "sha256": "e1dc9789990e30ee8fad7804a6d0919d752119078b92d41ab8a26b30f87b9be5",
+      "size_bytes": 1958
+    },
+    {
+      "ordinal": 17,
+      "path": "output/manuscript/07b_related_work_active_inference_and_information_sources.md",
+      "sha256": "ca4554f7b1c31b4e1146556ce89eadb778fb96acdb08ec4fc8b792bda87bbaa2",
+      "size_bytes": 13389
+    },
+    {
+      "ordinal": 18,
+      "path": "output/manuscript/07c_related_work_skilltree_security_reporting_and_open_science.md",
+      "sha256": "2cf110b477ae757e184e13271db01f1c21879647ff41dd14df49f81bc57978e8",
+      "size_bytes": 8540
+    },
+    {
+      "ordinal": 19,
+      "path": "output/manuscript/07d_limitations_delivery_dependencies_and_learner_outcomes.md",
+      "sha256": "5c6be8df104fef344930938908179bddc5c3b253b9396118556bea643916507c",
+      "size_bytes": 3456
+    },
+    {
+      "ordinal": 20,
+      "path": "output/manuscript/08_supplement_variational_free_energy.md",
+      "sha256": "324cb78551cc1f09f35116789fe1dfeb62548b27ce93acf9d0024742504fbbd2",
+      "size_bytes": 22160
+    },
+    {
+      "ordinal": 21,
+      "path": "output/manuscript/09_code_and_data_availability.md",
+      "sha256": "0bb84a8ec4783d8c804cb869a474795eea3e8c8ab9ca8f1479692003d8961614",
+      "size_bytes": 2868
+    },
+    {
+      "ordinal": 22,
+      "path": "output/manuscript/99_references.md",
+      "sha256": "d1adba752c5f3a9507a20d61cb8fc6a438f81eb2d6fa1b271a96e22534c153f7",
+      "size_bytes": 611
+    }
+  ],
+  "ordered_inputs_sha256": "7384628c40eb38257c0ec32264b438af7c691a96183d7877a58f44060f6f31d5",
+  "project": "Active_Skillference",
+  "schema_version": "template-manuscript-composition-v1"
+}

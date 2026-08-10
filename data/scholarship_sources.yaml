@@ -1,0 +1,943 @@
+# Static source-role matrix for manuscript scholarship coverage.
+# Generated outputs from this input live under output/data/ and output/figures/.
+sources:
+  - key: helmholtz1867handbuch
+    lane: perception_as_inference
+    kind: historical
+    locator: book:Voss-1867
+    role: Historical source for perception as unconscious inference.
+  - key: aristotle_posterior_analytics
+    lane: mathematical_foundations
+    kind: historical
+    locator: url:https://oll.libertyfund.org/titles/bouchier-posterior-analytics
+    role: Historical inference and graph prerequisite source for scientific explanation and mathematical foundations.
+  - key: alhazen1989optics_direct_vision
+    lane: perception_as_inference
+    kind: historical
+    locator: url:https://commons.warburg.sas.ac.uk/concern/published_works/r494vk17h?locale=en
+    role: Medieval optical source for visual perception, sensory evidence, and experimentally constrained observation; not a predictive-coding or Bayesian-neuroscience source.
+  - key: quintilian95institutio_oratoria
+    lane: pedagogy_and_learning_paths
+    kind: historical
+    locator: url:https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Quintilian/Institutio_Oratoria/home.html
+    role: Ancient education source for ordered instruction, practice, revision, and teacher--student progression; not evidence for modern adaptive tutoring.
+  - key: bacon1620novum_organum
+    lane: pedagogy_and_learning_paths
+    kind: historical
+    locator: url:https://oll.libertyfund.org/titles/bacon-novum-organum
+    role: Historical learning and curriculum source for staged experimental method, practice, and reasoning.
+  - key: descartes1628rules_direction_mind
+    lane: mathematical_foundations
+    kind: historical
+    locator: url:https://en.wikisource.org/wiki/Rules_for_the_Direction_of_the_Mind
+    role: Early-modern reasoning source for ordered inference, probabilistic conjecture, and mathematical deduction; it does not supply a modern Bayesian formulation.
+  - key: huygens1657ratiociniis
+    lane: mathematical_foundations
+    kind: historical
+    locator: url:https://math.dartmouth.edu/~doyle/docs/huygens/huygens/
+    role: Early probability source for expectation and chance calculation; not a complete Bayesian or Active-Inference formulation.
+  - key: bernoulli1713ars_conjectandi
+    lane: mathematical_foundations
+    kind: historical
+    locator: url:https://library.si.edu/digital-library/book/jacobibernoulli00bern
+    role: Historical probability and probabilistic inference source for repeated-observation calibration in mathematical foundations.
+  - key: demoivre1718doctrine_chances
+    lane: mathematical_foundations
+    kind: historical
+    locator: url:https://archive.org/details/bim_eighteenth-century_the-doctrine-of-chances_moivre-abraham-de_1718
+    role: Historical probability textbook source for probabilistic calculation and sequenced mathematical inference instruction.
+  - key: bayes1763doctrine_chances
+    lane: mathematical_foundations
+    kind: historical
+    locator: url:https://archive.org/details/philtrans09948070
+    role: Historical Bayesian inference and probability source for inverse reasoning about hidden causes.
+  - key: laplace1774inverse_probability
+    lane: mathematical_foundations
+    kind: historical
+    locator: url:https://www.york.ac.uk/depts/maths/histstat/memoir1774.pdf
+    role: Historical Bayesian inverse-probability source for probabilistic inference and hidden-cause calculation boundaries.
+  - key: berkeley1709new_theory_vision
+    lane: perception_as_inference
+    kind: historical
+    locator: url:https://www.gutenberg.org/files/4722/4722-h/4722-h.htm
+    role: Historical perception and inference source for learned visual recognition and generative cue interpretation.
+  - key: hume1739treatise
+    lane: perception_as_inference
+    kind: historical
+    locator: url:https://www.gutenberg.org/files/4705/4705-h/4705-h.htm
+    role: Historical perception and predictive association source for impressions, ideas, and cause-effect learning.
+  - key: hume1748enquiry
+    lane: pedagogy_and_learning_paths
+    kind: historical
+    locator: url:https://fitelson.org/confirmation/hume_enquiry.pdf
+    role: Historical learning and reasoning source for habit, practice, and experience-guided inference.
+  - key: condillac1754sensations
+    lane: perception_as_inference
+    kind: historical
+    locator: url:https://classiques.uqam.ca/classiques/condillac_etienne_bonnot_de/traite_des_sensations/traite_des_sensations_dessein.html
+    role: Historical perception and generative learning source for learned sensation and constructive recognition.
+  - key: hartley1749observations
+    lane: pedagogy_and_learning_paths
+    kind: historical
+    locator: url:https://archive.org/details/observationsonma01hart
+    role: Historical associationist learning source for cognitive habit, education, and motivation.
+  - key: locke1690essay
+    lane: pedagogy_and_learning_paths
+    kind: historical
+    locator: url:https://www.earlymoderntexts.com/assets/pdfs/locke1690book2.pdf
+    role: Historical learning source for simple ideas, cognitive knowledge units, and curriculum decomposition.
+  - key: locke1693education
+    lane: pedagogy_and_learning_paths
+    kind: historical
+    locator: url:https://oll.libertyfund.org/titles/locke-the-works-vol-8-some-thoughts-concerning-education-posthumous-works-familiar-letters
+    role: Historical education source for habit, motivation, practice, and learner-sensitive curriculum design.
+  - key: comenius1657great_didactic
+    lane: pedagogy_and_learning_paths
+    kind: historical
+    locator: url:https://archive.org/details/cu31924031053709
+    role: Historical curriculum and mastery source for ordered learning, prerequisite progression, and pedagogy.
+  - key: kant1781critique_pure_reason
+    lane: perception_as_inference
+    kind: historical
+    locator: url:https://www.gutenberg.org/ebooks/4280
+    role: Historical perception and inference source for structured cognition, recognition, and Bayesian boundary context.
+  - key: newton1704opticks
+    lane: perception_as_inference
+    kind: historical
+    locator: url:https://www.newtonproject.ox.ac.uk/view/texts/normalized/NATP00034
+    role: Early-modern optical source for perception, inference, controlled experiments, observation, and mathematical analysis of sensory phenomena; not neuroscience evidence.
+  - key: rousseau1762emile
+    lane: pedagogy_and_learning_paths
+    kind: historical
+    locator: url:https://www.gutenberg.org/ebooks/30433
+    role: Eighteenth-century education source for staged development and progression; not evidence for adaptive learner modeling or efficacy.
+  - key: knill2004bayesian
+    lane: perception_as_inference
+    kind: review
+    locator: doi:10.1016/j.tins.2004.10.007
+    role: Modern Bayesian-brain uncertainty framing for perception.
+  - key: bogacz2017tutorial
+    lane: perception_as_inference
+    kind: tutorial
+    locator: doi:10.1016/j.jmp.2015.11.003
+    role: Pedagogical free-energy tutorial linking prediction error and inference.
+  - key: friston2006free
+    lane: active_inference_core
+    kind: primary
+    locator: doi:10.1016/j.jphysparis.2006.10.001
+    role: Early free-energy principle formulation for brain function.
+  - key: friston2010free
+    lane: active_inference_core
+    kind: review
+    locator: doi:10.1038/nrn2787
+    role: Review-level statement of the free-energy principle.
+  - key: friston2023simpler
+    lane: active_inference_core
+    kind: review
+    locator: doi:10.1016/j.physrep.2023.07.001
+    role: Recent Physics Reports overview clarifying Free Energy Principle scope and oversimplification boundaries.
+  - key: friston2013life
+    lane: applications_and_scope
+    kind: primary
+    locator: doi:10.1098/rsif.2013.0475
+    role: Biological self-organisation scope for free-energy accounts.
+  - key: friston2015epistemic
+    lane: active_inference_core
+    kind: primary
+    locator: doi:10.1080/17588928.2015.1020053
+    role: Epistemic value account used for policy-selection examples.
+  - key: friston2017process
+    lane: active_inference_core
+    kind: primary
+    locator: doi:10.1162/NECO_a_00912
+    role: Process theory grounding active-inference policy selection.
+  - key: friston2017curiosity
+    lane: active_inference_core
+    kind: primary
+    locator: doi:10.1162/neco_a_00999
+    role: Curiosity and insight account for epistemic action.
+  - key: friston2017graphical
+    lane: active_inference_core
+    kind: primary
+    locator: doi:10.1162/NETN_a_00018
+    role: Graphical-model message-passing account for active inference.
+  - key: friston2007variational
+    lane: applications_and_scope
+    kind: methods
+    locator: doi:10.1016/j.neuroimage.2006.08.035
+    role: Laplace-approximation treatment for variational free energy.
+  - key: friston2008dem
+    lane: applications_and_scope
+    kind: methods
+    locator: doi:10.1016/j.neuroimage.2008.02.054
+    role: Dynamic expectation maximisation scope beyond this release.
+  - key: friston2008hierarchical
+    lane: applications_and_scope
+    kind: primary
+    locator: doi:10.1371/journal.pcbi.1000211
+    role: Hierarchical predictive-coding background for future kernels.
+  - key: friston2019particular
+    lane: applications_and_scope
+    kind: primary
+    locator: doi:10.48550/arXiv.1906.10184
+    role: Particular-physics framing for broader FEP applications.
+  - key: dacosta2020synthesis
+    lane: active_inference_core
+    kind: review
+    locator: doi:10.1016/j.jmp.2020.102447
+    role: Discrete state-space synthesis directly matching the kernels.
+  - key: pezzulo2024sentient_behavior
+    lane: active_inference_core
+    kind: review
+    locator: doi:10.1016/j.biopsycho.2023.108741
+    role: Active Inference review framing sentient behavior through internal models, perception, and action.
+  - key: dipaolo2024school
+    lane: pedagogy_and_learning_paths
+    kind: review
+    locator: url:https://pubmed.ncbi.nlm.nih.gov/39155715/
+    role: Active Inference education source for active-learning curriculum and prepared learning environments.
+  - key: anokhin2024associative_active_inference
+    lane: active_inference_core
+    kind: primary
+    locator: doi:10.1162/neco_a_01711
+    role: Active Inference associative learning source for attention, prediction-error, surprise, and learning-mechanism boundaries.
+  - key: parr2019generalised
+    lane: active_inference_core
+    kind: primary
+    locator: doi:10.1007/s00422-019-00805-w
+    role: Generalised free-energy extension marking release boundaries.
+  - key: parr2022active
+    lane: active_inference_core
+    kind: textbook
+    locator: doi:10.7551/mitpress/12441.001.0001
+    role: Textbook source for Active Inference terminology.
+  - key: friston2018bayesian_model_reduction
+    lane: active_inference_core
+    kind: primary
+    locator: doi:10.48550/arXiv.1805.07092
+    role: Bayesian model reduction source for active-inference model evidence, pruning, and model-learning boundaries.
+  - key: tschantz2020learning
+    lane: active_inference_core
+    kind: primary
+    locator: doi:10.1371/journal.pcbi.1007805
+    role: Action-oriented model-learning scope for future curriculum growth.
+  - key: smith2022tutorial
+    lane: active_inference_core
+    kind: tutorial
+    locator: doi:10.1016/j.jmp.2021.102632
+    role: Step-by-step active-inference tutorial comparison point for pedagogical sequence design.
+  - key: heins2022pymdp
+    lane: active_inference_core
+    kind: software
+    locator: doi:10.21105/joss.04098
+    role: Production discrete-state software baseline outside this platform.
+  - key: vanoostrum2025concise
+    lane: active_inference_core
+    kind: tutorial
+    locator: doi:10.1016/j.jmp.2025.102921
+    role: Discrete-time Active Inference tutorial and code comparison aligned with pymdp software.
+  - key: buckley2017free
+    lane: active_inference_core
+    kind: review
+    locator: doi:10.1016/j.jmp.2017.09.004
+    role: Mathematical review anchoring action and perception claims.
+  - key: millidge2021whence
+    lane: active_inference_core
+    kind: methods
+    locator: doi:10.1162/neco_a_01354
+    role: Expected-free-energy derivation and decomposition reference for policy-selection lessons.
+  - key: champion2026reframing
+    lane: active_inference_core
+    kind: methods
+    locator: doi:10.1162/NECO.a.1491
+    role: Expected-free-energy formulation unification source for preference and scope-boundary discussion.
+  - key: nuijten2026what_type_inference
+    lane: active_inference_core
+    kind: methods
+    locator: doi:10.48550/arXiv.2606.04935
+    role: Active-inference formulation source for expected-free-energy, variational-free-energy, entropy-correction, and planning-boundary discussion.
+  - key: nuijten2026efe_planning_vi
+    lane: active_inference_core
+    kind: methods
+    locator: doi:10.48550/arXiv.2606.20658
+    role: Variational-inference formulation of expected-free-energy planning with epistemic priors for policy-selection and scalability boundaries.
+  - key: nuijten2025message_passing_efe
+    lane: active_inference_core
+    kind: methods
+    locator: doi:10.1007/978-3-032-16955-6_5
+    role: Factor-graph message-passing source for expected-free-energy minimization, variational inference, and policy planning.
+  - key: sajid2021demystified
+    lane: active_inference_core
+    kind: review
+    locator: doi:10.1162/neco_a_01357
+    role: Comparative demystification of active-inference formulations for scope boundaries.
+  - key: sprevak2023predictive
+    lane: perception_as_inference
+    kind: tutorial
+    locator: doi:10.1111/tops.12704
+    role: Recent predictive-processing introduction distinguishing predictive coding and active inference for reader orientation.
+  - key: zhang2024overview
+    lane: active_inference_core
+    kind: review
+    locator: doi:10.1162/neco_a_01642
+    role: Recent broad review used to update current FEP and Active Inference context.
+  - key: aguilera2022particular
+    lane: applications_and_scope
+    kind: review
+    locator: doi:10.1016/j.plrev.2021.11.001
+    role: Technical critique constraining generality claims about Markov blankets and FEP physics.
+  - key: aguilera2023confederation
+    lane: applications_and_scope
+    kind: review
+    locator: doi:10.1016/j.plrev.2023.01.018
+    role: Follow-on Bayesian mechanics framing for scoped interpretations after technical critique.
+  - key: hodson2024empirical
+    lane: applications_and_scope
+    kind: review
+    locator: doi:10.1016/j.neubiorev.2023.105473
+    role: Recent empirical-status review grounding limits on predictive-coding and active-inference evidence claims.
+  - key: badcock2024psychology_psychiatry
+    lane: applications_and_scope
+    kind: review
+    locator: doi:10.3390/e26100833
+    role: Psychology and psychiatry review for empirical evidence, validation, application, and scope boundaries.
+  - key: cover2006elements
+    lane: mathematical_foundations
+    kind: textbook
+    locator: doi:10.1002/047174882X
+    role: Standard entropy and information-theory foundation for kernel definitions.
+  - key: shannon1948mathematical
+    lane: mathematical_foundations
+    kind: primary
+    locator: url:https://people.math.harvard.edu/~ctm/home/text/others/shannon/entropy/entropy.pdf
+    role: Original entropy and information-theory foundation for kernel definitions.
+  - key: bishop2006pattern
+    lane: mathematical_foundations
+    kind: textbook
+    locator: isbn:978-0-387-31073-2
+    role: Pattern-recognition foundation for probabilistic inference and variational examples.
+  - key: pearl1988probabilistic_reasoning
+    lane: mathematical_foundations
+    kind: textbook
+    locator: isbn:978-0-934613-73-6
+    role: Graphical probabilistic inference source for exact belief propagation on tree and DAG models.
+  - key: jordan1999variational
+    lane: mathematical_foundations
+    kind: review
+    locator: doi:10.1023/A:1007665907178
+    role: Variational-methods background for graphical models and approximation choices.
+  - key: kschischang2001factor_graphs
+    lane: mathematical_foundations
+    kind: primary
+    locator: doi:10.1109/18.910572
+    role: Factor-graph and sum-product message-passing source for exact inference on tree-structured graphs.
+  - key: winn2005variational
+    lane: mathematical_foundations
+    kind: methods
+    locator: url:https://www.jmlr.org/papers/v6/winn05a.html
+    role: Variational message-passing reference for graph curricula.
+  - key: beal2003variational
+    lane: mathematical_foundations
+    kind: methods
+    locator: book:UCL-PhD-2003
+    role: Variational Bayesian inference foundation for distribution utilities.
+  - key: kalman1960linear_filtering
+    lane: mathematical_foundations
+    kind: primary
+    locator: doi:10.1115/1.3662552
+    role: Foundational linear filtering and state-space inference source for analytic linear-Gaussian posterior examples.
+  - key: kataoka2026extended_predictive_coding
+    lane: perception_as_inference
+    kind: methods
+    locator: doi:10.48550/arXiv.2605.30882
+    role: Predictive-coding source for perceptual inference scope under exponential-family assumptions.
+  - key: blei2017variational
+    lane: mathematical_foundations
+    kind: review
+    locator: doi:10.1080/01621459.2017.1285773
+    role: Statistical variational-inference review for ELBO framing.
+  - key: rao1999predictive
+    lane: applications_and_scope
+    kind: primary
+    locator: doi:10.1038/4580
+    role: Predictive-coding exemplar for visual neuroscience applications.
+  - key: clark2016surfing
+    lane: applications_and_scope
+    kind: textbook
+    locator: isbn:978-0-19-021701-3
+    role: Embodied predictive-processing context for applications and scope framing.
+  - key: ramstead2018answering
+    lane: applications_and_scope
+    kind: review
+    locator: doi:10.1016/j.plrev.2017.09.001
+    role: Biological and organizational free-energy scope framing.
+  - key: isomura2023experimental
+    lane: applications_and_scope
+    kind: primary
+    locator: doi:10.1038/s41467-023-40141-z
+    role: Experimental validation example for FEP scope.
+  - key: skilltree2020nsa
+    lane: delivery_and_reporting
+    kind: documentation
+    locator: url:https://www.nsa.gov/Press-Room/Press-Releases-Statements/Press-Release-View/article/2380858/
+    role: National Security Agency press release establishing SkillTree as an internally developed open-source training platform.
+  - key: skilltree2026docs
+    lane: delivery_and_reporting
+    kind: documentation
+    locator: url:https://skilltreeplatform.dev/overview/
+    role: Current SkillTree model, learner-display, dashboard and integration documentation for the delivery substrate.
+  - key: skilltree2026github
+    lane: delivery_and_reporting
+    kind: software
+    locator: url:https://github.com/NationalSecurityAgency/skills-service
+    role: National Security Agency skills-service source repository that distinguishes SkillTree platform behavior from this curriculum.
+  - key: nsa2026opensource
+    lane: delivery_and_reporting
+    kind: documentation
+    locator: url:https://code.nsa.gov/
+    role: NSA open-source portal context for public NSA-developed software including SkillTree.
+  - key: nist2020zerotrust
+    lane: delivery_and_reporting
+    kind: documentation
+    locator: url:https://csrc.nist.gov/publications/detail/sp/800-207/final
+    role: Zero Trust Architecture reference for bounded deployment and access-control posture discussion.
+  - key: slsa2026framework
+    lane: delivery_and_reporting
+    kind: documentation
+    locator: url:https://slsa.dev/
+    role: Software supply-chain provenance framework for release integrity and build-attestation context.
+  - key: sigstore2026overview
+    lane: delivery_and_reporting
+    kind: documentation
+    locator: url:https://docs.sigstore.dev/about/overview/
+    role: Artifact-signing and transparency-log guidance for software supply-chain integrity discussion.
+  - key: cisa2026sbom
+    lane: delivery_and_reporting
+    kind: documentation
+    locator: url:https://www.cisa.gov/topics/information-communications-technology-supply-chain-security/sbom
+    role: Software Bill of Materials guidance for dependency transparency and supply-chain visibility.
+  - key: mitre2026attack
+    lane: delivery_and_reporting
+    kind: documentation
+    locator: url:https://attack.mitre.org/
+    role: Adversary tactics and techniques knowledge base for APT-aware misuse and threat-model boundaries.
+  - key: bloom1956taxonomy
+    lane: pedagogy_and_learning_paths
+    kind: textbook
+    locator: book:Longmans-1956
+    role: Learning-objectives taxonomy backing prerequisite framing and assessment design.
+  - key: bloom1968learning_for_mastery
+    lane: pedagogy_and_learning_paths
+    kind: primary
+    locator: url:https://eric.ed.gov/?id=ED053419
+    role: Mastery-learning source for prerequisite checkpoints and quiz-gated curriculum progression.
+  - key: cosmides1996intuitive
+    lane: pedagogy_and_learning_paths
+    kind: primary
+    locator: doi:10.1016/0010-0277(95)00664-8
+    role: Base-rate reasoning context for Bayesian examples.
+  - key: gigerenzer1995bayesian
+    lane: pedagogy_and_learning_paths
+    kind: primary
+    locator: doi:10.1037/0033-295X.102.4.684
+    role: Bayesian frequency-format reasoning source for base-rate learning examples.
+  - key: dicheva2015gamification
+    lane: pedagogy_and_learning_paths
+    kind: review
+    locator: jstor:https://www.jstor.org/stable/jeductechsoci.18.3.75
+    role: Gamification-in-education scope for SkillTree delivery and learner motivation.
+  - key: burau2022deciduous
+    lane: pedagogy_and_learning_paths
+    kind: primary
+    locator: url:https://digitalcommons.liberty.edu/masters/854/
+    role: SkillTree learning and gamification context for visual prerequisite maps.
+  - key: septiani2021gamified_microlearning
+    lane: pedagogy_and_learning_paths
+    kind: review
+    locator: url:https://www.gbl.uzh.ch/quartz/references/Putri-Septiani-and-Rosmansyah-%282021%29
+    role: Gamified microlearning review for education and learner motivation context.
+  - key: monib2024microlearning_boundaries
+    lane: pedagogy_and_learning_paths
+    kind: review
+    locator: doi:10.1016/j.heliyon.2024.e41413
+    role: Systematic microlearning review for curriculum learning design, learner engagement, and outcome boundaries.
+  - key: rof2024microlearning_satisfaction
+    lane: pedagogy_and_learning_paths
+    kind: primary
+    locator: doi:10.1016/j.iheduc.2024.100952
+    role: Microlearning study for learner satisfaction, effectiveness, learning outcome, and design-context boundaries.
+  - key: liang2018prerequisite
+    lane: pedagogy_and_learning_paths
+    kind: methods
+    locator: doi:10.1609/aaai.v32i1.11396
+    role: Concept prerequisite learning background for graph ordering.
+  - key: freeman2014activelearning
+    lane: pedagogy_and_learning_paths
+    kind: review
+    locator: doi:10.1073/pnas.1319030111
+    role: Active-learning evidence boundary for pedagogy and learner-outcome claims.
+  - key: chi2014icap
+    lane: pedagogy_and_learning_paths
+    kind: review
+    locator: doi:10.1080/00461520.2014.965823
+    role: Cognitive engagement taxonomy for active learning and assessment design.
+  - key: roediger2006testenhanced
+    lane: pedagogy_and_learning_paths
+    kind: primary
+    locator: doi:10.1111/j.1467-9280.2006.01693.x
+    role: Retrieval-practice evidence for retention and transfer assessment boundaries.
+  - key: mislevy2003ecd
+    lane: pedagogy_and_learning_paths
+    kind: methods
+    locator: doi:10.1002/j.2333-8504.2003.tb01908.x
+    role: Evidence-centered assessment design source for learner objective and task alignment.
+  - key: doignon1985knowledge_spaces
+    lane: pedagogy_and_learning_paths
+    kind: primary
+    locator: doi:10.1016/S0020-7373(85)80031-6
+    role: Knowledge-space assessment source for prerequisite learning and mastery-state modeling.
+  - key: falmagne2011learning_spaces
+    lane: pedagogy_and_learning_paths
+    kind: textbook
+    locator: doi:10.1007/978-3-642-01039-2
+    role: Learning-space textbook for prerequisite learning paths and knowledge-state assessment.
+  - key: biggs1996constructive_alignment
+    lane: pedagogy_and_learning_paths
+    kind: primary
+    locator: doi:10.1007/BF00138871
+    role: Constructive alignment source for learning objectives, activities, and assessment gates.
+  - key: black1998assessment
+    lane: pedagogy_and_learning_paths
+    kind: review
+    locator: doi:10.1080/0969595980050102
+    role: Formative assessment review for feedback-driven learning and mastery checkpoints.
+  - key: shute2008formative_feedback
+    lane: pedagogy_and_learning_paths
+    kind: review
+    locator: doi:10.3102/0034654307313795
+    role: Formative feedback review for specific learner guidance and quiz-gate interpretation.
+  - key: emin2026epistemic_curiosity_mind_wandering
+    lane: pedagogy_and_learning_paths
+    kind: primary
+    locator: doi:10.1016/j.learninstruc.2026.102336
+    role: Epistemic curiosity study for learner engagement, mind wandering, performance, and outcome boundaries.
+  - key: designbasedresearchcollective2003
+    lane: pedagogy_and_learning_paths
+    kind: methods
+    locator: doi:10.3102/0013189X032001005
+    role: Design-based education evaluation method for iterative learning-environment pilots.
+  - key: barab2004design_based
+    lane: pedagogy_and_learning_paths
+    kind: methods
+    locator: doi:10.1207/s15327809jls1301_1
+    role: Design-based evaluation source for studying learning systems in context.
+  - key: hernandezcampos2025_learning_analytics_outcomes
+    lane: pedagogy_and_learning_paths
+    kind: review
+    locator: doi:10.1177/21582440251347374
+    role: Learning analytics review for learner outcome evaluation, assessment design, and instrumentation boundaries.
+  - key: liu2025learning_analytics_intervention_meta
+    lane: pedagogy_and_learning_paths
+    kind: review
+    locator: doi:10.1177/21582440251336707
+    role: Learning analytics intervention meta-analysis for learner outcome evaluation, intervention evidence, and assessment boundaries.
+  - key: liu2023_learning_analytics_privacy
+    lane: pedagogy_and_learning_paths
+    kind: review
+    locator: doi:10.1111/bjet.13388
+    role: Learning analytics privacy review for learner data, assessment exports, and evaluation boundaries.
+  - key: sclater2015learning_analytics_code
+    lane: pedagogy_and_learning_paths
+    kind: documentation
+    locator: url:https://www.jisc.ac.uk/guides/code-of-practice-for-learning-analytics
+    role: Learning analytics responsibility source for learning transparency, learner consent, privacy, retention, validity, and intervention boundaries.
+  - key: eldridge2016consort_pilot
+    lane: pedagogy_and_learning_paths
+    kind: methods
+    locator: doi:10.1186/s40814-016-0079-6
+    role: Pilot and feasibility reporting source for education evaluation, assessment, and distinction from definitive learner outcomes.
+  - key: hoffmann2014tidier
+    lane: pedagogy_and_learning_paths
+    kind: methods
+    locator: doi:10.1136/bmj.g1687
+    role: Educational learning and assessment source for specifying delivery, evaluation, and replication details.
+  - key: piech2015deep_knowledge_tracing
+    lane: pedagogy_and_learning_paths
+    kind: primary
+    locator: url:https://proceedings.neurips.cc/paper_files/paper/2015/file/bac9162b47c56fc8a4d2a519803d51b3-Paper.pdf
+    role: Knowledge tracing source for learner modelling, curriculum recommendation comparisons, and learning scope boundaries.
+  - key: tao2024q_matrix_constraint
+    lane: pedagogy_and_learning_paths
+    kind: primary
+    locator: doi:10.3758/s13428-024-02404-5
+    role: Cognitive-diagnosis source for Q-matrix assessment, skill-level inference, personalized learning claims, and model-dependent boundaries.
+  - key: xie2015knitr
+    lane: delivery_and_reporting
+    kind: methods
+    locator: isbn:978-1-4987-1696-3
+    role: Literate reporting comparison for executable prose.
+  - key: knuth1984literate
+    lane: delivery_and_reporting
+    kind: methods
+    locator: url:https://www-cs-faculty.stanford.edu/~knuth/lp.html
+    role: Literate programming source for executable reporting and code-prose integrity.
+  - key: peng2011reproducible
+    lane: delivery_and_reporting
+    kind: methods
+    locator: url:https://pubmed.ncbi.nlm.nih.gov/22144613/
+    role: Reproducible computational reporting source for rerunnable claim provenance.
+  - key: groth2013prov_overview
+    lane: delivery_and_reporting
+    kind: documentation
+    locator: url:https://www.w3.org/TR/prov-overview/
+    role: W3C provenance overview for reporting entities, activities, agents, and trust boundaries.
+  - key: moreau2013prov_dm
+    lane: delivery_and_reporting
+    kind: documentation
+    locator: url:https://www.w3.org/TR/prov-dm/
+    role: W3C PROV data model for provenance derivation, bundles, and interoperability.
+  - key: cheney2013prov_constraints
+    lane: delivery_and_reporting
+    kind: documentation
+    locator: url:https://www.w3.org/TR/prov-constraints/
+    role: W3C PROV constraints source for provenance metadata validation, reporting, and local validity boundaries.
+  - key: leo2024workflow_run_rocrate
+    lane: delivery_and_reporting
+    kind: methods
+    locator: doi:10.1371/journal.pone.0309210
+    role: Workflow RO-Crate provenance method for interoperable workflow metadata and computational reporting boundaries.
+  - key: sandve2013reproducible
+    lane: delivery_and_reporting
+    kind: methods
+    locator: doi:10.1371/journal.pcbi.1003285
+    role: Reproducible computational workflow methods for tracking result provenance and analysis steps.
+  - key: wilson2014scientific_computing
+    lane: delivery_and_reporting
+    kind: methods
+    locator: doi:10.1371/journal.pbio.1001745
+    role: Scientific-computing software practice source for testing, automation, and version-control hygiene.
+  - key: bagaev2023reactive_message_passing
+    lane: mathematical_foundations
+    kind: methods
+    locator: doi:10.1155/2023/6601690
+    role: Reactive message-passing method for scalable Bayesian inference and factor-graph computation boundaries.
+  - key: bagaev2023rxinfer
+    lane: active_inference_core
+    kind: software
+    locator: doi:10.21105/joss.05161
+    role: Active-inference adjacent software source for reactive Bayesian message-passing implementation boundaries.
+  - key: munafo2017reproducible_science
+    lane: delivery_and_reporting
+    kind: review
+    locator: doi:10.1038/s41562-016-0021
+    role: Reproducible-science manifesto for transparent reporting, methods, and boundary-aware evaluation.
+  - key: wilkinson2016fair
+    lane: delivery_and_reporting
+    kind: methods
+    locator: doi:10.1038/sdata.2016.18
+    role: FAIR open-data principles for provenance and metadata boundary discussion.
+  - key: nosek2015top
+    lane: delivery_and_reporting
+    kind: methods
+    locator: doi:10.1126/science.aab2374
+    role: Transparency and openness standards for open-science reporting boundaries.
+  - key: cormen2022introduction
+    lane: mathematical_foundations
+    kind: textbook
+    locator: isbn:978-0-262-04630-5
+    role: Graph-algorithm reference for DAG validation and topological ordering.
+  - key: levine2018probabilistic
+    lane: applications_and_scope
+    kind: tutorial
+    locator: doi:10.48550/arXiv.1805.00909
+    role: Reinforcement-learning comparison boundary for future work.
+  - key: wong2011color
+    lane: delivery_and_reporting
+    kind: methods
+    locator: doi:10.1038/nmeth.1618
+    role: Accessible figure palette reference for reporting.
+  - key: activeinferenceinstitute2026home
+    lane: pedagogy_and_learning_paths
+    kind: documentation
+    locator: url:https://www.activeinference.org/
+    role: Open-science institute context for education and community learning.
+  - key: activeinferenceinstitute2026website
+    lane: pedagogy_and_learning_paths
+    kind: documentation
+    locator: url:https://github.com/ActiveInferenceInstitute/institute_website
+    role: Public repository for the Institute's community pathways, open-science resource hub, public repositories, and gated public-data projection boundary.
+  - key: activeinferenceinstitute2026courses
+    lane: pedagogy_and_learning_paths
+    kind: documentation
+    locator: url:https://github.com/ActiveInferenceInstitute/courses
+    role: Open-source Active Inference course infrastructure comparison.
+  - key: activeinferenceinstitute2026start
+    lane: delivery_and_reporting
+    kind: software
+    locator: url:https://github.com/ActiveInferenceInstitute/start
+    role: Tailored curriculum-generation software reference for learning-path design.
+  - key: activeinferenceinstitute2026cognitive
+    lane: pedagogy_and_learning_paths
+    kind: documentation
+    locator: url:https://github.com/ActiveInferenceInstitute/cognitive
+    role: Cognitive knowledge-base source for course material learning pointers.
+  - key: tishby1999information
+    lane: mathematical_foundations
+    kind: methods
+    locator: doi:10.48550/arXiv.physics/0004057
+    role: Information bottleneck and rate-distortion framing for task-relevant compression skills.
+  - key: sarkka2013bayesian
+    lane: mathematical_foundations
+    kind: textbook
+    locator: doi:10.1017/CBO9781139344203
+    role: Bayesian filtering and smoothing reference for state-space probability lessons.
+  - key: dayan1995helmholtz
+    lane: perception_as_inference
+    kind: primary
+    locator: doi:10.1162/neco.1995.7.5.889
+    role: Helmholtz-machine source connecting recognition and generative models.
+  - key: friston2010generalised
+    lane: active_inference_core
+    kind: methods
+    locator: doi:10.1155/2010/621670
+    role: Continuous-time generalized filtering reference for predictive-coding extensions.
+  - key: gershman2019free
+    lane: applications_and_scope
+    kind: review
+    locator: doi:10.51628/001c.10839
+    role: FEP critique source used to bound distinctive-prediction and scope claims.
+  - key: fu2025curriculum_aware_gncd
+    lane: pedagogy_and_learning_paths
+    kind: methods
+    locator: doi:10.3390/info16110996
+    role: Curriculum graph and cognitive diagnosis source for prerequisite learning and learner-state boundaries.
+  - key: nelson2025coupled_free_energy
+    lane: mathematical_foundations
+    kind: methods
+    locator: doi:10.48550/arXiv.2506.09091
+    role: Coupled variational-inference and information-geometry source for heavy-tailed distribution boundaries.
+  - key: rao2024active_predictive_coding
+    lane: perception_as_inference
+    kind: methods
+    locator: doi:10.1162/neco_a_01627
+    role: Active predictive-coding source for perception, hierarchical planning, and predictive-coding boundaries.
+  - key: greco2024predictive_learning_geometry
+    lane: perception_as_inference
+    kind: primary
+    locator: doi:10.1038/s41467-024-54032-4
+    role: Predictive learning neuroimaging source for perception, representational geometry, and predictive-coding evidence boundaries.
+  - key: tschantz2023hybrid_predictive_coding
+    lane: perception_as_inference
+    kind: methods
+    locator: doi:10.1371/journal.pcbi.1011280
+    role: Hybrid predictive-coding source for amortized and iterative inference boundaries in generative models.
+  - key: sennesh2024dcpc
+    lane: perception_as_inference
+    kind: methods
+    locator: doi:10.48550/arXiv.2408.05834
+    role: Divide-and-conquer predictive-coding source for structured Bayesian inference and scalability boundaries.
+  - key: hugo2026teacher_development
+    lane: pedagogy_and_learning_paths
+    kind: primary
+    locator: doi:10.1080/13664530.2026.2631491
+    role: Active-inference pedagogy and education source for active learning and teacher-development boundaries.
+  - key: acm2023accessiblefigures
+    lane: delivery_and_reporting
+    kind: documentation
+    locator: url:https://dis.acm.org/2023/creating-accessible-figures-and-tables/
+    role: Accessible figure and alt-text guidance for semantic figure metadata validation.
+  - key: section508alttext
+    lane: delivery_and_reporting
+    kind: documentation
+    locator: url:https://www.section508.gov/create/alternative-text/
+    role: Federal alt-text guidance supporting dashboard and manuscript accessibility metadata.
+  - key: w3c2023wcag22
+    lane: delivery_and_reporting
+    kind: documentation
+    locator: url:https://www.w3.org/TR/WCAG22/
+    role: WCAG web content accessibility standard for dashboard and figure reporting.
+  - key: nist2022ssdf
+    lane: delivery_and_reporting
+    kind: documentation
+    locator: url:https://csrc.nist.gov/pubs/sp/800/218/final
+    role: Secure software development framework for security and supply-chain posture boundaries.
+  - key: spdx2026mit
+    lane: delivery_and_reporting
+    kind: documentation
+    locator: url:https://spdx.org/licenses/MIT
+    role: Software reporting provenance source for MIT license metadata and reproducibility signposting.
+  - key: opensourceinitiative2026mit
+    lane: delivery_and_reporting
+    kind: documentation
+    locator: url:https://opensource.org/license/mit
+    role: Open-source software reporting source for MIT license boundary and public-review provenance.
+  - key: citationfileformat2026
+    lane: delivery_and_reporting
+    kind: documentation
+    locator: url:https://citation-file-format.github.io/
+    role: Software citation metadata source for reporting reproducibility and public-review provenance.
+  - key: codemeta2026schema
+    lane: delivery_and_reporting
+    kind: documentation
+    locator: url:https://codemeta.github.io/
+    role: Software metadata schema for reporting workflow provenance and reproducibility boundaries.
+  - key: smith2016softwarecitation
+    lane: delivery_and_reporting
+    kind: methods
+    locator: doi:10.7717/peerj-cs.86
+    role: Software citation principles for reproducible reporting, metadata, and provenance boundaries.
+  - key: github2026citingcontent
+    lane: delivery_and_reporting
+    kind: documentation
+    locator: url:https://docs.github.com/repositories/archiving-a-github-repository/referencing-and-citing-content
+    role: Repository citation and archiving documentation for reporting public-target and DOI boundaries.
+  - key: zenodo2026github
+    lane: delivery_and_reporting
+    kind: documentation
+    locator: url:https://help.zenodo.org/docs/github/
+    role: GitHub-to-Zenodo archiving workflow documentation for DOI and release reproducibility boundaries.
+  - key: reuse2024spec
+    lane: delivery_and_reporting
+    kind: documentation
+    locator: url:https://reuse.software/spec-3.3/
+    role: Software license-notice specification for reporting third-party provenance and reproducibility boundaries.
+  - key: yuille2006vision_bayesian
+    lane: perception_as_inference
+    kind: review
+    locator: doi:10.1016/j.tics.2006.05.002
+    role: Bayesian perception and visual inference source for analysis-by-synthesis boundaries.
+  - key: clark2013predictive_brain
+    lane: perception_as_inference
+    kind: review
+    locator: doi:10.1017/S0140525X12000477
+    role: Predictive brain and situated perception source for action-perception scope.
+  - key: hohwy2013predictive_mind
+    lane: perception_as_inference
+    kind: textbook
+    locator: doi:10.1093/acprof:oso/9780199682737.001.0001
+    role: Predictive processing and perceptual inference source for hypothesis-testing boundaries.
+  - key: kersten2004object_perception
+    lane: perception_as_inference
+    kind: review
+    locator: doi:10.1146/annurev.psych.55.090902.142005
+    role: Bayesian object-perception source for generative recognition and visual inference.
+  - key: bastos2012canonical_microcircuits
+    lane: perception_as_inference
+    kind: review
+    locator: doi:10.1016/j.neuron.2012.10.038
+    role: Predictive coding and brain inference source for hierarchical message passing.
+  - key: spratling2017predictive_algorithms
+    lane: perception_as_inference
+    kind: review
+    locator: doi:10.1016/j.bandc.2015.11.003
+    role: Predictive-coding algorithms source for perceptual inference and model variants.
+  - key: summerfield2014perceptual_decision
+    lane: perception_as_inference
+    kind: review
+    locator: doi:10.1038/nrn3838
+    role: Perceptual decision and Bayesian expectation source for sensory inference.
+  - key: wei2015efficient_bayesian_perception
+    lane: perception_as_inference
+    kind: primary
+    locator: doi:10.1038/nn.4105
+    role: Bayesian observer and efficient-coding source for perceptual bias boundaries.
+  - key: millidge2021predictive_coding_review
+    lane: perception_as_inference
+    kind: review
+    locator: doi:10.48550/arXiv.2107.12979
+    role: Predictive-coding theory and experimental-evidence source for perception scope.
+  - key: smith2020predictive_neurophysiology
+    lane: perception_as_inference
+    kind: review
+    locator: doi:10.1111/nyas.14321
+    role: Predictive-processing and neurophysiological-evidence source for perception claims.
+  - key: seth2020predictive_consciousness
+    lane: perception_as_inference
+    kind: review
+    locator: doi:10.1080/17588928.2020.1838467
+    role: Predictive processing and consciousness inference source for empirical boundaries.
+  - key: mackay2003information_inference
+    lane: mathematical_foundations
+    kind: textbook
+    locator: isbn:9780521642989
+    role: Information theory and inference algorithms textbook for mathematical foundations.
+  - key: jaynes2003probability_logic
+    lane: mathematical_foundations
+    kind: textbook
+    locator: isbn:9780521592710
+    role: Probability and statistical-inference textbook for Bayesian foundations.
+  - key: murphy2012probabilistic_ml
+    lane: mathematical_foundations
+    kind: textbook
+    locator: isbn:9780262018029
+    role: Probabilistic modeling and Bayesian inference textbook for computational foundations.
+  - key: gelman2013bayesian_analysis
+    lane: mathematical_foundations
+    kind: textbook
+    locator: doi:10.1201/b16018
+    role: Bayesian analysis and statistical inference textbook for uncertainty foundations.
+  - key: murphy2022probabilistic_ml
+    lane: mathematical_foundations
+    kind: textbook
+    locator: isbn:9780262046824
+    role: Probabilistic machine learning and inference textbook for modern mathematical scope.
+  - key: pezzulo2012cognitive_control
+    lane: applications_and_scope
+    kind: review
+    locator: doi:10.3389/fpsyg.2012.00478
+    role: Cognitive-control source for action-oriented applications and scope.
+  - key: pezzulo2018hierarchical_active_inference
+    lane: applications_and_scope
+    kind: review
+    locator: doi:10.1016/j.tics.2018.01.009
+    role: Hierarchical-active-inference and motivated-control source for application scope.
+  - key: vilas2022active_consciousness
+    lane: applications_and_scope
+    kind: review
+    locator: doi:10.1007/s13164-021-00579-w
+    role: Consciousness model source for conceptual application limits and scope.
+  - key: smith2021clinical_predictive_coding
+    lane: applications_and_scope
+    kind: review
+    locator: doi:10.1111/pcn.13138
+    role: Predictive-coding and clinical-neuroscience source for translational scope boundaries.
+  - key: pezzulo2023generating_meaning
+    lane: applications_and_scope
+    kind: review
+    locator: doi:10.1016/j.tics.2023.10.002
+    role: Active-inference and generative-meaning source for application and scope limits.
+  - key: watson2020active_control_inference
+    lane: applications_and_scope
+    kind: review
+    locator: doi:10.1007/978-3-030-64919-7_2
+    role: Control as inference source for robotics comparison boundaries and applications.
+  - key: millidge2020active_control_relationship
+    lane: applications_and_scope
+    kind: review
+    locator: doi:10.48550/arXiv.2006.12964
+    role: Control relationship source for decision-theory comparisons and application scope.
+  - key: schwartenbeck2015addiction_active_bayes
+    lane: applications_and_scope
+    kind: primary
+    locator: doi:10.1016/j.mehy.2014.12.007
+    role: Active-Bayesian inference and addiction-model source for clinical application scope.
+  - key: lanillos2021active_robotics_survey
+    lane: applications_and_scope
+    kind: review
+    locator: doi:10.48550/arXiv.2112.01871
+    role: Robotics survey source for state-estimation applications and control scope.
+  - key: catal2021robot_navigation_active_inference
+    lane: applications_and_scope
+    kind: primary
+    locator: doi:10.1016/j.neunet.2021.05.010
+    role: Hierarchical-active-inference and robot-navigation source for embodied applications.
+  - key: queisser2021robot_active_inference
+    lane: applications_and_scope
+    kind: primary
+    locator: doi:10.1162/neco_a_01412
+    role: Active-inference and robot-learning source for visual planning application scope.
+  - key: sales2019cognitive_flexibility_active_inference
+    lane: applications_and_scope
+    kind: primary
+    locator: doi:10.1371/journal.pcbi.1006267
+    role: Cognitive flexibility source for model-based neuroscience applications and scope.

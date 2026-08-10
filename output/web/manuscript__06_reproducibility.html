@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.10.1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>06_reproducibility.md.web</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      white-space: pre-wrap;
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+
+<link data-template-favicon rel="icon" href="favicon.ico">
+
+<style>
+:root {
+  --brand-1: #5b6ee0;
+  --web-bg: #f8f8f8;
+  --web-surface: #ffffff;
+  --web-text: #2c3e50;
+  --web-border: #bdc3c7;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --brand-1: #7e8ce8;
+    --web-bg: #0f1420;
+    --web-surface: #161c2b;
+    --web-text: #e6eaf2;
+    --web-border: #2a3447;
+  }
+}
+.theorem-box {
+  border-left: 4px solid var(--brand-1);
+  background: var(--web-surface);
+  padding: 0.6em 1em;
+  margin: 1.1em 0;
+  border-radius: 0 4px 4px 0;
+}
+.theorem-box.definition { border-left-style: dashed; }
+.theorem-box > p:first-child { margin-top: 0; }
+.theorem-box > p:last-child { margin-bottom: 0; }
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  max-width: 100%;
+}
+
+body {
+  font-family: 'Liberation Serif', 'Times New Roman', serif;
+  line-height: 1.6;
+  width: min(100%, 800px);
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f8f8f8;
+  color: #1a1a1a;
+  overflow-x: visible;
+}
+
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  padding: 0.65rem 0.9rem;
+  transform: translateY(-120%);
+  background-color: #1a1a1a;
+  color: #ffffff;
+  font-family: sans-serif;
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.skip-link:visited {
+  color: #ffffff;
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
+@media (max-width: 600px) {
+  body {
+    width: 100%;
+    max-width: 100%;
+    padding: 16px;
+  }
+
+  figure img {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 800px) {
+  body {
+    width: 100%;
+    max-width: 100vw;
+    margin: 0 auto;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #2c3e50;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 5px;
+  overflow-wrap: anywhere;
+}
+
+code {
+  background-color: #ecf0f1;
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-family: 'Liberation Mono', 'Courier New', monospace;
+}
+
+pre {
+  background-color: #2c3e50;
+  color: #ecf0f1;
+  padding: 15px;
+  border-radius: 5px;
+  overflow-x: auto;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 20px 0;
+}
+
+figure {
+  max-width: 100%;
+  margin: 1.5rem 0;
+}
+
+th, td {
+  border: 1px solid #bdc3c7;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #1f6f8b;
+  color: white;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid #bdc3c7;
+  border-radius: 5px;
+  margin: 20px 0;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+a {
+  color: #b91c1c;
+  text-decoration: underline;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.14em;
+  overflow-wrap: anywhere;
+}
+
+a:visited {
+  color: #8f1d1d;
+}
+
+a:hover {
+  text-decoration-thickness: 0.14em;
+}
+
+a:focus-visible {
+  outline: 3px solid #1f6f8b;
+  outline-offset: 3px;
+}
+
+.toc {
+  background-color: #ecf0f1;
+  padding: 20px;
+  border-radius: 5px;
+  margin-bottom: 30px;
+}
+
+.toc a,
+#TOC a {
+  color: #b91c1c;
+  display: inline-block;
+  min-height: 28px;
+  line-height: 1.5;
+  padding-block: 2px;
+}
+
+.toc li,
+#TOC li {
+  margin-block: 1px;
+}
+
+.math {
+  text-align: center;
+  margin: 20px 0;
+  font-size: 1.1em;
+}
+
+mjx-container[display="true"] {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 0.25rem;
+}
+
+.figure {
+  text-align: center;
+  margin: 30px 0;
+}
+
+.figure img {
+  max-width: 100%;
+  height: auto;
+  border: 2px solid #3498db;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* A reading column keeps prose comfortable, but dense scientific figures need
+   a larger inspection surface.  The rendered image remains responsive and the
+   explicit link opens its source-resolution asset without changing the PDF. */
+.figure-full-size-link {
+  color: inherit;
+  display: block;
+  max-width: 100%;
+  text-align: center;
+}
+
+.figure-full-size-link img {
+  cursor: zoom-in;
+  margin-bottom: 0.45rem;
+}
+
+.figure-full-size-label {
+  color: #1f6f8b;
+  display: inline-block;
+  font-family: sans-serif;
+  font-size: 0.875rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+  text-decoration: underline;
+  text-underline-offset: 0.14em;
+}
+
+.figure-full-size-link:focus-visible {
+  outline: 3px solid #1f6f8b;
+  outline-offset: 4px;
+}
+
+@media (min-width: 1000px) {
+  .figure-full-size-link {
+    left: 50%;
+    max-width: none;
+    position: relative;
+    transform: translateX(-50%);
+    width: min(1080px, calc(100vw - 3rem));
+  }
+}
+
+.figure-caption {
+  font-style: italic;
+  color: #4b5563;
+  margin-top: 10px;
+  text-align: center;
+}
+
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<main id="main-content" tabindex="-1">
+<h1 id="sec:reproducibility">Reproducibility and Release Evidence:
+Regenerating the Artifact Chain</h1>
+<p>Every artifact in this work is regeneratable from source with fixed
+seeds; nothing in <code>output/</code> is authoritative, and nothing
+learner-facing is hand-typed.</p>
+<h2
+id="deterministic-kernel-outputs-stable-graph-ordering-and-rerunnable-counts">Deterministic
+kernel outputs, stable graph ordering, and rerunnable counts</h2>
+<p>The kernels use natural-log units and either no randomness or an
+explicitly seeded NumPy generator; the worked examples register rounded
+values so two runs of <code>build_claim_registry()</code> are
+byte-identical. The curriculum graph’s topological order processes ready
+nodes in sorted-id order, so the exported SkillTree JSON is stable
+across runs.</p>
+<h2
+id="verification-gates-for-code-prose-artifacts-and-rendered-surfaces">Verification
+gates for code, prose, artifacts, and rendered surfaces</h2>
+<p>The gate tables treat the curriculum build as scientific computing:
+reported values should be traceable to workflow steps, custom code
+should be tested and versioned, and research claims should be reported
+with enough transparency that readers can distinguish reproducible local
+artifacts from future replication or learner-outcome evidence
+[sandve2013reproducible; wilson2014scientific_computing;
+munafo2017reproducible_science].</p>
+<p>The gates split into two families. The first runs anywhere the
+repository can be checked out, with no Docker daemon and no browser.</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Offline gate</th>
+<th>Command</th>
+<th>Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tests + coverage</td>
+<td><code>uv run pytest --cov=src --cov-fail-under=90</code></td>
+<td>enforced aggregate floor: 90%; use command output as the current
+coverage number, and read the module caveat below</td>
+</tr>
+<tr>
+<td>Kernel coverage</td>
+<td>within the coverage run</td>
+<td>kernel package coverage is checked inside the same suite rather than
+asserted from prose</td>
+</tr>
+<tr>
+<td>Lint</td>
+<td><code>uvx ruff check src scripts tests</code></td>
+<td>clean required</td>
+</tr>
+<tr>
+<td>Format</td>
+<td><code>uvx ruff format --check src scripts tests</code></td>
+<td>clean required</td>
+</tr>
+<tr>
+<td>Types</td>
+<td><code>uv run mypy src</code></td>
+<td>no issues required</td>
+</tr>
+<tr>
+<td>No mocks</td>
+<td><code>rg "unittest|MagicMock|@patch|autospec" tests/</code></td>
+<td>no mock factories should be present</td>
+</tr>
+<tr>
+<td>Provenance</td>
+<td><code>scripts/run_kernels.py</code> and
+<code>scripts/export_skilltree.py</code></td>
+<td>every claim token resolves and the bare-number linter reports zero
+violations</td>
+</tr>
+<tr>
+<td>Scholarship</td>
+<td>every authored citation maps to a BibTeX entry and source-role
+lane</td>
+<td>enforced before figures</td>
+</tr>
+<tr>
+<td>Figure artifacts</td>
+<td>generated figure registry, manuscript labels/cross-references, PNG
+information content, captions, alt text, and dashboard figure artifacts
+agree</td>
+<td>enforced by <code>run_kernels.py</code> and
+<code>validate_manuscript_artifacts.py</code></td>
+</tr>
+<tr>
+<td>Image pinning</td>
+<td><code>uv run python scripts/validate_docker_digests.py</code></td>
+<td>every Compose image reference carries a <code>sha256</code> digest;
+the file is parsed, no daemon is contacted</td>
+</tr>
+<tr>
+<td>Release inventory</td>
+<td><code>uv run python scripts/validate_release_readiness_inventory.py</code></td>
+<td>checked against live git status, untracked files, ignored outputs
+and blocker probes</td>
+</tr>
+<tr>
+<td>Manuscript render</td>
+<td>parent template renderer</td>
+<td>citation and figure references must resolve</td>
+</tr>
+</tbody>
+</table>
+<p>The second family is live. Every row below needs a reachable Docker
+daemon, and the browser rows additionally need the
+<code>chrome-devtools-axi</code> Chrome driver. These gates fail closed
+rather than downgrading to the artifact-only dashboard, which is why
+they are listed separately instead of folded into the table above.</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Live gate</th>
+<th>Command</th>
+<th>Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Live dependency parity</td>
+<td><code>uv run python scripts/reconcile_live_dependencies.py --check-only</code></td>
+<td>live prerequisite edges compared with the exported project JSON
+without writing edges</td>
+</tr>
+<tr>
+<td>Live dashboard wiring</td>
+<td><code>uv run python scripts/validate_live_skilltree_dashboard.py --require-live-admin --require-live-dependencies --require-figure-contracts</code></td>
+<td>live admin skill-count parity, exact live dependency parity, and
+figure-contract agreement</td>
+</tr>
+<tr>
+<td>Raw SkillTree login</td>
+<td><code>uv run python scripts/validate_skilltree_form_login.py</code></td>
+<td>a real browser drives the <code>FORM</code> login through to the
+administrator surface; the JSON summary is redacted</td>
+</tr>
+<tr>
+<td>Dashboard console</td>
+<td><code>uv run python scripts/validate_dashboard_console.py --require-browser --require-dashboard</code></td>
+<td>no console errors except the allow-listed upstream
+<code>Inception</code> status probe</td>
+</tr>
+<tr>
+<td>App-ready stack</td>
+<td><code>uv run python scripts/validate_full_app_stack.py --app-ready --skip-regenerate</code></td>
+<td>Compose bring-up, seed, dashboard, login, and console pass; the JSON
+summary is labeled app-ready</td>
+</tr>
+<tr>
+<td>Full-parity stack</td>
+<td><code>uv run python scripts/validate_full_app_stack.py --skip-regenerate</code></td>
+<td>the same sequence plus complete live dependency reconciliation; the
+JSON summary is labeled full-parity</td>
+</tr>
+</tbody>
+</table>
+<h3 id="coverage-floor-caveat">Coverage floor caveat</h3>
+<p>The coverage floor is enforced on the aggregate, and the aggregate is
+not the same claim as every module meeting it. Four modules currently
+sit below the floor while the suite as a whole clears it:
+<code>src/integration/full_app_stack.py</code>,
+<code>src/skilltree/form_login_validation.py</code>,
+<code>src/scholarship/source_health_network.py</code>, and
+<code>src/dashboard/payload.py</code>. Each one is a boundary to
+something the offline suite cannot reach — a Docker daemon, a browser
+subprocess, live HTTP, or the local-auth server path — and each is
+exercised instead by the live gates in the second table. Two defects
+show why that exception is a routing decision rather than an excuse: a
+dashboard content-security-policy directive that blanked the official
+SkillTree panel was invisible to every offline test and surfaced only in
+the browser console gate, and a reconciler abort-on-slow-write surfaced
+only during a complete live dependency run. Read the aggregate number as
+a property of the suite, not as evidence of uniform module coverage.</p>
+<h2
+id="release-evidence-ledger-and-publication-blockers">Release-evidence
+ledger and publication blockers</h2>
+<h3 id="release-inventory-comparison">Release inventory comparison</h3>
+<!-- claim-support:reproducibility_release_evidence -->
+<p>Release evidence is recorded as a local, machine-checked ledger
+rather than as a clean public-release assertion. During review, the
+checkout may intentionally contain dirty or untracked files;
+<code>docs/release_readiness_inventory.md</code> is the authoritative
+inventory for that state and is regenerated with
+<code>uv run python scripts/validate_release_readiness_inventory.py --write</code>.</p>
+<p>The default validator then compares the document with live
+<code>git status --short</code>,
+<code>git ls-files -o --exclude-standard</code>,
+<code>git diff --stat</code>, ignored generated-output examples, and the
+current external blocker probes. Those probes report three distinct
+positions, and collapsing them into one blocked-or-ready summary would
+misstate all three.</p>
+<p><code>docker info</code> reaches the Docker/Colima daemon, so the
+Docker-dependent live rehearsal is no longer blocked. It has been run:
+<code>validate_full_app_stack.py --skip-regenerate</code> completed
+against the pinned SkillTree image in full-parity mode, with the live
+dependency graph matching the export edge for edge, the live admin skill
+count matching the exported catalog, every registered artifact and
+figure contract agreeing, the raw <code>FORM</code> login reaching the
+administrator surface, and the browser console gate clean. What remains
+is to rerun that sequence as a release handoff rather than as a
+development rehearsal, on the commit that is actually released.</p>
+<p><code>git ls-remote</code> against the public
+<code>ActiveInferenceInstitute/Active_Skillference</code> target now
+succeeds, and that is precisely why the validator distinguishes
+reachability from publication: the target exists and holds no refs. An
+exit-code-only check would read that empty placeholder as ready. The
+inventory therefore reports it as reachable but empty, and DOI,
+archive-deposit, and public-repository metadata fields stay blank until
+refs actually land there. Nothing in this repository is published at
+that address today.</p>
+<p>The independent cross-vendor audit is closed in
+<code>tasks.yaml</code>, not pending. Its recorded scope is a
+point-in-time, read-only static review of the dashboard, local-auth, and
+full-stack sources and their tests, and within that scope it returned no
+unresolved critical or high findings. It did not cover dependency and
+supply-chain exposure, secrets in git history, or dynamic runtime
+testing, so it closes a specific review task rather than establishing
+operational assurance. Branch hygiene remains open while the checkout
+still carries modified tracked paths.</p>
+<p>Reproducible-workflow guidance motivates the rerunnable command
+ledger, versioned code and transparent artifact state
+[sandve2013reproducible; wilson2014scientific_computing], while FAIR and
+transparency-oriented open-science standards motivate the metadata and
+evidence-ledger shape [wilkinson2016fair; nosek2015top;
+munafo2017reproducible_science]. These sources do not turn a dirty local
+checkout into a public archive. Software-citation and machine-readable
+metadata guidance define the repository-level citation files and release
+metadata surfaces [smith2016softwarecitation; citationfileformat2026;
+codemeta2026schema], while GitHub and Zenodo documentation keep DOI
+language tied to a real public target and deposit
+[github2026citingcontent; zenodo2026github]. SPDX, OSI and REUSE
+references bound the MIT and third-party-notice signposting
+[spdx2026mit; opensourceinitiative2026mit; reuse2024spec]; they do not
+provide legal advice, relicense third-party materials, or remove the
+need for separate deployment review. A release record should include the
+base commit hash, whether the worktree was dirty, the generated
+inventory, the commands in the gate table above, and the artifact
+manifests in <code>output/data/</code> and
+<code>../figures/figure_registry.json</code>; it should not promote this
+local evidence into a DOI or public-repository claim until the external
+blockers are resolved.</p>
+<p>The release inventory also carries a machine-checked <strong>Key
+Artifact Hashes</strong> section. During validation, it records SHA-256
+digests and byte sizes for <code>output/data/claims.json</code>,
+<code>output/data/manuscript_variables.json</code>,
+<code>output/data/skilltree_project.json</code>,
+<code>../figures/figure_registry.json</code>, and every registered
+figure PNG currently named by the figure registry. The same validator
+rejects stale hash rows, so a regenerated artifact cannot silently drift
+from the manuscript’s local reproducibility evidence. This is still
+local evidence: without a release tag, public archive, and clean
+external blocker probes, it remains a checkout ledger rather than an
+immutable publication bundle.</p>
+<h2
+id="provenance-chain-from-kernel-function-to-learner-facing-value">Provenance
+chain from kernel function to learner-facing value</h2>
+<p>The chain from kernel to learner is auditable end to end: a kernel
+function computes a value -&gt; <code>examples.py</code> registers it as
+a named <code>Claim</code> with its source function -&gt; a skill or
+manuscript section references it as <code>claim:NAME</code> -&gt; the
+exporter or render hook resolves it, failing closed if it cannot -&gt;
+the value appears in the SkillTree skill description, the manuscript,
+and <code>output/data/claims.json</code>. Changing a kernel changes the
+claim, the rendered content, and the figures together. The separate
+manuscript artifact audit closes the non-numeric drift path: a figure
+cannot be registered without a manuscript declaration, referenced
+without a declaration, missing from disk, or absent from the dashboard
+figure inventory.</p>
+<h2 id="disposable-generated-artifacts-and-output-inventory">Disposable
+generated artifacts and output inventory</h2>
+<p><code>scripts/run_kernels.py</code> writes
+<code>output/data/claims.json</code> (the provenance ledger),
+<code>output/data/manuscript_variables.json</code> (claims plus
+curriculum counts), <code>output/data/scholarship_coverage.json</code>
+(the citation lane audit),
+<code>output/data/scholarship_gap_report.json</code> (the scholarship
+frontier-source and claim-boundary audit),
+<code>output/data/manuscript_artifacts.json</code> (the figure-surface
+audit), <code>output/data/cover_asset_audit.json</code> (the first-page
+cover audit), <code>output/data/front_matter_visual_audit.json</code>
+(the page-two atlas audit),
+<code>output/data/course_material_index.json</code> (local modular
+lesson records), and <code>output/data/course_material_audit.json</code>
+(the lesson-record completeness audit), plus 21 registered figures plus
+the generated cover and named-skill atlas PNGs under
+<code>../figures/</code>. <code>scripts/export_skilltree.py</code>
+writes <code>output/data/skilltree_project.json</code>, the import-ready
+SkillTree project.
+<code>scripts/z_generate_manuscript_variables.py</code> is the
+parent-template render hook: it runs the kernel/provenance gate and
+writes resolved manuscript copies under <code>output/manuscript/</code>
+before PDF, HTML, slide, DOCX, or EPUB rendering.</p>
+</main>
+</body>
+</html>

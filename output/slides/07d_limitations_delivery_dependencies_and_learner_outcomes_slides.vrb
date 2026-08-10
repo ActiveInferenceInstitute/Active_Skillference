@@ -1,0 +1,10 @@
+\frametitle{Delivery substrate and kernel scope}
+remains future work, outside the scope of what the code, citations, and
+validators establish. The preregistered pilot design in
+\breaktt{experiment\_plan.yaml} is therefore a setup artifact: it defines
+consent, privacy, SkillTree progress-export, pre/post,
+delayed-retention, and analysis boundaries, and follows design-based
+research framing for studying a curriculum artifact in context, but it
+is not learner-outcome evidence until real data are collected and added
+to the claim-support record (Design-Based Research Collective 2003;
+Barab and Squire 2004).

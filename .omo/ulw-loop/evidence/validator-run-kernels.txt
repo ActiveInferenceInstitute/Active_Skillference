@@ -1,0 +1,43 @@
+registered 47 provenance claims
+validated scholarship coverage: 95 cited sources
+validated manuscript artifacts: 21 registered figures
+validated cover asset: active_skillference_cover.png
+validated page-two visual: active_skillference_skill_atlas.png
+validated American English manuscript language
+validated manuscript claim support: 64 claims
+validated scholarship gap report: 21 frontier sources
+validated course materials: 630 skills
+/Users/4d/Documents/GitHub/projects/working/Active_Skillference/output/data/claims.json
+/Users/4d/Documents/GitHub/projects/working/Active_Skillference/output/data/manuscript_variables.json
+/Users/4d/Documents/GitHub/projects/working/Active_Skillference/output/data/scholarship_coverage.json
+/Users/4d/Documents/GitHub/projects/working/Active_Skillference/output/data/scholarship_source_health.json
+/Users/4d/Documents/GitHub/projects/working/Active_Skillference/output/data/manuscript_claim_support.json
+/Users/4d/Documents/GitHub/projects/working/Active_Skillference/output/data/scholarship_gap_report.json
+/Users/4d/Documents/GitHub/projects/working/Active_Skillference/output/data/manuscript_artifacts.json
+/Users/4d/Documents/GitHub/projects/working/Active_Skillference/output/data/cover_asset_audit.json
+/Users/4d/Documents/GitHub/projects/working/Active_Skillference/output/data/front_matter_visual_audit.json
+/Users/4d/Documents/GitHub/projects/working/Active_Skillference/output/data/course_material_index.json
+/Users/4d/Documents/GitHub/projects/working/Active_Skillference/output/data/course_material_audit.json
+/Users/4d/Documents/GitHub/projects/working/Active_Skillference/output/figures/active_skillference_cover.png
+/Users/4d/Documents/GitHub/projects/working/Active_Skillference/output/figures/active_skillference_skill_atlas.png
+/Users/4d/Documents/GitHub/projects/working/Active_Skillference/output/figures/curriculum_dag.png
+/Users/4d/Documents/GitHub/projects/working/Active_Skillference/output/figures/dependency_strata_flow.png
+/Users/4d/Documents/GitHub/projects/working/Active_Skillference/output/figures/assessment_depth_matrix.png
+/Users/4d/Documents/GitHub/projects/working/Active_Skillference/output/figures/curriculum_stratum_balance.png
+/Users/4d/Documents/GitHub/projects/working/Active_Skillference/output/figures/free_energy_descent.png
+/Users/4d/Documents/GitHub/projects/working/Active_Skillference/output/figures/efe_decomposition.png
+/Users/4d/Documents/GitHub/projects/working/Active_Skillference/output/figures/planning_lookahead.png
+/Users/4d/Documents/GitHub/projects/working/Active_Skillference/output/figures/predictive_coding_descent.png
+/Users/4d/Documents/GitHub/projects/working/Active_Skillference/output/figures/graph_bottlenecks.png
+/Users/4d/Documents/GitHub/projects/working/Active_Skillference/output/figures/skill_neighborhood_paths.png
+/Users/4d/Documents/GitHub/projects/working/Active_Skillference/output/figures/semantic_prerequisite_coverage.png
+/Users/4d/Documents/GitHub/projects/working/Active_Skillference/output/figures/visual_evidence_contract_ladder.png
+/Users/4d/Documents/GitHub/projects/working/Active_Skillference/output/figures/kernel_sensitivity_profiles.png
+/Users/4d/Documents/GitHub/projects/working/Active_Skillference/output/figures/vfe_efe_skilltree_bridge.png
+/Users/4d/Documents/GitHub/projects/working/Active_Skillference/output/figures/validation_intent_mismatch_matrix.png
+/Users/4d/Documents/GitHub/projects/working/Active_Skillference/output/figures/scholarship_coverage.png
+/Users/4d/Documents/GitHub/projects/working/Active_Skillference/output/figures/open_science_source_map.png
+/Users/4d/Documents/GitHub/projects/working/Active_Skillference/output/figures/scholarship_source_health.png
+/Users/4d/Documents/GitHub/projects/working/Active_Skillference/output/figures/validation_surface_matrix.png
+/Users/4d/Documents/GitHub/projects/working/Active_Skillference/output/figures/scientific_evidence_matrix.png
+/Users/4d/Documents/GitHub/projects/working/Active_Skillference/output/figures/roadmap_risk.png

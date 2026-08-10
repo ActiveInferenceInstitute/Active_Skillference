@@ -1,0 +1,13 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.13, pytest-9.0.3, pluggy-1.6.0
+rootdir: /Users/4d/Documents/GitHub/projects/working/Active_Skillference
+configfile: pyproject.toml
+plugins: cov-7.1.0, pytest_httpserver-1.1.5
+collected 65 items
+
+tests/test_dashboard_design.py ..                                        [  3%]
+tests/test_dashboard.py .........................................        [ 66%]
+tests/test_dashboard_server.py ..................                        [ 93%]
+tests/test_dashboard_live_validation.py ....                             [100%]
+
+============================= 65 passed in 11.49s ==============================

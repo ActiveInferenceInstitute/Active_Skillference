@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.10.1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>03a_results_curriculum_graph_and_assessment_quality.md.web</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      white-space: pre-wrap;
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <script data-template-mathjax-config>
+window.MathJax = window.MathJax || {};
+window.MathJax.chtml = Object.assign({}, window.MathJax.chtml, {
+  fontURL: "https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.0.0/chtml/woff2",
+  dynamicPrefix: "https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.0.0/chtml/dynamic"
+});
+window.normalizeTemplateMathJaxAria = function () {
+  document.querySelectorAll("mjx-speech[aria-roledescription]").forEach(function (node) {
+    var roleDescription = node.getAttribute("aria-roledescription") || "";
+    if (/[-]/.test(roleDescription)) {
+      node.setAttribute("aria-roledescription", "mathematical expression");
+    }
+  });
+};
+window.MathJax.startup = Object.assign({}, window.MathJax.startup, {
+  ready: function () {
+    window.MathJax.startup.defaultReady();
+    window.MathJax.startup.promise.then(window.normalizeTemplateMathJaxAria);
+  }
+});
+</script>
+<script defer=""
+  src="https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-chtml.js"
+  type="text/javascript" integrity="sha384-2BWc4dVaHADUocwKrUrK9u3iDwHxVMKXWEcoRmUkXYSFKhAsgVAYClu9ydNuo5Oz" crossorigin="anonymous"></script>
+
+<link data-template-favicon rel="icon" href="favicon.ico">
+
+<style>
+:root {
+  --brand-1: #5b6ee0;
+  --web-bg: #f8f8f8;
+  --web-surface: #ffffff;
+  --web-text: #2c3e50;
+  --web-border: #bdc3c7;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --brand-1: #7e8ce8;
+    --web-bg: #0f1420;
+    --web-surface: #161c2b;
+    --web-text: #e6eaf2;
+    --web-border: #2a3447;
+  }
+}
+.theorem-box {
+  border-left: 4px solid var(--brand-1);
+  background: var(--web-surface);
+  padding: 0.6em 1em;
+  margin: 1.1em 0;
+  border-radius: 0 4px 4px 0;
+}
+.theorem-box.definition { border-left-style: dashed; }
+.theorem-box > p:first-child { margin-top: 0; }
+.theorem-box > p:last-child { margin-bottom: 0; }
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  max-width: 100%;
+}
+
+body {
+  font-family: 'Liberation Serif', 'Times New Roman', serif;
+  line-height: 1.6;
+  width: min(100%, 800px);
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f8f8f8;
+  color: #1a1a1a;
+  overflow-x: visible;
+}
+
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  padding: 0.65rem 0.9rem;
+  transform: translateY(-120%);
+  background-color: #1a1a1a;
+  color: #ffffff;
+  font-family: sans-serif;
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.skip-link:visited {
+  color: #ffffff;
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
+@media (max-width: 600px) {
+  body {
+    width: 100%;
+    max-width: 100%;
+    padding: 16px;
+  }
+
+  figure img {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 800px) {
+  body {
+    width: 100%;
+    max-width: 100vw;
+    margin: 0 auto;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #2c3e50;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 5px;
+  overflow-wrap: anywhere;
+}
+
+code {
+  background-color: #ecf0f1;
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-family: 'Liberation Mono', 'Courier New', monospace;
+}
+
+pre {
+  background-color: #2c3e50;
+  color: #ecf0f1;
+  padding: 15px;
+  border-radius: 5px;
+  overflow-x: auto;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 20px 0;
+}
+
+figure {
+  max-width: 100%;
+  margin: 1.5rem 0;
+}
+
+th, td {
+  border: 1px solid #bdc3c7;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #1f6f8b;
+  color: white;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid #bdc3c7;
+  border-radius: 5px;
+  margin: 20px 0;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+a {
+  color: #b91c1c;
+  text-decoration: underline;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.14em;
+  overflow-wrap: anywhere;
+}
+
+a:visited {
+  color: #8f1d1d;
+}
+
+a:hover {
+  text-decoration-thickness: 0.14em;
+}
+
+a:focus-visible {
+  outline: 3px solid #1f6f8b;
+  outline-offset: 3px;
+}
+
+.toc {
+  background-color: #ecf0f1;
+  padding: 20px;
+  border-radius: 5px;
+  margin-bottom: 30px;
+}
+
+.toc a,
+#TOC a {
+  color: #b91c1c;
+  display: inline-block;
+  min-height: 28px;
+  line-height: 1.5;
+  padding-block: 2px;
+}
+
+.toc li,
+#TOC li {
+  margin-block: 1px;
+}
+
+.math {
+  text-align: center;
+  margin: 20px 0;
+  font-size: 1.1em;
+}
+
+mjx-container[display="true"] {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 0.25rem;
+}
+
+.figure {
+  text-align: center;
+  margin: 30px 0;
+}
+
+.figure img {
+  max-width: 100%;
+  height: auto;
+  border: 2px solid #3498db;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* A reading column keeps prose comfortable, but dense scientific figures need
+   a larger inspection surface.  The rendered image remains responsive and the
+   explicit link opens its source-resolution asset without changing the PDF. */
+.figure-full-size-link {
+  color: inherit;
+  display: block;
+  max-width: 100%;
+  text-align: center;
+}
+
+.figure-full-size-link img {
+  cursor: zoom-in;
+  margin-bottom: 0.45rem;
+}
+
+.figure-full-size-label {
+  color: #1f6f8b;
+  display: inline-block;
+  font-family: sans-serif;
+  font-size: 0.875rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+  text-decoration: underline;
+  text-underline-offset: 0.14em;
+}
+
+.figure-full-size-link:focus-visible {
+  outline: 3px solid #1f6f8b;
+  outline-offset: 4px;
+}
+
+@media (min-width: 1000px) {
+  .figure-full-size-link {
+    left: 50%;
+    max-width: none;
+    position: relative;
+    transform: translateX(-50%);
+    width: min(1080px, calc(100vw - 3rem));
+  }
+}
+
+.figure-caption {
+  font-style: italic;
+  color: #4b5563;
+  margin-top: 10px;
+  text-align: center;
+}
+
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<main id="main-content" tabindex="-1">
+<h1 id="sec:results-curriculum-graph-assessment">Results: Curriculum
+Graph and Assessment Audits</h1>
+<h2
+id="graph-validity-prerequisite-depth-and-assessment-quality-gates">Graph
+validity, prerequisite depth, and assessment-quality gates</h2>
+<!-- claim-support:results_curriculum_graph -->
+<p>The assembled curriculum is a valid directed acyclic graph of
+<strong>630 skills</strong> in <strong>111 subjects</strong> joined by
+<strong>1199 prerequisite edges</strong>, spanning all 8 strata with a
+maximum prerequisite depth of 75 and two foundational roots (set theory
+and the probability axioms). Validation passes: no cycles, no dangling
+prerequisites, and every applications skill is reachable from a
+foundational root. <span class="citation"
+data-cites="fig:curriculum_dag">[@fig:curriculum_dag]</span> lays the
+graph out by stratum and depth, uses wrapped stratum-count labels and
+root annotations, and reports the maximum-depth summary.</p>
+<p>The learner-quality gate then checks whether that valid graph is also
+usable as a micro-learning catalog. Each skill has at least 4 failable
+assessment items including a transfer-oriented multiple-choice check.
+Answer position and answer length are then audited per answer-count
+bucket, in every bucket carrying enough single-choice items to read.
+Each option slot has to be correct at a rate inside a band around
+chance, between <span class="math inline">\(0.10\)</span> and <span
+class="math inline">\(0.45\)</span> of the bucket, so no slot either
+dominates or sits unused. The length check is two-sided: the rate at
+which the correct option is the strictly longest answer and the rate at
+which it is the strictly shortest answer must both land between <span
+class="math inline">\(0.12\)</span> and <span
+class="math inline">\(0.42\)</span> of the bucket. Bounding only the
+long end would relocate the cue rather than remove it, because an answer
+that is never the longest teaches a learner to pick the shortest one.
+Multiple-choice correctness is kept from collapsing onto a template: no
+option index sits in the correct set for more than <span
+class="math inline">\(0.60\)</span> of multiple-choice items, and no
+single correct subset covers more than <span
+class="math inline">\(0.30\)</span> of them. Objective strings may
+repeat, but only within a bound — at most four skills may share one
+objective before the gate reports templated filler. No single
+name-normalized answer body is reused across more than <span
+class="math inline">\(0.12\)</span> of skills, with the declared shared
+rubric exempted as described below. Skill tags include both stratum and
+topic context, and backward cross-stratum references are kept out of the
+exported prerequisite path.</p>
+<p>The one deliberately shared instrument is disclosed rather than
+hidden. Each skill carries bespoke domain assessment items; most skills
+additionally carry a shared transfer-and-misuse rubric, a uniform
+metacognitive instrument applied across the curriculum and marked as
+such. The answer-reuse gate exempts that declared rubric, requires every
+skill to retain at least one bespoke item, and bounds every other
+name-normalized answer body to at most <span
+class="math inline">\(0.12\)</span> of skills. The exemption is what
+makes that bound readable rather than misleading: each per-family review
+rubric spans a whole stratum-by-role family, a footprint above a tenth
+of the curriculum and therefore above the bound the gate enforces on
+authored answers. We name the instrument and the exemption instead of
+letting a shared rubric sit quietly under a threshold, and the
+bespoke-item requirement keeps the rubric scaffolding rather than a
+substitute for per-skill assessment.</p>
+<p>These checks establish structural assessment discipline, not
+psychometric validity. They show that quiz-gated completion is not thin,
+duplicated, or position-biased under the local validators; they do not
+estimate item reliability, construct validity, learner ability,
+retention, transfer, or differential item functioning.</p>
+<p>The headline depth of 75 is not a single conceptual chain. It is
+dominated by the per-stratum mastery and open-science review ladders,
+which sequence skills for completeness rather than by genuine conceptual
+prerequisite. Excluding only those review and meta scaffold families and
+keeping every genuine concept family (mathematics through applications,
+plus the dynamical, geometric, hierarchical, implementation and
+cognitive-security families), the substantive concept chain a learner
+must climb is 33 deep; the difference is review and mastery sequencing,
+not conceptual dependency. We report both so the headline number is not
+read as the depth of the conceptual curriculum.</p>
+<figure id="fig:curriculum_dag">
+<a class="figure-full-size-link" href="../figures/curriculum_dag.png" target="_blank" rel="noopener" aria-label="Open full-size figure"><img src="../figures/curriculum_dag.png" style="width:100.0%"
+alt="The Active Inference curriculum as a prerequisite DAG generated from the current curriculum graph after structural checks." /><span class="figure-full-size-label" aria-hidden="true">Open full-size figure</span></a>
+<figcaption>The Active Inference curriculum as a
+prerequisite DAG generated from the current curriculum graph after
+structural checks. Each point is one skill, color encodes the
+pedagogical stratum, horizontal position follows the stratum order,
+vertical position follows longest prerequisite depth, and gray segments
+encode exported learning-path dependencies. Wrapped stratum chips report
+live skill totals, the two foundational roots are labeled, and the inset
+reports the live skill, subject, edge, and maximum-depth counts. This
+figure is an overview for structure and reachability; it does not by
+itself certify prose quality, assessment quality, or scholarship
+support.</figcaption>
+</figure>
+<!-- claim-support:results_dependency_flow -->
+<p>The full DAG is the most faithful view, but it is intentionally
+dense: learners need to see both the individual prerequisite chains and
+the curriculum’s aggregate traffic pattern. <span class="citation"
+data-cites="fig:dependency_strata_flow">[@fig:dependency_strata_flow]</span>
+adds that second view. Rows are prerequisite strata, columns are
+dependent strata, and the right-hand bar gives the node count in each
+stratum. Diagonal cells show within-stratum reinforcement;
+upper-triangular cells show forward conceptual transitions. A populated
+lower-triangular cell would mean a backward learning-path dependency,
+which the quality gate rejects before export.</p>
+<figure id="fig:dependency_strata_flow">
+<a class="figure-full-size-link" href="../figures/dependency_strata_flow.png" target="_blank" rel="noopener" aria-label="Open full-size figure"><img src="../figures/dependency_strata_flow.png" style="width:95.0%"
+alt="Prerequisite-edge flow across strata generated from every exported learning-path edge." /><span class="figure-full-size-label" aria-hidden="true">Open full-size figure</span></a>
+<figcaption>Prerequisite-edge flow across strata
+generated from every exported learning-path edge. Rows are prerequisite
+strata, columns are dependent strata, cell labels count edges, and the
+side bar reports how many skills live in each stratum. Diagonal cells
+show within-stratum reinforcement, upper-triangular cells show forward
+conceptual transitions, and a populated lower-triangular cell would
+expose a backward prerequisite that should be rejected before
+export.</figcaption>
+</figure>
+<!-- claim-support:results_graph_diagnostics -->
+<p>The same graph also needs diagnostic views for authors. <span
+class="citation"
+data-cites="fig:graph_bottlenecks">[@fig:graph_bottlenecks]</span>
+orders high-outdegree skills by how much downstream curriculum they
+unlock, so review can focus on nodes where a weak explanation would
+create wide learner risk. <span class="citation"
+data-cites="fig:skill_neighborhood_paths">[@fig:skill_neighborhood_paths]</span>
+complements that global view with a representative long dependency path.
+The figure keeps the route line readable while a checkpoint ledger names
+the start, stratum transitions, and endpoint, so a reader can inspect
+one concrete route without zooming the full DAG or relying on angled
+micro-labels.</p>
+<figure id="fig:graph_bottlenecks">
+<a class="figure-full-size-link" href="../figures/graph_bottlenecks.png" target="_blank" rel="noopener" aria-label="Open full-size figure"><img src="../figures/graph_bottlenecks.png" style="width:92.0%"
+alt="Graph bottlenecks in the exported prerequisite network generated from downstream dependent counts." /><span class="figure-full-size-label" aria-hidden="true">Open full-size figure</span></a>
+<figcaption>Graph bottlenecks in the exported
+prerequisite network generated from downstream dependent counts. Bars
+rank the top fan-out skills, y-axis labels pair skill ids with readable
+names, hatching and stratum chips identify pedagogical layer, and
+annotations report dependent count and prerequisite depth for each
+high-impact node. The figure is a review-priority surface: it identifies
+where a weak explanation, stale citation, or thin quiz would propagate
+to many later skills even though the graph remains valid.</figcaption>
+</figure>
+<figure id="fig:skill_neighborhood_paths">
+<a class="figure-full-size-link" href="../figures/skill_neighborhood_paths.png" target="_blank" rel="noopener" aria-label="Open full-size figure"><img src="../figures/skill_neighborhood_paths.png" style="width:100.0%"
+alt="Representative skill-neighborhood path generated from the longest-path diagnostic in the current graph." /><span class="figure-full-size-label" aria-hidden="true">Open full-size figure</span></a>
+<figcaption>Representative skill-neighborhood path
+generated from the longest-path diagnostic in the current graph. The
+line orders skills by prerequisite depth, stratum bands and vertical
+position encode pedagogical layer, and a checkpoint ledger names the
+start, every stratum transition, and the endpoint. This view
+deliberately trades global completeness for readability: it lets authors
+audit one concrete foundation-to-application pathway without relying on
+the dense full-DAG overview or tiny rotated labels.</figcaption>
+</figure>
+<p><span class="citation"
+data-cites="fig:semantic_prerequisite_coverage">[@fig:semantic_prerequisite_coverage]</span>
+audits the semantic-prerequisite gate, which checks that no skill is
+assessed on one of the gate’s tracked load-bearing concepts unless a
+skill defining that concept sits in its transitive prerequisite closure.
+The gate reads assessment text only, and it considers only definers at
+or before the using skill’s own stratum, so a forward reference to a
+later concept is not counted as a missing prerequisite. For each concept
+the figure reports how many skills reach the defining skill through
+their prerequisite closure and how many are assessed on the concept, so
+an inversion in which a learner met a concept before they could have
+learned it would be visible rather than buried in the dense graph.</p>
+<figure id="fig:semantic_prerequisite_coverage">
+<a class="figure-full-size-link" href="../figures/semantic_prerequisite_coverage.png" target="_blank" rel="noopener" aria-label="Open full-size figure"><img src="../figures/semantic_prerequisite_coverage.png"
+style="width:92.0%"
+alt="Semantic-prerequisite coverage generated from the live graph and the quality gate’s concept map." /><span class="figure-full-size-label" aria-hidden="true">Open full-size figure</span></a>
+<figcaption>Semantic-prerequisite coverage generated
+from the live graph and the quality gate’s concept map. For each
+load-bearing concept the open marker and stem report skills whose
+prerequisite closure reaches the concept’s defining skill, while the
+filled marker and direct label report the assessed subset inside that
+reachable set. The subtitle and badge report the gate verdict so a
+passing curriculum shows zero skills tested on a concept they could not
+yet have learned.</figcaption>
+</figure>
+<!-- claim-support:results_assessment_depth -->
+<p>The quiz surface is itself part of the curriculum result rather than
+a decorative add-on. <span class="citation"
+data-cites="fig:assessment_depth">[@fig:assessment_depth]</span>
+summarizes the assessment-depth invariant by stratum. Every skill now
+carries the same 4-question floor, so completion is not certified by a
+single recognition item or by a thin two-question check.</p>
+<figure id="fig:assessment_depth">
+<a class="figure-full-size-link" href="../figures/assessment_depth_matrix.png" target="_blank" rel="noopener" aria-label="Open full-size figure"><img src="../figures/assessment_depth_matrix.png" style="width:90.0%"
+alt="Quiz assessment depth by stratum generated from the skill assessment tuples." /><span class="figure-full-size-label" aria-hidden="true">Open full-size figure</span></a>
+<figcaption>Quiz assessment depth by stratum
+generated from the skill assessment tuples. The bar panel counts
+quiz-bearing skills per pedagogical stratum, and the accompanying audit
+table reports, per stratum, the minimum questions per skill, below-floor
+counts, questions per skill, and a PASS/REVIEW verdict against the
+configured 4-question failable floor. The intended check is not average
+quiz length but minimum learner friction: any below-floor mass would
+show that a skill can be completed without the configured 4-question
+floor.</figcaption>
+</figure>
+<!-- claim-support:results_stratum_balance -->
+<p>The latest expansion also needs a balance check. <span
+class="citation"
+data-cites="fig:stratum_balance">[@fig:stratum_balance]</span>
+summarizes skills, subjects, assessment questions and incoming
+prerequisite edges by stratum. This makes a different
+false-certification path visible: the graph can be larger while still
+overloading one pedagogical layer or leaving another underdeveloped.</p>
+<figure id="fig:stratum_balance">
+<a class="figure-full-size-link" href="../figures/curriculum_stratum_balance.png" target="_blank" rel="noopener" aria-label="Open full-size figure"><img src="../figures/curriculum_stratum_balance.png"
+style="width:100.0%"
+alt="Curriculum stratum-balance audit generated from current graph statistics after structural checks." /><span class="figure-full-size-label" aria-hidden="true">Open full-size figure</span></a>
+<figcaption>Curriculum stratum-balance audit
+generated from current graph statistics after structural checks. Three
+panels report the same underlying build: the left panel shows skills and
+subjects per pedagogical stratum, the middle panel shows
+assessment-question volume and incoming prerequisite edges, and the
+right panel shows companion per-unit (per-skill and per-subject)
+normalized measures. Reading the panels together shows whether expansion
+is distributed across the learning path or whether one layer is
+absorbing disproportionate topic, quiz, or dependency load. The figure
+bounds the claim to catalog structure; it does not measure learner
+outcomes.</figcaption>
+</figure>
+<p>Having established the graph surface, the next result is source
+support. These audits ask whether the manuscript’s scholarly claims are
+connected to the roles its citations are supposed to play.</p>
+</main>
+</body>
+</html>

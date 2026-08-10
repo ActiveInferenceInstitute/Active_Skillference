@@ -1,0 +1,15 @@
+\frametitle{Browser-facing validation path}
+\protect\phantomsection\label{browser-facing-validation-path}
+For end-to-end browser validation, open the dashboard, confirm the
+official SkillTree panel mounts the \texttt{activeInference} project,
+switch to the curriculum panel, and open a skill's \textbf{Learn},
+\textbf{Open Subject}, and \textbf{Quiz} actions. \textbf{Learn} opens
+the local modular lesson record and should not emit a direct
+\texttt{/subjects/\{subjectId\}/skills/\{skillId\}} SkillTree target.
+\textbf{Open Subject} reopens the dashboard with
+\texttt{skillsClientDisplayPath=/subjects/\{subjectId\}} so the subject
+learning path, skill list, progress, and rank are exercised inside the
+official SkillTree display. \textbf{Quiz} opens
+\texttt{skillsClientDisplayPath=/subjects/\{subjectId\}/skills/\{skillId\}/quizzes/\{quizId\}},
+so quiz loading, scoring rules, and completion remain SkillTree-owned
+rather than dashboard-owned.

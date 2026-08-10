@@ -1,0 +1,16 @@
+\frametitle{Multi-step planning and model-dependent look-ahead value}\framesubtitle {\def \LTcaptype {none} \begin {longtable}[]{@{} >{\raggedright \arraybackslash }p{(\linewidth - 4\tabcolsep ) * \real {0.3333}} >{\raggedright \arraybackslash }p{(\linewidth - 4\tabcolsep ) * \real {0.3333}} >{\raggedright \arraybackslash }p{(\linewidth - 4\tabcolsep ) * \real {0.3333}}@{}} \toprule \noalign {} \begin {minipage}[b]{\linewidth }\raggedright Planning parameter \end {minipage} & \begin {minipage}[b]{\linewidth }\raggedright Decoupled sample/commit model \end {minipage} & \begin {minipage}[b]{\linewidth }\raggedright Coupled investment model \end {minipage} \\ \midrule \noalign {} \endhead States & \(2\) latent states & \texttt {start}, \texttt {comfort}, \texttt {goal}, \texttt {climb} \\ Observation model & informative sensor with \(p=0.9\) & identity likelihood \\ Preference vector & \(C=[0.9,0.1]\) & \(C=[0.03,0.22,0.55,0.20]\) \\ Initial prior & \(D=[0.5,0.5]\) & \(D=[1,0,0,0]\) \\ Actions & \texttt {sample} identity; \texttt {commit} collapse toward state \texttt {0} & \texttt {comfort} sends start to comfort; \texttt {climb} sends start to climb and climb to goal \\ Horizon and policy precision & \(H=2\), \(\gamma =4\) & \(H=2\), \(\gamma =4\) \\ \bottomrule \noalign {} \end {longtable} }
+
+\begin{figure}
+\centering
+\includegraphics[width=1\linewidth,height=0.40\textheight,keepaspectratio,alt={Multi-step planning look-ahead, generated from the discrete active-inference planning kernel. The left panel contrasts the measured look-ahead gain (optimal multi-step plan versus the strongest greedy myopic policy) in a decoupled model, where the gain is zero, and a coupled investment model, where paying a worse first step to unlock the goal yields a positive gain. The right panel shows the cumulative expected free energy of every enumerated policy in the coupled model, with the greedy and optimal policies marked. The panel demonstrates that look-ahead value is a measured, model-dependent quantity, not a universal property of planning.}]{../figures/planning_lookahead.png}
+\caption{Multi-step planning look-ahead, generated from the discrete
+active-inference planning kernel. The left panel contrasts the measured
+look-ahead gain (optimal multi-step plan versus the strongest greedy
+myopic policy) in a decoupled model, where the gain is zero, and a
+coupled investment model, where paying a worse first step to unlock the
+goal yields a positive gain. The right panel shows the cumulative
+expected free energy of every enumerated policy in the coupled model,
+with the greedy and optimal policies marked. The panel demonstrates that
+look-ahead value is a measured, model-dependent quantity, not a
+universal property of planning.}\label{fig:planning_lookahead}
+\end{figure}

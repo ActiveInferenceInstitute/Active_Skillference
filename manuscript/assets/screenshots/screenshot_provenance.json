@@ -1,0 +1,70 @@
+{
+  "browserCommand": "chrome-devtools-axi",
+  "browserSessionRestarted": false,
+  "capturedAt": "2026-08-09T23:28:16.474131Z",
+  "captures": [
+    {
+      "bytes": 184697,
+      "filename": "app_operational_snapshot.png",
+      "label": "fig:app_operational_snapshot",
+      "settleMs": 1500,
+      "sha256": "f19bd9d53485e948aab051c1e9c6b0719405cdd0f9dbaacdc30c8cae6ec2d3c4",
+      "viewId": "app_operational_snapshot"
+    },
+    {
+      "bytes": 116303,
+      "filename": "app_official_learner_view.png",
+      "label": "fig:app_official_learner_view",
+      "settleMs": 9000,
+      "sha256": "f95999a62f644b6c238177d1a30d200cd9480479f3ed756de7f68606c8144a2b",
+      "viewId": "app_official_learner_view"
+    },
+    {
+      "bytes": 246197,
+      "filename": "app_curriculum_learn_material.png",
+      "label": "fig:app_curriculum_learn_material",
+      "settleMs": 6000,
+      "sha256": "57f4de880810c6d8467b92e80363b0028256b9ca4ce0096a7f568f01ba119f3b",
+      "viewId": "app_curriculum_learn_material"
+    },
+    {
+      "bytes": 279253,
+      "filename": "app_dependency_graph.png",
+      "label": "fig:app_dependency_graph",
+      "settleMs": 5000,
+      "sha256": "4534faa1d92f540d5b2c95b086096c394eef6611adf3a9bab2870c697efc352b",
+      "viewId": "app_dependency_graph"
+    },
+    {
+      "bytes": 170462,
+      "filename": "app_runtime_deployment_matrix.png",
+      "label": "fig:app_runtime_deployment_matrix",
+      "settleMs": 4000,
+      "sha256": "aa5b8540e98a8446da6101bac0f065b4e35adbd10d48ead7ebcde9cadac56317",
+      "viewId": "app_runtime_deployment_matrix"
+    }
+  ],
+  "context": {
+    "dashboardUrl": "http://127.0.0.1:8765",
+    "evidenceKind": "captured browser recording of a live system; pixels are not reproducible byte-for-byte and are not a deterministic render",
+    "exportedCounts": {
+      "dependencies": 1199,
+      "quizzes": 630,
+      "skills": 630,
+      "subjects": 111
+    },
+    "fullAppStackProofMode": "full-parity",
+    "liveDependencies": {
+      "checked": true,
+      "complete": true,
+      "expected": 1199,
+      "matched": 1199
+    },
+    "skilltreeAvailable": true,
+    "skilltreeUrl": "http://localhost:8080",
+    "viewport": {
+      "height": 900,
+      "width": 1440
+    }
+  }
+}

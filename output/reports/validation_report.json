@@ -1,0 +1,212 @@
+{
+  "timestamp": "2026-08-09T19:22:13Z",
+  "checks": {
+    "PDF validation": true,
+    "Transmission bookends": true,
+    "Markdown validation": true,
+    "Output structure": true,
+    "Figure registry": true,
+    "Evidence registry": false,
+    "Project design overlays": false,
+    "Artifact manifest": true,
+    "Rendered provenance inputs": false
+  },
+  "figure_issues": [],
+  "output_statistics": {
+    "evidence_issues": [
+      "08_supplement_variational_free_energy.md:68: unsupported number 0.001",
+      "08_supplement_variational_free_energy.md:68: unsupported number 0.999",
+      "08_supplement_variational_free_energy.md:144: unsupported number 101",
+      "08_supplement_variational_free_energy.md:233: unsupported number -6",
+      "08_supplement_variational_free_energy.md:315: unsupported number 400"
+    ],
+    "design_validation_issues": [
+      "unsupported experiment_plan key(s): learner_outcome_pilot"
+    ],
+    "detailed_validation": {
+      "structure": {
+        "valid": true,
+        "issues": [],
+        "missing_files": [],
+        "suspicious_sizes": [],
+        "warnings": [],
+        "directory_structure": {
+          "combined_pdf": {
+            "exists": true,
+            "size_mb": 4.66,
+            "readable": true
+          },
+          "pdf": {
+            "exists": true,
+            "files": 11,
+            "size_mb": 5.27,
+            "readable": true,
+            "optional": false
+          },
+          "web": {
+            "exists": true,
+            "files": 25,
+            "size_mb": 0.66,
+            "readable": true,
+            "optional": false
+          },
+          "slides": {
+            "exists": true,
+            "files": 162,
+            "size_mb": 5.77,
+            "readable": true,
+            "optional": false
+          },
+          "figures": {
+            "exists": true,
+            "files": 24,
+            "size_mb": 4.55,
+            "readable": true,
+            "optional": false
+          },
+          "data": {
+            "exists": true,
+            "files": 16,
+            "size_mb": 8.48,
+            "readable": true,
+            "optional": false
+          },
+          "reports": {
+            "exists": true,
+            "files": 5,
+            "size_mb": 0.1,
+            "readable": true,
+            "optional": false
+          },
+          "simulations": {
+            "exists": false,
+            "files": 0,
+            "size_mb": 0.0,
+            "optional": true
+          },
+          "llm": {
+            "exists": false,
+            "files": 0,
+            "size_mb": 0.0,
+            "optional": true
+          },
+          "logs": {
+            "exists": false,
+            "files": 0,
+            "size_mb": 0.0,
+            "optional": true
+          }
+        }
+      },
+      "directories": {
+        "pdf": {
+          "exists": true,
+          "file_count": 11,
+          "size_mb": "5.27",
+          "largest_file": "Active_Skillference_combined.pdf"
+        },
+        "web": {
+          "exists": true,
+          "file_count": 25,
+          "size_mb": "0.66",
+          "largest_file": "index.html"
+        },
+        "slides": {
+          "exists": true,
+          "file_count": 162,
+          "size_mb": "5.77",
+          "largest_file": "03a_results_curriculum_graph_and_assessment_quality_slides.pdf"
+        },
+        "figures": {
+          "exists": true,
+          "file_count": 24,
+          "size_mb": "4.55",
+          "largest_file": "active_skillference_cover.png"
+        },
+        "data": {
+          "exists": true,
+          "file_count": 16,
+          "size_mb": "8.48",
+          "largest_file": "course_material_index.json"
+        },
+        "reports": {
+          "exists": true,
+          "file_count": 5,
+          "size_mb": "0.10",
+          "largest_file": "evidence_registry.json"
+        },
+        "simulations": {
+          "exists": false,
+          "file_count": 0,
+          "size_mb": "0.00"
+        },
+        "llm": {
+          "exists": false,
+          "file_count": 0,
+          "size_mb": "0.00"
+        },
+        "logs": {
+          "exists": false,
+          "file_count": 0,
+          "size_mb": "0.00"
+        }
+      },
+      "file_counts": {
+        "pdf": 11,
+        "web": 25,
+        "slides": 162,
+        "figures": 24,
+        "data": 16,
+        "reports": 5
+      },
+      "total_size_mb": 24.83608341217041,
+      "issues_by_severity": {
+        "critical": [],
+        "warning": [
+          "Directory 'simulations/' missing or empty",
+          "Directory 'llm/' missing or empty",
+          "Directory 'logs/' missing or empty"
+        ],
+        "info": []
+      },
+      "recommendations": []
+    },
+    "pdf": {
+      "files": 11,
+      "size_mb": 5.2690534591674805
+    },
+    "figures": {
+      "files": 24,
+      "size_mb": 4.554690361022949
+    },
+    "data": {
+      "files": 16,
+      "size_mb": 8.48047924041748
+    },
+    "rendered_provenance_issue": {
+      "code": "SOURCE_SYMLINK_ESCAPE",
+      "message": "source directory escapes repository: /Users/4d/Documents/GitHub/projects/working/Active_Skillference"
+    }
+  },
+  "summary": {
+    "total_checks": 9,
+    "passed": 6,
+    "failed": 3,
+    "figure_issues_count": 0,
+    "all_passed": false
+  },
+  "recommendations": [
+    {
+      "priority": "medium",
+      "issue": "Evidence registry reported unsupported manuscript facts",
+      "action": "Register generated facts or replace unsupported hard-coded claims",
+      "file": "/Users/4d/Documents/GitHub/projects/working/Active_Skillference/output/reports/evidence_registry.json"
+    },
+    {
+      "priority": "high",
+      "issue": "Domain profile or experiment plan validation failed",
+      "action": "Fix domain_profile.yaml or experiment_plan.yaml schema and design declarations",
+      "file": "/Users/4d/Documents/GitHub/projects/working/Active_Skillference"
+    }
+  ]
+}
