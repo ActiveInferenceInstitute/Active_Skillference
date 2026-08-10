@@ -1,0 +1,6 @@
+manuscript artifacts valid: 21 figures, 21 declarations, 21 references
+cover asset valid: active_skillference_cover.png
+page-two visual valid: active_skillference_skill_atlas.png
+/Users/4d/Documents/GitHub/projects/working/Active_Skillference/output/data/manuscript_artifacts.json
+/Users/4d/Documents/GitHub/projects/working/Active_Skillference/output/data/cover_asset_audit.json
+/Users/4d/Documents/GitHub/projects/working/Active_Skillference/output/data/front_matter_visual_audit.json

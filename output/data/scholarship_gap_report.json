@@ -1,0 +1,1293 @@
+{
+  "advisories": {
+    "singleSectionWithoutClaimSupport": [],
+    "underweightedLanes": []
+  },
+  "frontierSources": [
+    {
+      "area": "formal_provenance_overview",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "claimClass": "formal provenance standard",
+      "lane": "delivery_and_reporting",
+      "presentInBib": true,
+      "presentInMatrix": true,
+      "requiredClaimSupportTypes": [
+        "literature"
+      ],
+      "requiresBoundary": false,
+      "sections": [
+        "02a_methodology_kernels_statistics_and_provenance.md",
+        "07c_related_work_skilltree_security_reporting_and_open_science.md"
+      ],
+      "sourceKey": "groth2013prov_overview",
+      "supportRows": [
+        "method_provenance_standards",
+        "related_reproducible_reporting"
+      ],
+      "supportTypes": [
+        "literature"
+      ],
+      "year": 2013
+    },
+    {
+      "area": "formal_provenance_model",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "claimClass": "formal provenance standard",
+      "lane": "delivery_and_reporting",
+      "presentInBib": true,
+      "presentInMatrix": true,
+      "requiredClaimSupportTypes": [
+        "literature"
+      ],
+      "requiresBoundary": false,
+      "sections": [
+        "02a_methodology_kernels_statistics_and_provenance.md",
+        "07c_related_work_skilltree_security_reporting_and_open_science.md"
+      ],
+      "sourceKey": "moreau2013prov_dm",
+      "supportRows": [
+        "method_provenance_standards",
+        "related_reproducible_reporting"
+      ],
+      "supportTypes": [
+        "literature"
+      ],
+      "year": 2013
+    },
+    {
+      "area": "workflow_run_rocrate",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "claimClass": "workflow provenance standard",
+      "lane": "delivery_and_reporting",
+      "presentInBib": true,
+      "presentInMatrix": true,
+      "requiredClaimSupportTypes": [
+        "literature"
+      ],
+      "requiresBoundary": true,
+      "sections": [
+        "02a_methodology_kernels_statistics_and_provenance.md"
+      ],
+      "sourceKey": "leo2024workflow_run_rocrate",
+      "supportRows": [
+        "method_provenance_standards"
+      ],
+      "supportTypes": [
+        "literature"
+      ],
+      "year": 2024
+    },
+    {
+      "area": "knowledge_space_foundation",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "claimClass": "knowledge-space theory",
+      "lane": "pedagogy_and_learning_paths",
+      "presentInBib": true,
+      "presentInMatrix": true,
+      "requiredClaimSupportTypes": [
+        "literature"
+      ],
+      "requiresBoundary": true,
+      "sections": [
+        "01_introduction.md",
+        "02b_methodology_scholarship_curriculum_and_strata.md",
+        "04_conclusion.md",
+        "07c_related_work_skilltree_security_reporting_and_open_science.md"
+      ],
+      "sourceKey": "doignon1985knowledge_spaces",
+      "supportRows": [
+        "intro_situation_awareness",
+        "intro_graph_approach",
+        "method_curriculum_quality",
+        "method_stratum_ordering",
+        "conclusion_delivery",
+        "related_skilltree_delivery"
+      ],
+      "supportTypes": [
+        "delivery",
+        "literature"
+      ],
+      "year": 1985
+    },
+    {
+      "area": "learning_space_foundation",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "claimClass": "learning-space theory",
+      "lane": "pedagogy_and_learning_paths",
+      "presentInBib": true,
+      "presentInMatrix": true,
+      "requiredClaimSupportTypes": [
+        "literature"
+      ],
+      "requiresBoundary": true,
+      "sections": [
+        "01_introduction.md",
+        "02b_methodology_scholarship_curriculum_and_strata.md",
+        "07c_related_work_skilltree_security_reporting_and_open_science.md"
+      ],
+      "sourceKey": "falmagne2011learning_spaces",
+      "supportRows": [
+        "intro_situation_awareness",
+        "intro_graph_approach",
+        "method_curriculum_quality",
+        "method_stratum_ordering",
+        "related_skilltree_delivery"
+      ],
+      "supportTypes": [
+        "delivery",
+        "literature"
+      ],
+      "year": 2011
+    },
+    {
+      "area": "curriculum_aware_cognitive_diagnosis",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "claimClass": "curriculum-aware cognitive diagnosis",
+      "lane": "pedagogy_and_learning_paths",
+      "presentInBib": true,
+      "presentInMatrix": true,
+      "requiredClaimSupportTypes": [
+        "literature",
+        "scope_limit"
+      ],
+      "requiresBoundary": true,
+      "sections": [
+        "01_introduction.md",
+        "02b_methodology_scholarship_curriculum_and_strata.md",
+        "04_conclusion.md"
+      ],
+      "sourceKey": "fu2025curriculum_aware_gncd",
+      "supportRows": [
+        "intro_situation_awareness",
+        "method_stratum_ordering",
+        "conclusion_delivery"
+      ],
+      "supportTypes": [
+        "delivery",
+        "literature"
+      ],
+      "year": 2025
+    },
+    {
+      "area": "active_inference_teacher_development",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "claimClass": "active-inference pedagogy",
+      "lane": "pedagogy_and_learning_paths",
+      "presentInBib": true,
+      "presentInMatrix": true,
+      "requiredClaimSupportTypes": [
+        "literature",
+        "scope_limit"
+      ],
+      "requiresBoundary": true,
+      "sections": [
+        "02b_methodology_scholarship_curriculum_and_strata.md"
+      ],
+      "sourceKey": "hugo2026teacher_development",
+      "supportRows": [
+        "method_stratum_ordering"
+      ],
+      "supportTypes": [
+        "literature"
+      ],
+      "year": 2026
+    },
+    {
+      "area": "pedagogy_active_learning",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "claimClass": "pedagogy",
+      "lane": "pedagogy_and_learning_paths",
+      "presentInBib": true,
+      "presentInMatrix": true,
+      "requiredClaimSupportTypes": [
+        "literature",
+        "scope_limit"
+      ],
+      "requiresBoundary": true,
+      "sections": [
+        "02b_methodology_scholarship_curriculum_and_strata.md",
+        "05_experimental_setup.md"
+      ],
+      "sourceKey": "freeman2014activelearning",
+      "supportRows": [
+        "method_stratum_ordering",
+        "setup_learner_outcome_pilot"
+      ],
+      "supportTypes": [
+        "literature",
+        "scope_limit"
+      ],
+      "year": 2014
+    },
+    {
+      "area": "pedagogy_cognitive_engagement",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "claimClass": "pedagogy",
+      "lane": "pedagogy_and_learning_paths",
+      "presentInBib": true,
+      "presentInMatrix": true,
+      "requiredClaimSupportTypes": [
+        "literature",
+        "scope_limit"
+      ],
+      "requiresBoundary": true,
+      "sections": [
+        "02b_methodology_scholarship_curriculum_and_strata.md",
+        "05_experimental_setup.md"
+      ],
+      "sourceKey": "chi2014icap",
+      "supportRows": [
+        "method_stratum_ordering",
+        "setup_learner_outcome_pilot"
+      ],
+      "supportTypes": [
+        "literature",
+        "scope_limit"
+      ],
+      "year": 2014
+    },
+    {
+      "area": "pedagogy_retrieval_practice",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "claimClass": "pedagogy",
+      "lane": "pedagogy_and_learning_paths",
+      "presentInBib": true,
+      "presentInMatrix": true,
+      "requiredClaimSupportTypes": [
+        "literature",
+        "scope_limit"
+      ],
+      "requiresBoundary": true,
+      "sections": [
+        "02b_methodology_scholarship_curriculum_and_strata.md",
+        "05_experimental_setup.md"
+      ],
+      "sourceKey": "roediger2006testenhanced",
+      "supportRows": [
+        "method_stratum_ordering",
+        "setup_learner_outcome_pilot"
+      ],
+      "supportTypes": [
+        "literature",
+        "scope_limit"
+      ],
+      "year": 2006
+    },
+    {
+      "area": "assessment_design",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "claimClass": "assessment design",
+      "lane": "pedagogy_and_learning_paths",
+      "presentInBib": true,
+      "presentInMatrix": true,
+      "requiredClaimSupportTypes": [
+        "literature",
+        "scope_limit"
+      ],
+      "requiresBoundary": true,
+      "sections": [
+        "02b_methodology_scholarship_curriculum_and_strata.md",
+        "05_experimental_setup.md"
+      ],
+      "sourceKey": "mislevy2003ecd",
+      "supportRows": [
+        "method_stratum_ordering",
+        "setup_learner_outcome_pilot"
+      ],
+      "supportTypes": [
+        "literature",
+        "scope_limit"
+      ],
+      "year": 2003
+    },
+    {
+      "area": "pedagogy_constructive_alignment",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "claimClass": "pedagogy",
+      "lane": "pedagogy_and_learning_paths",
+      "presentInBib": true,
+      "presentInMatrix": true,
+      "requiredClaimSupportTypes": [
+        "literature",
+        "scope_limit"
+      ],
+      "requiresBoundary": true,
+      "sections": [
+        "02b_methodology_scholarship_curriculum_and_strata.md",
+        "07c_related_work_skilltree_security_reporting_and_open_science.md"
+      ],
+      "sourceKey": "biggs1996constructive_alignment",
+      "supportRows": [
+        "method_stratum_ordering",
+        "related_skilltree_delivery"
+      ],
+      "supportTypes": [
+        "literature"
+      ],
+      "year": 1996
+    },
+    {
+      "area": "pedagogy_formative_assessment",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "claimClass": "pedagogy",
+      "lane": "pedagogy_and_learning_paths",
+      "presentInBib": true,
+      "presentInMatrix": true,
+      "requiredClaimSupportTypes": [
+        "literature",
+        "scope_limit"
+      ],
+      "requiresBoundary": true,
+      "sections": [
+        "02b_methodology_scholarship_curriculum_and_strata.md",
+        "05_experimental_setup.md",
+        "07c_related_work_skilltree_security_reporting_and_open_science.md"
+      ],
+      "sourceKey": "black1998assessment",
+      "supportRows": [
+        "method_stratum_ordering",
+        "setup_learner_outcome_pilot",
+        "related_skilltree_delivery"
+      ],
+      "supportTypes": [
+        "literature",
+        "scope_limit"
+      ],
+      "year": 1998
+    },
+    {
+      "area": "pedagogy_formative_feedback",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "claimClass": "pedagogy",
+      "lane": "pedagogy_and_learning_paths",
+      "presentInBib": true,
+      "presentInMatrix": true,
+      "requiredClaimSupportTypes": [
+        "literature",
+        "scope_limit"
+      ],
+      "requiresBoundary": true,
+      "sections": [
+        "02b_methodology_scholarship_curriculum_and_strata.md",
+        "05_experimental_setup.md",
+        "07c_related_work_skilltree_security_reporting_and_open_science.md"
+      ],
+      "sourceKey": "shute2008formative_feedback",
+      "supportRows": [
+        "method_stratum_ordering",
+        "setup_learner_outcome_pilot",
+        "related_skilltree_delivery"
+      ],
+      "supportTypes": [
+        "literature",
+        "scope_limit"
+      ],
+      "year": 2008
+    },
+    {
+      "area": "design_based_research_collective",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "claimClass": "design-based evaluation",
+      "lane": "pedagogy_and_learning_paths",
+      "presentInBib": true,
+      "presentInMatrix": true,
+      "requiredClaimSupportTypes": [
+        "scope_limit"
+      ],
+      "requiresBoundary": true,
+      "sections": [
+        "04_conclusion.md",
+        "05_experimental_setup.md",
+        "07d_limitations_delivery_dependencies_and_learner_outcomes.md"
+      ],
+      "sourceKey": "designbasedresearchcollective2003",
+      "supportRows": [
+        "setup_learner_outcome_pilot",
+        "conclusion_delivery",
+        "limitations_delivery_and_scope"
+      ],
+      "supportTypes": [
+        "delivery",
+        "scope_limit"
+      ],
+      "year": 2003
+    },
+    {
+      "area": "design_based_research_context",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "claimClass": "design-based evaluation",
+      "lane": "pedagogy_and_learning_paths",
+      "presentInBib": true,
+      "presentInMatrix": true,
+      "requiredClaimSupportTypes": [
+        "scope_limit"
+      ],
+      "requiresBoundary": true,
+      "sections": [
+        "05_experimental_setup.md",
+        "07d_limitations_delivery_dependencies_and_learner_outcomes.md"
+      ],
+      "sourceKey": "barab2004design_based",
+      "supportRows": [
+        "setup_learner_outcome_pilot",
+        "limitations_delivery_and_scope"
+      ],
+      "supportTypes": [
+        "scope_limit"
+      ],
+      "year": 2004
+    },
+    {
+      "area": "reproducible_computational_workflow",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "claimClass": "reproducibility/open science",
+      "lane": "delivery_and_reporting",
+      "presentInBib": true,
+      "presentInMatrix": true,
+      "requiredClaimSupportTypes": [
+        "delivery",
+        "literature"
+      ],
+      "requiresBoundary": true,
+      "sections": [
+        "02a_methodology_kernels_statistics_and_provenance.md",
+        "06_reproducibility.md",
+        "07c_related_work_skilltree_security_reporting_and_open_science.md"
+      ],
+      "sourceKey": "sandve2013reproducible",
+      "supportRows": [
+        "method_provenance_binding",
+        "reproducibility_release_evidence",
+        "related_reproducible_reporting"
+      ],
+      "supportTypes": [
+        "delivery",
+        "literature"
+      ],
+      "year": 2013
+    },
+    {
+      "area": "scientific_computing_practice",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "claimClass": "reproducibility/open science",
+      "lane": "delivery_and_reporting",
+      "presentInBib": true,
+      "presentInMatrix": true,
+      "requiredClaimSupportTypes": [
+        "delivery",
+        "literature"
+      ],
+      "requiresBoundary": true,
+      "sections": [
+        "06_reproducibility.md",
+        "07c_related_work_skilltree_security_reporting_and_open_science.md"
+      ],
+      "sourceKey": "wilson2014scientific_computing",
+      "supportRows": [
+        "reproducibility_release_evidence",
+        "related_reproducible_reporting"
+      ],
+      "supportTypes": [
+        "delivery",
+        "literature"
+      ],
+      "year": 2014
+    },
+    {
+      "area": "reproducible_science_boundary",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "claimClass": "reproducibility/open science",
+      "lane": "delivery_and_reporting",
+      "presentInBib": true,
+      "presentInMatrix": true,
+      "requiredClaimSupportTypes": [
+        "delivery",
+        "literature"
+      ],
+      "requiresBoundary": true,
+      "sections": [
+        "02_methodology.md",
+        "06_reproducibility.md",
+        "07c_related_work_skilltree_security_reporting_and_open_science.md"
+      ],
+      "sourceKey": "munafo2017reproducible_science",
+      "supportRows": [
+        "method_evidence_classes",
+        "reproducibility_release_evidence",
+        "related_reproducible_reporting"
+      ],
+      "supportTypes": [
+        "delivery",
+        "literature"
+      ],
+      "year": 2017
+    },
+    {
+      "area": "reproducible_open_data",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "claimClass": "reproducibility/open science",
+      "lane": "delivery_and_reporting",
+      "presentInBib": true,
+      "presentInMatrix": true,
+      "requiredClaimSupportTypes": [
+        "delivery",
+        "literature"
+      ],
+      "requiresBoundary": true,
+      "sections": [
+        "02_methodology.md",
+        "06_reproducibility.md",
+        "07c_related_work_skilltree_security_reporting_and_open_science.md"
+      ],
+      "sourceKey": "wilkinson2016fair",
+      "supportRows": [
+        "method_evidence_classes",
+        "reproducibility_release_evidence",
+        "related_reproducible_reporting"
+      ],
+      "supportTypes": [
+        "delivery",
+        "literature"
+      ],
+      "year": 2016
+    },
+    {
+      "area": "transparent_open_science",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "claimClass": "reproducibility/open science",
+      "lane": "delivery_and_reporting",
+      "presentInBib": true,
+      "presentInMatrix": true,
+      "requiredClaimSupportTypes": [
+        "delivery",
+        "literature"
+      ],
+      "requiresBoundary": true,
+      "sections": [
+        "06_reproducibility.md",
+        "07c_related_work_skilltree_security_reporting_and_open_science.md"
+      ],
+      "sourceKey": "nosek2015top",
+      "supportRows": [
+        "reproducibility_release_evidence",
+        "related_reproducible_reporting"
+      ],
+      "supportTypes": [
+        "delivery",
+        "literature"
+      ],
+      "year": 2015
+    },
+    {
+      "area": "software_citation_principles",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "claimClass": "software citation metadata",
+      "lane": "delivery_and_reporting",
+      "presentInBib": true,
+      "presentInMatrix": true,
+      "requiredClaimSupportTypes": [
+        "delivery",
+        "scope_limit"
+      ],
+      "requiresBoundary": true,
+      "sections": [
+        "06_reproducibility.md",
+        "07c_related_work_skilltree_security_reporting_and_open_science.md"
+      ],
+      "sourceKey": "smith2016softwarecitation",
+      "supportRows": [
+        "reproducibility_release_evidence",
+        "related_ip_license_boundary"
+      ],
+      "supportTypes": [
+        "delivery",
+        "scope_limit"
+      ],
+      "year": 2016
+    },
+    {
+      "area": "citation_file_metadata",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "claimClass": "software citation metadata",
+      "lane": "delivery_and_reporting",
+      "presentInBib": true,
+      "presentInMatrix": true,
+      "requiredClaimSupportTypes": [
+        "delivery",
+        "scope_limit"
+      ],
+      "requiresBoundary": true,
+      "sections": [
+        "06_reproducibility.md",
+        "07c_related_work_skilltree_security_reporting_and_open_science.md"
+      ],
+      "sourceKey": "citationfileformat2026",
+      "supportRows": [
+        "reproducibility_release_evidence",
+        "related_ip_license_boundary"
+      ],
+      "supportTypes": [
+        "delivery",
+        "scope_limit"
+      ],
+      "year": 2026
+    },
+    {
+      "area": "codemeta_metadata_schema",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "claimClass": "software metadata schema",
+      "lane": "delivery_and_reporting",
+      "presentInBib": true,
+      "presentInMatrix": true,
+      "requiredClaimSupportTypes": [
+        "delivery",
+        "scope_limit"
+      ],
+      "requiresBoundary": true,
+      "sections": [
+        "06_reproducibility.md",
+        "07c_related_work_skilltree_security_reporting_and_open_science.md"
+      ],
+      "sourceKey": "codemeta2026schema",
+      "supportRows": [
+        "reproducibility_release_evidence",
+        "related_ip_license_boundary"
+      ],
+      "supportTypes": [
+        "delivery",
+        "scope_limit"
+      ],
+      "year": 2026
+    },
+    {
+      "area": "repository_archive_workflow",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "claimClass": "repository archive workflow",
+      "lane": "delivery_and_reporting",
+      "presentInBib": true,
+      "presentInMatrix": true,
+      "requiredClaimSupportTypes": [
+        "delivery",
+        "scope_limit"
+      ],
+      "requiresBoundary": true,
+      "sections": [
+        "06_reproducibility.md",
+        "07c_related_work_skilltree_security_reporting_and_open_science.md"
+      ],
+      "sourceKey": "github2026citingcontent",
+      "supportRows": [
+        "reproducibility_release_evidence",
+        "related_ip_license_boundary"
+      ],
+      "supportTypes": [
+        "delivery",
+        "scope_limit"
+      ],
+      "year": 2026
+    },
+    {
+      "area": "zenodo_doi_workflow",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "claimClass": "DOI release workflow",
+      "lane": "delivery_and_reporting",
+      "presentInBib": true,
+      "presentInMatrix": true,
+      "requiredClaimSupportTypes": [
+        "delivery",
+        "scope_limit"
+      ],
+      "requiresBoundary": true,
+      "sections": [
+        "06_reproducibility.md",
+        "07c_related_work_skilltree_security_reporting_and_open_science.md"
+      ],
+      "sourceKey": "zenodo2026github",
+      "supportRows": [
+        "reproducibility_release_evidence",
+        "related_ip_license_boundary"
+      ],
+      "supportTypes": [
+        "delivery",
+        "scope_limit"
+      ],
+      "year": 2026
+    },
+    {
+      "area": "license_notice_boundary",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "claimClass": "license notice standard",
+      "lane": "delivery_and_reporting",
+      "presentInBib": true,
+      "presentInMatrix": true,
+      "requiredClaimSupportTypes": [
+        "delivery",
+        "scope_limit"
+      ],
+      "requiresBoundary": true,
+      "sections": [
+        "06_reproducibility.md",
+        "07c_related_work_skilltree_security_reporting_and_open_science.md"
+      ],
+      "sourceKey": "reuse2024spec",
+      "supportRows": [
+        "reproducibility_release_evidence",
+        "related_ip_license_boundary"
+      ],
+      "supportTypes": [
+        "delivery",
+        "scope_limit"
+      ],
+      "year": 2024
+    },
+    {
+      "area": "reactive_message_passing_scalability",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "claimClass": "scalable Bayesian message passing",
+      "lane": "mathematical_foundations",
+      "presentInBib": true,
+      "presentInMatrix": true,
+      "requiredClaimSupportTypes": [
+        "literature",
+        "scope_limit"
+      ],
+      "requiresBoundary": true,
+      "sections": [
+        "07b_related_work_active_inference_and_information_sources.md",
+        "07d_limitations_delivery_dependencies_and_learner_outcomes.md"
+      ],
+      "sourceKey": "bagaev2023reactive_message_passing",
+      "supportRows": [
+        "related_variational_information_sources",
+        "limitations_delivery_and_scope"
+      ],
+      "supportTypes": [
+        "literature",
+        "scope_limit"
+      ],
+      "year": 2023
+    },
+    {
+      "area": "rxinfer_reactive_software",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "claimClass": "reactive Bayesian inference software",
+      "lane": "active_inference_core",
+      "presentInBib": true,
+      "presentInMatrix": true,
+      "requiredClaimSupportTypes": [
+        "literature",
+        "scope_limit"
+      ],
+      "requiresBoundary": true,
+      "sections": [
+        "07b_related_work_active_inference_and_information_sources.md",
+        "07d_limitations_delivery_dependencies_and_learner_outcomes.md"
+      ],
+      "sourceKey": "bagaev2023rxinfer",
+      "supportRows": [
+        "related_variational_information_sources",
+        "limitations_delivery_and_scope"
+      ],
+      "supportTypes": [
+        "literature",
+        "scope_limit"
+      ],
+      "year": 2023
+    },
+    {
+      "area": "coupled_free_energy_robustness",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "claimClass": "coupled variational free energy",
+      "lane": "mathematical_foundations",
+      "presentInBib": true,
+      "presentInMatrix": true,
+      "requiredClaimSupportTypes": [
+        "literature",
+        "scope_limit"
+      ],
+      "requiresBoundary": true,
+      "sections": [
+        "07b_related_work_active_inference_and_information_sources.md",
+        "07d_limitations_delivery_dependencies_and_learner_outcomes.md"
+      ],
+      "sourceKey": "nelson2025coupled_free_energy",
+      "supportRows": [
+        "related_variational_information_sources",
+        "limitations_delivery_and_scope"
+      ],
+      "supportTypes": [
+        "literature",
+        "scope_limit"
+      ],
+      "year": 2025
+    },
+    {
+      "area": "active_predictive_coding_frontier",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "claimClass": "active predictive coding",
+      "lane": "perception_as_inference",
+      "presentInBib": true,
+      "presentInMatrix": true,
+      "requiredClaimSupportTypes": [
+        "literature",
+        "scope_limit"
+      ],
+      "requiresBoundary": true,
+      "sections": [
+        "07b_related_work_active_inference_and_information_sources.md",
+        "07d_limitations_delivery_dependencies_and_learner_outcomes.md"
+      ],
+      "sourceKey": "rao2024active_predictive_coding",
+      "supportRows": [
+        "related_variational_information_sources",
+        "limitations_delivery_and_scope"
+      ],
+      "supportTypes": [
+        "literature",
+        "scope_limit"
+      ],
+      "year": 2024
+    },
+    {
+      "area": "dcpc_predictive_coding_scaling",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "claimClass": "predictive-coding scalability",
+      "lane": "perception_as_inference",
+      "presentInBib": true,
+      "presentInMatrix": true,
+      "requiredClaimSupportTypes": [
+        "literature",
+        "scope_limit"
+      ],
+      "requiresBoundary": true,
+      "sections": [
+        "07b_related_work_active_inference_and_information_sources.md",
+        "07d_limitations_delivery_dependencies_and_learner_outcomes.md"
+      ],
+      "sourceKey": "sennesh2024dcpc",
+      "supportRows": [
+        "related_variational_information_sources",
+        "limitations_delivery_and_scope"
+      ],
+      "supportTypes": [
+        "literature",
+        "scope_limit"
+      ],
+      "year": 2024
+    },
+    {
+      "area": "secure_development_posture",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "claimClass": "security/release posture",
+      "lane": "delivery_and_reporting",
+      "presentInBib": true,
+      "presentInMatrix": true,
+      "requiredClaimSupportTypes": [
+        "scope_limit"
+      ],
+      "requiresBoundary": true,
+      "sections": [
+        "07c_related_work_skilltree_security_reporting_and_open_science.md"
+      ],
+      "sourceKey": "nist2022ssdf",
+      "supportRows": [
+        "related_national_security_boundary"
+      ],
+      "supportTypes": [
+        "scope_limit"
+      ],
+      "year": 2022
+    },
+    {
+      "area": "accessibility_standard",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "claimClass": "visualization/accessibility",
+      "lane": "delivery_and_reporting",
+      "presentInBib": true,
+      "presentInMatrix": true,
+      "requiredClaimSupportTypes": [
+        "literature"
+      ],
+      "requiresBoundary": false,
+      "sections": [
+        "07c_related_work_skilltree_security_reporting_and_open_science.md"
+      ],
+      "sourceKey": "w3c2023wcag22",
+      "supportRows": [
+        "related_reproducible_reporting"
+      ],
+      "supportTypes": [
+        "literature"
+      ],
+      "year": 2023
+    },
+    {
+      "area": "course_material_provenance",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "claimClass": "course-material provenance",
+      "lane": "pedagogy_and_learning_paths",
+      "presentInBib": true,
+      "presentInMatrix": true,
+      "requiredClaimSupportTypes": [
+        "literature"
+      ],
+      "requiresBoundary": false,
+      "sections": [
+        "03b_results_scholarship_source_health_and_evidence_audits.md",
+        "07c_related_work_skilltree_security_reporting_and_open_science.md"
+      ],
+      "sourceKey": "activeinferenceinstitute2026cognitive",
+      "supportRows": [
+        "results_open_science_sources",
+        "related_open_science_ecosystem"
+      ],
+      "supportTypes": [
+        "literature"
+      ],
+      "year": 2026
+    },
+    {
+      "area": "responsible_learning_analytics",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "claimClass": "responsible learning analytics",
+      "lane": "pedagogy_and_learning_paths",
+      "presentInBib": true,
+      "presentInMatrix": true,
+      "requiredClaimSupportTypes": [
+        "literature",
+        "scope_limit"
+      ],
+      "requiresBoundary": true,
+      "sections": [
+        "01_introduction.md",
+        "05_experimental_setup.md"
+      ],
+      "sourceKey": "sclater2015learning_analytics_code",
+      "supportRows": [
+        "intro_situation_awareness",
+        "setup_learner_outcome_pilot"
+      ],
+      "supportTypes": [
+        "literature",
+        "scope_limit"
+      ],
+      "year": 2015
+    },
+    {
+      "area": "pilot_feasibility_reporting",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "claimClass": "pilot and feasibility reporting",
+      "lane": "pedagogy_and_learning_paths",
+      "presentInBib": true,
+      "presentInMatrix": true,
+      "requiredClaimSupportTypes": [
+        "literature",
+        "scope_limit"
+      ],
+      "requiresBoundary": true,
+      "sections": [
+        "05_experimental_setup.md"
+      ],
+      "sourceKey": "eldridge2016consort_pilot",
+      "supportRows": [
+        "setup_learner_outcome_pilot"
+      ],
+      "supportTypes": [
+        "scope_limit"
+      ],
+      "year": 2016
+    },
+    {
+      "area": "intervention_replication_reporting",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "claimClass": "intervention replication reporting",
+      "lane": "pedagogy_and_learning_paths",
+      "presentInBib": true,
+      "presentInMatrix": true,
+      "requiredClaimSupportTypes": [
+        "literature",
+        "scope_limit"
+      ],
+      "requiresBoundary": true,
+      "sections": [
+        "05_experimental_setup.md"
+      ],
+      "sourceKey": "hoffmann2014tidier",
+      "supportRows": [
+        "setup_learner_outcome_pilot"
+      ],
+      "supportTypes": [
+        "scope_limit"
+      ],
+      "year": 2014
+    },
+    {
+      "area": "knowledge_tracing_comparison",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "claimClass": "learner-state modelling comparison",
+      "lane": "pedagogy_and_learning_paths",
+      "presentInBib": true,
+      "presentInMatrix": true,
+      "requiredClaimSupportTypes": [
+        "literature",
+        "scope_limit"
+      ],
+      "requiresBoundary": true,
+      "sections": [
+        "04_conclusion.md"
+      ],
+      "sourceKey": "piech2015deep_knowledge_tracing",
+      "supportRows": [
+        "conclusion_scholarship_thread",
+        "conclusion_delivery"
+      ],
+      "supportTypes": [
+        "delivery",
+        "literature"
+      ],
+      "year": 2015
+    },
+    {
+      "area": "q_matrix_diagnostic_boundary",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "claimClass": "cognitive diagnosis and Q-matrix boundary",
+      "lane": "pedagogy_and_learning_paths",
+      "presentInBib": true,
+      "presentInMatrix": true,
+      "requiredClaimSupportTypes": [
+        "literature",
+        "scope_limit"
+      ],
+      "requiresBoundary": true,
+      "sections": [
+        "04_conclusion.md"
+      ],
+      "sourceKey": "tao2024q_matrix_constraint",
+      "supportRows": [
+        "conclusion_scholarship_thread",
+        "conclusion_delivery"
+      ],
+      "supportTypes": [
+        "delivery",
+        "literature"
+      ],
+      "year": 2024
+    },
+    {
+      "area": "application_scope_evidence_status",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "claimClass": "application evidence status",
+      "lane": "applications_and_scope",
+      "presentInBib": true,
+      "presentInMatrix": true,
+      "requiredClaimSupportTypes": [
+        "literature",
+        "scope_limit"
+      ],
+      "requiresBoundary": true,
+      "sections": [
+        "01_introduction.md",
+        "02a_methodology_kernels_statistics_and_provenance.md",
+        "07b_related_work_active_inference_and_information_sources.md"
+      ],
+      "sourceKey": "hodson2024empirical",
+      "supportRows": [
+        "intro_situation_awareness",
+        "intro_scholarship_drift",
+        "method_model_boundary",
+        "related_fep_evidence_status"
+      ],
+      "supportTypes": [
+        "literature",
+        "scope_limit"
+      ],
+      "year": 2024
+    },
+    {
+      "area": "active_inference_open_science_infrastructure",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "claimClass": "Active Inference open-science infrastructure",
+      "lane": "pedagogy_and_learning_paths",
+      "presentInBib": true,
+      "presentInMatrix": true,
+      "requiredClaimSupportTypes": [
+        "literature",
+        "scope_limit"
+      ],
+      "requiresBoundary": true,
+      "sections": [
+        "01_introduction.md",
+        "04_conclusion.md",
+        "07c_related_work_skilltree_security_reporting_and_open_science.md"
+      ],
+      "sourceKey": "activeinferenceinstitute2026website",
+      "supportRows": [
+        "intro_skilltree_delivery",
+        "conclusion_delivery",
+        "related_open_science_ecosystem"
+      ],
+      "supportTypes": [
+        "delivery",
+        "literature"
+      ],
+      "year": 2026
+    },
+    {
+      "area": "information_theory_foundation",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "claimClass": "information-theory foundation",
+      "lane": "mathematical_foundations",
+      "presentInBib": true,
+      "presentInMatrix": true,
+      "requiredClaimSupportTypes": [
+        "literature"
+      ],
+      "requiresBoundary": false,
+      "sections": [
+        "02a_methodology_kernels_statistics_and_provenance.md",
+        "07b_related_work_active_inference_and_information_sources.md"
+      ],
+      "sourceKey": "shannon1948mathematical",
+      "supportRows": [
+        "method_kernels_scope",
+        "related_variational_information_sources"
+      ],
+      "supportTypes": [
+        "delivery",
+        "literature"
+      ],
+      "year": 1948
+    },
+    {
+      "area": "variational_bayes_foundation",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "claimClass": "variational Bayesian foundation",
+      "lane": "mathematical_foundations",
+      "presentInBib": true,
+      "presentInMatrix": true,
+      "requiredClaimSupportTypes": [
+        "literature",
+        "scope_limit"
+      ],
+      "requiresBoundary": true,
+      "sections": [
+        "02a_methodology_kernels_statistics_and_provenance.md",
+        "07b_related_work_active_inference_and_information_sources.md"
+      ],
+      "sourceKey": "beal2003variational",
+      "supportRows": [
+        "method_kernels_scope",
+        "related_variational_information_sources"
+      ],
+      "supportTypes": [
+        "delivery",
+        "literature"
+      ],
+      "year": 2003
+    },
+    {
+      "area": "helmholtz_inference_foundation",
+      "boundarySupported": true,
+      "citedInManuscript": true,
+      "claimClass": "recognition and generative-model inference",
+      "lane": "perception_as_inference",
+      "presentInBib": true,
+      "presentInMatrix": true,
+      "requiredClaimSupportTypes": [
+        "literature",
+        "scope_limit"
+      ],
+      "requiresBoundary": true,
+      "sections": [
+        "02b_methodology_scholarship_curriculum_and_strata.md",
+        "07b_related_work_active_inference_and_information_sources.md"
+      ],
+      "sourceKey": "dayan1995helmholtz",
+      "supportRows": [
+        "method_curriculum_quality",
+        "related_variational_information_sources"
+      ],
+      "supportTypes": [
+        "delivery",
+        "literature"
+      ],
+      "year": 1995
+    }
+  ],
+  "issues": [],
+  "kindBalance": {
+    "documentation": 27,
+    "historical": 22,
+    "methods": 34,
+    "primary": 36,
+    "review": 45,
+    "software": 4,
+    "textbook": 15,
+    "tutorial": 5
+  },
+  "laneBalance": {
+    "active_inference_core": 27,
+    "applications_and_scope": 27,
+    "delivery_and_reporting": 35,
+    "mathematical_foundations": 27,
+    "pedagogy_and_learning_paths": 45,
+    "perception_as_inference": 27
+  },
+  "recentness": {
+    "latestYear": 2026,
+    "sourcesSince2024": 45,
+    "yearKnownSources": 187
+  },
+  "summary": {
+    "blockingIssues": 0,
+    "claimSupportRows": 74,
+    "frontierSources": 45,
+    "singleSectionWithoutClaimSupport": 0,
+    "sources": 188,
+    "underweightedLanes": 0
+  }
+}

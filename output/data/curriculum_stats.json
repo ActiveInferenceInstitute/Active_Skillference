@@ -1,0 +1,30 @@
+{
+  "all_strata_present": true,
+  "core_max_depth": 33,
+  "max_depth": 75,
+  "prerequisite_edges": 1199,
+  "roots": 2,
+  "skills": 630,
+  "skills_per_stratum": {
+    "active_inference": 106,
+    "applications": 85,
+    "computation": 94,
+    "free_energy_principle": 58,
+    "information_theory": 72,
+    "math_foundations": 81,
+    "probability": 67,
+    "variational_methods": 67
+  },
+  "strata_count": 8,
+  "strata_present": [
+    "active_inference",
+    "applications",
+    "computation",
+    "free_energy_principle",
+    "information_theory",
+    "math_foundations",
+    "probability",
+    "variational_methods"
+  ],
+  "subjects": 111
+}

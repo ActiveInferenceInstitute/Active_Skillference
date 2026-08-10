@@ -1,0 +1,5 @@
+\frametitle{Code and Data Availability}
+naming the dashboard address, viewport, live counts, full-stack mode,
+capture timestamp, and a digest per image. Every other image in this
+paper regenerates; those five are archived precisely because they do
+not.

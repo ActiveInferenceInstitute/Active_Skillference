@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.10.1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>08_supplement_variational_free_energy.md.web</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      white-space: pre-wrap;
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <script data-template-mathjax-config>
+window.MathJax = window.MathJax || {};
+window.MathJax.chtml = Object.assign({}, window.MathJax.chtml, {
+  fontURL: "https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.0.0/chtml/woff2",
+  dynamicPrefix: "https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.0.0/chtml/dynamic"
+});
+window.normalizeTemplateMathJaxAria = function () {
+  document.querySelectorAll("mjx-speech[aria-roledescription]").forEach(function (node) {
+    var roleDescription = node.getAttribute("aria-roledescription") || "";
+    if (/[-]/.test(roleDescription)) {
+      node.setAttribute("aria-roledescription", "mathematical expression");
+    }
+  });
+};
+window.MathJax.startup = Object.assign({}, window.MathJax.startup, {
+  ready: function () {
+    window.MathJax.startup.defaultReady();
+    window.MathJax.startup.promise.then(window.normalizeTemplateMathJaxAria);
+  }
+});
+</script>
+<script defer=""
+  src="https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-chtml.js"
+  type="text/javascript" integrity="sha384-2BWc4dVaHADUocwKrUrK9u3iDwHxVMKXWEcoRmUkXYSFKhAsgVAYClu9ydNuo5Oz" crossorigin="anonymous"></script>
+
+<link data-template-favicon rel="icon" href="favicon.ico">
+
+<style>
+:root {
+  --brand-1: #5b6ee0;
+  --web-bg: #f8f8f8;
+  --web-surface: #ffffff;
+  --web-text: #2c3e50;
+  --web-border: #bdc3c7;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --brand-1: #7e8ce8;
+    --web-bg: #0f1420;
+    --web-surface: #161c2b;
+    --web-text: #e6eaf2;
+    --web-border: #2a3447;
+  }
+}
+.theorem-box {
+  border-left: 4px solid var(--brand-1);
+  background: var(--web-surface);
+  padding: 0.6em 1em;
+  margin: 1.1em 0;
+  border-radius: 0 4px 4px 0;
+}
+.theorem-box.definition { border-left-style: dashed; }
+.theorem-box > p:first-child { margin-top: 0; }
+.theorem-box > p:last-child { margin-bottom: 0; }
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  max-width: 100%;
+}
+
+body {
+  font-family: 'Liberation Serif', 'Times New Roman', serif;
+  line-height: 1.6;
+  width: min(100%, 800px);
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f8f8f8;
+  color: #1a1a1a;
+  overflow-x: visible;
+}
+
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  padding: 0.65rem 0.9rem;
+  transform: translateY(-120%);
+  background-color: #1a1a1a;
+  color: #ffffff;
+  font-family: sans-serif;
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.skip-link:visited {
+  color: #ffffff;
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
+@media (max-width: 600px) {
+  body {
+    width: 100%;
+    max-width: 100%;
+    padding: 16px;
+  }
+
+  figure img {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 800px) {
+  body {
+    width: 100%;
+    max-width: 100vw;
+    margin: 0 auto;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #2c3e50;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 5px;
+  overflow-wrap: anywhere;
+}
+
+code {
+  background-color: #ecf0f1;
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-family: 'Liberation Mono', 'Courier New', monospace;
+}
+
+pre {
+  background-color: #2c3e50;
+  color: #ecf0f1;
+  padding: 15px;
+  border-radius: 5px;
+  overflow-x: auto;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 20px 0;
+}
+
+figure {
+  max-width: 100%;
+  margin: 1.5rem 0;
+}
+
+th, td {
+  border: 1px solid #bdc3c7;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #1f6f8b;
+  color: white;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid #bdc3c7;
+  border-radius: 5px;
+  margin: 20px 0;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+a {
+  color: #b91c1c;
+  text-decoration: underline;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.14em;
+  overflow-wrap: anywhere;
+}
+
+a:visited {
+  color: #8f1d1d;
+}
+
+a:hover {
+  text-decoration-thickness: 0.14em;
+}
+
+a:focus-visible {
+  outline: 3px solid #1f6f8b;
+  outline-offset: 3px;
+}
+
+.toc {
+  background-color: #ecf0f1;
+  padding: 20px;
+  border-radius: 5px;
+  margin-bottom: 30px;
+}
+
+.toc a,
+#TOC a {
+  color: #b91c1c;
+  display: inline-block;
+  min-height: 28px;
+  line-height: 1.5;
+  padding-block: 2px;
+}
+
+.toc li,
+#TOC li {
+  margin-block: 1px;
+}
+
+.math {
+  text-align: center;
+  margin: 20px 0;
+  font-size: 1.1em;
+}
+
+mjx-container[display="true"] {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 0.25rem;
+}
+
+.figure {
+  text-align: center;
+  margin: 30px 0;
+}
+
+.figure img {
+  max-width: 100%;
+  height: auto;
+  border: 2px solid #3498db;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* A reading column keeps prose comfortable, but dense scientific figures need
+   a larger inspection surface.  The rendered image remains responsive and the
+   explicit link opens its source-resolution asset without changing the PDF. */
+.figure-full-size-link {
+  color: inherit;
+  display: block;
+  max-width: 100%;
+  text-align: center;
+}
+
+.figure-full-size-link img {
+  cursor: zoom-in;
+  margin-bottom: 0.45rem;
+}
+
+.figure-full-size-label {
+  color: #1f6f8b;
+  display: inline-block;
+  font-family: sans-serif;
+  font-size: 0.875rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+  text-decoration: underline;
+  text-underline-offset: 0.14em;
+}
+
+.figure-full-size-link:focus-visible {
+  outline: 3px solid #1f6f8b;
+  outline-offset: 4px;
+}
+
+@media (min-width: 1000px) {
+  .figure-full-size-link {
+    left: 50%;
+    max-width: none;
+    position: relative;
+    transform: translateX(-50%);
+    width: min(1080px, calc(100vw - 3rem));
+  }
+}
+
+.figure-caption {
+  font-style: italic;
+  color: #4b5563;
+  margin-top: 10px;
+  text-align: center;
+}
+
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<main id="main-content" tabindex="-1">
+<h1 id="sec:supplement-vfe-efe">Supplement: Model-Bounded Variational
+and Expected Free Energy Examples</h1>
+<p>This supplement carries the kernel-level mathematical walkthroughs
+that support the curriculum without crowding the main Results section.
+The purpose is narrow: show how the claim registry, figures and prose
+jointly teach the two optimization objectives that organize the course.
+Variational free energy is used for belief updating under a fixed
+generative model; expected free energy is used for policy evaluation
+under uncertainty. Both examples are deliberately small enough to audit
+by rerunning the kernels.</p>
+<p>Notation is fixed before the examples: <span
+class="math inline">\(s\)</span> is the latent state, <span
+class="math inline">\(o\)</span> is the observation, <span
+class="math inline">\(p(s)\)</span> is the prior, <span
+class="math inline">\(p(o\mid s)\)</span> is the likelihood, <span
+class="math inline">\(p(o,s)\)</span> is the joint generative density,
+and <span class="math inline">\(q(s)\)</span> is the recognition
+density. The variational free-energy convention is <span
+class="math inline">\(F[q]=\mathbb{E}_{q(s)}[\ln q(s)-\ln p(o,s)]
+=D_{\mathrm{KL}}(q(s)\|p(s\mid o))-\ln p(o)\)</span>, so the bound is
+tight when <span class="math inline">\(q(s)\)</span> equals the exact
+posterior. For expected free energy, this supplement uses the
+lower-is-better policy convention <span
+class="math inline">\(q(\pi)=\mathrm{softmax}(-\gamma G(\pi))\)</span>
+with policy precision <span class="math inline">\(\gamma\)</span>; the
+plotted terms are therefore tied to the stated policy set and preference
+distribution, not to a universal sign convention [buckley2017free;
+parr2022active; millidge2021whence; champion2026reframing;
+nuijten2026what_type_inference; nuijten2026efe_planning_vi].</p>
+<h2
+id="skilltree-bridge-from-derivations-to-quiz-gated-subjects">SkillTree
+bridge from derivations to quiz-gated subjects</h2>
+<!-- claim-support:supplement_skilltree_bridge -->
+<p>The supplement is not an isolated appendix of equations. It is a
+bridge from kernel claims to quiz-gated SkillTree material:
+<code>sub_free_energy</code> and <code>sub_efe</code> carry the core
+VFE/EFE concepts, the scientific-supplement subjects train bound and
+term interpretation, and the mastery subjects turn those interpretations
+into route-handoff and quiz-authoring checks. <span class="citation"
+data-cites="fig:vfe_efe_skilltree_bridge">[@fig:vfe_efe_skilltree_bridge]</span>
+is generated from the current curriculum graph after structural checks
+and SkillTree route contract so the text, figure, and dashboard artifact
+all point to the same subject, skill, prerequisite-edge, quiz, and route
+data. This bridge also keeps the VFE/EFE distinction scholarly rather
+than mnemonic: VFE is an evidence bound for belief updating, while EFE
+is a policy-evaluation objective whose formulations and preference
+assumptions need explicit scope boundaries [buckley2017free;
+parr2022active; smith2022tutorial; millidge2021whence;
+champion2026reframing; nuijten2026what_type_inference;
+nuijten2026efe_planning_vi].</p>
+<table>
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Skills</th>
+<th style="text-align: right;">Prerequisite edges</th>
+<th style="text-align: right;">Depth</th>
+<th style="text-align: right;">Representative IDs</th>
+<th>Learn route</th>
+<th>Quiz route</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>VFE core</td>
+<td>7</td>
+<td style="text-align: right;">16 total; 6 internal</td>
+<td style="text-align: right;">7-10</td>
+<td
+style="text-align: right;"><code>vm_elbo</code><br><code>vm_perception_descent</code><br><code>vm_message_passing</code></td>
+<td><code>/subjects/sub_free_energy</code></td>
+<td><code>/subjects/sub_free_energy/skills/vm_message_passing/quizzes/vm_message_passing_quiz</code></td>
+<td></td>
+</tr>
+<tr>
+<td>EFE core</td>
+<td>7</td>
+<td style="text-align: right;">15 total; 7 internal</td>
+<td style="text-align: right;">18-20</td>
+<td
+style="text-align: right;"><code>ai_expected_free_energy</code><br><code>ai_explore_exploit</code><br><code>ai_free_energy_of_future</code></td>
+<td><code>/subjects/sub_efe</code></td>
+<td><code>/subjects/sub_efe/skills/ai_free_energy_of_future/quizzes/ai_free_energy_of_future_quiz</code></td>
+<td></td>
+</tr>
+<tr>
+<td>VFE supplement</td>
+<td>6</td>
+<td style="text-align: right;">11 total; 5 internal</td>
+<td style="text-align: right;">9-14</td>
+<td
+style="text-align: right;"><code>sci_variational_01</code><br><code>sci_variational_04</code><br><code>sci_variational_06</code></td>
+<td><code>/subjects/sub_scientific_supplement_variational</code></td>
+<td><code>/subjects/sub_scientific_supplement_variational/skills/sci_variational_06/quizzes/sci_variational_06_quiz</code></td>
+<td></td>
+</tr>
+<tr>
+<td>EFE supplement</td>
+<td>6</td>
+<td style="text-align: right;">11 total; 5 internal</td>
+<td style="text-align: right;">19-24</td>
+<td
+style="text-align: right;"><code>sci_active_inference_01</code><br><code>sci_active_inference_04</code><br><code>sci_active_inference_06</code></td>
+<td><code>/subjects/sub_scientific_supplement_active_inference</code></td>
+<td><code>/subjects/sub_scientific_supplement_active_inference/skills/sci_active_inference_06/quizzes/sci_active_inference_06_quiz</code></td>
+<td></td>
+</tr>
+<tr>
+<td>VFE mastery</td>
+<td>8</td>
+<td style="text-align: right;">17 total; 7 internal</td>
+<td style="text-align: right;">36-43</td>
+<td
+style="text-align: right;"><code>mastery_variational_01</code><br><code>mastery_variational_05</code><br><code>mastery_variational_08</code></td>
+<td><code>/subjects/sub_skilltree_mastery_variational</code></td>
+<td><code>/subjects/sub_skilltree_mastery_variational/skills/mastery_variational_08/quizzes/mastery_variational_08_quiz</code></td>
+<td></td>
+</tr>
+<tr>
+<td>EFE mastery</td>
+<td>8</td>
+<td style="text-align: right;">17 total; 7 internal</td>
+<td style="text-align: right;">52-59</td>
+<td
+style="text-align: right;"><code>mastery_active_inference_01</code><br><code>mastery_active_inference_05</code><br><code>mastery_active_inference_08</code></td>
+<td><code>/subjects/sub_skilltree_mastery_active_inference</code></td>
+<td><code>/subjects/sub_skilltree_mastery_active_inference/skills/mastery_active_inference_08/quizzes/mastery_active_inference_08_quiz</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="bridge-figure">Bridge figure</h3>
+<figure id="fig:vfe_efe_skilltree_bridge">
+<a class="figure-full-size-link" href="../figures/vfe_efe_skilltree_bridge.png" target="_blank" rel="noopener" aria-label="Open full-size figure"><img src="../figures/vfe_efe_skilltree_bridge.png" style="width:100.0%"
+alt="VFE/EFE SkillTree bridge generated from the current curriculum graph after structural checks." /><span class="figure-full-size-label" aria-hidden="true">Open full-size figure</span></a>
+<figcaption>VFE/EFE SkillTree bridge generated from
+the current curriculum graph after structural checks. Rows are real
+SkillTree subjects, columns report skill counts, prerequisite-edge
+counts, graph-depth ranges, representative skill IDs, and learn-route
+and quiz-route fragments that expose the subject identifiers; color
+marks separate VFE-centered rows from EFE-centered rows. The figure
+connects the supplement’s mathematical plots to quiz-gated curriculum
+nodes and prevents the derivation from being presented as a standalone
+artifact disconnected from the learning path.</figcaption>
+</figure>
+<h2
+id="noisy-sensor-posterior-and-the-tight-variational-free-energy-bound">Noisy-sensor
+posterior and the tight variational-free-energy bound</h2>
+<!-- claim-support:supplement_vfe_computed -->
+<p>On a noisy-sensor model with a <span
+class="math inline">\(1\%\)</span> base rate, <span
+class="math inline">\(99\%\)</span> sensitivity, and <span
+class="math inline">\(95\%\)</span> specificity, a positive observation
+yields a posterior of 0.166667 for the latent condition. This is the
+same base-rate calibration problem that makes Bayesian reasoning
+difficult in natural-language judgment tasks and motivates
+frequency-format teaching examples for Bayesian inference
+[cosmides1996intuitive; gigerenzer1995bayesian]. The evidence
+probability of the positive observation is 0.0594, so the observation
+surprise is 2.82346 nats.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Noisy-sensor parameter</th>
+<th>Paper value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Latent states</td>
+<td><code>present</code>, <code>absent</code></td>
+</tr>
+<tr>
+<td>Observation index</td>
+<td><code>positive</code></td>
+</tr>
+<tr>
+<td>Prior <span class="math inline">\(D\)</span></td>
+<td><span class="math inline">\([0.01, 0.99]\)</span></td>
+</tr>
+<tr>
+<td>Likelihood rows <span class="math inline">\(A_{o,s}\)</span></td>
+<td><code>positive</code>: <span class="math inline">\([0.99,
+0.05]\)</span>; <code>negative</code>: <span
+class="math inline">\([0.01, 0.95]\)</span></td>
+</tr>
+<tr>
+<td>VFE sweep coordinate</td>
+<td><span class="math inline">\(q(\mathrm{present})\)</span> over <span
+class="math inline">\([0.001, 0.999]\)</span>, plus the exact posterior
+and <span class="math inline">\(0.5\)</span></td>
+</tr>
+</tbody>
+</table>
+<!-- claim-support:supplement_vfe_sweep -->
+<p>Evaluating variational free energy across beliefs confirms the
+central inequality: a uniform belief gives 3.11735 nats, while the true
+posterior gives 2.82346 nats, exactly the negative log-evidence. <span
+class="citation" data-cites="fig:free_energy">[@fig:free_energy]</span>
+shows the full one-dimensional sweep over <span
+class="math inline">\(q(\mathrm{present})\)</span>: the curve bottoms
+out at the exact posterior and stays above the surprise line everywhere
+else. The plot should not be read as a universal geometry of all
+recognition densities. It is a controlled diagnostic for one discrete
+model, one observation and one belief coordinate.</p>
+<figure id="fig:free_energy">
+<a class="figure-full-size-link" href="../figures/free_energy_descent.png" target="_blank" rel="noopener" aria-label="Open full-size figure"><img src="../figures/free_energy_descent.png" style="width:100.0%"
+alt="Variational free-energy sweep for the noisy-sensor model, generated from the same claim-registry kernels that provide the manuscript tokens and taught through the VFE core, supplement, and mastery SkillTree subjects in the VFE/EFE…" /><span class="figure-full-size-label" aria-hidden="true">Open full-size figure</span></a>
+<figcaption>Variational free-energy sweep for the
+noisy-sensor model, generated from the same claim-registry kernels that
+provide the manuscript tokens and taught through the VFE core,
+supplement, and mastery SkillTree subjects in the VFE/EFE SkillTree
+bridge. The x-axis is the recognition belief <span
+class="math inline">\(q(\mathrm{present})\)</span>, the blue curve is
+<span class="math inline">\(F(q)\)</span> in nats, the horizontal dashed
+line is <span class="math inline">\(-\ln p(o)\)</span>, the vertical
+dotted line is the exact posterior, and the labeled points compare the
+looser uniform belief with the posterior value. The intended takeaway is
+bound tightness at the posterior for this one discrete model and
+observation; the plot does not establish that the model is true or that
+the same geometry holds for every recognition family.</figcaption>
+</figure>
+<h2
+id="expected-free-energy-epistemic-value-and-bounded-policy-comparison">Expected
+free energy: epistemic value and bounded policy comparison</h2>
+<!-- claim-support:supplement_efe_computed -->
+<p>Decomposing expected free energy on an informative sensor shows that
+an uncertain belief carries positive epistemic value (0.368064 nats)
+while a certain belief carries none (0 nats): once the state is known,
+an observation cannot reduce uncertainty. In the two-action agent,
+preferences are neutral, so the pragmatic term is identical for both
+actions and the choice is decided by information gain. Under the
+lower-is-better <span class="math inline">\(G(\pi)\)</span> convention
+above, the information-seeking <em>sample</em> action scores lower
+expected free energy (0.546837 nats) than <em>commit</em> (0.613267
+nats), because it carries higher epistemic value (0.146311 nats versus
+0.079881 nats). This is the epistemic drive of Active Inference: no
+separate curiosity bonus is required in the reference formulation used
+here [friston2015epistemic; friston2017curiosity; dacosta2020synthesis;
+sajid2021demystified]. Derivation and unification work is the reason the
+supplement keeps the formulation explicit instead of presenting
+“expected free energy” as a single unqualified object
+[millidge2021whence; champion2026reframing;
+nuijten2026what_type_inference; nuijten2026efe_planning_vi].</p>
+<h3 id="preference-convention-and-parameters">Preference convention and
+parameters</h3>
+<p>One convention should be made explicit here: the kernel normalizes
+the preference vector <span class="math inline">\(C\)</span> to a
+probability distribution before taking its logarithm for the pragmatic
+term (<code>preferences = normalize(C)</code>, then <span
+class="math inline">\(\mathbb{E}_{q(o)}[\ln
+\mathrm{normalize}(C)]\)</span>), so the values plotted above assume
+<span class="math inline">\(C\)</span> is a preference
+<em>distribution</em>. This is a specific modeling choice rather than
+the only option: canonical Active Inference often treats <span
+class="math inline">\(C\)</span> directly as a vector of
+log-preferences, which shifts the pragmatic term by an additive constant
+and can change its scale relative to the epistemic term.</p>
+<h3 id="efe-parameter-table">EFE parameter table</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>EFE sample/commit parameter</th>
+<th>Paper value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sensor likelihood</td>
+<td><span class="math inline">\(A=[[p,1-p],[1-p,p]]\)</span>, with <span
+class="math inline">\(p=0.9\)</span></td>
+</tr>
+<tr>
+<td>EFE decomposition preference</td>
+<td><span class="math inline">\(C=[0.9,0.1]\)</span> for the
+informative-sensor term example</td>
+</tr>
+<tr>
+<td>Agent preference</td>
+<td>Neutral <span class="math inline">\(C=[0.5,0.5]\)</span> for the
+sample/commit policy comparison</td>
+</tr>
+<tr>
+<td>Prior before observation</td>
+<td><span class="math inline">\(D=[0.5,0.5]\)</span></td>
+</tr>
+<tr>
+<td>Actions</td>
+<td><code>sample</code> uses identity dynamics; <code>commit</code> maps
+both prior states toward state <code>0</code> with transition columns
+<span class="math inline">\([0.95,0.05]\)</span></td>
+</tr>
+<tr>
+<td>Policy posterior</td>
+<td><span class="math inline">\(q(\pi)=\mathrm{softmax}(-\gamma
+G_\pi)\)</span> over the two one-step policies</td>
+</tr>
+</tbody>
+</table>
+<h2
+id="sensor-precision-as-a-sample-versus-commit-policy-boundary">Sensor
+precision as a sample-versus-commit policy boundary</h2>
+<!-- claim-support:supplement_efe_boundary -->
+<p>The expected-free-energy result is not a universal law. It is pinned
+to a specific moderate-precision regime: at sensor precision <span
+class="math inline">\(0.9\)</span>, sampling wins; at the computed
+switch precision 0.95, sample and commit tie; above that point, the
+commit action can become lower in expected free energy. <span
+class="citation" data-cites="fig:efe">[@fig:efe]</span> shows both the
+sample/commit comparison and the precision sweep, making the regime
+boundary explicit instead of hiding it in prose [millidge2021whence;
+champion2026reframing; nuijten2026what_type_inference;
+nuijten2026efe_planning_vi].</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Precision-sweep parameter</th>
+<th>Paper value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sensor precision range</td>
+<td><span class="math inline">\(p \in [0.5,0.99]\)</span> with the
+computed switch inserted into the grid</td>
+</tr>
+<tr>
+<td>Sweep samples</td>
+<td><span class="math inline">\(101\)</span> grid samples before
+inserting <span class="math inline">\(p=0.9\)</span> and the switch
+precision</td>
+</tr>
+<tr>
+<td>Prior, preference, actions</td>
+<td>Same neutral two-action agent as the sample/commit comparison</td>
+</tr>
+<tr>
+<td>Tie criterion</td>
+<td>The switch is the bisection point where <span
+class="math inline">\(G_{\mathrm{sample}}-G_{\mathrm{commit}}=0\)</span></td>
+</tr>
+</tbody>
+</table>
+<figure id="fig:efe">
+<a class="figure-full-size-link" href="../figures/efe_decomposition.png" target="_blank" rel="noopener" aria-label="Open full-size figure"><img src="../figures/efe_decomposition.png" style="width:100.0%"
+alt="Expected free-energy decomposition for the sample/commit task, generated from the discrete active-inference kernel and taught through the EFE core, supplement, and mastery SkillTree subjects in the VFE/EFE SkillTree bridge." /><span class="figure-full-size-label" aria-hidden="true">Open full-size figure</span></a>
+<figcaption>Expected free-energy decomposition for
+the sample/commit task, generated from the discrete active-inference
+kernel and taught through the EFE core, supplement, and mastery
+SkillTree subjects in the VFE/EFE SkillTree bridge. The left panel
+compares total expected free energy and epistemic value for the two
+policies at sensor precision <span class="math inline">\(0.9\)</span>;
+the right panel sweeps sensor precision and marks the computed
+sample/commit switch. The visual encoding keeps policy score and
+epistemic value separate so the reader can see why sampling is preferred
+in the reference regime, while the right panel prevents the teaching
+example from being overgeneralized beyond the stated policy set and
+preferences.</figcaption>
+</figure>
+<!-- claim-support:supplement_kernel_sensitivity -->
+<p><span class="citation"
+data-cites="fig:kernel_sensitivity_profiles">[@fig:kernel_sensitivity_profiles]</span>
+broadens the sensitivity view without changing the evidence class. The
+left panel varies the base rate in the same noisy-sensor likelihood and
+shows how a positive observation’s posterior changes as the prior
+changes. The middle panel repeats the VFE bound profile so the equality
+point remains tied to the exact posterior. The right panel repeats the
+EFE precision sweep and marks the computed sample/commit boundary. These
+panels are deterministic kernel diagnostics: they identify where the
+teaching example is stable or regime-limited, not whether a learner or a
+biological system will behave that way.</p>
+<figure id="fig:kernel_sensitivity_profiles">
+<a class="figure-full-size-link" href="../figures/kernel_sensitivity_profiles.png" target="_blank" rel="noopener" aria-label="Open full-size figure"><img src="../figures/kernel_sensitivity_profiles.png"
+style="width:100.0%"
+alt="Kernel sensitivity profiles for the supplemental examples, generated from the noisy-sensor posterior, VFE sweep, and EFE precision sweep, then positioned in the SkillTree bridge as a route from mathematical identity to quiz-gated…" /><span class="figure-full-size-label" aria-hidden="true">Open full-size figure</span></a>
+<figcaption>Kernel sensitivity profiles for the
+supplemental examples, generated from the noisy-sensor posterior, VFE
+sweep, and EFE precision sweep, then positioned in the SkillTree bridge
+as a route from mathematical identity to quiz-gated interpretation. The
+left panel varies the base rate and shows posterior sensitivity after a
+positive observation, the middle panel plots the VFE bound profile with
+posterior and evidence references, and the right panel sweeps expected
+free energy for sample and commit policies across sensor precision while
+marking the computed policy switch. These panels identify deterministic
+regime boundaries for teaching examples; they are not empirical
+estimates, confidence intervals, or learner outcome
+statistics.</figcaption>
+</figure>
+<h2
+id="exact-inference-on-a-chain-with-sum-product-belief-propagation">Exact
+inference on a chain with sum-product belief propagation</h2>
+<!-- claim-support:supplement_message_passing -->
+<p>The message-passing curriculum is bound to a worked example rather
+than left as prose. Because the example factor graph is acyclic,
+sum-product belief propagation returns the exact node marginals for a
+three-node sticky latent chain with a single informative reading at the
+middle node. The observed node settles at 0.9, and the smoothing message
+lifts each unobserved neighbor from its prior to 0.74 – a lift of 0.24
+that is produced purely by propagating the one reading along the
+transition factor. Because a chain is a tree, these marginals are the
+same numbers a brute-force enumeration of the full joint would give; the
+test suite pins that equality, so the example is an exact-inference
+check, not an approximation [kschischang2001factor_graphs;
+pearl1988probabilistic_reasoning; parr2022active]. Factor-graph message
+passing is also a live implementation path for EFE minimization, but
+this supplement uses the chain only to teach exact sum-product inference
+and keeps policy-optimization message passing out of scope for this
+release [nuijten2025message_passing_efe].</p>
+<h3 id="sum-product-parameter-table">Sum-product parameter table</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Sum-product parameter</th>
+<th>Paper value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Chain length</td>
+<td><span class="math inline">\(3\)</span> binary latent nodes</td>
+</tr>
+<tr>
+<td>Prior on node <span class="math inline">\(0\)</span></td>
+<td><span class="math inline">\([0.5,0.5]\)</span></td>
+</tr>
+<tr>
+<td>Sticky transition</td>
+<td><span class="math inline">\([[0.8,0.2],[0.2,0.8]]\)</span></td>
+</tr>
+<tr>
+<td>Evidence potentials</td>
+<td>node <span class="math inline">\(0\)</span>: <span
+class="math inline">\([1,1]\)</span>; node <span
+class="math inline">\(1\)</span>: <span
+class="math inline">\([0.9,0.1]\)</span>; node <span
+class="math inline">\(2\)</span>: <span
+class="math inline">\([1,1]\)</span></td>
+</tr>
+</tbody>
+</table>
+<h2 id="conjugate-parameter-learning-from-dirichlet-beliefs">Conjugate
+parameter learning from Dirichlet beliefs</h2>
+<!-- claim-support:supplement_parameter_learning -->
+<p>Parameter learning is shown as a Dirichlet-conjugate update of one
+sensor column. A flat prior has mean 0.5; after a fixed observed count
+vector the posterior mean sharpens to 0.75, and the expected
+log-parameter that variational message passing actually consumes is
+-0.30202 nats, computed through the digamma identity <span
+class="math inline">\(\mathbb{E}[\ln
+p_i]=\psi(\alpha_i)-\psi(\sum_j\alpha_j)\)</span>. This is the learning
+half of active inference: beliefs about model parameters move with
+evidence, not just beliefs about states [dacosta2020synthesis].</p>
+<h2
+id="bayesian-model-reduction-whether-data-require-added-structure">Bayesian
+model reduction: whether data require added structure</h2>
+<!-- claim-support:supplement_model_reduction -->
+<p>Bayesian model reduction compares the evidence of a full model
+against a reduced model whose pruned state carries negligible prior
+mass. After a positive reading on the noisy-sensor model the full-model
+log evidence is -2.82346 nats and the reduced-model log evidence is
+-2.99571 nats, so the log Bayes factor is 0.172252 nats. The positive
+sign says the data support keeping the pruned structure: the reduced
+model is rejected. Both terms are exact log evidences, so the reported
+factor is the difference of two computed numbers rather than a
+hand-typed value [friston2018bayesian_model_reduction;
+parr2022active].</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>BMR parameter</th>
+<th>Paper value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Full prior</td>
+<td><span class="math inline">\(D=[0.01, 0.99]\)</span></td>
+</tr>
+<tr>
+<td>Reduced prior</td>
+<td>the <code>present</code> state is set to <span
+class="math inline">\(10^{-6}\)</span> and the prior vector is
+renormalized</td>
+</tr>
+<tr>
+<td>Observation and likelihood</td>
+<td>same positive observation and noisy-sensor likelihood as the VFE
+example</td>
+</tr>
+<tr>
+<td>Score</td>
+<td><span class="math inline">\(\log P(o\mid\mathrm{full})-\log
+P(o\mid\mathrm{reduced})\)</span></td>
+</tr>
+</tbody>
+</table>
+<h2
+id="ambiguity-as-a-state-dependent-component-of-expected-free-energy">Ambiguity
+as a state-dependent component of expected free energy</h2>
+<!-- claim-support:supplement_efe_ambiguity -->
+<p>Expected free energy carries an ambiguity term – the expected entropy
+of the likelihood columns – that the main decomposition leaves implicit.
+On an asymmetric sensor whose two states differ in how noisy their
+readings are, the crisp state has likelihood entropy 0.325083 nats,
+while a uniform belief averages to 0.509115 nats. Ambiguity is therefore
+a property of where the agent believes it is, which is why reducing it
+is part of what drives exploration [parr2022active;
+sajid2021demystified].</p>
+<h2
+id="multi-step-planning-and-model-dependent-look-ahead-value">Multi-step
+planning and model-dependent look-ahead value</h2>
+<!-- claim-support:supplement_multistep_planning -->
+<p>The one-step agent above is generalized to a planner that scores
+every length-<span class="math inline">\(H\)</span> action sequence by
+its cumulative expected free energy and forms a posterior over policies,
+<span class="math inline">\(q(\pi)=\mathrm{softmax}(-\gamma
+G_\pi)\)</span>; at <span class="math inline">\(H=1\)</span> the
+per-policy values reduce exactly to the one-step result, a consistency
+invariant the tests pin. Whether planning beats a myopic agent is then a
+measured question, not an assumption, and the answer is regime
+dependent.</p>
+<p>In a decoupled sample/commit model the optimal multi-step plan
+coincides with the strongest greedy policy, so the look-ahead gain is
+exactly 0 nats – an honest null. In a coupled investment model, where a
+state that is myopically attractive blocks access to a higher-value
+goal, the planner pays a worse first step to reach the goal: the greedy
+policy scores 3.02826 nats, the optimal plan scores 2.20728 nats, and
+the look-ahead gain is 0.820981 nats with the policy posterior
+concentrating 0.915376 of its mass on the winning plan (<span
+class="citation"
+data-cites="fig:planning_lookahead">[@fig:planning_lookahead]</span>).
+The comparator is the strongest myopic policy, not a weakened straw
+baseline, so the gain is a fair number; the first-principles lesson is
+that look-ahead pays only when immediate and long-run value diverge
+[parr2022active; dacosta2020synthesis].</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Planning parameter</th>
+<th>Decoupled sample/commit model</th>
+<th>Coupled investment model</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>States</td>
+<td><span class="math inline">\(2\)</span> latent states</td>
+<td><code>start</code>, <code>comfort</code>, <code>goal</code>,
+<code>climb</code></td>
+</tr>
+<tr>
+<td>Observation model</td>
+<td>informative sensor with <span
+class="math inline">\(p=0.9\)</span></td>
+<td>identity likelihood</td>
+</tr>
+<tr>
+<td>Preference vector</td>
+<td><span class="math inline">\(C=[0.9,0.1]\)</span></td>
+<td><span class="math inline">\(C=[0.03,0.22,0.55,0.20]\)</span></td>
+</tr>
+<tr>
+<td>Initial prior</td>
+<td><span class="math inline">\(D=[0.5,0.5]\)</span></td>
+<td><span class="math inline">\(D=[1,0,0,0]\)</span></td>
+</tr>
+<tr>
+<td>Actions</td>
+<td><code>sample</code> identity; <code>commit</code> collapse toward
+state <code>0</code></td>
+<td><code>comfort</code> sends start to comfort; <code>climb</code>
+sends start to climb and climb to goal</td>
+</tr>
+<tr>
+<td>Horizon and policy precision</td>
+<td><span class="math inline">\(H=2\)</span>, <span
+class="math inline">\(\gamma=4\)</span></td>
+<td><span class="math inline">\(H=2\)</span>, <span
+class="math inline">\(\gamma=4\)</span></td>
+</tr>
+</tbody>
+</table>
+<figure id="fig:planning_lookahead">
+<a class="figure-full-size-link" href="../figures/planning_lookahead.png" target="_blank" rel="noopener" aria-label="Open full-size figure"><img src="../figures/planning_lookahead.png" style="width:100.0%"
+alt="Multi-step planning look-ahead, generated from the discrete active-inference planning kernel." /><span class="figure-full-size-label" aria-hidden="true">Open full-size figure</span></a>
+<figcaption>Multi-step planning look-ahead, generated
+from the discrete active-inference planning kernel. The left panel
+contrasts the measured look-ahead gain (optimal multi-step plan versus
+the strongest greedy myopic policy) in a decoupled model, where the gain
+is zero, and a coupled investment model, where paying a worse first step
+to unlock the goal yields a positive gain. The right panel shows the
+cumulative expected free energy of every enumerated policy in the
+coupled model, with the greedy and optimal policies marked. The panel
+demonstrates that look-ahead value is a measured, model-dependent
+quantity, not a universal property of planning.</figcaption>
+</figure>
+<h2
+id="continuous-predictive-coding-as-model-specific-prediction-error-descent">Continuous
+predictive coding as model-specific prediction-error descent</h2>
+<!-- claim-support:supplement_predictive_coding -->
+<p>The discrete examples above update beliefs in one shot; the
+continuous-state face of the Free Energy Principle instead
+<em>settles</em> a latent estimate by descending the free energy along
+precision-weighted prediction errors. On a single linear-Gaussian level
+– a vague unit-variance prior at zero meeting a more precise reading of
+2 – the estimate relaxes from the prior mean to 1.33333, the exact
+analytic posterior mean, where the sensory prediction error (0.666667)
+and the prior prediction error (1.33333) balance once each is weighted
+by its precision.</p>
+<p><span class="citation"
+data-cites="fig:predictive_coding">[@fig:predictive_coding]</span> shows
+the estimate converging to that fixed point while, under the stated
+objective and step size used in this simulation, the free energy
+decreases monotonically to its analytic minimum. The result is exact for
+the linear-Gaussian case the kernel tests pin against a closed form; it
+is a controlled teaching example, not a claim that prediction-error
+descent is exact for nonlinear or hierarchical models
+[kalman1960linear_filtering; sarkka2013bayesian; buckley2017free;
+parr2022active; kataoka2026extended_predictive_coding].</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Predictive-coding parameter</th>
+<th>Paper value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Prior mean and variance</td>
+<td><span class="math inline">\(\mu_0=0\)</span>, <span
+class="math inline">\(\sigma_0^2=1\)</span></td>
+</tr>
+<tr>
+<td>Observation and variance</td>
+<td><span class="math inline">\(y=2\)</span>, <span
+class="math inline">\(\sigma_y^2=0.5\)</span></td>
+</tr>
+<tr>
+<td>Descent rate and steps</td>
+<td>rate <span class="math inline">\(0.1\)</span>, maximum <span
+class="math inline">\(400\)</span> steps</td>
+</tr>
+<tr>
+<td>Analytic target</td>
+<td>Gaussian posterior mean from the linear filtering update</td>
+</tr>
+</tbody>
+</table>
+<figure id="fig:predictive_coding">
+<a class="figure-full-size-link" href="../figures/predictive_coding_descent.png" target="_blank" rel="noopener" aria-label="Open full-size figure"><img src="../figures/predictive_coding_descent.png" style="width:100.0%"
+alt="Continuous predictive-coding descent generated from the linear-Gaussian kernel." /><span class="figure-full-size-label" aria-hidden="true">Open full-size figure</span></a>
+<figcaption>Continuous predictive-coding descent
+generated from the linear-Gaussian kernel. The left panel traces the
+latent estimate from the prior mean to the analytic precision-weighted
+posterior (dashed) as it balances the sensory and prior prediction
+errors; the right panel shows the free energy descending monotonically
+to its analytic minimum. The figure supports a bounded claim that
+prediction-error descent implements exact Gaussian inference for this
+one model, not a universal convergence guarantee for all generative
+models.</figcaption>
+</figure>
+</main>
+</body>
+</html>

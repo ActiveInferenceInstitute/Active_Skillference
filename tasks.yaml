@@ -1,0 +1,2104 @@
+# tasks.yaml - task + Gantt source of truth for this project.
+# Managed by Operator (live read-write).
+# status: todo | in_progress | blocked | done. dates: YYYY-MM-DD. progress: 0-100.
+project:
+  lifeArea: volunteering
+  title: Active Skillference - Active Inference micro-learning platform
+  status: active
+  updated: "2026-07-31"
+  live_metrics:
+    skills: 630
+    subjects: 111
+    prerequisite_edges: 1199
+    dependencies: 1199
+    quizzes: 630
+    assessments: 2520
+    claims: 79
+    figures: 26
+    cited_sources: 188
+    max_depth: 75
+tasks:
+  - id: asf-roadmap-oracle
+    title: Roadmap and live-count drift validation
+    status: done
+    surface: roadmap
+    owner: src.roadmap
+    metrics:
+      skills: 630
+      subjects: 111
+      prerequisite_edges: 1199
+      assessments: 2520
+      claims: 79
+      figures: 26
+      cited_sources: 188
+      max_depth: 75
+    evidence:
+      - uv run python scripts/validate_roadmap.py
+      - uv run python scripts/validate_live_counts.py
+    notes: tasks.yaml is now the machine-readable roadmap source, and TODO.md is validated against it so
+      stale counts cannot remain green.
+    start: ""
+    end: ""
+    progress: 0
+    milestone: false
+    deps: []
+    tags: []
+  - id: asf-distractor-quality-and-accessibility
+    title: Off-domain distractor cleanup with regression gate, dashboard accessibility, and DAG-safety
+      figure
+    status: done
+    surface: curriculum
+    owner: src.curriculum
+    metrics:
+      skills: 630
+      subjects: 111
+      prerequisite_edges: 1199
+      assessments: 2520
+    evidence:
+      - uv run python scripts/build_curriculum.py
+      - uv run pytest tests/test_curriculum_quality.py tests/test_dashboard.py tests/test_figures.py
+        tests/test_claim_support.py tests/test_manuscript_artifacts.py -q
+    notes: Replaced off-domain placeholder quiz distractors (UI/plumbing junk) with on-domain
+      alternatives and added quality._audit_implausible_distractors (verbatim + display-class guard,
+      scoped to incorrect answers) so the class cannot regress; the gate caught a residual joint
+      after a cross-vendor (Forge) audit flagged the first verbatim-only version as near-vacuous.
+      Dashboard gained WCAG keyboard tab navigation, focus-visible styles, a skip link, and an
+      accessible prerequisite-flow table. plot_dependency_strata_flow now marks the backward
+      (lower-triangle) zone as must-stay-empty so the no-backward-edges invariant is self-proving.
+      claim_support cross-checks declared claim tokens against the kernel registry and validator
+      paths against the filesystem.
+  - id: asf-curriculum-hardening
+    title: Curriculum expansion and stricter quiz quality
+    status: done
+    surface: curriculum
+    owner: src.curriculum
+    metrics:
+      skills: 630
+      subjects: 111
+      prerequisite_edges: 1199
+      assessments: 2520
+    evidence:
+      - uv run python scripts/build_curriculum.py
+      - uv run pytest tests/test_curriculum_catalog.py tests/test_curriculum_quality.py -q
+    notes: The graph includes continuous dynamics, state-space probability, rate-distortion information,
+      continuous variational inference, predictive-coding process theory, hierarchical active
+      inference, reproducible simulation labs, applied evaluation dossiers, supplemental VFE/EFE
+      scientific critique subjects, visual reasoning review subjects, and publication-synthesis
+      handoff subjects.
+  - id: asf-supplement-science-expansion
+    title: Supplemental mathematical analysis and scientific curriculum expansion
+    status: done
+    surface: manuscript
+    owner: manuscript/08_supplement_variational_free_energy.md
+    metrics:
+      skills: 630
+      subjects: 111
+      prerequisite_edges: 1199
+      assessments: 2520
+      figures: 26
+    evidence:
+      - uv run python scripts/build_curriculum.py
+      - uv run python scripts/run_kernels.py
+      - uv run pytest tests/test_curriculum_catalog.py tests/test_manuscript_artifacts.py
+        tests/test_figures.py -q
+    notes: Detailed VFE/EFE walkthroughs moved into a numbered supplement, and scientific supplement
+      subjects add falsifiable VFE/EFE interpretation practice across all strata.
+  - id: asf-visual-reasoning-expansion
+    title: Visual reasoning curriculum and stratum-balance figure
+    status: done
+    surface: figures
+    owner: src.curriculum._ext_visual_reasoning
+    metrics:
+      skills: 630
+      subjects: 111
+      prerequisite_edges: 1199
+      assessments: 2520
+      figures: 26
+    evidence:
+      - uv run python scripts/build_curriculum.py
+      - uv run python scripts/run_kernels.py
+      - uv run pytest tests/test_curriculum_catalog.py tests/test_figures.py
+        tests/test_manuscript_artifacts.py -q
+    notes: Eight visual-reasoning subjects add figure-reading, captioning, dashboard, and
+      manuscript-review skills across all strata, while the stratum-balance figure exposes expansion
+      concentration risk.
+  - id: asf-visual-evidence-contracts
+    title: Visual-evidence contract curriculum and ladder figure
+    status: done
+    surface: figures
+    owner: src.curriculum._ext_visual_evidence_contracts
+    metrics:
+      skills: 630
+      subjects: 111
+      prerequisite_edges: 1199
+      assessments: 2520
+      figures: 26
+    evidence:
+      - uv run python scripts/build_curriculum.py
+      - uv run python scripts/run_kernels.py
+      - uv run python scripts/validate_manuscript_artifacts.py
+      - uv run pytest tests/test_curriculum_catalog.py tests/test_figures.py tests/test_dashboard.py
+        tests/test_manuscript_artifacts.py -q
+    notes: Two focused six-skill subjects teach visual evidence contracts across computation and
+      active-inference explanation. The visual_evidence_contract_ladder figure, registry
+      chart-contract fields, manuscript prose, dashboard detail view, and artifact validator now
+      share the same question, source, encoding, static/mobile, and failure-mode contract.
+  - id: asf-scholarship-health
+    title: Scholarship coverage and source-health validation
+    status: done
+    surface: scholarship
+    owner: src.scholarship
+    metrics:
+      cited_sources: 188
+    evidence:
+      - uv run python scripts/analyze_scholarship.py
+      - uv run python scripts/validate_scholarship_sources.py
+      - uv run python scripts/validate_scholarship_sources.py --online --strict-online
+      - uv run pytest tests/test_scholarship.py -q
+    notes: Scholarship rows must be cited, BibTeX-backed, lane-assigned, role-specific, and
+      locator-specific. The default check is offline; --online --strict-online hard-fails on a dead
+      DOI/URL (404, DNS) while tolerating publisher 403 bot-blocks, and is run as a networked
+      release gate (not in offline CI).
+  - id: asf-dashboard-graph-diagnostics
+    title: Dashboard graph diagnostics and accessible table fallback
+    status: done
+    surface: dashboard
+    owner: src.dashboard
+    evidence:
+      - uv run pytest tests/test_dashboard.py tests/test_dashboard_console.py -q
+      - chrome-devtools-axi eval "document.title"
+      - uv run python scripts/validate_dashboard_console.py
+    notes: The dashboard exposes graph bottlenecks, prerequisite neighborhoods, subject flows, max-depth
+      filtering, and read-only Learn/Quiz SkillTree handoff routes. validate_dashboard_console.py is
+      an opt-in browser gate that fails on any console error except the known, cosmetic upstream
+      skills-client probe of SkillTree's built-in Inception project (401, non-blocking, not fixable
+      from our config); it reports skipped (not clean) without a browser or running dashboard.
+  - id: asf-visualization-artifacts
+    title: Diagnostic figures and artifact registry validation
+    status: done
+    surface: figures
+    owner: src.figures
+    metrics:
+      figures: 26
+    evidence:
+      - uv run pytest tests/test_figures.py tests/test_manuscript_artifacts.py -q
+      - uv run python scripts/validate_manuscript_artifacts.py
+    notes: Graph bottlenecks, skill-neighborhood paths, scholarship source health, roadmap risk,
+      validation-surface, and validation-intent mismatch figures are generated, captioned,
+      alt-texted, and exposed to the dashboard.
+  - id: asf-technical-docs-visualization-contracts
+    title: Technical documentation and visualization contract hardening
+    status: done
+    surface: figures
+    owner: tests/test_docs_inventory.py
+    metrics:
+      skills: 630
+      subjects: 111
+      prerequisite_edges: 1199
+      assessments: 2520
+      figures: 26
+    evidence:
+      - uv run pytest tests/test_docs_inventory.py tests/test_figures.py
+        tests/test_manuscript_artifacts.py tests/test_dashboard.py -q
+      - uv run python scripts/run_kernels.py
+      - uv run python scripts/validate_manuscript_artifacts.py
+      - uv run python scripts/validate_rendered_freshness.py
+      - uv run python scripts/validate_roadmap.py
+      - uv run pytest --cov=src --cov-fail-under=90
+    notes: Technical documentation inventories now compare docs, scripts, and figure rows against the
+      live repository and planned figure registry. The figure contract adds data grain, palette
+      policy, palette roots, and non-color encoding fields; the manuscript artifact audit, dashboard
+      artifact cards, negative controls, and targeted figures use the same fields. Graph
+      bottlenecks, validation-surface, and roadmap-risk visuals now carry more of their reading in
+      direct labels, totals, hatching, and status text rather than hue alone.
+  - id: asf-visual-contract-specificity-and-doc-accuracy
+    title: Figure contract specificity and technical documentation accuracy
+    status: done
+    surface: figures
+    owner: src.figures
+    metrics:
+      figures: 26
+    evidence:
+      - uv run pytest tests/test_figures.py tests/test_manuscript_artifacts.py
+        tests/test_docs_inventory.py -q
+      - uv run python scripts/run_kernels.py
+      - uv run python scripts/validate_manuscript_artifacts.py
+      - uv run python scripts/validate_rendered_freshness.py
+      - uv run python scripts/validate_roadmap.py
+    notes: Figure registry validation now rejects generic fallback question, data-grain, static-read,
+      mobile-read, and failure-mode text. All registered figures carry figure-specific chart
+      contracts; sparse source views were redesigned as ledgers/status cards, concept coverage as a
+      lollipop audit, graph bottlenecks as a top-N direct-label ranking, and the long-path
+      diagnostic as a checkpointed route. Technical docs and manuscript prose now describe the full
+      visual QA field set, learn-route versus quiz-route fragments, and the bounded 90% src coverage
+      gate without claiming blanket 100% kernel coverage.
+  - id: asf-cover-publication-synthesis
+    title: Generated cover asset and publication-synthesis curriculum
+    status: done
+    surface: manuscript
+    owner: src.curriculum._ext_publication_synthesis
+    metrics:
+      skills: 630
+      subjects: 111
+      prerequisite_edges: 1199
+      assessments: 2520
+      figures: 26
+    evidence:
+      - uv run python scripts/build_curriculum.py
+      - uv run python scripts/run_kernels.py
+      - uv run python scripts/validate_manuscript_artifacts.py
+      - uv run pytest tests/test_curriculum_catalog.py tests/test_figures.py
+        tests/test_manuscript_artifacts.py -q
+    notes: A deterministic first-page cover and page-two named-skill atlas are generated from live
+      graph, claim, roadmap, and skill-name data as non-numbered front-matter artifacts, while eight
+      publication-synthesis subjects train reader handoff across all strata.
+  - id: asf-scientific-integrity-refactor
+    title: Claim-support evidence taxonomy and scientific-audit curriculum
+    status: done
+    surface: manuscript
+    owner: src.manuscript.claim_support
+    metrics:
+      skills: 630
+      subjects: 111
+      prerequisite_edges: 1199
+      assessments: 2520
+      figures: 26
+      cited_sources: 188
+    evidence:
+      - uv run python scripts/validate_claim_support.py
+      - uv run python scripts/validate_scholarship_sources.py
+      - uv run pytest tests/test_claim_support.py tests/test_scholarship.py tests/test_figures.py -q
+    notes: Manuscript claim-support anchors now bind strong scientific wording to computed, count,
+      simulation, literature, scope, delivery, or visual evidence classes; eight scientific-audit
+      subjects teach these proof obligations across all strata.
+  - id: asf-skilltree-nsa-security-context
+    title: SkillTree NSA provenance and national-security posture documentation
+    status: done
+    surface: scholarship
+    owner: manuscript/07_scope_and_related_work.md
+    metrics:
+      skills: 630
+      subjects: 111
+      prerequisite_edges: 1199
+      assessments: 2520
+      cited_sources: 188
+    evidence:
+      - uv run python scripts/analyze_scholarship.py
+      - uv run python scripts/validate_claim_support.py
+      - uv run pytest tests/test_scholarship.py tests/test_claim_support.py
+        tests/test_curriculum_catalog.py -q
+    notes: SkillTree is now treated as an NSA-origin open-source substrate with explicit
+      non-endorsement, deployment-posture, trusted-client, supply-chain, and APT-aware misuse
+      boundaries.
+  - id: asf-american-english-readiness-redteam
+    title: American English manuscript gate and initial-publication RedTeam review
+    status: done
+    surface: manuscript
+    owner: src.manuscript.american_english
+    metrics:
+      skills: 630
+      subjects: 111
+      prerequisite_edges: 1199
+      assessments: 2520
+      claims: 79
+      figures: 26
+      cited_sources: 188
+      max_depth: 75
+    evidence:
+      - uv run python scripts/validate_american_english.py
+      - uv run python scripts/validate_claim_support.py
+      - uv run pytest tests/test_manuscript_language.py tests/test_claim_support.py
+        tests/test_manuscript_artifacts.py -q
+    notes: Authored manuscript prose now uses American English with a fail-closed validator. The project
+      is suitable for initial static public-review publication, while live SkillTree proof and
+      DOI/repository publication metadata remain tracked as separate open tasks.
+  - id: asf-skilltree-live-recheck
+    title: Re-verify live SkillTree service and official quiz render
+    status: done
+    surface: skilltree
+    owner: scripts/run_learning_dashboard.sh
+    metrics:
+      skills: 630
+      subjects: 111
+      prerequisite_edges: 1199
+      dependencies: 1199
+      quizzes: 630
+      assessments: 2520
+    evidence:
+      - SKILLTREE_URL=http://localhost:8080 ACTIVE_SKILLFERENCE_LOCAL_AUTH=1
+        ./scripts/run_learning_dashboard.sh
+      - uv run python scripts/bootstrap_local_skilltree.py --base-url http://localhost:8080 --no-seed
+      - uv run python scripts/validate_live_skilltree_dashboard.py --dashboard-url
+        http://127.0.0.1:8765 --skilltree-url http://localhost:8080
+      - "chrome-devtools-axi: verified dashboard title, SkillTree online status, official display
+        mount, mastery_computation_07 search, Learn/Quiz links, and real four-question SkillTree
+        quiz render"
+    notes: Docker SkillTree is reachable at localhost:8080, the dashboard is relaunched with local auth
+      at 127.0.0.1:8765, the official SkillTree display mounts, and mastery_computation_07 renders a
+      real four-question quiz in Chrome. Skills and quizzes seeded through local SkillTree
+      workflows; remaining large-graph dependency rows were synchronized idempotently into the local
+      Docker database because per-edge REST dependency validation was too slow at the 600-skill
+      scale.
+  - id: asf-skilltree-452-live-reverify
+    title: Live re-verify local SkillTree stack against skills-service 4.5.2
+    status: done
+    scale: minor
+    surface: skilltree
+    owner: docker-compose.yml
+    deps:
+      - asf-skilltree-live-recheck
+    metrics:
+      skills: 630
+      subjects: 111
+      prerequisite_edges: 1199
+      quizzes: 630
+    evidence:
+      - uv run python scripts/reset_local_skilltree.py --confirm-local-reset --timeout 1200
+      - "proof.ok=true; proof.mode=app-ready; liveAdminProject.skills=630;
+        artifacts present=42/42; figureContracts registered=21/dashboard=21;
+        browserConsole 'dashboard console gate OK'; rawSkillTreeLogin
+        adminSurfaceVisible=true, title='SkillTree Dashboard - Project Administrator'"
+      - uv run python scripts/validate_docker_digests.py
+      - uv run pytest tests/ --cov=src --cov-report=term-missing -q (814 passed, 90.17%)
+    notes: >-
+      Closed 2026-07-04. Two real bugs surfaced and fixed en route (both pre-existing, not
+      introduced by the 4.5.2 bump, but blocking this task): (1)
+      scripts/validate_full_app_stack.py called `docker compose up -d` without first setting
+      ACTIVE_SKILLFERENCE_POSTGRES_PASSWORD the way scripts/run_skilltree.sh does, so the
+      documented vendor/README.md one-liner failed on a fresh checkout; fixed by adding
+      src/integration/full_app_stack.py:ensure_postgres_password() (same state-dir-scoped file
+      convention as the shell script) and calling it before the compose command. (2)
+      scripts/reset_local_skilltree.py's `docker compose down -v` has the same interpolation
+      requirement and had the same gap; fixed by calling the same ensure_postgres_password()
+      helper there too. A stale skilltree_auth.json from the 2026-06-22 4.4.2 run also caused a
+      transient 401 on the first clean-volume attempt (stored admin credentials no longer matched
+      the freshly-initialized Postgres DB) — resolved by using the documented
+      reset_local_skilltree.py path (which backs up + removes local auth state before resetting
+      the volume) instead of a bare `docker compose down -v`. Final run: `--app-ready` proof is
+      green end-to-end against 4.5.2 (root bootstrap, project seed, dashboard health, figure
+      contracts, browser console gate, raw FORM login all passed). Full live-dependency parity
+      (1199/1199 edges via the admin REST API) was NOT attempted here — `--app-ready` explicitly
+      skips it, consistent with this project's own prior finding that per-edge REST dependency
+      validation is too slow at the 600-skill scale (see asf-skilltree-live-recheck's notes); that
+      remains a separately-scoped, still-open concern independent of this version bump. Docker
+      containers and the dashboard process were stopped and the compose volume removed after
+      recording evidence, per the "disposable outputs" convention.
+  - id: asf-skilltree-460-live-reverify
+    title: Live re-verify local SkillTree stack against skills-service 4.6.0
+    status: todo
+    scale: minor
+    surface: skilltree
+    owner: docker-compose.yml
+    deps:
+      - asf-skilltree-452-live-reverify
+    metrics:
+      skills: 630
+      subjects: 111
+      prerequisite_edges: 1199
+      quizzes: 630
+    evidence:
+      - uv run python scripts/reset_local_skilltree.py --confirm-local-reset --timeout 1200
+      - uv run python scripts/validate_docker_digests.py
+    notes: >-
+      Opened 2026-08-01 after bumping the pinned runtime from skills-service 4.5.2 to 4.6.0
+      (upstream release 2026-07-28). docker-compose.yml postgres:15 digest and the
+      skills-service tag+digest were refreshed via the documented Docker Hub procedure
+      (skills-service 4.6.0 = sha256:071220ce..., single-arch; postgres:15 = sha256:74e110c4...,
+      multi-arch incl. arm64), and AuthMode was re-confirmed as FORM/PKI/SAML2 at the 4.6.0 tag
+      (no PKI_OR_FORM). The digest pin and docs were updated, but no live full-app boot against
+      4.6.0 was recorded because Docker was not running on the reconciliation host. Per the
+      provenance-over-assertion principle, the 4.5.2 live records (asf-skilltree-452-live-reverify)
+      do NOT prove anything about 4.6.0; run the full-app proof (reset_local_skilltree.py
+      --confirm-local-reset --timeout 1200) against 4.6.0 and record proof.ok here before reading
+      this pin as live-verified.
+      2026-08-09 partial progress on a Docker-capable host, recorded without claiming the phase
+      exit: validate_docker_digests.py passes against the running stack, and the strict
+      full-parity proof (validate_full_app_stack.py --skip-regenerate, see
+      asf-live-stack-ci-rehearsal) is green against skills-service 4.6.0 with 1199/1199 live
+      dependencies, 630 live admin skills, raw FORM login, and the browser console gate. What is
+      still NOT proven is the fresh-volume path this task actually asks for: whether the
+      documented default root credentials bootstrap correctly on a newly created 4.6.0 volume.
+      That requires the destructive reset (docker compose down -v), which would also discard the
+      1199/1199 parity that took roughly an hour of per-edge writes to reach on this Apple/ARM
+      host, so it is deliberately left for an explicit maintainer run rather than folded in here.
+    scholarship_plan:
+      lanes:
+        - delivery_and_reporting
+      existing_source_keys: []
+      planned_source_targets: []
+      claim_support_types:
+        - scope_limit
+      boundaries:
+        - "Live full-app proof against skills-service 4.6.0 is operational verification, not a scientific or learner-outcome claim."
+      phase_exit:
+        - "`uv run python scripts/reset_local_skilltree.py --confirm-local-reset --timeout 1200` reports proof.ok=true against 4.6.0 and the evidence is recorded in this task."
+  - id: asf-captured-delivery-evidence
+    title: Captured browser evidence for the delivery surface
+    status: done
+    scale: medium
+    surface: manuscript
+    owner: src.screenshots
+    metrics:
+      skills: 630
+      subjects: 111
+      prerequisite_edges: 1199
+      figures: 26
+    evidence:
+      - uv run python scripts/capture_dashboard_screenshots.py
+      - uv run python scripts/validate_manuscript_artifacts.py
+      - uv run python scripts/validate_claim_support.py
+      - uv run pytest tests/test_screenshots.py -q
+    notes: >-
+      Closed 2026-08-09. The delivery result was the only Results subsection carrying no
+      visual evidence, which left the strongest delivery claim unfalsifiable from the paper:
+      that the official SkillTree learner client actually mounts and renders the seeded
+      project rather than a local copy of course text. Five browser recordings of the running
+      dashboard now carry that claim. They are registered in the same figure registry as the
+      deterministic plots, so they inherit the caption, alt-text, and chart-contract floors
+      and the manuscript and dashboard parity checks, but they declare evidence_kind captured
+      and a tracked asset root because a recording is not a function of project data and
+      cannot be rebuilt from a checkout. They are therefore version-controlled under
+      manuscript/assets/screenshots, excluded from the deterministic render/registry parity
+      check, staged into the generated figure directory at build time so the renderer resolves
+      them, and stamped with a provenance record naming the dashboard address, viewport, live
+      SkillTree counts, and full-app proof mode of the capture run. Known limitation recorded
+      rather than papered over: no gate detects a screenshot that has gone stale against a
+      changed interface, so a capture must be rerun whenever the dashboard display changes.
+    scholarship_plan:
+      lanes:
+        - delivery_and_reporting
+      existing_source_keys: []
+      planned_source_targets: []
+      claim_support_types:
+        - visual
+        - delivery
+      boundaries:
+        - Captured browser evidence records interface delivery, not learner outcomes or efficacy.
+        - A recording is not reproducible byte-for-byte and is not presented as a deterministic render.
+      phase_exit:
+        - Every captured view is declared, cross-referenced, registered, and dashboard-visible.
+        - The capture provenance record names the system state the images evidence.
+  - id: asf-public-release-metadata
+    title: Publication DOI and repository target decision
+    status: blocked
+    scale: external
+    surface: metadata
+    owner: manuscript/config.yaml
+    evidence:
+      - uv run python scripts/validate_live_counts.py
+      - uv run python scripts/validate_manuscript_variables.py
+      - uv run python scripts/z_generate_manuscript_variables.py
+      - uv run python scripts/validate_rendered_freshness.py
+      - git ls-remote --heads https://github.com/ActiveInferenceInstitute/Active_Skillference.git
+        HEAD
+    notes: The public repository target is owner-confirmed as ActiveInferenceInstitute/Active_Skillference
+      and is set in manuscript/config.yaml. The owner also confirmed MIT for authored code/content
+      and generated artifacts, Daniel Ari Friedman as the copyright holder, and the need for a
+      counsel-review checklist before formal release. The private docxology/Active_Skillference
+      mirror is current and local offline validators are green. Probed on 2026-08-09, the public
+      target now exists and is public, but git ls-remote returns zero refs and the GitHub API
+      reports size 0, so the target is reachable and still unpublished. Existence is not
+      publication, and no commit, no tag, no archive deposit, and no DOI exist for it yet. This task
+      stays blocked rather than todo because the remaining step is an owner-executed push, release,
+      and Zenodo deposit performed outside this repository, not repository work that can be
+      implemented here. DOI, release-date, and repository-URL fields stay blank rather than
+      carrying fabricated metadata.
+    scholarship_plan:
+      lanes:
+        - delivery_and_reporting
+        - applications_and_scope
+      existing_source_keys:
+        - smith2016softwarecitation
+        - citationfileformat2026
+        - codemeta2026schema
+        - github2026citingcontent
+        - zenodo2026github
+        - wilkinson2016fair
+        - nosek2015top
+      planned_source_targets: []
+      claim_support_types:
+        - delivery
+        - scope_limit
+        - literature
+      boundaries:
+        - The empty public repository remains an external blocker, not a failed scholarly claim.
+        - DOI and repository metadata remain blank until real GitHub and Zenodo events are observed.
+      phase_exit:
+        - The public target carries published content and a real release, and the publication environment can complete the actual release path.
+        - Any release metadata is copied from observed repository and archive records.
+  - id: asf-planning-surface-reconciliation
+    title: Reconcile TODO, tasks, and ISA planning surfaces
+    status: done
+    surface: roadmap
+    owner: ISA.md
+    evidence:
+      - uv run python scripts/validate_roadmap.py
+      - uv run python scripts/validate_live_counts.py
+      - rg -n "^- \\[ \\]|DEFERRED-VERIFY|progress:|updated:" ISA.md TODO.md tasks.yaml
+    notes: ISA.md now declares tasks.yaml as the canonical forward roadmap and TODO.md as the generated
+      reader view. The stale 143/145 progress field was replaced with a tasks.yaml-canonical marker,
+      the update date is 2026-06-18, and the duplicate Forge/GPT-5.4 ISC entries are superseded by
+      asf-cross-vendor-security-audit rather than remaining as a second open-work queue.
+  - id: asf-cross-vendor-security-audit
+    title: Cross-vendor security audit closure for dashboard and local auth
+    status: done
+    surface: validation
+    owner: src/dashboard/server.py
+    evidence:
+      - uv run pytest tests/test_dashboard_server.py tests/test_dashboard_console.py
+        tests/test_skilltree_local_auth.py tests/test_dashboard.py -q
+      - uv run python scripts/validate_dashboard_console.py --require-browser --require-dashboard
+      - Forge/GPT-5.4 read-only audit over src/dashboard/server.py, src/skilltree/local_auth.py,
+        scripts/validate_full_app_stack.py, and related tests
+    notes: "Closed 2026-06-20 — scope: an independent Forge/GPT-5.4 cross-vendor, read-only (static, no
+      dynamic/runtime testing) audit at reasoning_effort=high over the
+      dashboard/local-auth/full-stack source + tests. This closes the specific deferred task (run
+      the independent cross-vendor pass and fix findings); it is a point-in-time static scan, not a
+      guarantee of completeness — dependency/supply-chain, secrets-in-git-history, and
+      dynamic-runtime classes are out of its scope. Within that scope it returned NO unresolved
+      critical/high issues: both prior fixes are present, correct, and non-vacuously tested — the
+      DNS-rebind / cross-site token-theft fix (Host-header hostname pinning + Sec-Fetch-Site/Origin
+      gate, server.py:142-190; the credible cross-site GET vector sends Sec-Fetch-Site:cross-site
+      and is rejected and tested at test_dashboard_server.py:329-344) and the fail-open
+      token-exchange fix (empty/typeless/token-less bodies raise; structured-but-secretless JSON is
+      not laundered, local_auth.py:1009-1050). Path traversal is closed (exact-id allowlist;
+      '/'+leading-'.' rejection) and CORS is allowlist-gated. The one actionable defense-in-depth
+      finding was implemented this session: DashboardConfig now fails closed on a non-loopback bind
+      when local_auth_enabled (src/dashboard/config.py _is_loopback_host) with a firing
+      negative-control test (tests/test_dashboard.py::test_local_auth_requires_loopback_bind).
+      Remaining audit notes were low-severity and non-exploitable under the localhost-browser threat
+      model."
+  - id: asf-kernel-bound-aif-expansion
+    title: Kernel-bound numbers for belief propagation, parameter learning, model reduction, and
+      multi-step planning
+    status: done
+    surface: curriculum
+    owner: src/kernels
+    evidence:
+      - uv run pytest tests/test_kernels_examples.py tests/test_kernels_inference.py
+        tests/test_kernels_active_inference.py -q
+      - uv run python scripts/run_kernels.py
+      - uv run python scripts/z_generate_manuscript_variables.py
+      - Forge/GPT-5.4 read-only math + crippled-comparator audit of the new kernels
+    notes: "Closed 2026-06-20. Six Active Inference / FEP concepts that the curriculum taught with zero
+      kernel-bound numbers are now backed by tested kernels emitting provenance claims: exact
+      sum-product belief propagation on a chain (belief_propagation_chain, cross-checked against
+      brute-force joint enumeration); Dirichlet-conjugate parameter learning (digamma identity);
+      Bayesian model reduction (log Bayes factor full vs reduced); the expected-free-energy
+      ambiguity term; multi-step planning (evaluate_multistep_policies) with an honest measured
+      look-ahead gain — zero in a decoupled model, positive in a coupled investment model, compared
+      against the STRONGEST greedy baseline (not a crippled comparator, independently re-verified by
+      Forge); and continuous predictive coding (linear-Gaussian prediction-error descent converging
+      to the analytic posterior with balanced precision-weighted errors). Bound into the manuscript
+      supplement via {{claim:...}} tokens and new claim-bound figures (planning_lookahead,
+      predictive_coding_descent). The kernel input parameters are also registered as claims so the
+      model definition cannot silently drift from the manuscript."
+  - id: asf-predictive-coding-and-learner-facing-binding
+    title: Continuous predictive-coding kernel and learner-facing binding of kernel claims
+    status: done
+    surface: curriculum
+    owner: src/kernels/predictive_coding.py
+    evidence:
+      - uv run pytest tests/test_kernels_predictive_coding.py tests/test_kernels_examples.py
+        tests/test_figures.py tests/test_claim_support.py -q
+      - uv run python scripts/run_kernels.py
+      - uv run python scripts/z_generate_manuscript_variables.py
+      - Forge/GPT-5.4 read-only math + binding-honesty audit of the predictive-coding kernel and the
+        new claim bindings
+    notes: "Closed 2026-06-20. Added the continuous-state predictive-coding kernel (linear-Gaussian
+      prediction-error descent) the curriculum taught with zero numbers: the latent estimate settles
+      at the exact analytic precision-weighted posterior (1.333333) where the sensory and prior
+      prediction errors balance, with the free energy descending monotonically — cross-checked
+      against the closed-form posterior, not self-consistency. Bound into the manuscript supplement
+      + a new claim-bound figure (predictive_coding_descent), raising the live claim and figure
+      counts. Crucially, the prior round's new kernel numbers were manuscript-only; this round binds
+      them into the LEARNER-FACING curriculum: the belief-propagation marginals into
+      mp_belief_propagation and the predictive-coding result into ai_generalized_coordinates, so the
+      SkillTree export now shows the computed numbers, not just descriptive prose. The hand-typed
+      kernel input parameters in 05_experimental_setup are now bound via {{claim:param_*}} tokens so
+      the experimental-setup prose cannot drift from the kernel constants."
+  - id: asf-integrity-gate-and-floor-hardening
+    title: Integrity-gate hardening, assessment-floor binding, and figure-layer drift fixes
+    status: done
+    surface: validation
+    owner: scripts/validate_manuscript_variables.py
+    evidence:
+      - uv run pytest tests/test_manuscript_variables.py tests/test_claim_support.py
+        tests/test_figures.py tests/test_release_readiness_inventory.py -q
+      - uv run python scripts/validate_manuscript_variables.py
+      - uv run python scripts/run_kernels.py
+      - Forge/GPT-5.4 read-only vacuity audit of the new and modified gates
+    notes: "Closed 2026-06-20. Fixed real defects and vacuous gates surfaced by a cross-vendor review:
+      the hard-coded-count linter glob now covers the lettered subsection files (NNx_*.md) where
+      result/methodology prose lives, with a firing negative-control test (previously a hand-typed
+      count in 03a bypassed the gate); the manuscript-wide endorsement-phrase blocklist is now wired
+      into run_kernels as a fail-closed gate (find_banned_phrases had zero production callers) and
+      resists whitespace/NBSP/zero-width evasion; the enforced assessment floor
+      (MIN_ASSESSMENTS_PER_SKILL=4) is now a bound manuscript variable and a dynamically-rendered
+      figure value, replacing the factually-wrong hand-typed 'three-question floor' across the
+      manuscript AND five figure strings (Forge caught the figure layer the manuscript fix had
+      missed); strata_count is exported and bound, removing the 'eight strata' hand-typed
+      word-numerals; the dashboard fails closed on a non-loopback bind when local auth is enabled;
+      the typography font-floor gate also scans labelsize=; and the release-readiness blocker-probe
+      subsystem gained real subprocess coverage (76.8% -> 89%)."
+  - id: asf-live-full-stack-release-rehearsal
+    title: Live SkillTree and dashboard full-stack release rehearsal
+    status: done
+    surface: skilltree
+    owner: scripts/validate_full_app_stack.py
+    metrics:
+      skills: 630
+      subjects: 111
+      prerequisite_edges: 1199
+      dependencies: 1199
+      quizzes: 630
+      assessments: 2520
+    evidence:
+      - docker info
+      - colima start
+      - uv run python scripts/validate_full_app_stack.py --app-ready --skip-regenerate
+      - uv run python scripts/validate_full_app_stack.py --skip-regenerate
+    notes: The 2026-06-19 closeout started Colima, confirmed Docker was reachable, and ran both
+      full-stack release proofs. App-ready and full-parity modes passed against live SkillTree at
+      localhost:8080 and the local dashboard at 127.0.0.1:8765 with 630 live skills, 111 subjects,
+      1199 expected/live/matched dependencies, 630 quizzes, 37 dashboard artifacts present, 19
+      registered/dashboard figure contracts, 630 course-material records, 2023 external pointers,
+      clean live-admin checks, and a browser-console gate with only the known upstream Inception
+      probe allow-listed.
+  - id: asf-raw-skilltree-form-login-proof
+    title: Raw SkillTree FORM login proof in the full-stack validator
+    status: done
+    surface: skilltree
+    owner: scripts/validate_skilltree_form_login.py
+    metrics:
+      skills: 630
+      subjects: 111
+      prerequisite_edges: 1199
+      dependencies: 1199
+      quizzes: 630
+      assessments: 2520
+    evidence:
+      - uv run pytest tests/test_skilltree_form_login.py tests/test_full_app_stack.py
+      - uvx ruff check scripts/validate_skilltree_form_login.py src/integration/full_app_stack.py
+        tests/test_skilltree_form_login.py tests/test_full_app_stack.py
+      - uv run python scripts/validate_full_app_stack.py --keep-running
+    notes: The full-stack proof now distinguishes local trusted-client state readiness
+      from live browser-login proof. validate_skilltree_form_login.py drives
+      chrome-devtools-axi through the raw SkillTree FORM login, submits the ignored
+      local admin credentials server-side, fails unless the authenticated administrator
+      surface loads, and redacts admin passwords, trusted-client secrets, and bearer
+      tokens from diagnostics. validate_full_app_stack.py includes this rawSkillTreeLogin
+      proof whenever browser checks are enabled, before treating the local app as
+      fully proven.
+  - id: asf-publication-bundle-render-rehearsal
+    title: Re-render full publication bundle after roadmap expansion
+    status: done
+    surface: manuscript
+    owner: output
+    evidence:
+      - uv run python scripts/z_generate_manuscript_variables.py
+      - uv run python scripts/validate_rendered_freshness.py
+      - uv run python /Users/4d/Documents/GitHub/template/scripts/03_render_pdf.py --project
+        Active_Skillference
+      - rg -n "open items|roadmap_open_count" output/pdf output/web output/docx output/epub
+        output/manuscript
+    notes: Publication freshness now has a fail-closed gate for stale roadmap-open-count prose across
+      rendered bundle text artifacts. The full bundle must be regenerated from the final
+      tasks.yaml/TODO state before publication; the validator rejects old metadata-only open-count
+      text.
+  - id: asf-release-readiness-inventory-contract
+    title: Release-readiness inventory contract
+    status: done
+    surface: validation
+    owner: src.release_readiness
+    metrics:
+      skills: 630
+      subjects: 111
+      prerequisite_edges: 1199
+      assessments: 2520
+      figures: 26
+    evidence:
+      - uv run pytest tests/test_release_readiness_inventory.py tests/test_docs_inventory.py
+        tests/test_figures.py tests/test_manuscript_artifacts.py tests/test_roadmap.py -q
+      - uv run python scripts/validate_release_readiness_inventory.py
+      - uv run python scripts/validate_roadmap.py
+      - uv run python scripts/validate_live_counts.py
+    notes: Release readiness is now a machine-checked inventory surface. src.release_readiness and
+      scripts/validate_release_readiness_inventory.py validate the dirty tracked-file summary,
+      untracked-file list, ignored generated-output examples, and required evidence commands, while
+      --write refreshes docs/release_readiness_inventory.md with current Docker and
+      public-repository blocker probes.
+  - id: asf-pasted-review-notation-release-hardening
+    title: Deep-review notation, route, and release-evidence hardening
+    status: done
+    surface: manuscript
+    owner: manuscript
+    metrics:
+      skills: 630
+      subjects: 111
+      prerequisite_edges: 1199
+      assessments: 2520
+      figures: 26
+    evidence:
+      - uv run pytest tests/test_curriculum_catalog.py tests/test_claim_support.py
+        tests/test_manuscript_artifacts.py tests/test_figures.py
+        tests/test_release_readiness_inventory.py -q
+      - uv run python scripts/run_kernels.py
+      - uv run python scripts/validate_manuscript_artifacts.py
+      - uv run python scripts/validate_release_readiness_inventory.py
+      - uv run python scripts/validate_roadmap.py
+    notes: "The pasted technical review is encoded in source-controlled gates and manuscript prose: VFE
+      now states the joint-density/posterior identity at first use; EFE states the lower-is-better
+      softmax convention and policy-precision sign; hardware determinism is narrowed to supported
+      software-environment reproducibility; the supplemental bridge separates learn routes from quiz
+      routes; and the reproducibility section records local release evidence through the generated
+      release-readiness inventory instead of implying a clean public release."
+  - id: asf-reproducibility-citation-hardening
+    title: Paper-embedded reproducibility and primary-citation hardening
+    status: done
+    surface: manuscript
+    owner: manuscript
+    metrics:
+      skills: 630
+      subjects: 111
+      prerequisite_edges: 1199
+      assessments: 2520
+      figures: 26
+      cited_sources: 188
+    evidence:
+      - uv run python scripts/validate_claim_support.py
+      - uv run python scripts/analyze_scholarship.py
+      - uv run python scripts/validate_scholarship_sources.py
+      - uv run pytest tests/test_release_readiness_inventory.py tests/test_claim_support.py
+        tests/test_scholarship.py
+    notes: The June 2026 rigorous manuscript review is encoded in source-owned prose,
+      scholarship rows, and validation code. The paper now frames the work as a
+      systems/curriculum-infrastructure artifact, removes modular scaffold blocks, adds primary
+      citations for sum-product, Bayesian model reduction, linear filtering, mastery learning, and
+      PROV constraints, gives supplement parameter tables, separates structural quiz checks from
+      psychometric validity, and records SHA-256 hashes for generated key artifacts and registered
+      figures in the release-readiness inventory.
+  - id: asf-release-branch-hygiene
+    title: Isolate and commit release-ready project changes
+    status: done
+    surface: validation
+    owner: git worktree
+    evidence:
+      - git status --short
+      - git ls-files -o --exclude-standard
+      - git diff --check
+      - git diff --stat
+      - uv run python scripts/validate_release_readiness_inventory.py
+      - git rev-parse HEAD
+      - git ls-remote --heads origin main
+      - /opt/homebrew/bin/gh-axi repo view docxology/Active_Skillference
+      - docs/release_readiness_inventory.md
+    notes: Release-ready project changes were staged, committed, and pushed to the private
+      docxology/Active_Skillference main branch on 2026-06-19. Remote main was verified at
+      d03f56c516ab1d813e8bde7185751b760bdbeb9f after the follow-up TODO closeout; the
+      release-readiness inventory renderer also distinguishes dirty pre-commit evidence from a clean
+      post-commit checkout so it cannot keep certifying stale modified/untracked file lists after
+      branch hygiene is complete.
+  - id: asf-coverage-frontier-hardening
+    title: Raise coverage and negative controls on integration frontiers
+    status: done
+    surface: validation
+    owner: tests
+    evidence:
+      - uv run pytest --cov=src --cov-fail-under=90
+      - uv run pytest tests/test_course_materials.py tests/test_dependency_reconciler.py
+        tests/test_full_app_stack.py -q
+      - uvx ruff check src scripts tests
+      - uvx ruff format --check src scripts tests
+      - uv run mypy src
+    notes: Added targeted negative controls for malformed material records/topic mappings, stale or
+      invalid dependency progress, extra live dependency parity, unreachable Docker daemon, early
+      dashboard process exit, and stale rendered publication roadmap prose. The full 90% coverage
+      gate remains the release authority.
+  - id: asf-fail-closed-handoff-boundaries
+    title: Fail-closed artifact, URL, REST, and live-proof handoff boundaries
+    status: done
+    scale: minor
+    surface: validation
+    owner: src/skilltree/summary.py
+    metrics:
+      skills: 630
+      subjects: 111
+      prerequisite_edges: 1199
+      assessments: 2520
+      claims: 79
+      figures: 26
+      cited_sources: 188
+      max_depth: 75
+    evidence:
+      - uv run pytest tests/test_dashboard.py tests/test_skilltree_client.py tests/test_skilltree_model.py
+        tests/test_course_materials.py tests/test_full_app_stack.py -q
+      - uvx ruff check src scripts tests
+      - uvx ruff format --check src scripts tests
+      - uv run mypy src
+      - uv run pytest --cov=src --cov-fail-under=90
+      - uv run python scripts/validate_rendered_freshness.py
+      - uv run python scripts/validate_roadmap.py
+    notes: >-
+      A first-principles and RedTeam review removed several false-certification assumptions at
+      system handoffs. Exported SkillTree JSON is now structurally validated before dashboard
+      consumption and before writing the canonical artifact; malformed exports fail closed rather
+      than appearing available with zero counts. REST base URLs require HTTP(S), path identifiers
+      are encoded as single URL segments, course-material pointers accept only credential-free
+      HTTP(S) URLs, browser rendering applies the same safe-link rule, derived alignment summaries
+      must match their records, live proof summaries cannot override a failed subproof, and local
+      Postgres password files reject symlinks/non-regular files and normalize owner-only mode.
+      The validation-surface figure now exposes export-integrity and material-link-safety coverage.
+      Remaining external deployment, learner-outcome, adaptive-recommendation, and public-release
+      work stays explicitly open in the following TODO tasks rather than being implied by local
+      gates.
+    start: "2026-07-16"
+    end: "2026-07-16"
+    progress: 100
+    milestone: false
+    deps: []
+    tags:
+      - first-principles
+      - redteam
+      - fail-closed
+      - handoff
+  - id: asf-residue-and-verifier-cleanup
+    title: Remove stale verifier exemptions and test-scaffolding residue
+    status: done
+    scale: minor
+    surface: validation
+    owner: src.live_counts
+    metrics:
+      skills: 630
+      subjects: 111
+      prerequisite_edges: 1199
+      assessments: 2520
+      claims: 79
+      figures: 26
+      cited_sources: 188
+      max_depth: 75
+    evidence:
+      - uv run pytest tests/test_roadmap.py tests/test_skilltree_exporter.py
+        tests/test_dependency_reconciler.py tests/test_scripts_smoke.py
+        tests/test_skilltree_local_auth.py -q
+      - uvx ruff check src scripts tests
+      - uvx ruff format --check src scripts tests
+      - uv run mypy src
+      - uv run pytest --cov=src --cov-fail-under=90
+      - uv run python scripts/validate_live_counts.py
+      - rg -n "\\b(Fake|fake|Stub|stub)\\b" src scripts tests || echo clean
+    notes: >-
+      Removed the compatibility-window exemption that allowed stale authored live counts to pass
+      when nearby prose described an older export. The audit now reports every stale count literal;
+      its regression test covers historical wording. Removed an unused legacy artifact identity,
+      renamed test-only graph/client/result fixtures and subprocess probes to precise fixture names,
+      and updated non-email credential diagnostics and stale terminology. Project policy documents
+      retain explicit real-data testing rules; no fabricated collaborator remains in executable code.
+    start: "2026-07-16"
+    end: "2026-07-16"
+    progress: 100
+    milestone: false
+    deps: []
+    tags:
+      - redteam
+      - verifier
+      - maintenance
+  - id: asf-curriculum-expert-content-audit
+    title: Expert audit of high-depth curriculum paths and quiz quality
+    status: done
+    surface: curriculum
+    owner: src/curriculum/catalog.py
+    evidence:
+      - uv run python scripts/build_curriculum.py
+      - uv run pytest tests/test_curriculum_catalog.py tests/test_curriculum_quality.py -q
+      - uv run python scripts/export_skilltree.py
+      - docs/curriculum_expert_audit.md
+    notes: Recorded a deterministic expert-review sample of the max-depth SkillTree mastery chain,
+      high-fanout EFE/VFE/Bayes/FEP nodes, and templated visual/publication/security extension
+      subjects in docs/curriculum_expert_audit.md. No repeated vacuity or template-defect pattern
+      was found beyond existing DAG, semantic-prerequisite, quiz, material and artifact gates.
+  - id: asf-learner-outcome-pilot
+    title: Learner outcome pilot and evidence boundary
+    status: done
+    surface: curriculum
+    owner: experiment_plan.yaml
+    evidence:
+      - uv run python scripts/validate_claim_support.py
+      - uv run python scripts/validate_manuscript_variables.py
+      - uv run python scripts/build_curriculum.py
+    notes: experiment_plan.yaml now contains a preregistered design-only learner-outcome pilot with
+      consent/privacy boundaries, SkillTree-owned progress export, pre/post and delayed-retention
+      measures, exclusion rules, and analysis plan. Manuscript setup and limitations explicitly
+      state that no efficacy, retention, or transfer claim is made without real data and
+      claim-support rows.
+  - id: asf-docker-digest-lint
+    title: Docker image digest pinning and supply-chain lint
+    status: done
+    surface: validation
+    owner: docker-compose.yml
+    evidence:
+      - uv run python scripts/validate_docker_digests.py
+      - unset VIRTUAL_ENV && uv run --active pytest tests/test_scripts_smoke.py -q
+    notes: docker-compose images are pinned by registry-resolved @sha256 digest, not mutable tag, and
+      validate_docker_digests.py fails the build if any image line lacks a digest so the
+      supply-chain claim is enforced rather than aspirational.
+  - id: asf-scholarship-role-quality
+    title: Lane-token scholarship role-quality gate
+    status: done
+    surface: scholarship
+    owner: src.scholarship
+    evidence:
+      - uv run python scripts/validate_scholarship_sources.py
+      - unset VIRTUAL_ENV && uv run --active pytest tests/test_scholarship.py -q
+    notes: Scholarship role text must name a lane-relevant content token, not merely clear a word-count
+      floor, so a generic sentence cannot pass as a claim-specific role.
+  - id: asf-redteam-gate-hardening
+    title: RedTeam hardening of vacuous integrity gates
+    status: done
+    surface: validation
+    owner: src.provenance
+    metrics:
+      skills: 630
+      subjects: 111
+      prerequisite_edges: 1199
+      assessments: 2520
+    evidence:
+      - uv run python scripts/validate_claim_support.py
+      - uv run python scripts/build_curriculum.py
+      - uv run pytest tests/test_provenance.py tests/test_claim_support.py tests/test_scholarship.py
+        tests/test_kernels_information.py -q
+    notes: "An adversarial gate-vacuity audit (8 read-only specialists, independently refuted findings)
+      fixed five gates that passed real data but would not fire on an injected same-class defect:
+      provenance render now fails closed on whitespaced malformed claim tokens; computed claims
+      require a backing token and have their prose scanned for hand-typed result numbers; the
+      off-domain distractor gate covers an extended compute/infra/web/finance class (and caught a
+      real 'browser cache' distractor); the scholarship role gate no longer counts lane-NAME tokens
+      as content; the manuscript variable validator uses word boundaries. kernels.cross_entropy now
+      accepts a non-normalized likelihood column. Every fix carries a negative-control test that
+      fires on injection. A proposed MC-index threshold change was rejected: per-index 50% is the
+      ideal for 2-of-4 selection; the joint correct-set share (16.8%) is the real gameability
+      bound."
+  - id: asf-semantic-prerequisite-gate
+    title: Semantic prerequisite gate and DAG pedagogical fixes
+    status: done
+    surface: curriculum
+    owner: src.curriculum.quality
+    metrics:
+      skills: 630
+      subjects: 111
+      prerequisite_edges: 1199
+      assessments: 2520
+    evidence:
+      - uv run python scripts/build_curriculum.py
+      - uv run pytest tests/test_curriculum_quality.py -q
+    notes: "A new audit_semantic_prerequisites gate flags any skill assessed on a load-bearing concept
+      (KL divergence, Markov chain, Laplace approximation, ELBO, Taylor expansion) without the
+      concept's defining skill in its transitive prerequisites. Scoped to assessment text and to
+      same-or-earlier-stratum definers so it fires on real inversions, not forward references. It
+      surfaced three genuine inversions, now fixed: cross-entropy was taught before KL (dependency
+      direction reversed to entropy->KL->cross-entropy), and the ELBO and continuous-Laplace skills
+      gained their missing KL and Laplace prerequisites."
+  - id: asf-curriculum-depth-message-passing-precision
+    title: Curriculum depth - message passing and precision/exploration subjects
+    status: done
+    surface: curriculum
+    owner: src.curriculum
+    metrics:
+      skills: 630
+      subjects: 111
+      prerequisite_edges: 1199
+      assessments: 2520
+    evidence:
+      - uv run python scripts/build_curriculum.py
+      - uv run python scripts/export_skilltree.py
+      - uv run pytest tests/test_curriculum_catalog.py tests/test_curriculum_quality.py -q
+    notes: "Two pedagogically-sound subjects close RedTeam content gaps. 'Message Passing on Factor
+      Graphs' (computation) adds a five-skill ladder: factor graphs, the sum-product algorithm,
+      belief propagation on trees, variational message passing, and loopy belief propagation.
+      'Precision, Exploration and Guidance' (active inference) adds four skills unifying precision
+      as confidence control, entropy-regularised exploration, the explore-exploit frontier, and
+      risk-sensitive guidance functions. All nine skills pass the DAG, quality,
+      semantic-prerequisite, and provenance gates."
+  - id: asf-triplecheck-vacuity-and-depth
+    title: Triple-check hardening (unicode bypass, fail-closed loaders) and curriculum depth
+    status: done
+    surface: validation
+    owner: src.provenance
+    metrics:
+      skills: 630
+      subjects: 111
+      prerequisite_edges: 1199
+      assessments: 2520
+    evidence:
+      - uv run python scripts/build_curriculum.py
+      - uv run pytest tests/test_provenance.py tests/test_dashboard.py
+        tests/test_curriculum_quality.py -q
+    notes: "A second 7-specialist triple-check workflow (60 findings, 13 verified, 3 of the prior fixes
+      re-confirmed correct) closed residual defects: zero-width/format characters (Unicode category
+      Cf) bypassed both the malformed-claim-token check and the unbacked-number linter because
+      neither \\s nor \\b match them, so provenance now strips Cf characters before any integrity
+      scan (a registered token split by a zero-width space resolves cleanly; an unregistered or
+      empty one still fails closed); the dashboard course-material loaders were fail-OPEN, returning
+      available=True for a valid-JSON-but-shapeless artifact, and now fail closed with a descriptive
+      error; the semantic-prerequisite concept patterns tolerate plural forms. Two more
+      pedagogically-sound subjects were added: 'Model Reduction, Structure and Bound Tightness'
+      (variational methods: Bayesian model reduction, structured vs mean-field approximations,
+      sparse transition structure, the exact VFE / log-evidence bound gap) and 'Continuous-Time and
+      Generalized-Coordinate AIF' (generalized coordinates of motion, discrete-continuous embedding,
+      multi-scale temporal hierarchies). Every fix carries a firing negative-control."
+  - id: asf-convergence-quiz-gating-auth-content
+    title: Convergence pass - quiz-gating integrity, fail-closed auth, rate-distortion bridge
+    status: done
+    surface: validation
+    owner: src.skilltree
+    metrics:
+      skills: 630
+      subjects: 111
+      prerequisite_edges: 1199
+      assessments: 2520
+    evidence:
+      - uv run python scripts/export_skilltree.py
+      - uv run pytest tests/test_skilltree_model.py tests/test_skilltree_local_auth.py
+        tests/test_curriculum_catalog.py -q
+    notes: A third convergence workflow (37 findings, 12 verified) closed the remaining real defects
+      after the first two rounds had hardened the content gates. SkillTreeProject now validates quiz
+      gating at the project level (a Quiz-typed skill must carry a quizId that maps to a real quiz;
+      no dangling references; no orphan quizzes), which the prior per-skill validation could not
+      see. The local trusted-client token exchange was fail-OPEN - an empty or token-less HTTP 200
+      was treated as a verified authentication - and now requires a non-empty access_token. Seed
+      verification was extended from a skill-only count to also check subjects, so a dropped subject
+      (whose skills are still summed) can no longer pass silently. A rate-distortion to
+      expected-free-energy bridging skill was added (the epistemic-pragmatic trade-off as a
+      rate-distortion trade-off). Every fix carries a firing negative-control; the keyword-set and
+      docker-comment findings were assessed as acceptable cosmetic variation, a convergence signal.
+  - id: asf-manuscript-modularization
+    title: Modular manuscript split and lettered-section validation
+    status: done
+    surface: manuscript
+    owner: manuscript
+    metrics:
+      skills: 630
+      subjects: 111
+      prerequisite_edges: 1199
+      assessments: 2520
+      claims: 79
+      figures: 26
+      cited_sources: 188
+    evidence:
+      - uv run pytest tests/test_claim_support.py tests/test_manuscript_artifacts.py
+        tests/test_docs_inventory.py tests/test_kernels_active_inference.py
+        tests/test_kernels_distributions.py tests/test_kernels_examples.py
+        tests/test_kernels_inference.py tests/test_kernels_information.py -q
+      - uv run ruff check src/manuscript/claim_support.py src/scholarship/coverage.py
+        tests/test_claim_support.py tests/test_manuscript_artifacts.py
+    notes: "Completed the authored manuscript modularization pass: methodology, results, and
+      scope/related-work spines now delegate to lettered modules while preserving claim-support
+      anchors, citations, figure labels, and evidence boundaries. The claim-support and scholarship
+      scanners now include lettered section filenames, and the manuscript artifact gate passed
+      against generated figure labels."
+  - id: asf-skill-material-figure-readability-hardening
+    title: Skill material linkage and figure readability hardening
+    status: done
+    surface: figures
+    owner: src.figures
+    metrics:
+      skills: 630
+      figures: 26
+    evidence:
+      - uv run pytest tests/test_course_materials.py tests/test_figures.py -q
+      - uv run python scripts/validate_course_material_sources.py --online
+      - uv run python scripts/run_kernels.py
+      - uv run python scripts/validate_manuscript_artifacts.py
+      - uv run python scripts/validate_roadmap.py
+    notes: Figure 9 now combines scholarship support rows with generated course-material coverage so the
+      Active Inference Institute cognitive knowledge-base linkage is visible as pinned source
+      evidence. Course-material records expose source, role, match-scope, topic-match, and cognitive
+      knowledge-base coverage counts. Figure typography now has a source-level minimum-font
+      contract; Figure 3 uses fixed metric/chip columns for the top fan-out review queue, and Figure
+      4 uses a checkpoint ledger instead of angled micro-labels.
+  - id: asf-visualization-equal-pass-hardening
+    title: Equal-pass figure readability and dashboard preview hardening
+    status: done
+    surface: figures
+    owner: src.figures
+    metrics:
+      figures: 26
+    evidence:
+      - uv run pytest tests/test_figures.py tests/test_manuscript_artifacts.py
+        tests/test_dashboard.py tests/test_docs_inventory.py tests/test_roadmap.py -q
+      - uv run python scripts/run_kernels.py
+      - uv run python scripts/validate_manuscript_artifacts.py
+      - uv run python scripts/validate_rendered_freshness.py
+      - uv run python scripts/validate_web_math.py
+    notes: All 21 registered figures plus the generated cover and page-two skill atlas received the same
+      readability pass. Shared figure constants now require meaningful chart text at or above a
+      9.5px-equivalent floor, reserve 8.5px for source/caveat notes, and reject hard-coded sub-floor
+      font sizes. Dense outputs were rebalanced with wider layouts, wrapped stratum chips, reduced
+      atlas term/checkpoint density, and a wider checkpoint ledger rather than micro-type. Dashboard
+      figure cards now present a full-size image link first, group Question / Grain / Boundary /
+      Failure metadata, and move encoding/QA details behind disclosure.
+  - id: asf-scholarship-frontier-gap-report
+    title: Scholarship frontier gap report and claim-bound source upgrade
+    status: done
+    surface: scholarship
+    owner: src.scholarship.gap_report
+    metrics:
+      cited_sources: 188
+    evidence:
+      - uv run python scripts/analyze_scholarship.py
+      - uv run python scripts/audit_scholarship_gaps.py
+      - uv run python scripts/validate_scholarship_sources.py --online --strict-online
+      - uv run python scripts/validate_claim_support.py
+      - uv run pytest tests/test_scholarship.py tests/test_claim_support.py
+        tests/test_manuscript_artifacts.py -q
+    notes: Added nine curated frontier sources for active learning, cognitive engagement, retrieval
+      practice, evidence-centered assessment, FAIR/open-science reporting, secure
+      software-development posture, WCAG accessibility, and the Active Inference Institute cognitive
+      knowledge-base. The new scholarship_gap_report.json binds each frontier source to manuscript
+      citation, BibTeX, source-role and claim-support evidence, with boundary-sensitive sources
+      requiring a limitation or scope-limit row so scholarship cannot be mistaken for
+      learner-efficacy, public-release or security-assurance evidence.
+  - id: asf-scholarship-citation-augmentation-ii
+    title: Formal provenance, learning-space and reproducibility citation augmentation
+    status: done
+    surface: scholarship
+    owner: src.scholarship.gap_report
+    metrics:
+      cited_sources: 188
+    evidence:
+      - uv run python scripts/analyze_scholarship.py
+      - uv run python scripts/audit_scholarship_gaps.py
+      - uv run python scripts/validate_scholarship_sources.py --online --strict-online
+      - uv run python scripts/validate_claim_support.py
+      - uv run pytest tests/test_scholarship.py tests/test_claim_support.py
+        tests/test_manuscript_artifacts.py tests/test_roadmap.py -q
+    notes: Added twelve directly verified frontier sources for W3C PROV, knowledge-space and
+      learning-space theory, constructive alignment, formative assessment and feedback, design-based
+      research, scientific-computing practice, and reproducible-science boundaries. The scholarship
+      gap report now requires 21 frontier sources and binds the added citations to manuscript
+      claim-support rows so formal provenance, learning theory, and reproducibility sources cannot
+      enter as bibliography padding or learner-efficacy claims.
+  - id: asf-frontier-scholarship-2026-upgrade
+    title: Frontier scholarship and boundary-source upgrade
+    status: done
+    surface: scholarship
+    owner: src.scholarship.gap_report
+    metrics:
+      skills: 630
+      subjects: 111
+      prerequisite_edges: 1199
+      cited_sources: 188
+    evidence:
+      - uv run python scripts/validate_scholarship_sources.py --online --timeout 10
+      - uv run python scripts/validate_claim_support.py
+      - uv run python scripts/analyze_scholarship.py
+      - uv run python scripts/audit_scholarship_gaps.py
+      - uv run python scripts/run_kernels.py
+      - uv run python scripts/validate_manuscript_artifacts.py
+      - uv run pytest tests/test_scholarship.py tests/test_claim_support.py
+        tests/test_curriculum_catalog.py -q
+    notes: Added eight verified frontier sources for Workflow Run RO-Crate, curriculum-aware
+      cognitive diagnosis, reactive message passing, RxInfer, coupled free energy, active
+      predictive coding, divide-and-conquer predictive coding, and Active Inference teacher
+      development. The graph remains stable at 630 skills, 111 subjects and 1199 edges; the gap
+      report now requires 29 frontier sources and binds the new citations to explicit scope or
+      implementation boundaries rather than learner-outcome or production-scale claims.
+  - id: asf-dashboard-offline-state-polish
+    title: Dashboard offline states and handoff affordance polish
+    status: done
+    scale: minor
+    surface: dashboard
+    owner: src.dashboard.assets
+    metrics:
+      skills: 630
+      subjects: 111
+      prerequisite_edges: 1199
+      figures: 26
+    evidence:
+      - uv run pytest tests/test_dashboard.py tests/test_dashboard_server.py
+        tests/test_dashboard_console.py -q
+      - uv run python scripts/validate_dashboard_console.py --require-browser --require-dashboard
+    notes: >-
+      Dashboard offline, local-auth, and missing-material states now use explicit read-only shell
+      language, clearer Learn/Quiz handoff labels, companion-aware figure cards, and accessible
+      status treatments without moving progress, ranking, quizzes, or learner state out of
+      SkillTree. Evidence passed against the local dashboard browser console and server/dashboard
+      test surfaces.
+  - id: asf-release-file-review-pass
+    title: Dirty worktree release-file review and inventory refresh
+    status: done
+    scale: minor
+    surface: validation
+    owner: src.release_readiness
+    evidence:
+      - git status --short
+      - uv run python scripts/validate_release_readiness_inventory.py --write
+      - uv run python scripts/validate_release_readiness_inventory.py
+      - git diff --check
+    notes: >-
+      The current tracked and untracked release-facing paths were re-inventoried without staging or
+      committing. docs/release_readiness_inventory.md was regenerated from live git state and
+      validated so the release boundary stays explicit while this pass remains unpublished.
+  - id: asf-doc-command-drift-audit
+    title: Documentation command parity and stale-count audit
+    status: done
+    scale: minor
+    surface: documentation
+    owner: docs
+    metrics:
+      skills: 630
+      subjects: 111
+      prerequisite_edges: 1199
+      assessments: 2520
+      cited_sources: 188
+    evidence:
+      - uv run pytest tests/test_docs_inventory.py tests/test_scripts_smoke.py
+        tests/test_roadmap.py -q
+      - uv run python scripts/validate_live_counts.py
+      - uv run python scripts/validate_roadmap.py
+    notes: >-
+      README, docs, and script examples now describe the current artifact-only versus Docker/live
+      split, generated diagnostic artifacts, companion validation, and dashboard behavior. Live
+      counts and TODO output remain validator-sourced through validate_live_counts.py and
+      validate_roadmap.py.
+  - id: asf-curriculum-diagnostic-gap-map
+    title: Curriculum diagnostic gap map and remediation queue
+    status: done
+    scale: medium
+    surface: curriculum
+    owner: src.curriculum
+    metrics:
+      skills: 630
+      subjects: 111
+      prerequisite_edges: 1199
+      assessments: 2520
+      max_depth: 75
+    evidence:
+      - uv run python scripts/build_curriculum.py
+      - uv run python scripts/run_kernels.py
+      - uv run pytest tests/test_curriculum_catalog.py tests/test_curriculum_quality.py
+        tests/test_figures.py -q
+    notes: >-
+      Added the source-owned curriculum_diagnostic_gap_map.json artifact with bottlenecks, long
+      prerequisite chains, assessment-balance checks, and a remediation queue across the 630-skill
+      graph. The dashboard reads it as artifact diagnostics only and does not convert it into a
+      learner-outcome claim.
+  - id: asf-scholarship-source-health-network
+    title: Scholarship source-health network and boundary report
+    status: done
+    scale: medium
+    surface: scholarship
+    owner: src.scholarship
+    metrics:
+      cited_sources: 188
+    evidence:
+      - uv run python scripts/analyze_scholarship.py
+      - uv run python scripts/validate_scholarship_sources.py
+      - uv run python scripts/validate_scholarship_sources.py --online --timeout 10
+      - uv run pytest tests/test_scholarship.py tests/test_claim_support.py -q
+    notes: >-
+      Added scholarship_source_health_network.json as a readable source-health report separating
+      dead links, publisher bot-blocks, role gaps, boundary sources, metadata issues, and uncited
+      drift. Local and online source-health evidence passed while retaining the boundary that
+      scholarship supports scope and implementation claims, not learner-efficacy or security
+      assurance.
+  - id: asf-figure-table-companion-accessibility
+    title: Figure table companions and nonvisual reading path
+    status: done
+    scale: medium
+    surface: figures
+    owner: src.figures
+    metrics:
+      figures: 26
+    evidence:
+      - uv run python scripts/run_kernels.py
+      - uv run python scripts/validate_manuscript_artifacts.py
+      - uv run pytest tests/test_figures.py tests/test_manuscript_artifacts.py
+        tests/test_dashboard.py -q
+    notes: >-
+      Added generated figure_table_companions.json rows for the highest-density figures, optional
+      table_companion_id linkage in the figure registry, fail-closed manuscript validation for
+      missing or malformed companions, and dashboard rendering that exposes the table path for
+      screen-reader and small-screen reads without relying on color or dense image text.
+  - id: asf-scholarship-phase-planning
+    title: Scholarship lanes and evidence plans for upcoming phases
+    status: done
+    scale: major
+    surface: scholarship
+    owner: src.scholarship
+    metrics:
+      cited_sources: 188
+    evidence:
+      - uv run python scripts/analyze_scholarship.py
+      - uv run python scripts/audit_scholarship_gaps.py
+      - uv run python scripts/validate_scholarship_sources.py --online --strict-online
+      - uv run python scripts/validate_claim_support.py
+      - uv run pytest tests/test_scholarship.py tests/test_claim_support.py -q
+    notes: >-
+      Maintain a phase-wide source and evidence plan for public release metadata, SkillTree runtime
+      proof, live-stack rehearsal, learner-pilot design, adaptive-path research, and archival release.
+      Rebalanced perception-as-inference, mathematical-foundation, and applications/scope lanes to
+      the balanced threshold; resolved all single-section claim-support advisories; added only
+      verified source-role rows and citations; and kept Active Inference Institute references
+      contextual, community-facing, and non-endorsing. Strict online checking uses a 15-second
+      per-locator timeout to avoid false negatives from slow public scholarly hosts.
+    scholarship_plan:
+      lanes:
+        - perception_as_inference
+        - mathematical_foundations
+        - pedagogy_and_learning_paths
+        - delivery_and_reporting
+        - applications_and_scope
+      existing_source_keys:
+        - dayan1995helmholtz
+        - shannon1948mathematical
+        - beal2003variational
+        - hodson2024empirical
+        - liu2023_learning_analytics_privacy
+        - activeinferenceinstitute2026website
+      planned_source_targets:
+        - key: sclater2015learning_analytics_code
+          status: planned
+          locator: url:https://www.jisc.ac.uk/guides/code-of-practice-for-learning-analytics
+          role: Responsible learning-analytics source for transparency, consent, privacy, retention, validity, and intervention boundaries.
+        - key: eldridge2016consort_pilot
+          status: planned
+          locator: doi:10.1186/s40814-016-0079-6
+          role: Pilot and feasibility reporting source for distinguishing feasibility from definitive outcome evaluation.
+        - key: hoffmann2014tidier
+          status: planned
+          locator: doi:10.1136/bmj.g1687
+          role: Intervention-description and replication source for specifying a future learner study.
+        - key: piech2015deep_knowledge_tracing
+          status: planned
+          locator: url:https://proceedings.neurips.cc/paper_files/paper/2015/file/bac9162b47c56fc8a4d2a519803d51b3-Paper.pdf
+          role: Learner-state modelling comparison that bounds, rather than validates, adaptive tutoring claims.
+        - key: tao2024q_matrix_constraint
+          status: planned
+          locator: doi:10.3758/s13428-024-02404-5
+          role: Q-matrix cognitive-diagnosis source for assessment-model and learner-state boundaries.
+      claim_support_types:
+        - literature
+        - scope_limit
+        - delivery
+      boundaries:
+        - Source count is not scholarship quality; every source must have a claim-specific role and appropriate scope language.
+        - Historical, community, software, and pedagogy sources motivate design context but do not determine prerequisite edges or learner outcomes.
+        - Active Inference Institute resources are cited as public ecosystem infrastructure without endorsement or institutional ownership claims.
+      phase_exit:
+        - The gap report has no unresolved frontier contract issues or unsupported single-section source advisories.
+        - Each open roadmap task has a rendered source package, boundary statement, and validator-backed exit condition.
+  - id: asf-skilltree-auth-deployment-matrix
+    title: SkillTree authentication and deployment-mode matrix
+    status: done
+    scale: medium
+    surface: skilltree
+    owner: src.skilltree
+    metrics:
+      skills: 630
+      subjects: 111
+      prerequisite_edges: 1199
+      dependencies: 1199
+      quizzes: 630
+    evidence:
+      - docker info
+      - uv run pytest tests/test_skilltree_client.py tests/test_skilltree_local_auth.py
+        tests/test_dashboard_server.py -q
+      - uv run python scripts/validate_full_app_stack.py --app-ready --skip-regenerate
+      - "proof.ok=true; deployment matrix 4/4 ready (local FORM bootstrap, ignored local
+        state, token-backed admin seeding, externally operated SkillTree);
+        browserSafe=yes; rawSkillTreeLogin adminSurfaceVisible=true, title='SkillTree
+        Dashboard - Project Administrator'; browserConsole 'dashboard console gate OK'"
+    notes: >-
+      Closed 2026-08-09 on a host with a running Docker daemon (docker info succeeds;
+      skills-service 4.6.0 + postgres:15 at the pinned digests). The source-owned deployment
+      matrix reports 4/4 ready with a browser-safe payload, and the raw FORM login proof
+      reaches the authenticated administrator surface without exposing the admin password,
+      client secret, or bearer token to browser JavaScript. Two real defects surfaced only
+      once live proof could actually run, both pre-existing and both fixed here: (1) the
+      dashboard CSP had no frame-src and no ws:// origin, so the official skills-client-js
+      learner iframe was blocked by the default-src 'none' fallback and its progress socket
+      was refused — the Official Display panel rendered as an empty box while every offline
+      gate stayed green; (2) a stale chrome-devtools-axi session made every browser command
+      time out, which failed the whole live proof with an opaque message, so the validator
+      now probes the browser session and restarts it once before running any browser proof.
+    scholarship_plan:
+      lanes:
+        - delivery_and_reporting
+        - pedagogy_and_learning_paths
+      existing_source_keys:
+        - skilltree2020nsa
+        - skilltree2026docs
+        - nist2022ssdf
+        - w3c2023wcag22
+      planned_source_targets: []
+      claim_support_types:
+        - delivery
+        - scope_limit
+        - literature
+      boundaries:
+        - Offline REST and browser-contract tests do not establish a live deployment.
+        - SkillTree ownership and security posture remain distinct from this curriculum artifact.
+      phase_exit:
+        - docker info succeeds on the validation host.
+        - App-ready FORM-login, dashboard, and artifact proofs pass without exposed secrets.
+  - id: asf-live-stack-ci-rehearsal
+    title: Repeatable live-stack CI rehearsal with full dependency parity
+    status: done
+    scale: major
+    surface: validation
+    owner: scripts/validate_full_app_stack.py
+    deps:
+      - asf-skilltree-auth-deployment-matrix
+    metrics:
+      skills: 630
+      subjects: 111
+      prerequisite_edges: 1199
+      dependencies: 1199
+      quizzes: 630
+      assessments: 2520
+    evidence:
+      - docker info
+      - uv run python scripts/validate_full_app_stack.py --app-ready --skip-regenerate
+      - uv run python scripts/validate_full_app_stack.py --skip-regenerate
+      - "proof.ok=true; proof.mode=full-parity; liveDependencies matched=1199/1199,
+        missing=0, extra=0; liveAdminProject.skills=630; counts skills=630, subjects=111,
+        quizzes=630; artifacts present=42, missing=0; figureContracts registered=21,
+        dashboard=21; courseMaterials records=630, externalPointers=2026; browserConsole
+        'dashboard console gate OK'; rawSkillTreeLogin adminSurfaceVisible=true"
+      - uv run python scripts/reconcile_live_dependencies.py --attempts-per-edge 3
+        (complete=true, matched 1199/1199)
+    notes: >-
+      Closed 2026-08-09. The strict rehearsal ran end to end in full-parity mode against
+      skills-service 4.6.0 and emitted the redacted proof artifact at
+      .active_skillference_local/full_app_stack_proof.json. Reaching 1199/1199 exposed a real
+      reconciler defect: at 600-skill scale on emulated Docker a single prerequisite POST can
+      exceed the 600s client timeout, and the run aborted even when the edge was already
+      visible in the authoritative live graph on the very next read. Two fixes: the post-error
+      authoritative read now confirms such an edge instead of failing, and attempts-per-edge
+      (default 2) bounds retries so one slow write no longer discards the remaining progress
+      of a 1199-edge run. Full parity was then reached and the strict proof passed. Note the
+      cost profile for future runs: individual late-stratum edges took 10-20 minutes each on
+      this Apple/ARM host, so full parity is a long-running proof, not a per-commit gate.
+    scholarship_plan:
+      lanes:
+        - delivery_and_reporting
+        - pedagogy_and_learning_paths
+      existing_source_keys:
+        - sandve2013reproducible
+        - wilson2014scientific_computing
+        - leo2024workflow_run_rocrate
+        - skilltree2026docs
+      planned_source_targets: []
+      claim_support_types:
+        - delivery
+        - scope_limit
+        - literature
+      boundaries:
+        - CI rehearsal evidence is not equivalent to production availability or learner efficacy.
+        - Dependency parity must be measured through the live SkillTree API, not inferred from export files.
+      phase_exit:
+        - Docker readiness, seeded state, FORM login, browser console, and dependency parity are recorded.
+        - Release wording names the exact live validator and host conditions.
+  - id: asf-empirical-learner-pilot-package
+    title: Empirical learner pilot protocol and analysis package
+    status: done
+    scale: major
+    surface: validation
+    owner: docs
+    metrics:
+      skills: 630
+      subjects: 111
+      assessments: 2520
+    evidence:
+      - uv run python scripts/validate_claim_support.py
+      - uv run python scripts/analyze_scholarship.py
+      - uv run python scripts/validate_learner_pilot_contract.py
+      - uv run pytest tests/test_pilot_contract.py tests/test_claim_support.py -q
+    notes: >-
+      Added a protocol-only learner-pilot contract with consent/privacy and minimization fields,
+      participant/event/export schemas, measurement-readiness outcomes, missing-data handling,
+      preregistration and analysis-notebook fields, and explicit conditional manuscript language.
+      The validator is deterministic and does not accept learner data or efficacy claims.
+    scholarship_plan:
+      lanes:
+        - pedagogy_and_learning_paths
+        - applications_and_scope
+        - delivery_and_reporting
+      existing_source_keys:
+        - liu2023_learning_analytics_privacy
+        - designbasedresearchcollective2003
+        - barab2004design_based
+        - mislevy2003ecd
+        - black1998assessment
+        - shute2008formative_feedback
+      planned_source_targets:
+        - key: sclater2015learning_analytics_code
+          status: planned
+          locator: url:https://www.jisc.ac.uk/guides/code-of-practice-for-learning-analytics
+          role: Responsible learning-analytics source for transparency, consent, privacy, retention, validity, and intervention boundaries.
+        - key: eldridge2016consort_pilot
+          status: planned
+          locator: doi:10.1186/s40814-016-0079-6
+          role: Pilot and feasibility reporting source for a study that precedes definitive outcome evaluation.
+        - key: hoffmann2014tidier
+          status: planned
+          locator: doi:10.1136/bmj.g1687
+          role: Intervention-description and replication source for specifying the planned learning intervention.
+      claim_support_types:
+        - literature
+        - scope_limit
+        - delivery
+      boundaries:
+        - A pilot protocol establishes feasibility and measurement readiness, not learner efficacy, retention, or transfer.
+        - Consent, minimization, retention, access, missing-data, and stopping rules must be specified before learner exports are analyzed.
+      phase_exit:
+        - The protocol, export schema, preregistration fields, analysis notebook contract, and conditional manuscript language are complete.
+        - No learner-outcome claim is added until real data and a matching claim-support record exist.
+  - id: asf-adaptive-path-recommendation-prototype
+    title: Adaptive path recommendation research prototype
+    status: done
+    scale: major
+    surface: curriculum
+    owner: src.curriculum
+    metrics:
+      skills: 630
+      subjects: 111
+      prerequisite_edges: 1199
+      assessments: 2520
+    evidence:
+      - uv run python scripts/build_curriculum.py
+      - uv run python scripts/export_skilltree.py
+      - uv run pytest tests/test_recommendations.py tests/test_dashboard_server.py
+        tests/test_dashboard.py -q
+    notes: >-
+      Implemented a deterministic graph-only recommendation prototype using prerequisite structure,
+      assessment concepts, and explicitly supplied SkillTree-owned progress signals. The dashboard
+      exposes an additive /api/recommendations surface and routes learners back to official
+      SkillTree Learn/Quiz surfaces; it stores no independent learner state and makes no efficacy,
+      knowledge-tracing, cognitive-diagnosis, or autonomous-tutoring claim.
+    scholarship_plan:
+      lanes:
+        - pedagogy_and_learning_paths
+        - applications_and_scope
+      existing_source_keys:
+        - doignon1985knowledge_spaces
+        - falmagne2011learning_spaces
+        - fu2025curriculum_aware_gncd
+        - activeinferenceinstitute2026website
+        - activeinferenceinstitute2026courses
+        - activeinferenceinstitute2026cognitive
+      planned_source_targets:
+        - key: piech2015deep_knowledge_tracing
+          status: planned
+          locator: url:https://proceedings.neurips.cc/paper_files/paper/2015/file/bac9162b47c56fc8a4d2a519803d51b3-Paper.pdf
+          role: Learner-state modelling comparison that defines, rather than supplies, evidence for adaptive tutoring.
+        - key: tao2024q_matrix_constraint
+          status: planned
+          locator: doi:10.3758/s13428-024-02404-5
+          role: Cognitive-diagnosis and Q-matrix source for explicit assessment-model and learner-state boundaries.
+      claim_support_types:
+        - literature
+        - scope_limit
+        - delivery
+      boundaries:
+        - Version one selects deterministic graph candidates from SkillTree-owned progress signals and does not infer latent learner state.
+        - Knowledge tracing, cognitive diagnosis, autonomous tutoring, personalization quality, and efficacy remain future comparisons.
+      phase_exit:
+        - Offline fixtures prove deterministic recommendations, explanation text, and official Learn/Quiz routing.
+        - The dashboard stores no independent learner state and makes no effectiveness claim.
+  - id: asf-public-archive-provenance-release
+    title: Public archive, DOI, and provenance release package
+    status: todo
+    scale: major
+    surface: metadata
+    owner: manuscript/config.yaml
+    deps:
+      - asf-public-release-metadata
+    evidence:
+      - git ls-remote --heads https://github.com/ActiveInferenceInstitute/Active_Skillference.git
+        HEAD
+      - uv run python scripts/validate_release_readiness_inventory.py --write
+      - uv run python scripts/validate_release_readiness_inventory.py
+      - uv run python scripts/validate_manuscript_variables.py
+      - uv run python scripts/validate_rendered_freshness.py
+    notes: >-
+      The public target exists and is public but currently holds zero refs, so reachability is no
+      longer the gate; published content is. After the target carries a real published release,
+      complete the publication metadata chain: release tag, Zenodo DOI, CFF/CodeMeta/manuscript URL
+      fields, artifact hashes, third-party notices, counsel-review checklist, and release inventory
+      refresh. This task must not fabricate DOI or repository metadata before the upstream blocker
+      is cleared.
+    scholarship_plan:
+      lanes:
+        - delivery_and_reporting
+        - applications_and_scope
+      existing_source_keys:
+        - smith2016softwarecitation
+        - citationfileformat2026
+        - codemeta2026schema
+        - github2026citingcontent
+        - zenodo2026github
+        - wilkinson2016fair
+        - nosek2015top
+      planned_source_targets: []
+      claim_support_types:
+        - delivery
+        - scope_limit
+        - literature
+      boundaries:
+        - DOI, public URLs, and release timestamps are blank until the repository and archive events occur.
+        - Metadata standards support release reproducibility, not scientific validity, legal advice, or learner outcomes.
+      phase_exit:
+        - A real public tag, archive deposit, DOI, CFF/CodeMeta metadata, hashes, notices, and inventory agree.
+        - The final release record is regenerated from observed external metadata rather than placeholders.
+
+  - id: asf-review-mypy-gate-unbuildable
+    title: 'DONE: major: mypy gate unbuildable on current interpreter (zero type-checking runs)'
+    status: done
+    scale: major
+    surface: validation
+    owner: pyproject.toml
+    evidence:
+      - uv run mypy src
+      - uvx ruff check src scripts tests
+    notes: >-
+      The documented gate `uv run mypy src` cannot run. It fails on the imported
+      numpy type stub (numpy/__init__.pyi:737 "Type statement is only supported in
+      Python 3.12 or greater"), so mypy aborts before checking any src module: zero
+      static type-checking currently happens project-wide. Root cause is a
+      pyproject.toml/environment mismatch: `[tool.mypy] python_version` is "3.10"
+      while the active interpreter is Python 3.12/3.13 and installed numpy ships a
+      PEP-695 `type`-statement stub that only parses under >=3.12. Fix: set mypy
+      python_version to the interpreter actually in use (>=3.12), or pin numpy to a
+      version whose stubs parse under 3.10, then run the type gate successfully and
+      enforce it on CI.
+    scholarship_plan:
+      lanes:
+        - delivery_and_reporting
+        - applications_and_scope
+      existing_source_keys: []
+      planned_source_targets: []
+      claim_support_types:
+        - scope_limit
+      boundaries:
+        - "Static type checking is a repo-health signal in this gate set, not a claim about runtime behaviour."
+      phase_exit:
+        - "`uv run mypy src` returns 0 with no module skipped."
+  - id: asf-review-ruff-gate-red
+    title: 'DONE: major: ruff gate red (355 check errors, 4 format failures)'
+    status: done
+    scale: major
+    surface: validation
+    owner: src scripts tests
+    evidence:
+      - uvx ruff check src scripts tests
+      - uvx ruff format --check src scripts tests
+    notes: >-
+      The documented gate `uvx ruff check src scripts tests && uvx ruff format
+      --check src scripts tests` is red on the current tree: 355 check errors (126
+      RUF100 unused-noqa, 60 I001 unsorted-imports, 30 EXE001 shebang-not-executable,
+      30 ISC004 implicit-string-concat, 26 PLC0414 useless-import-alias, 20 FURB167
+      regex-flag-alias, 19 UP035 deprecated-import, 10 PLW1510
+      subprocess-run-without-check, misc) and 4 files fail `ruff format --check`;
+      242 are auto-fixable. Because AGENTS.md declares ruff a release gate, the
+      "green gates" claim does not currently hold. Fix the gate (auto-fix and format,
+      then justify or silence the intentional remainder) and add a CI lint job so it
+      cannot silently regress.
+    scholarship_plan:
+      lanes:
+        - delivery_and_reporting
+        - applications_and_scope
+      existing_source_keys: []
+      planned_source_targets: []
+      claim_support_types:
+        - scope_limit
+      boundaries:
+        - "Lint/style gates are developer-workflow hygiene, not scientific or learner-outcome evidence."
+      phase_exit:
+        - "`uvx ruff check src scripts tests` and `uvx ruff format --check src scripts tests` both return 0."
+  - id: asf-review-coverage-floor-illusion
+    title: 'FIX-ME major: >=90% coverage aggregate masks 32% security-module coverage'
+    status: todo
+    scale: major
+    surface: validation
+    owner: tests
+    evidence:
+      - uv run pytest --cov=src --cov-fail-under=90
+    notes: >-
+      Progress through 2026-08-01: aggregate src coverage is 92.03% (up from 90.30%) and the
+      previously-thin logic/validation modules are now genuinely covered: summary.py 85% ->
+      99%, curriculum/alignment.py 66% -> 95%, pilot/contract.py 83% -> 95%,
+      form_login_validation guard branches 32% -> 50%, github_sources retry paths
+      (5xx/network/exhaustion), and recommendations ordering/cycle/remediation. The
+      aggregate floor no longer greenwashes these core modules. Remaining sub-90 modules are
+      all live/network/browser gated and need a Docker/browser-capable host (they are folded
+      into the live-stack tasks): full_app_stack.py ~61% (Docker), form_login_validation.py
+      ~50% (browser subprocess), source_health_network.py ~72% (live HTTP),
+      dashboard/payload.py ~68% (live-auth block, httpserver). Add live/browser-capable
+      coverage for those before claiming the floor is uniformly green.
+      2026-08-09 update: aggregate is 92.08% over 923 tests. The four named modules are still
+      the sub-90 set (full_app_stack.py 63.77%, form_login_validation.py 49.76%,
+      source_health_network.py 72.39%, dashboard/payload.py 70.37%), and this pass confirmed
+      empirically why the exception matters rather than assuming it: the dashboard CSP bug that
+      blanked the official SkillTree iframe was invisible to all 900+ offline tests and was
+      caught only by the live browser console gate, and the reconciler's abort-on-slow-write
+      bug was caught only by a real 1199-edge run. Offline unit coverage of these modules would
+      not have found either. The regression tests added here are the mechanically checkable
+      part (browser-session restart, post-timeout confirmation, retry bounds, CSP directives,
+      deferred parity, gzip), and the live gates remain the proof for the rest.
+    scholarship_plan:
+      lanes:
+        - delivery_and_reporting
+        - applications_and_scope
+      existing_source_keys: []
+      planned_source_targets: []
+      claim_support_types:
+        - delivery
+      boundaries:
+        - "Coverage measures exercised code paths, not correctness or safety."
+      phase_exit:
+        - "Every sub-90 module meets the 90% floor or has a documented browser/Docker path exception."
+  - id: asf-review-token-endpoint-info-leak
+    title: 'DONE: medium: token endpoint leaks SkillTreeClientError body/status and auth error text'
+    status: done
+    scale: medium
+    surface: dashboard
+    owner: src/dashboard/server.py
+    evidence:
+      - uv run pytest tests/test_dashboard_server.py -q
+    notes: >-
+      /api/skilltree/token (_send_skilltree_token) returns SkillTreeClientError.status
+      plus str(exc) for the local-auth and token-exchange branches, which can surface
+      raw SkillTree server response bodies and internal error state to any same-origin
+      caller. Local-only scope limits impact, but the endpoint should return fixed,
+      sanitized messages and log diagnostic detail server-side instead of echoing
+      upstream error bodies.
+    scholarship_plan:
+      lanes:
+        - delivery_and_reporting
+        - applications_and_scope
+      existing_source_keys: []
+      planned_source_targets: []
+      claim_support_types:
+        - delivery
+        - scope_limit
+      boundaries:
+        - "The dashboard is a local dev surface, so impact is low; errors must still not echo upstream bodies."
+      phase_exit:
+        - "/api/skilltree/token returns only fixed messages; raw SkillTree body/status stays in server logs."
+  - id: asf-review-token-endpoint-no-csrf
+    title: 'DONE: medium: token dispenser has no CSRF token; allows Origin-less callers'
+    status: done
+    scale: medium
+    surface: skilltree
+    owner: src/dashboard/server.py
+    evidence:
+      - uv run pytest tests/test_dashboard_server.py tests/test_skilltree_local_auth.py -q
+    notes: >-
+      _send_skilltree_token has no anti-CSRF token of its own; its caller gate
+      (_token_caller_allowed) relies on Host-header pinning plus Sec-Fetch-Site/Origin
+      heuristics and explicitly ALLOWS requests that carry no Origin (fetch_site in
+      same-origin or none). A cross-site context that omits Origin can reach the
+      endpoint. Defense-in-depth: require a per-session CSRF token or an explicit
+      allow-origin-only policy before issuing learner credentials.
+    scholarship_plan:
+      lanes:
+        - delivery_and_reporting
+        - applications_and_scope
+      existing_source_keys: []
+      planned_source_targets: []
+      claim_support_types:
+        - delivery
+      boundaries:
+        - "Credential issuance is protected today by Host pinning plus Origin/Sec-Fetch-Site heuristics."
+      phase_exit:
+        - "The token endpoint issues learner credentials only to verified same-origin callers presenting a CSRF token or an allowed Origin."
+  - id: asf-review-one_shot_secret_url-cors-star
+    title: 'DONE: medium: loopback secret server uses Access-Control-Allow-Origin: * over plaintext'
+    status: done
+    scale: medium
+    surface: skilltree
+    owner: src/skilltree/form_login_validation.py
+    evidence:
+      - uv run pytest tests/test_skilltree_form_login.py tests/test_form_login_core.py -q
+    notes: >-
+      one_shot_secret_url serves the loopback admin password over plaintext HTTP from
+      a transient 127.0.0.1 server whose OPTIONS/GET return
+      Access-Control-Allow-Origin: *. A 24-character single-use URLsafe token is the
+      only guard. Acceptable for local tooling, but tighten by binding to the expected
+      SkillTree origin (or documenting the accepted local-trust trade-off) and add a
+      test proving the token cannot be read twice.
+    scholarship_plan:
+      lanes:
+        - delivery_and_reporting
+        - applications_and_scope
+      existing_source_keys: []
+      planned_source_targets: []
+      claim_support_types:
+        - delivery
+        - scope_limit
+      boundaries:
+        - "The transient loopback server is explicitly local-only tooling guarding a single-use token."
+      phase_exit:
+        - "The secret server binds its CORS origin or documents the local-trust trade-off; single-use is covered by a test."
+  - id: asf-review-assign_dependency-non-atomic-reseed
+    title: 'DONE: medium: assign_dependency delete-then-reseed is non-atomic'
+    status: done
+    scale: medium
+    surface: skilltree
+    owner: src/skilltree/local_auth.py
+    evidence:
+      - uv run pytest tests/test_skilltree_seeder.py tests/test_dependency_reconciler.py -q
+    notes: >-
+      SkillTreeSessionClient.assign_dependency deletes a stale reverse prerequisite
+      and then POSTs the replacement. If the DELETE succeeds but the follow-up POST
+      fails, live SkillTree is left missing that edge while the in-memory
+      _dependency_pairs cache was already discarded, so a later run can mis-seed
+      non-deterministically with no recovery path. Make the delete-then-reseed
+      transactional, or re-fetch the live graph on the failure path before raising.
+    scholarship_plan:
+      lanes:
+        - delivery_and_reporting
+        - applications_and_scope
+      existing_source_keys: []
+      planned_source_targets: []
+      claim_support_types:
+        - delivery
+      boundaries:
+        - "Reseed is a maintenance operation against a live local SkillTree; partial failure must not persist silently."
+      phase_exit:
+        - "A failed delete-then-reseed leaves the live graph consistent or raises with the dependency cache refreshed."
+  - id: asf-review-live-network-no-retries
+    title: 'DONE: medium: live-network proof paths lack retries/backoff'
+    status: done
+    scale: medium
+    surface: validation
+    owner: src/integration/full_app_stack.py, src/curriculum/materials/github_sources.py
+    evidence:
+      - uv run python scripts/validate_full_app_stack.py --skip-regenerate
+      - uv run python scripts/validate_course_material_sources.py --online
+    notes: >-
+      The live-network validators (curriculum GitHub-tree fetch, full-app-stack
+      Docker+browser proof, validate_live_skilltree_dashboard) apply per-call timeouts
+      but no retry/backoff on transient failures, which makes the "repeatable live-stack
+      CI rehearsal" goal flaky and produces non-deterministic red runs. Add bounded
+      retries with explicit backoff (and clear partial-failure reporting) to the
+      Docker/browser/network proof paths.
+    scholarship_plan:
+      lanes:
+        - delivery_and_reporting
+        - applications_and_scope
+      existing_source_keys: []
+      planned_source_targets: []
+      claim_support_types:
+        - delivery
+        - scope_limit
+      boundaries:
+        - "Live-proof runs depend on Docker/browser/network availability on the validation host."
+      phase_exit:
+        - "Network proof paths apply bounded retries/backoff and report partial failure explicitly."
+  - id: asf-review-recommendation-scoring
+    title: 'DONE: medium: recommendation score heuristic can dominate dependency order'
+    status: done
+    scale: medium
+    surface: curriculum
+    owner: src/curriculum/recommendations.py
+    evidence:
+      - uv run pytest tests/test_recommendations.py tests/test_dashboard.py -q
+    notes: >-
+      recommend_next_skills scores candidates as category*100 + concept_overlap*10 -
+      depth. The token-overlap term (10/word) can exceed the depth penalty (up to +75),
+      and unsuccessful-retake candidates (category 3, baseline 300) always rank above
+      every satisfied-frontier skill regardless of dependency order; this ordering is
+      undocumented and the module is only 84.8% covered. If ordering is meant to respect
+      the prerequisite graph, weight along topological depth first; add unit tests for
+      ordering and the positive-limit boundary.
+    scholarship_plan:
+      lanes:
+        - pedagogy_and_learning_paths
+        - applications_and_scope
+        - delivery_and_reporting
+      existing_source_keys: []
+      planned_source_targets: []
+      claim_support_types:
+        - scope_limit
+      boundaries:
+        - "Recommendations are an offline prototype and never infer learner state or efficacy."
+      phase_exit:
+        - "Ordering is determined by a documented, dependency-respecting rule; ordering and limit boundaries are unit-tested."
+  - id: asf-review-unused-noqa-126
+    title: 'POLISH minor: 126 unused noqa directives (RUF100) block ruff gate'
+    status: done
+    scale: minor
+    surface: validation
+    owner: src scripts tests
+    evidence:
+      - uvx ruff check src scripts tests
+    notes: >-
+      126 RUF100 (unused noqa) violations across the tree keep the ruff gate red;
+       representative example at tests/test_web_math.py:23 (a # noqa: E402 on an import
+       that no longer triggers E402). Removing the stale directives (uvx ruff check
+       --fix) is low-risk and needed before the gate can be green.
+    scholarship_plan:
+      lanes:
+        - delivery_and_reporting
+        - applications_and_scope
+      existing_source_keys: []
+      planned_source_targets: []
+      claim_support_types:
+        - delivery
+      boundaries:
+        - "Removing stale noqa directives changes no runtime behaviour."
+      phase_exit:
+        - "RUF100 resolved; ruff check returns 0."
+  - id: asf-review-useless-import-alias-26
+    title: 'POLISH minor: 26 useless-import-alias (PLC0414) redundant re-exports'
+    status: done
+    scale: minor
+    surface: validation
+    owner: src
+    evidence:
+      - uvx ruff check src scripts tests
+    notes: >-
+      26 PLC0414 (useless import alias) hits come from re-export shims that alias an
+      imported name to itself (e.g. src/dashboard/payload.py "as live_skilltree_summary",
+      src/skilltree/local_auth.py and local_auth_state.py "as X" re-exports). Harmless
+      but contribute to the red ruff gate; drop the redundant aliases or mark them
+      intentional under the project lint policy.
+    scholarship_plan:
+      lanes:
+        - delivery_and_reporting
+        - applications_and_scope
+      existing_source_keys: []
+      planned_source_targets: []
+      claim_support_types:
+        - delivery
+      boundaries:
+        - "Re-export shims exist for API stability; only redundant self-aliases are removed."
+      phase_exit:
+        - "PLC0414 resolved or explicitly justified; ruff check returns 0."
+  - id: asf-review-shebang-not-executable-30
+    title: 'POLISH minor: 30 EXE001 shebang-not-executable scripts'
+    status: done
+    scale: minor
+    surface: validation
+    owner: scripts
+    evidence:
+      - uvx ruff check scripts
+    notes: >-
+      30 scripts carry a #!/usr/bin/env python3 shebang but are not chmod +x (EXE001).
+      Decide and apply one convention (drop the shebangs if always invoked via uv run
+      python, or set the executable bit) so the lint gate is green.
+    scholarship_plan:
+      lanes:
+        - delivery_and_reporting
+        - applications_and_scope
+      existing_source_keys: []
+      planned_source_targets: []
+      claim_support_types:
+        - delivery
+      boundaries:
+        - "Scripts are invoked via uv run python in this repo."
+      phase_exit:
+        - "EXE001 resolved by one chosen convention; ruff check returns 0."
+  - id: asf-review-implicit-string-concat-30
+    title: 'POLISH minor: 30 ISC004 implicit-string-concatenation in collection literals'
+    status: done
+    scale: minor
+    surface: validation
+    owner: src scripts tests
+    evidence:
+      - uvx ruff check src scripts tests
+    notes: >-
+      30 ISC004 hits flag adjacent string literals silently concatenated inside
+      collection literals; low-risk but part of the red ruff gate. Add explicit
+      concatenation or trailing-comma splits to satisfy the linter without behaviour
+      change.
+    scholarship_plan:
+      lanes:
+        - delivery_and_reporting
+        - applications_and_scope
+      existing_source_keys: []
+      planned_source_targets: []
+      claim_support_types:
+        - delivery
+      boundaries:
+        - "Formatting edit is mechanical and behaviour-preserving."
+      phase_exit:
+        - "ISC004 resolved; ruff check returns 0."
+  - id: asf-review-ruff-format-4-files
+    title: 'POLISH minor: ruff format --check fails on 4 files'
+    status: done
+    scale: minor
+    surface: validation
+    owner: src scripts tests
+    evidence:
+      - uvx ruff format --check src scripts tests
+    notes: >-
+      uvx ruff format --check src scripts tests reports 4 files that would be
+      reformatted (while 222 already conform), leaving the documented formatting gate
+      red. Run uvx ruff format src scripts tests and re-verify; formatting is mechanical
+      and behaviour-preserving.
+    scholarship_plan:
+      lanes:
+        - delivery_and_reporting
+        - applications_and_scope
+      existing_source_keys: []
+      planned_source_targets: []
+      claim_support_types:
+        - delivery
+      boundaries:
+        - "Formatting is mechanical and behaviour-preserving."
+      phase_exit:
+        - "ruff format --check returns 0 across src/scripts/tests."
+  - id: asf-review-catalog-catalog-coverage
+    title: 'POLISH minor: src/curriculum/catalog.py at 85.71% (main branch untested)'
+    status: done
+    scale: minor
+    surface: validation
+    owner: src/curriculum/catalog.py
+    evidence:
+      - uv run pytest tests/test_curriculum_catalog.py --cov=src --cov-report=term-missing
+    notes: >-
+      src/curriculum/catalog.py sits at 85.71%: the if __name__ == "__main__" CLI/error
+      path is untested. Add a smoke assertion (or mark that branch pragma: no cover) so
+      the module does not sit below the 90 floor.
+    scholarship_plan:
+      lanes:
+        - delivery_and_reporting
+        - applications_and_scope
+      existing_source_keys: []
+      planned_source_targets: []
+      claim_support_types:
+        - delivery
+      boundaries:
+        - "Coverage is an exercised-code-path signal."
+      phase_exit:
+        - "src/curriculum/catalog.py is at or above the 90% floor or its CLI branch is covered."
+  - id: asf-review-plw1510-subprocess
+    title: 'POLISH minor: 10 PLW1510 subprocess-run-without-check flags (mostly benign)'
+    status: done
+    scale: minor
+    surface: validation
+    owner: scripts src
+    evidence:
+      - uvx ruff check src scripts tests
+    notes: >-
+      10 subprocess.run calls lack explicit check=True. Review confirmed returncodes ARE
+      handled at most call sites (scripts/reset_local_skilltree.py run_checked,
+      scripts/z_generate_manuscript_variables.py uses check=True), so these are
+      lint-hygiene rather than real command-failure bugs, but they keep the ruff gate
+      red. Resolve by making the checks explicit or adding a targeted, justified noqa.
+    scholarship_plan:
+      lanes:
+        - delivery_and_reporting
+        - applications_and_scope
+      existing_source_keys: []
+      planned_source_targets: []
+      claim_support_types:
+        - delivery
+      boundaries:
+        - "Subprocess returncodes are already checked at the flagged call sites."
+      phase_exit:
+        - "PLW1510 resolved via explicit checks or a justified targeted noqa; ruff check returns 0."

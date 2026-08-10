@@ -1,0 +1,1 @@
+ERROR: Docker is installed, but the Docker daemon is not reachable. Start Docker Desktop or Colima, confirm `docker info` succeeds, then rerun this full-app validator.

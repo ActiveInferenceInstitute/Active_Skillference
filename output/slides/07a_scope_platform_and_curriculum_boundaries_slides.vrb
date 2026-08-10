@@ -1,0 +1,15 @@
+\frametitle{Curriculum platform scope: not an inference engine or hosted LMS}
+
+The curriculum is deliberately broad (630 skills across all eight
+strata) and designed so that growth is a data operation: adding skills
+or worked examples extends the catalog without changing the engine. Its
+new practice layer is still pedagogical rather than clinical or
+operational advice: domain-fit, ethics, misuse, and evaluation skills
+train learners to ask better modeling questions, not to deploy
+autonomous interventions without local review. Out of scope for this
+release are hosting and authentication of a production SkillTree
+deployment, learner analytics, and a textbook-length treatment of every
+individual skill. The local dashboard narrows that boundary: it is
+enough to show that the export can be inspected locally and, when a
+SkillTree runtime is available, opened through subject and quiz routes;
+it is not a hosted LMS or analytics product.

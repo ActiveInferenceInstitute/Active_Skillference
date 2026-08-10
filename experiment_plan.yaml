@@ -1,0 +1,57 @@
+conditions:
+  - name: robust_regime
+    role: reference
+    description: "Sensor precision p in [0.6, 0.9]: the active-inference agent prefers the information-seeking action when the cue is uncertain."
+  - name: worked_example
+    role: proposed
+    description: "Sensor precision p = 0.9: the curriculum's worked T-maze example, which sits inside the robust epistemic-preference regime."
+  - name: high_precision
+    role: variant
+    description: "Sensor precision p = 0.99: stress condition where the epistemic advantage vanishes and inverts (the agent prefers to commit), bounding the claim's regime."
+metrics:
+  primary:
+    name: epistemic_value
+    direction: maximize
+protocol: "Run the deterministic discrete active-inference agent (fixed seed) over a cue/T-maze across the declared sensor-precision conditions; measure the expected-free-energy epistemic term and the resulting action preference. Every reported number is registered as a provenance claim by src/kernels/examples.py."
+expected_figures:
+  - fig:curriculum_dag
+  - fig:free_energy
+  - fig:efe
+baselines:
+  - robust_regime
+ablations:
+  - high_precision
+learner_outcome_pilot:
+  status: preregistered_design_only
+  claim_boundary: "No learner efficacy, retention, transfer, or comparative outcome claim is made until real participant data are collected, consented, analyzed, and added to claim support."
+  population: "Adult volunteer learners studying Active Inference/FEP prerequisites through the SkillTree export."
+  consent_and_privacy:
+    consent: "Participants receive the study purpose, voluntary participation statement, withdrawal path, and data-use boundary before any progress export is analyzed."
+    data_minimization: "Use SkillTree-owned progress exports and study item responses only; do not collect direct personal contact details, payment identifiers, or unrelated telemetry in this repository."
+    deidentification: "Replace learner identifiers with study ids before analysis; keep the SkillTree runtime as the source of progress truth."
+  design:
+    type: pre_post_delayed_retention
+    sequence:
+      - consent
+      - baseline_active_inference_concept_item_set
+      - assigned_skilltree_learning_path
+      - immediate_post_item_set
+      - delayed_retention_item_set
+      - optional_transfer_prompt_scored_by_preregistered_rubric
+    progress_source: "SkillTree report/export endpoints; local dashboard state is not treated as learner-truth data."
+  measures:
+    primary:
+      - preregistered_concept_accuracy_delta
+      - delayed_retention_accuracy
+    secondary:
+      - path_completion
+      - quiz_attempt_count
+      - transfer_rubric_score
+    exclusions:
+      - incomplete_consent
+      - missing_pre_or_post_response
+      - duplicate_or_test_learner_ids
+  analysis_plan:
+    estimand: "Within-learner change from baseline to immediate post, with delayed retention reported separately."
+    reporting: "Report confidence intervals/effect estimates only after sample size, item families, exclusions, and rubric are frozen."
+    limitations: "Treat the pilot as feasibility and signal-finding, not publication-grade proof of educational efficacy."

@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Active Skillference Learner Dashboard</title>
+    <meta name="description" content="Local learner dashboard for Active Skillference: the official SkillTree learner view, the provenance-bound Active Inference curriculum, generated artifacts, and runtime status.">
+    <meta name="color-scheme" content="light">
+    <script>
+      window.dashboardMathJaxFailed = false;
+      window.MathJax = {
+        tex: {
+          inlineMath: [["$", "$"], ["\\(", "\\)"]],
+          displayMath: [["$$", "$$"], ["\\[", "\\]"]]
+        },
+        options: {
+          skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"]
+        }
+      };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" integrity="sha384-NR8saakDju74wZ6sprPPhEoWbaP3iVtXVJH12mRSiaIgxMdi33mOQj8bnF2WxzY3" crossorigin="anonymous" onerror="window.dashboardMathJaxFailed = true"></script>
+    <link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="12" fill="%232563eb"/><path d="M16 42h32M18 32h28M22 22h20" stroke="white" stroke-width="6" stroke-linecap="round"/></svg>'>
+    <link rel="stylesheet" href="/assets/styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <header class="app-header">
+      <div>
+        <p class="eyebrow">Active Skillference</p>
+        <h1>Learner Dashboard</h1>
+      </div>
+      <nav class="header-actions" aria-label="External destinations">
+        <a id="skilltree-dashboard-link" class="button primary" href="http://localhost:8080/skills-login?redirect=/progress-and-rankings">SkillTree login/admin</a>
+        <a id="project-json-link" class="button" href="/artifacts/skilltree_project">Project JSON</a>
+        <a id="manuscript-link" class="button" href="/artifacts/manuscript_pdf">Manuscript</a>
+      </nav>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <section class="status-grid" aria-label="Runtime status">
+        <article class="metric">
+          <span class="label">SkillTree</span>
+          <strong id="service-state" aria-live="polite">checking</strong>
+        </article>
+        <article class="metric">
+          <span class="label">Skills</span>
+          <strong id="skill-count">0</strong>
+        </article>
+        <article class="metric">
+          <span class="label">Subjects</span>
+          <strong id="subject-count">0</strong>
+        </article>
+        <article class="metric">
+          <span class="label">Dependencies</span>
+          <strong id="dependency-count">0</strong>
+        </article>
+        <article class="metric">
+          <span class="label">Quizzes</span>
+          <strong id="quiz-count">0</strong>
+        </article>
+        <article class="metric">
+          <span class="label">Max Depth</span>
+          <strong id="max-depth">0</strong>
+        </article>
+        <article class="metric">
+          <span class="label">Claims</span>
+          <strong id="claim-count">0</strong>
+        </article>
+        <article class="metric">
+          <span class="label">Artifacts</span>
+          <strong id="artifact-health">0/0</strong>
+        </article>
+      </section>
+
+      <section class="system-summary" aria-label="System summary">
+        <div>
+          <h2>Operational Snapshot</h2>
+          <p id="summary-text">Loading generated artifacts and runtime status.</p>
+        </div>
+        <ul id="summary-list" class="summary-list"></ul>
+      </section>
+
+      <nav class="tabs" aria-label="Dashboard modules" role="tablist">
+        <button type="button" id="tab-official" class="tab active" data-panel="official-panel" role="tab" aria-controls="official-panel" aria-selected="true" tabindex="0">Official Display</button>
+        <button type="button" id="tab-curriculum" class="tab" data-panel="curriculum-panel" role="tab" aria-controls="curriculum-panel" aria-selected="false" tabindex="-1">Curriculum</button>
+        <button type="button" id="tab-artifacts" class="tab" data-panel="artifacts-panel" role="tab" aria-controls="artifacts-panel" aria-selected="false" tabindex="-1">Artifacts</button>
+        <button type="button" id="tab-graph" class="tab" data-panel="graph-panel" role="tab" aria-controls="graph-panel" aria-selected="false" tabindex="-1">Graph</button>
+        <button type="button" id="tab-runtime" class="tab" data-panel="runtime-panel" role="tab" aria-controls="runtime-panel" aria-selected="false" tabindex="-1">Runtime</button>
+      </nav>
+
+      <section id="official-panel" class="panel active" role="tabpanel" aria-labelledby="tab-official">
+        <div class="panel-heading">
+          <h2>Official SkillTree Learner View</h2>
+          <a id="official-fallback-link" href="http://localhost:8080/skills-login?redirect=/progress-and-rankings" class="button">Open SkillTree login</a>
+        </div>
+        <div id="skills-client-container" class="skilltree-frame" aria-live="polite" aria-busy="true"></div>
+      </section>
+
+      <section id="curriculum-panel" class="panel" role="tabpanel" aria-labelledby="tab-curriculum" hidden>
+        <div class="panel-heading">
+          <h2>Curriculum Explorer</h2>
+          <label class="search">
+            <span>Search</span>
+            <input id="curriculum-search" type="search" autocomplete="off" placeholder="skill, subject, prerequisite">
+          </label>
+        </div>
+        <section id="material-detail" class="material-detail" tabindex="-1" aria-live="polite" hidden></section>
+        <section id="path-recommendations" class="path-recommendations" aria-live="polite"></section>
+        <div id="curriculum-list" class="subject-list"></div>
+      </section>
+
+      <section id="artifacts-panel" class="panel" role="tabpanel" aria-labelledby="tab-artifacts" hidden>
+        <div class="panel-heading">
+          <h2>Artifacts</h2>
+        </div>
+        <div id="artifact-companions" class="artifact-companions" aria-live="polite"></div>
+        <div id="artifact-list" class="artifact-list"></div>
+      </section>
+
+      <section id="graph-panel" class="panel" role="tabpanel" aria-labelledby="tab-graph" hidden>
+        <div class="panel-heading">
+          <h2>Dependency Graph</h2>
+          <div class="graph-controls" aria-label="Graph controls">
+            <label>
+              <span>Skill</span>
+              <input id="graph-skill-search" type="search" autocomplete="off" placeholder="skill id or name">
+            </label>
+            <label>
+              <span>Subject</span>
+              <select id="graph-subject-filter">
+                <option value="">All subjects</option>
+              </select>
+            </label>
+            <label>
+              <span>Depth</span>
+              <input id="graph-depth-filter" type="range" min="0" max="0" value="0">
+            </label>
+            <label class="checkbox-control">
+              <input id="graph-bottleneck-only" type="checkbox">
+              <span>Bottlenecks</span>
+            </label>
+          </div>
+        </div>
+        <div id="graph-summary" class="graph-summary"></div>
+        <div id="dependency-graph" class="dependency-graph" aria-label="Curriculum dependency graph"></div>
+        <div id="dependency-flows" class="dependency-flows"></div>
+        <div id="curriculum-diagnostics" class="curriculum-diagnostics" aria-live="polite"></div>
+        <div id="graph-diagnostics" class="graph-diagnostics" aria-live="polite"></div>
+      </section>
+
+      <section id="runtime-panel" class="panel" role="tabpanel" aria-labelledby="tab-runtime" hidden>
+        <div class="panel-heading">
+          <h2>Runtime</h2>
+          <div class="panel-actions">
+            <a class="button" href="/api/status" target="_blank" rel="noreferrer">Full status JSON</a>
+            <button type="button" id="refresh-status" class="button">Refresh</button>
+          </div>
+        </div>
+        <div id="deployment-matrix" class="deployment-matrix" aria-live="polite"></div>
+        <pre id="runtime-json" class="runtime-json" tabindex="0"></pre>
+      </section>
+
+      <section class="local-login-card" aria-label="Local SkillTree login">
+        <div>
+          <p class="eyebrow">Local SkillTree Login</p>
+          <h2>Default development credentials</h2>
+          <p id="local-login-note">Loading local login status.</p>
+        </div>
+        <dl class="local-login-credentials">
+          <div>
+            <dt>Raw SkillTree login/admin</dt>
+            <dd><a id="local-login-link" href="http://localhost:8080/skills-login?redirect=/progress-and-rankings">http://localhost:8080</a></dd>
+          </div>
+          <div>
+            <dt>Username</dt>
+            <dd><code id="local-login-username">loading</code></dd>
+          </div>
+          <div>
+            <dt>Password</dt>
+            <dd><code id="local-login-password">loading</code></dd>
+          </div>
+          <div>
+            <dt>Reset stale local state</dt>
+            <dd><code id="local-login-reset">uv run python scripts/reset_local_skilltree.py --confirm-local-reset</code></dd>
+          </div>
+        </dl>
+      </section>
+    </main>
+
+    <script type="module" src="/assets/app.js"></script>
+  </body>
+</html>

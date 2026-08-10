@@ -1,0 +1,52 @@
+# Runnable SkillTree instance for the Active Inference micro-learning platform.
+#
+# Brings up the NSA SkillTree backend (dashboard + REST API + Skills Display) backed
+# by PostgreSQL, using the official published image. After it is healthy, bootstrap
+# local FORM auth and seed it through the wrapper scripts.
+# The official image is published by the SkillTree project on Docker Hub
+# (https://skilltreeplatform.dev). Pin a concrete tag for reproducibility.
+# Refresh pinned digests by requesting a Docker Hub bearer token from
+# auth.docker.io/token, then querying registry-1.docker.io/v2/<repo>/manifests/<tag>
+# and reading the Docker-Content-Digest response header before re-pulling by digest.
+services:
+  postgres:
+    image: postgres:15@sha256:74e110c41804365e3915fcc09d5e7a1eff50161aaa94d5da0e58e0cd75ae509c
+    environment:
+      POSTGRES_DB: skills
+      POSTGRES_USER: skills
+      POSTGRES_PASSWORD: ${ACTIVE_SKILLFERENCE_POSTGRES_PASSWORD:?Set ACTIVE_SKILLFERENCE_POSTGRES_PASSWORD or use scripts/run_skilltree.sh}
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - skilltree-db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U skills"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  skills-service:
+    # Pinned SkillTree backend image (dashboard + admin REST API + Skills Display).
+    image: skilltree/skills-service:4.6.0@sha256:071220ce9de0432eeb17c375e17de34bd6887938a85d91b3cb16fe2e72ff42d5
+    # The published backend image is single-arch; pin the platform so arm64 hosts
+    # run it intentionally through Docker/Colima emulation instead of warning noisily.
+    platform: linux/amd64
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/skills
+      SPRING_DATASOURCE_USERNAME: skills
+      SPRING_DATASOURCE_PASSWORD: ${ACTIVE_SKILLFERENCE_POSTGRES_PASSWORD:?Set ACTIVE_SKILLFERENCE_POSTGRES_PASSWORD or use scripts/run_skilltree.sh}
+      # Dev-mode password auth keeps local bring-up simple; do NOT use in production.
+      # Valid SkillTree values are FORM, PKI, and SAML2; PKI_OR_FORM is not a real AuthMode (verified at 4.6.0).
+      SKILLS_AUTHORIZATION_AUTHMODE: FORM
+      # The Active Inference curriculum now has 105 subjects; SkillTree defaults the
+      # per-project subject cap to 25 (skills.config.ui.maxSubjectsPerProject).
+      # Raise it so the full validated DAG seeds into one live project.
+      SKILLS_CONFIG_UI_MAXSUBJECTSPERPROJECT: "125"
+    ports:
+      - "127.0.0.1:8080:8080"
+
+volumes:
+  skilltree-db:

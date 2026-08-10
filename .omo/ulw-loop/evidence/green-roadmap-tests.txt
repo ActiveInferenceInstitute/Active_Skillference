@@ -1,0 +1,10 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.13, pytest-9.0.3, pluggy-1.6.0
+rootdir: /Users/4d/Documents/GitHub/projects/working/Active_Skillference
+configfile: pyproject.toml
+plugins: cov-7.1.0, pytest_httpserver-1.1.5
+collected 35 items
+
+tests/test_roadmap.py ...................................                [100%]
+
+============================= 35 passed in 39.83s ==============================

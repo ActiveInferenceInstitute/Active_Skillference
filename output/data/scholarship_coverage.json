@@ -1,0 +1,2253 @@
+{
+  "issues": [],
+  "lanes": {
+    "active_inference_core": {
+      "citedSources": 27,
+      "sections": [
+        "01_introduction.md",
+        "02a_methodology_kernels_statistics_and_provenance.md",
+        "02b_methodology_scholarship_curriculum_and_strata.md",
+        "07a_scope_platform_and_curriculum_boundaries.md",
+        "07b_related_work_active_inference_and_information_sources.md",
+        "07d_limitations_delivery_dependencies_and_learner_outcomes.md",
+        "08_supplement_variational_free_energy.md"
+      ],
+      "sources": [
+        "anokhin2024associative_active_inference",
+        "bagaev2023rxinfer",
+        "buckley2017free",
+        "champion2026reframing",
+        "dacosta2020synthesis",
+        "friston2006free",
+        "friston2010free",
+        "friston2010generalised",
+        "friston2015epistemic",
+        "friston2017curiosity",
+        "friston2017graphical",
+        "friston2017process",
+        "friston2018bayesian_model_reduction",
+        "friston2023simpler",
+        "heins2022pymdp",
+        "millidge2021whence",
+        "nuijten2025message_passing_efe",
+        "nuijten2026efe_planning_vi",
+        "nuijten2026what_type_inference",
+        "parr2019generalised",
+        "parr2022active",
+        "pezzulo2024sentient_behavior",
+        "sajid2021demystified",
+        "smith2022tutorial",
+        "tschantz2020learning",
+        "vanoostrum2025concise",
+        "zhang2024overview"
+      ],
+      "totalSources": 27
+    },
+    "applications_and_scope": {
+      "citedSources": 27,
+      "sections": [
+        "01_introduction.md",
+        "02a_methodology_kernels_statistics_and_provenance.md",
+        "02b_methodology_scholarship_curriculum_and_strata.md",
+        "04_conclusion.md",
+        "07a_scope_platform_and_curriculum_boundaries.md",
+        "07b_related_work_active_inference_and_information_sources.md",
+        "07d_limitations_delivery_dependencies_and_learner_outcomes.md"
+      ],
+      "sources": [
+        "aguilera2022particular",
+        "aguilera2023confederation",
+        "badcock2024psychology_psychiatry",
+        "catal2021robot_navigation_active_inference",
+        "clark2016surfing",
+        "friston2007variational",
+        "friston2008dem",
+        "friston2008hierarchical",
+        "friston2013life",
+        "friston2019particular",
+        "gershman2019free",
+        "hodson2024empirical",
+        "isomura2023experimental",
+        "lanillos2021active_robotics_survey",
+        "levine2018probabilistic",
+        "millidge2020active_control_relationship",
+        "pezzulo2012cognitive_control",
+        "pezzulo2018hierarchical_active_inference",
+        "pezzulo2023generating_meaning",
+        "queisser2021robot_active_inference",
+        "ramstead2018answering",
+        "rao1999predictive",
+        "sales2019cognitive_flexibility_active_inference",
+        "schwartenbeck2015addiction_active_bayes",
+        "smith2021clinical_predictive_coding",
+        "vilas2022active_consciousness",
+        "watson2020active_control_inference"
+      ],
+      "totalSources": 27
+    },
+    "delivery_and_reporting": {
+      "citedSources": 35,
+      "sections": [
+        "01_introduction.md",
+        "02_methodology.md",
+        "02a_methodology_kernels_statistics_and_provenance.md",
+        "03b_results_scholarship_source_health_and_evidence_audits.md",
+        "06_reproducibility.md",
+        "07c_related_work_skilltree_security_reporting_and_open_science.md"
+      ],
+      "sources": [
+        "acm2023accessiblefigures",
+        "activeinferenceinstitute2026start",
+        "cheney2013prov_constraints",
+        "cisa2026sbom",
+        "citationfileformat2026",
+        "codemeta2026schema",
+        "github2026citingcontent",
+        "groth2013prov_overview",
+        "knuth1984literate",
+        "leo2024workflow_run_rocrate",
+        "mitre2026attack",
+        "moreau2013prov_dm",
+        "munafo2017reproducible_science",
+        "nist2020zerotrust",
+        "nist2022ssdf",
+        "nosek2015top",
+        "nsa2026opensource",
+        "opensourceinitiative2026mit",
+        "peng2011reproducible",
+        "reuse2024spec",
+        "sandve2013reproducible",
+        "section508alttext",
+        "sigstore2026overview",
+        "skilltree2020nsa",
+        "skilltree2026docs",
+        "skilltree2026github",
+        "slsa2026framework",
+        "smith2016softwarecitation",
+        "spdx2026mit",
+        "w3c2023wcag22",
+        "wilkinson2016fair",
+        "wilson2014scientific_computing",
+        "wong2011color",
+        "xie2015knitr",
+        "zenodo2026github"
+      ],
+      "totalSources": 35
+    },
+    "mathematical_foundations": {
+      "citedSources": 27,
+      "sections": [
+        "01_introduction.md",
+        "02a_methodology_kernels_statistics_and_provenance.md",
+        "02b_methodology_scholarship_curriculum_and_strata.md",
+        "07b_related_work_active_inference_and_information_sources.md",
+        "07c_related_work_skilltree_security_reporting_and_open_science.md",
+        "07d_limitations_delivery_dependencies_and_learner_outcomes.md",
+        "08_supplement_variational_free_energy.md"
+      ],
+      "sources": [
+        "aristotle_posterior_analytics",
+        "bagaev2023reactive_message_passing",
+        "bayes1763doctrine_chances",
+        "beal2003variational",
+        "bernoulli1713ars_conjectandi",
+        "bishop2006pattern",
+        "blei2017variational",
+        "cormen2022introduction",
+        "cover2006elements",
+        "demoivre1718doctrine_chances",
+        "descartes1628rules_direction_mind",
+        "gelman2013bayesian_analysis",
+        "huygens1657ratiociniis",
+        "jaynes2003probability_logic",
+        "jordan1999variational",
+        "kalman1960linear_filtering",
+        "kschischang2001factor_graphs",
+        "laplace1774inverse_probability",
+        "mackay2003information_inference",
+        "murphy2012probabilistic_ml",
+        "murphy2022probabilistic_ml",
+        "nelson2025coupled_free_energy",
+        "pearl1988probabilistic_reasoning",
+        "sarkka2013bayesian",
+        "shannon1948mathematical",
+        "tishby1999information",
+        "winn2005variational"
+      ],
+      "totalSources": 27
+    },
+    "pedagogy_and_learning_paths": {
+      "citedSources": 45,
+      "sections": [
+        "01_introduction.md",
+        "02b_methodology_scholarship_curriculum_and_strata.md",
+        "03b_results_scholarship_source_health_and_evidence_audits.md",
+        "04_conclusion.md",
+        "05_experimental_setup.md",
+        "07b_related_work_active_inference_and_information_sources.md",
+        "07c_related_work_skilltree_security_reporting_and_open_science.md",
+        "07d_limitations_delivery_dependencies_and_learner_outcomes.md",
+        "08_supplement_variational_free_energy.md"
+      ],
+      "sources": [
+        "activeinferenceinstitute2026cognitive",
+        "activeinferenceinstitute2026courses",
+        "activeinferenceinstitute2026home",
+        "activeinferenceinstitute2026website",
+        "bacon1620novum_organum",
+        "barab2004design_based",
+        "biggs1996constructive_alignment",
+        "black1998assessment",
+        "bloom1956taxonomy",
+        "bloom1968learning_for_mastery",
+        "burau2022deciduous",
+        "chi2014icap",
+        "comenius1657great_didactic",
+        "cosmides1996intuitive",
+        "designbasedresearchcollective2003",
+        "dicheva2015gamification",
+        "dipaolo2024school",
+        "doignon1985knowledge_spaces",
+        "eldridge2016consort_pilot",
+        "emin2026epistemic_curiosity_mind_wandering",
+        "falmagne2011learning_spaces",
+        "freeman2014activelearning",
+        "fu2025curriculum_aware_gncd",
+        "gigerenzer1995bayesian",
+        "hartley1749observations",
+        "hernandezcampos2025_learning_analytics_outcomes",
+        "hoffmann2014tidier",
+        "hugo2026teacher_development",
+        "hume1748enquiry",
+        "liang2018prerequisite",
+        "liu2023_learning_analytics_privacy",
+        "liu2025learning_analytics_intervention_meta",
+        "locke1690essay",
+        "locke1693education",
+        "mislevy2003ecd",
+        "monib2024microlearning_boundaries",
+        "piech2015deep_knowledge_tracing",
+        "quintilian95institutio_oratoria",
+        "roediger2006testenhanced",
+        "rof2024microlearning_satisfaction",
+        "rousseau1762emile",
+        "sclater2015learning_analytics_code",
+        "septiani2021gamified_microlearning",
+        "shute2008formative_feedback",
+        "tao2024q_matrix_constraint"
+      ],
+      "totalSources": 45
+    },
+    "perception_as_inference": {
+      "citedSources": 27,
+      "sections": [
+        "01_introduction.md",
+        "02b_methodology_scholarship_curriculum_and_strata.md",
+        "07b_related_work_active_inference_and_information_sources.md",
+        "07d_limitations_delivery_dependencies_and_learner_outcomes.md",
+        "08_supplement_variational_free_energy.md"
+      ],
+      "sources": [
+        "alhazen1989optics_direct_vision",
+        "bastos2012canonical_microcircuits",
+        "berkeley1709new_theory_vision",
+        "bogacz2017tutorial",
+        "clark2013predictive_brain",
+        "condillac1754sensations",
+        "dayan1995helmholtz",
+        "greco2024predictive_learning_geometry",
+        "helmholtz1867handbuch",
+        "hohwy2013predictive_mind",
+        "hume1739treatise",
+        "kant1781critique_pure_reason",
+        "kataoka2026extended_predictive_coding",
+        "kersten2004object_perception",
+        "knill2004bayesian",
+        "millidge2021predictive_coding_review",
+        "newton1704opticks",
+        "rao2024active_predictive_coding",
+        "sennesh2024dcpc",
+        "seth2020predictive_consciousness",
+        "smith2020predictive_neurophysiology",
+        "spratling2017predictive_algorithms",
+        "sprevak2023predictive",
+        "summerfield2014perceptual_decision",
+        "tschantz2023hybrid_predictive_coding",
+        "wei2015efficient_bayesian_perception",
+        "yuille2006vision_bayesian"
+      ],
+      "totalSources": 27
+    }
+  },
+  "sections": [
+    {
+      "citations": [],
+      "laneCounts": {
+        "active_inference_core": 0,
+        "applications_and_scope": 0,
+        "delivery_and_reporting": 0,
+        "mathematical_foundations": 0,
+        "pedagogy_and_learning_paths": 0,
+        "perception_as_inference": 0
+      },
+      "section": "00_abstract.md"
+    },
+    {
+      "citations": [
+        "activeinferenceinstitute2026website",
+        "aguilera2022particular",
+        "aguilera2023confederation",
+        "alhazen1989optics_direct_vision",
+        "anokhin2024associative_active_inference",
+        "aristotle_posterior_analytics",
+        "bacon1620novum_organum",
+        "badcock2024psychology_psychiatry",
+        "bayes1763doctrine_chances",
+        "berkeley1709new_theory_vision",
+        "bernoulli1713ars_conjectandi",
+        "bloom1956taxonomy",
+        "bogacz2017tutorial",
+        "champion2026reframing",
+        "comenius1657great_didactic",
+        "condillac1754sensations",
+        "dacosta2020synthesis",
+        "demoivre1718doctrine_chances",
+        "descartes1628rules_direction_mind",
+        "dipaolo2024school",
+        "doignon1985knowledge_spaces",
+        "falmagne2011learning_spaces",
+        "friston2006free",
+        "friston2010free",
+        "friston2017process",
+        "friston2023simpler",
+        "fu2025curriculum_aware_gncd",
+        "gershman2019free",
+        "hartley1749observations",
+        "heins2022pymdp",
+        "helmholtz1867handbuch",
+        "hodson2024empirical",
+        "hume1739treatise",
+        "huygens1657ratiociniis",
+        "kant1781critique_pure_reason",
+        "knill2004bayesian",
+        "laplace1774inverse_probability",
+        "liang2018prerequisite",
+        "liu2023_learning_analytics_privacy",
+        "locke1690essay",
+        "millidge2021whence",
+        "newton1704opticks",
+        "nsa2026opensource",
+        "parr2022active",
+        "pezzulo2024sentient_behavior",
+        "quintilian95institutio_oratoria",
+        "rousseau1762emile",
+        "sclater2015learning_analytics_code",
+        "skilltree2020nsa",
+        "skilltree2026docs",
+        "skilltree2026github",
+        "smith2022tutorial",
+        "sprevak2023predictive",
+        "vanoostrum2025concise",
+        "zhang2024overview"
+      ],
+      "laneCounts": {
+        "active_inference_core": 14,
+        "applications_and_scope": 5,
+        "delivery_and_reporting": 4,
+        "mathematical_foundations": 7,
+        "pedagogy_and_learning_paths": 15,
+        "perception_as_inference": 10
+      },
+      "section": "01_introduction.md"
+    },
+    {
+      "citations": [
+        "munafo2017reproducible_science",
+        "wilkinson2016fair"
+      ],
+      "laneCounts": {
+        "active_inference_core": 0,
+        "applications_and_scope": 0,
+        "delivery_and_reporting": 2,
+        "mathematical_foundations": 0,
+        "pedagogy_and_learning_paths": 0,
+        "perception_as_inference": 0
+      },
+      "section": "02_methodology.md"
+    },
+    {
+      "citations": [
+        "aguilera2022particular",
+        "beal2003variational",
+        "bishop2006pattern",
+        "blei2017variational",
+        "buckley2017free",
+        "champion2026reframing",
+        "cheney2013prov_constraints",
+        "cover2006elements",
+        "dacosta2020synthesis",
+        "friston2015epistemic",
+        "friston2017curiosity",
+        "friston2017process",
+        "groth2013prov_overview",
+        "hodson2024empirical",
+        "knuth1984literate",
+        "leo2024workflow_run_rocrate",
+        "millidge2021whence",
+        "moreau2013prov_dm",
+        "parr2019generalised",
+        "peng2011reproducible",
+        "sajid2021demystified",
+        "sandve2013reproducible",
+        "shannon1948mathematical",
+        "tschantz2020learning",
+        "xie2015knitr"
+      ],
+      "laneCounts": {
+        "active_inference_core": 10,
+        "applications_and_scope": 2,
+        "delivery_and_reporting": 8,
+        "mathematical_foundations": 5,
+        "pedagogy_and_learning_paths": 0,
+        "perception_as_inference": 0
+      },
+      "section": "02a_methodology_kernels_statistics_and_provenance.md"
+    },
+    {
+      "citations": [
+        "alhazen1989optics_direct_vision",
+        "aristotle_posterior_analytics",
+        "bacon1620novum_organum",
+        "biggs1996constructive_alignment",
+        "black1998assessment",
+        "bloom1956taxonomy",
+        "bloom1968learning_for_mastery",
+        "chi2014icap",
+        "clark2016surfing",
+        "comenius1657great_didactic",
+        "cormen2022introduction",
+        "dayan1995helmholtz",
+        "dipaolo2024school",
+        "doignon1985knowledge_spaces",
+        "emin2026epistemic_curiosity_mind_wandering",
+        "falmagne2011learning_spaces",
+        "freeman2014activelearning",
+        "friston2010generalised",
+        "fu2025curriculum_aware_gncd",
+        "hugo2026teacher_development",
+        "huygens1657ratiociniis",
+        "liang2018prerequisite",
+        "locke1693education",
+        "mislevy2003ecd",
+        "monib2024microlearning_boundaries",
+        "quintilian95institutio_oratoria",
+        "roediger2006testenhanced",
+        "rof2024microlearning_satisfaction",
+        "rousseau1762emile",
+        "sarkka2013bayesian",
+        "septiani2021gamified_microlearning",
+        "shute2008formative_feedback",
+        "tishby1999information"
+      ],
+      "laneCounts": {
+        "active_inference_core": 1,
+        "applications_and_scope": 1,
+        "delivery_and_reporting": 0,
+        "mathematical_foundations": 5,
+        "pedagogy_and_learning_paths": 24,
+        "perception_as_inference": 2
+      },
+      "section": "02b_methodology_scholarship_curriculum_and_strata.md"
+    },
+    {
+      "citations": [],
+      "laneCounts": {
+        "active_inference_core": 0,
+        "applications_and_scope": 0,
+        "delivery_and_reporting": 0,
+        "mathematical_foundations": 0,
+        "pedagogy_and_learning_paths": 0,
+        "perception_as_inference": 0
+      },
+      "section": "02c_methodology_skilltree_dashboard_and_publication_surfaces.md"
+    },
+    {
+      "citations": [],
+      "laneCounts": {
+        "active_inference_core": 0,
+        "applications_and_scope": 0,
+        "delivery_and_reporting": 0,
+        "mathematical_foundations": 0,
+        "pedagogy_and_learning_paths": 0,
+        "perception_as_inference": 0
+      },
+      "section": "03_results.md"
+    },
+    {
+      "citations": [],
+      "laneCounts": {
+        "active_inference_core": 0,
+        "applications_and_scope": 0,
+        "delivery_and_reporting": 0,
+        "mathematical_foundations": 0,
+        "pedagogy_and_learning_paths": 0,
+        "perception_as_inference": 0
+      },
+      "section": "03a_results_curriculum_graph_and_assessment_quality.md"
+    },
+    {
+      "citations": [
+        "activeinferenceinstitute2026cognitive",
+        "activeinferenceinstitute2026courses",
+        "activeinferenceinstitute2026home",
+        "activeinferenceinstitute2026start"
+      ],
+      "laneCounts": {
+        "active_inference_core": 0,
+        "applications_and_scope": 0,
+        "delivery_and_reporting": 1,
+        "mathematical_foundations": 0,
+        "pedagogy_and_learning_paths": 3,
+        "perception_as_inference": 0
+      },
+      "section": "03b_results_scholarship_source_health_and_evidence_audits.md"
+    },
+    {
+      "citations": [],
+      "laneCounts": {
+        "active_inference_core": 0,
+        "applications_and_scope": 0,
+        "delivery_and_reporting": 0,
+        "mathematical_foundations": 0,
+        "pedagogy_and_learning_paths": 0,
+        "perception_as_inference": 0
+      },
+      "section": "03c_results_kernel_examples.md"
+    },
+    {
+      "citations": [],
+      "laneCounts": {
+        "active_inference_core": 0,
+        "applications_and_scope": 0,
+        "delivery_and_reporting": 0,
+        "mathematical_foundations": 0,
+        "pedagogy_and_learning_paths": 0,
+        "perception_as_inference": 0
+      },
+      "section": "03d_results_skilltree_dashboard_and_front_matter_delivery.md"
+    },
+    {
+      "citations": [
+        "activeinferenceinstitute2026website",
+        "designbasedresearchcollective2003",
+        "doignon1985knowledge_spaces",
+        "friston2013life",
+        "friston2019particular",
+        "fu2025curriculum_aware_gncd",
+        "liu2023_learning_analytics_privacy",
+        "piech2015deep_knowledge_tracing",
+        "ramstead2018answering",
+        "rao1999predictive",
+        "tao2024q_matrix_constraint"
+      ],
+      "laneCounts": {
+        "active_inference_core": 0,
+        "applications_and_scope": 4,
+        "delivery_and_reporting": 0,
+        "mathematical_foundations": 0,
+        "pedagogy_and_learning_paths": 7,
+        "perception_as_inference": 0
+      },
+      "section": "04_conclusion.md"
+    },
+    {
+      "citations": [
+        "barab2004design_based",
+        "black1998assessment",
+        "chi2014icap",
+        "designbasedresearchcollective2003",
+        "eldridge2016consort_pilot",
+        "emin2026epistemic_curiosity_mind_wandering",
+        "freeman2014activelearning",
+        "hernandezcampos2025_learning_analytics_outcomes",
+        "hoffmann2014tidier",
+        "liu2023_learning_analytics_privacy",
+        "liu2025learning_analytics_intervention_meta",
+        "mislevy2003ecd",
+        "monib2024microlearning_boundaries",
+        "roediger2006testenhanced",
+        "rof2024microlearning_satisfaction",
+        "sclater2015learning_analytics_code",
+        "shute2008formative_feedback"
+      ],
+      "laneCounts": {
+        "active_inference_core": 0,
+        "applications_and_scope": 0,
+        "delivery_and_reporting": 0,
+        "mathematical_foundations": 0,
+        "pedagogy_and_learning_paths": 17,
+        "perception_as_inference": 0
+      },
+      "section": "05_experimental_setup.md"
+    },
+    {
+      "citations": [
+        "citationfileformat2026",
+        "codemeta2026schema",
+        "github2026citingcontent",
+        "munafo2017reproducible_science",
+        "nosek2015top",
+        "opensourceinitiative2026mit",
+        "reuse2024spec",
+        "sandve2013reproducible",
+        "smith2016softwarecitation",
+        "spdx2026mit",
+        "wilkinson2016fair",
+        "wilson2014scientific_computing",
+        "zenodo2026github"
+      ],
+      "laneCounts": {
+        "active_inference_core": 0,
+        "applications_and_scope": 0,
+        "delivery_and_reporting": 13,
+        "mathematical_foundations": 0,
+        "pedagogy_and_learning_paths": 0,
+        "perception_as_inference": 0
+      },
+      "section": "06_reproducibility.md"
+    },
+    {
+      "citations": [],
+      "laneCounts": {
+        "active_inference_core": 0,
+        "applications_and_scope": 0,
+        "delivery_and_reporting": 0,
+        "mathematical_foundations": 0,
+        "pedagogy_and_learning_paths": 0,
+        "perception_as_inference": 0
+      },
+      "section": "07_scope_and_related_work.md"
+    },
+    {
+      "citations": [
+        "friston2007variational",
+        "friston2008dem",
+        "heins2022pymdp",
+        "vanoostrum2025concise"
+      ],
+      "laneCounts": {
+        "active_inference_core": 2,
+        "applications_and_scope": 2,
+        "delivery_and_reporting": 0,
+        "mathematical_foundations": 0,
+        "pedagogy_and_learning_paths": 0,
+        "perception_as_inference": 0
+      },
+      "section": "07a_scope_platform_and_curriculum_boundaries.md"
+    },
+    {
+      "citations": [
+        "aguilera2022particular",
+        "aguilera2023confederation",
+        "alhazen1989optics_direct_vision",
+        "anokhin2024associative_active_inference",
+        "aristotle_posterior_analytics",
+        "bacon1620novum_organum",
+        "badcock2024psychology_psychiatry",
+        "bagaev2023reactive_message_passing",
+        "bagaev2023rxinfer",
+        "bastos2012canonical_microcircuits",
+        "bayes1763doctrine_chances",
+        "beal2003variational",
+        "berkeley1709new_theory_vision",
+        "bernoulli1713ars_conjectandi",
+        "bishop2006pattern",
+        "blei2017variational",
+        "bogacz2017tutorial",
+        "buckley2017free",
+        "catal2021robot_navigation_active_inference",
+        "champion2026reframing",
+        "clark2013predictive_brain",
+        "clark2016surfing",
+        "comenius1657great_didactic",
+        "condillac1754sensations",
+        "cover2006elements",
+        "dacosta2020synthesis",
+        "dayan1995helmholtz",
+        "demoivre1718doctrine_chances",
+        "descartes1628rules_direction_mind",
+        "friston2006free",
+        "friston2008dem",
+        "friston2008hierarchical",
+        "friston2010free",
+        "friston2010generalised",
+        "friston2013life",
+        "friston2015epistemic",
+        "friston2017curiosity",
+        "friston2017graphical",
+        "friston2017process",
+        "friston2019particular",
+        "friston2023simpler",
+        "gelman2013bayesian_analysis",
+        "gershman2019free",
+        "greco2024predictive_learning_geometry",
+        "hartley1749observations",
+        "helmholtz1867handbuch",
+        "hodson2024empirical",
+        "hohwy2013predictive_mind",
+        "hume1739treatise",
+        "hume1748enquiry",
+        "huygens1657ratiociniis",
+        "isomura2023experimental",
+        "jaynes2003probability_logic",
+        "jordan1999variational",
+        "kant1781critique_pure_reason",
+        "kataoka2026extended_predictive_coding",
+        "kersten2004object_perception",
+        "knill2004bayesian",
+        "lanillos2021active_robotics_survey",
+        "laplace1774inverse_probability",
+        "locke1690essay",
+        "locke1693education",
+        "mackay2003information_inference",
+        "millidge2020active_control_relationship",
+        "millidge2021predictive_coding_review",
+        "millidge2021whence",
+        "murphy2012probabilistic_ml",
+        "murphy2022probabilistic_ml",
+        "nelson2025coupled_free_energy",
+        "newton1704opticks",
+        "nuijten2025message_passing_efe",
+        "nuijten2026efe_planning_vi",
+        "nuijten2026what_type_inference",
+        "parr2019generalised",
+        "parr2022active",
+        "pezzulo2012cognitive_control",
+        "pezzulo2018hierarchical_active_inference",
+        "pezzulo2023generating_meaning",
+        "pezzulo2024sentient_behavior",
+        "queisser2021robot_active_inference",
+        "quintilian95institutio_oratoria",
+        "ramstead2018answering",
+        "rao1999predictive",
+        "rao2024active_predictive_coding",
+        "rousseau1762emile",
+        "sajid2021demystified",
+        "sales2019cognitive_flexibility_active_inference",
+        "sarkka2013bayesian",
+        "schwartenbeck2015addiction_active_bayes",
+        "sennesh2024dcpc",
+        "seth2020predictive_consciousness",
+        "shannon1948mathematical",
+        "smith2020predictive_neurophysiology",
+        "smith2021clinical_predictive_coding",
+        "smith2022tutorial",
+        "spratling2017predictive_algorithms",
+        "sprevak2023predictive",
+        "summerfield2014perceptual_decision",
+        "tishby1999information",
+        "tschantz2020learning",
+        "tschantz2023hybrid_predictive_coding",
+        "vilas2022active_consciousness",
+        "watson2020active_control_inference",
+        "wei2015efficient_bayesian_perception",
+        "winn2005variational",
+        "yuille2006vision_bayesian",
+        "zhang2024overview"
+      ],
+      "laneCounts": {
+        "active_inference_core": 24,
+        "applications_and_scope": 25,
+        "delivery_and_reporting": 0,
+        "mathematical_foundations": 23,
+        "pedagogy_and_learning_paths": 8,
+        "perception_as_inference": 27
+      },
+      "section": "07b_related_work_active_inference_and_information_sources.md"
+    },
+    {
+      "citations": [
+        "acm2023accessiblefigures",
+        "activeinferenceinstitute2026cognitive",
+        "activeinferenceinstitute2026courses",
+        "activeinferenceinstitute2026home",
+        "activeinferenceinstitute2026start",
+        "activeinferenceinstitute2026website",
+        "biggs1996constructive_alignment",
+        "black1998assessment",
+        "bloom1956taxonomy",
+        "bloom1968learning_for_mastery",
+        "burau2022deciduous",
+        "cheney2013prov_constraints",
+        "cisa2026sbom",
+        "citationfileformat2026",
+        "codemeta2026schema",
+        "cormen2022introduction",
+        "dicheva2015gamification",
+        "dipaolo2024school",
+        "doignon1985knowledge_spaces",
+        "falmagne2011learning_spaces",
+        "github2026citingcontent",
+        "groth2013prov_overview",
+        "knuth1984literate",
+        "liang2018prerequisite",
+        "mitre2026attack",
+        "moreau2013prov_dm",
+        "munafo2017reproducible_science",
+        "nist2020zerotrust",
+        "nist2022ssdf",
+        "nosek2015top",
+        "nsa2026opensource",
+        "opensourceinitiative2026mit",
+        "peng2011reproducible",
+        "reuse2024spec",
+        "sandve2013reproducible",
+        "section508alttext",
+        "septiani2021gamified_microlearning",
+        "shute2008formative_feedback",
+        "sigstore2026overview",
+        "skilltree2020nsa",
+        "skilltree2026docs",
+        "skilltree2026github",
+        "slsa2026framework",
+        "smith2016softwarecitation",
+        "spdx2026mit",
+        "w3c2023wcag22",
+        "wilkinson2016fair",
+        "wilson2014scientific_computing",
+        "wong2011color",
+        "xie2015knitr",
+        "zenodo2026github"
+      ],
+      "laneCounts": {
+        "active_inference_core": 0,
+        "applications_and_scope": 0,
+        "delivery_and_reporting": 34,
+        "mathematical_foundations": 1,
+        "pedagogy_and_learning_paths": 16,
+        "perception_as_inference": 0
+      },
+      "section": "07c_related_work_skilltree_security_reporting_and_open_science.md"
+    },
+    {
+      "citations": [
+        "badcock2024psychology_psychiatry",
+        "bagaev2023reactive_message_passing",
+        "bagaev2023rxinfer",
+        "barab2004design_based",
+        "designbasedresearchcollective2003",
+        "emin2026epistemic_curiosity_mind_wandering",
+        "friston2008dem",
+        "friston2010generalised",
+        "hernandezcampos2025_learning_analytics_outcomes",
+        "levine2018probabilistic",
+        "liu2023_learning_analytics_privacy",
+        "liu2025learning_analytics_intervention_meta",
+        "monib2024microlearning_boundaries",
+        "nelson2025coupled_free_energy",
+        "parr2019generalised",
+        "rao2024active_predictive_coding",
+        "rof2024microlearning_satisfaction",
+        "sennesh2024dcpc"
+      ],
+      "laneCounts": {
+        "active_inference_core": 3,
+        "applications_and_scope": 3,
+        "delivery_and_reporting": 0,
+        "mathematical_foundations": 2,
+        "pedagogy_and_learning_paths": 8,
+        "perception_as_inference": 2
+      },
+      "section": "07d_limitations_delivery_dependencies_and_learner_outcomes.md"
+    },
+    {
+      "citations": [
+        "buckley2017free",
+        "champion2026reframing",
+        "cosmides1996intuitive",
+        "dacosta2020synthesis",
+        "friston2015epistemic",
+        "friston2017curiosity",
+        "friston2018bayesian_model_reduction",
+        "gigerenzer1995bayesian",
+        "kalman1960linear_filtering",
+        "kataoka2026extended_predictive_coding",
+        "kschischang2001factor_graphs",
+        "millidge2021whence",
+        "nuijten2025message_passing_efe",
+        "nuijten2026efe_planning_vi",
+        "nuijten2026what_type_inference",
+        "parr2022active",
+        "pearl1988probabilistic_reasoning",
+        "sajid2021demystified",
+        "sarkka2013bayesian",
+        "smith2022tutorial"
+      ],
+      "laneCounts": {
+        "active_inference_core": 13,
+        "applications_and_scope": 0,
+        "delivery_and_reporting": 0,
+        "mathematical_foundations": 4,
+        "pedagogy_and_learning_paths": 2,
+        "perception_as_inference": 1
+      },
+      "section": "08_supplement_variational_free_energy.md"
+    },
+    {
+      "citations": [],
+      "laneCounts": {
+        "active_inference_core": 0,
+        "applications_and_scope": 0,
+        "delivery_and_reporting": 0,
+        "mathematical_foundations": 0,
+        "pedagogy_and_learning_paths": 0,
+        "perception_as_inference": 0
+      },
+      "section": "09_code_and_data_availability.md"
+    },
+    {
+      "citations": [],
+      "laneCounts": {
+        "active_inference_core": 0,
+        "applications_and_scope": 0,
+        "delivery_and_reporting": 0,
+        "mathematical_foundations": 0,
+        "pedagogy_and_learning_paths": 0,
+        "perception_as_inference": 0
+      },
+      "section": "99_references.md"
+    }
+  ],
+  "sources": {
+    "acm2023accessiblefigures": {
+      "key": "acm2023accessiblefigures",
+      "kind": "documentation",
+      "lane": "delivery_and_reporting",
+      "locator": "url:https://dis.acm.org/2023/creating-accessible-figures-and-tables/",
+      "role": "Accessible figure and alt-text guidance for semantic figure metadata validation."
+    },
+    "activeinferenceinstitute2026cognitive": {
+      "key": "activeinferenceinstitute2026cognitive",
+      "kind": "documentation",
+      "lane": "pedagogy_and_learning_paths",
+      "locator": "url:https://github.com/ActiveInferenceInstitute/cognitive",
+      "role": "Cognitive knowledge-base source for course material learning pointers."
+    },
+    "activeinferenceinstitute2026courses": {
+      "key": "activeinferenceinstitute2026courses",
+      "kind": "documentation",
+      "lane": "pedagogy_and_learning_paths",
+      "locator": "url:https://github.com/ActiveInferenceInstitute/courses",
+      "role": "Open-source Active Inference course infrastructure comparison."
+    },
+    "activeinferenceinstitute2026home": {
+      "key": "activeinferenceinstitute2026home",
+      "kind": "documentation",
+      "lane": "pedagogy_and_learning_paths",
+      "locator": "url:https://www.activeinference.org/",
+      "role": "Open-science institute context for education and community learning."
+    },
+    "activeinferenceinstitute2026start": {
+      "key": "activeinferenceinstitute2026start",
+      "kind": "software",
+      "lane": "delivery_and_reporting",
+      "locator": "url:https://github.com/ActiveInferenceInstitute/start",
+      "role": "Tailored curriculum-generation software reference for learning-path design."
+    },
+    "activeinferenceinstitute2026website": {
+      "key": "activeinferenceinstitute2026website",
+      "kind": "documentation",
+      "lane": "pedagogy_and_learning_paths",
+      "locator": "url:https://github.com/ActiveInferenceInstitute/institute_website",
+      "role": "Public repository for the Institute's community pathways, open-science resource hub, public repositories, and gated public-data projection boundary."
+    },
+    "aguilera2022particular": {
+      "key": "aguilera2022particular",
+      "kind": "review",
+      "lane": "applications_and_scope",
+      "locator": "doi:10.1016/j.plrev.2021.11.001",
+      "role": "Technical critique constraining generality claims about Markov blankets and FEP physics."
+    },
+    "aguilera2023confederation": {
+      "key": "aguilera2023confederation",
+      "kind": "review",
+      "lane": "applications_and_scope",
+      "locator": "doi:10.1016/j.plrev.2023.01.018",
+      "role": "Follow-on Bayesian mechanics framing for scoped interpretations after technical critique."
+    },
+    "alhazen1989optics_direct_vision": {
+      "key": "alhazen1989optics_direct_vision",
+      "kind": "historical",
+      "lane": "perception_as_inference",
+      "locator": "url:https://commons.warburg.sas.ac.uk/concern/published_works/r494vk17h?locale=en",
+      "role": "Medieval optical source for visual perception, sensory evidence, and experimentally constrained observation; not a predictive-coding or Bayesian-neuroscience source."
+    },
+    "anokhin2024associative_active_inference": {
+      "key": "anokhin2024associative_active_inference",
+      "kind": "primary",
+      "lane": "active_inference_core",
+      "locator": "doi:10.1162/neco_a_01711",
+      "role": "Active Inference associative learning source for attention, prediction-error, surprise, and learning-mechanism boundaries."
+    },
+    "aristotle_posterior_analytics": {
+      "key": "aristotle_posterior_analytics",
+      "kind": "historical",
+      "lane": "mathematical_foundations",
+      "locator": "url:https://oll.libertyfund.org/titles/bouchier-posterior-analytics",
+      "role": "Historical inference and graph prerequisite source for scientific explanation and mathematical foundations."
+    },
+    "bacon1620novum_organum": {
+      "key": "bacon1620novum_organum",
+      "kind": "historical",
+      "lane": "pedagogy_and_learning_paths",
+      "locator": "url:https://oll.libertyfund.org/titles/bacon-novum-organum",
+      "role": "Historical learning and curriculum source for staged experimental method, practice, and reasoning."
+    },
+    "badcock2024psychology_psychiatry": {
+      "key": "badcock2024psychology_psychiatry",
+      "kind": "review",
+      "lane": "applications_and_scope",
+      "locator": "doi:10.3390/e26100833",
+      "role": "Psychology and psychiatry review for empirical evidence, validation, application, and scope boundaries."
+    },
+    "bagaev2023reactive_message_passing": {
+      "key": "bagaev2023reactive_message_passing",
+      "kind": "methods",
+      "lane": "mathematical_foundations",
+      "locator": "doi:10.1155/2023/6601690",
+      "role": "Reactive message-passing method for scalable Bayesian inference and factor-graph computation boundaries."
+    },
+    "bagaev2023rxinfer": {
+      "key": "bagaev2023rxinfer",
+      "kind": "software",
+      "lane": "active_inference_core",
+      "locator": "doi:10.21105/joss.05161",
+      "role": "Active-inference adjacent software source for reactive Bayesian message-passing implementation boundaries."
+    },
+    "barab2004design_based": {
+      "key": "barab2004design_based",
+      "kind": "methods",
+      "lane": "pedagogy_and_learning_paths",
+      "locator": "doi:10.1207/s15327809jls1301_1",
+      "role": "Design-based evaluation source for studying learning systems in context."
+    },
+    "bastos2012canonical_microcircuits": {
+      "key": "bastos2012canonical_microcircuits",
+      "kind": "review",
+      "lane": "perception_as_inference",
+      "locator": "doi:10.1016/j.neuron.2012.10.038",
+      "role": "Predictive coding and brain inference source for hierarchical message passing."
+    },
+    "bayes1763doctrine_chances": {
+      "key": "bayes1763doctrine_chances",
+      "kind": "historical",
+      "lane": "mathematical_foundations",
+      "locator": "url:https://archive.org/details/philtrans09948070",
+      "role": "Historical Bayesian inference and probability source for inverse reasoning about hidden causes."
+    },
+    "beal2003variational": {
+      "key": "beal2003variational",
+      "kind": "methods",
+      "lane": "mathematical_foundations",
+      "locator": "book:UCL-PhD-2003",
+      "role": "Variational Bayesian inference foundation for distribution utilities."
+    },
+    "berkeley1709new_theory_vision": {
+      "key": "berkeley1709new_theory_vision",
+      "kind": "historical",
+      "lane": "perception_as_inference",
+      "locator": "url:https://www.gutenberg.org/files/4722/4722-h/4722-h.htm",
+      "role": "Historical perception and inference source for learned visual recognition and generative cue interpretation."
+    },
+    "bernoulli1713ars_conjectandi": {
+      "key": "bernoulli1713ars_conjectandi",
+      "kind": "historical",
+      "lane": "mathematical_foundations",
+      "locator": "url:https://library.si.edu/digital-library/book/jacobibernoulli00bern",
+      "role": "Historical probability and probabilistic inference source for repeated-observation calibration in mathematical foundations."
+    },
+    "biggs1996constructive_alignment": {
+      "key": "biggs1996constructive_alignment",
+      "kind": "primary",
+      "lane": "pedagogy_and_learning_paths",
+      "locator": "doi:10.1007/BF00138871",
+      "role": "Constructive alignment source for learning objectives, activities, and assessment gates."
+    },
+    "bishop2006pattern": {
+      "key": "bishop2006pattern",
+      "kind": "textbook",
+      "lane": "mathematical_foundations",
+      "locator": "isbn:978-0-387-31073-2",
+      "role": "Pattern-recognition foundation for probabilistic inference and variational examples."
+    },
+    "black1998assessment": {
+      "key": "black1998assessment",
+      "kind": "review",
+      "lane": "pedagogy_and_learning_paths",
+      "locator": "doi:10.1080/0969595980050102",
+      "role": "Formative assessment review for feedback-driven learning and mastery checkpoints."
+    },
+    "blei2017variational": {
+      "key": "blei2017variational",
+      "kind": "review",
+      "lane": "mathematical_foundations",
+      "locator": "doi:10.1080/01621459.2017.1285773",
+      "role": "Statistical variational-inference review for ELBO framing."
+    },
+    "bloom1956taxonomy": {
+      "key": "bloom1956taxonomy",
+      "kind": "textbook",
+      "lane": "pedagogy_and_learning_paths",
+      "locator": "book:Longmans-1956",
+      "role": "Learning-objectives taxonomy backing prerequisite framing and assessment design."
+    },
+    "bloom1968learning_for_mastery": {
+      "key": "bloom1968learning_for_mastery",
+      "kind": "primary",
+      "lane": "pedagogy_and_learning_paths",
+      "locator": "url:https://eric.ed.gov/?id=ED053419",
+      "role": "Mastery-learning source for prerequisite checkpoints and quiz-gated curriculum progression."
+    },
+    "bogacz2017tutorial": {
+      "key": "bogacz2017tutorial",
+      "kind": "tutorial",
+      "lane": "perception_as_inference",
+      "locator": "doi:10.1016/j.jmp.2015.11.003",
+      "role": "Pedagogical free-energy tutorial linking prediction error and inference."
+    },
+    "buckley2017free": {
+      "key": "buckley2017free",
+      "kind": "review",
+      "lane": "active_inference_core",
+      "locator": "doi:10.1016/j.jmp.2017.09.004",
+      "role": "Mathematical review anchoring action and perception claims."
+    },
+    "burau2022deciduous": {
+      "key": "burau2022deciduous",
+      "kind": "primary",
+      "lane": "pedagogy_and_learning_paths",
+      "locator": "url:https://digitalcommons.liberty.edu/masters/854/",
+      "role": "SkillTree learning and gamification context for visual prerequisite maps."
+    },
+    "catal2021robot_navigation_active_inference": {
+      "key": "catal2021robot_navigation_active_inference",
+      "kind": "primary",
+      "lane": "applications_and_scope",
+      "locator": "doi:10.1016/j.neunet.2021.05.010",
+      "role": "Hierarchical-active-inference and robot-navigation source for embodied applications."
+    },
+    "champion2026reframing": {
+      "key": "champion2026reframing",
+      "kind": "methods",
+      "lane": "active_inference_core",
+      "locator": "doi:10.1162/NECO.a.1491",
+      "role": "Expected-free-energy formulation unification source for preference and scope-boundary discussion."
+    },
+    "cheney2013prov_constraints": {
+      "key": "cheney2013prov_constraints",
+      "kind": "documentation",
+      "lane": "delivery_and_reporting",
+      "locator": "url:https://www.w3.org/TR/prov-constraints/",
+      "role": "W3C PROV constraints source for provenance metadata validation, reporting, and local validity boundaries."
+    },
+    "chi2014icap": {
+      "key": "chi2014icap",
+      "kind": "review",
+      "lane": "pedagogy_and_learning_paths",
+      "locator": "doi:10.1080/00461520.2014.965823",
+      "role": "Cognitive engagement taxonomy for active learning and assessment design."
+    },
+    "cisa2026sbom": {
+      "key": "cisa2026sbom",
+      "kind": "documentation",
+      "lane": "delivery_and_reporting",
+      "locator": "url:https://www.cisa.gov/topics/information-communications-technology-supply-chain-security/sbom",
+      "role": "Software Bill of Materials guidance for dependency transparency and supply-chain visibility."
+    },
+    "citationfileformat2026": {
+      "key": "citationfileformat2026",
+      "kind": "documentation",
+      "lane": "delivery_and_reporting",
+      "locator": "url:https://citation-file-format.github.io/",
+      "role": "Software citation metadata source for reporting reproducibility and public-review provenance."
+    },
+    "clark2013predictive_brain": {
+      "key": "clark2013predictive_brain",
+      "kind": "review",
+      "lane": "perception_as_inference",
+      "locator": "doi:10.1017/S0140525X12000477",
+      "role": "Predictive brain and situated perception source for action-perception scope."
+    },
+    "clark2016surfing": {
+      "key": "clark2016surfing",
+      "kind": "textbook",
+      "lane": "applications_and_scope",
+      "locator": "isbn:978-0-19-021701-3",
+      "role": "Embodied predictive-processing context for applications and scope framing."
+    },
+    "codemeta2026schema": {
+      "key": "codemeta2026schema",
+      "kind": "documentation",
+      "lane": "delivery_and_reporting",
+      "locator": "url:https://codemeta.github.io/",
+      "role": "Software metadata schema for reporting workflow provenance and reproducibility boundaries."
+    },
+    "comenius1657great_didactic": {
+      "key": "comenius1657great_didactic",
+      "kind": "historical",
+      "lane": "pedagogy_and_learning_paths",
+      "locator": "url:https://archive.org/details/cu31924031053709",
+      "role": "Historical curriculum and mastery source for ordered learning, prerequisite progression, and pedagogy."
+    },
+    "condillac1754sensations": {
+      "key": "condillac1754sensations",
+      "kind": "historical",
+      "lane": "perception_as_inference",
+      "locator": "url:https://classiques.uqam.ca/classiques/condillac_etienne_bonnot_de/traite_des_sensations/traite_des_sensations_dessein.html",
+      "role": "Historical perception and generative learning source for learned sensation and constructive recognition."
+    },
+    "cormen2022introduction": {
+      "key": "cormen2022introduction",
+      "kind": "textbook",
+      "lane": "mathematical_foundations",
+      "locator": "isbn:978-0-262-04630-5",
+      "role": "Graph-algorithm reference for DAG validation and topological ordering."
+    },
+    "cosmides1996intuitive": {
+      "key": "cosmides1996intuitive",
+      "kind": "primary",
+      "lane": "pedagogy_and_learning_paths",
+      "locator": "doi:10.1016/0010-0277(95)00664-8",
+      "role": "Base-rate reasoning context for Bayesian examples."
+    },
+    "cover2006elements": {
+      "key": "cover2006elements",
+      "kind": "textbook",
+      "lane": "mathematical_foundations",
+      "locator": "doi:10.1002/047174882X",
+      "role": "Standard entropy and information-theory foundation for kernel definitions."
+    },
+    "dacosta2020synthesis": {
+      "key": "dacosta2020synthesis",
+      "kind": "review",
+      "lane": "active_inference_core",
+      "locator": "doi:10.1016/j.jmp.2020.102447",
+      "role": "Discrete state-space synthesis directly matching the kernels."
+    },
+    "dayan1995helmholtz": {
+      "key": "dayan1995helmholtz",
+      "kind": "primary",
+      "lane": "perception_as_inference",
+      "locator": "doi:10.1162/neco.1995.7.5.889",
+      "role": "Helmholtz-machine source connecting recognition and generative models."
+    },
+    "demoivre1718doctrine_chances": {
+      "key": "demoivre1718doctrine_chances",
+      "kind": "historical",
+      "lane": "mathematical_foundations",
+      "locator": "url:https://archive.org/details/bim_eighteenth-century_the-doctrine-of-chances_moivre-abraham-de_1718",
+      "role": "Historical probability textbook source for probabilistic calculation and sequenced mathematical inference instruction."
+    },
+    "descartes1628rules_direction_mind": {
+      "key": "descartes1628rules_direction_mind",
+      "kind": "historical",
+      "lane": "mathematical_foundations",
+      "locator": "url:https://en.wikisource.org/wiki/Rules_for_the_Direction_of_the_Mind",
+      "role": "Early-modern reasoning source for ordered inference, probabilistic conjecture, and mathematical deduction; it does not supply a modern Bayesian formulation."
+    },
+    "designbasedresearchcollective2003": {
+      "key": "designbasedresearchcollective2003",
+      "kind": "methods",
+      "lane": "pedagogy_and_learning_paths",
+      "locator": "doi:10.3102/0013189X032001005",
+      "role": "Design-based education evaluation method for iterative learning-environment pilots."
+    },
+    "dicheva2015gamification": {
+      "key": "dicheva2015gamification",
+      "kind": "review",
+      "lane": "pedagogy_and_learning_paths",
+      "locator": "jstor:https://www.jstor.org/stable/jeductechsoci.18.3.75",
+      "role": "Gamification-in-education scope for SkillTree delivery and learner motivation."
+    },
+    "dipaolo2024school": {
+      "key": "dipaolo2024school",
+      "kind": "review",
+      "lane": "pedagogy_and_learning_paths",
+      "locator": "url:https://pubmed.ncbi.nlm.nih.gov/39155715/",
+      "role": "Active Inference education source for active-learning curriculum and prepared learning environments."
+    },
+    "doignon1985knowledge_spaces": {
+      "key": "doignon1985knowledge_spaces",
+      "kind": "primary",
+      "lane": "pedagogy_and_learning_paths",
+      "locator": "doi:10.1016/S0020-7373(85)80031-6",
+      "role": "Knowledge-space assessment source for prerequisite learning and mastery-state modeling."
+    },
+    "eldridge2016consort_pilot": {
+      "key": "eldridge2016consort_pilot",
+      "kind": "methods",
+      "lane": "pedagogy_and_learning_paths",
+      "locator": "doi:10.1186/s40814-016-0079-6",
+      "role": "Pilot and feasibility reporting source for education evaluation, assessment, and distinction from definitive learner outcomes."
+    },
+    "emin2026epistemic_curiosity_mind_wandering": {
+      "key": "emin2026epistemic_curiosity_mind_wandering",
+      "kind": "primary",
+      "lane": "pedagogy_and_learning_paths",
+      "locator": "doi:10.1016/j.learninstruc.2026.102336",
+      "role": "Epistemic curiosity study for learner engagement, mind wandering, performance, and outcome boundaries."
+    },
+    "falmagne2011learning_spaces": {
+      "key": "falmagne2011learning_spaces",
+      "kind": "textbook",
+      "lane": "pedagogy_and_learning_paths",
+      "locator": "doi:10.1007/978-3-642-01039-2",
+      "role": "Learning-space textbook for prerequisite learning paths and knowledge-state assessment."
+    },
+    "freeman2014activelearning": {
+      "key": "freeman2014activelearning",
+      "kind": "review",
+      "lane": "pedagogy_and_learning_paths",
+      "locator": "doi:10.1073/pnas.1319030111",
+      "role": "Active-learning evidence boundary for pedagogy and learner-outcome claims."
+    },
+    "friston2006free": {
+      "key": "friston2006free",
+      "kind": "primary",
+      "lane": "active_inference_core",
+      "locator": "doi:10.1016/j.jphysparis.2006.10.001",
+      "role": "Early free-energy principle formulation for brain function."
+    },
+    "friston2007variational": {
+      "key": "friston2007variational",
+      "kind": "methods",
+      "lane": "applications_and_scope",
+      "locator": "doi:10.1016/j.neuroimage.2006.08.035",
+      "role": "Laplace-approximation treatment for variational free energy."
+    },
+    "friston2008dem": {
+      "key": "friston2008dem",
+      "kind": "methods",
+      "lane": "applications_and_scope",
+      "locator": "doi:10.1016/j.neuroimage.2008.02.054",
+      "role": "Dynamic expectation maximisation scope beyond this release."
+    },
+    "friston2008hierarchical": {
+      "key": "friston2008hierarchical",
+      "kind": "primary",
+      "lane": "applications_and_scope",
+      "locator": "doi:10.1371/journal.pcbi.1000211",
+      "role": "Hierarchical predictive-coding background for future kernels."
+    },
+    "friston2010free": {
+      "key": "friston2010free",
+      "kind": "review",
+      "lane": "active_inference_core",
+      "locator": "doi:10.1038/nrn2787",
+      "role": "Review-level statement of the free-energy principle."
+    },
+    "friston2010generalised": {
+      "key": "friston2010generalised",
+      "kind": "methods",
+      "lane": "active_inference_core",
+      "locator": "doi:10.1155/2010/621670",
+      "role": "Continuous-time generalized filtering reference for predictive-coding extensions."
+    },
+    "friston2013life": {
+      "key": "friston2013life",
+      "kind": "primary",
+      "lane": "applications_and_scope",
+      "locator": "doi:10.1098/rsif.2013.0475",
+      "role": "Biological self-organisation scope for free-energy accounts."
+    },
+    "friston2015epistemic": {
+      "key": "friston2015epistemic",
+      "kind": "primary",
+      "lane": "active_inference_core",
+      "locator": "doi:10.1080/17588928.2015.1020053",
+      "role": "Epistemic value account used for policy-selection examples."
+    },
+    "friston2017curiosity": {
+      "key": "friston2017curiosity",
+      "kind": "primary",
+      "lane": "active_inference_core",
+      "locator": "doi:10.1162/neco_a_00999",
+      "role": "Curiosity and insight account for epistemic action."
+    },
+    "friston2017graphical": {
+      "key": "friston2017graphical",
+      "kind": "primary",
+      "lane": "active_inference_core",
+      "locator": "doi:10.1162/NETN_a_00018",
+      "role": "Graphical-model message-passing account for active inference."
+    },
+    "friston2017process": {
+      "key": "friston2017process",
+      "kind": "primary",
+      "lane": "active_inference_core",
+      "locator": "doi:10.1162/NECO_a_00912",
+      "role": "Process theory grounding active-inference policy selection."
+    },
+    "friston2018bayesian_model_reduction": {
+      "key": "friston2018bayesian_model_reduction",
+      "kind": "primary",
+      "lane": "active_inference_core",
+      "locator": "doi:10.48550/arXiv.1805.07092",
+      "role": "Bayesian model reduction source for active-inference model evidence, pruning, and model-learning boundaries."
+    },
+    "friston2019particular": {
+      "key": "friston2019particular",
+      "kind": "primary",
+      "lane": "applications_and_scope",
+      "locator": "doi:10.48550/arXiv.1906.10184",
+      "role": "Particular-physics framing for broader FEP applications."
+    },
+    "friston2023simpler": {
+      "key": "friston2023simpler",
+      "kind": "review",
+      "lane": "active_inference_core",
+      "locator": "doi:10.1016/j.physrep.2023.07.001",
+      "role": "Recent Physics Reports overview clarifying Free Energy Principle scope and oversimplification boundaries."
+    },
+    "fu2025curriculum_aware_gncd": {
+      "key": "fu2025curriculum_aware_gncd",
+      "kind": "methods",
+      "lane": "pedagogy_and_learning_paths",
+      "locator": "doi:10.3390/info16110996",
+      "role": "Curriculum graph and cognitive diagnosis source for prerequisite learning and learner-state boundaries."
+    },
+    "gelman2013bayesian_analysis": {
+      "key": "gelman2013bayesian_analysis",
+      "kind": "textbook",
+      "lane": "mathematical_foundations",
+      "locator": "doi:10.1201/b16018",
+      "role": "Bayesian analysis and statistical inference textbook for uncertainty foundations."
+    },
+    "gershman2019free": {
+      "key": "gershman2019free",
+      "kind": "review",
+      "lane": "applications_and_scope",
+      "locator": "doi:10.51628/001c.10839",
+      "role": "FEP critique source used to bound distinctive-prediction and scope claims."
+    },
+    "gigerenzer1995bayesian": {
+      "key": "gigerenzer1995bayesian",
+      "kind": "primary",
+      "lane": "pedagogy_and_learning_paths",
+      "locator": "doi:10.1037/0033-295X.102.4.684",
+      "role": "Bayesian frequency-format reasoning source for base-rate learning examples."
+    },
+    "github2026citingcontent": {
+      "key": "github2026citingcontent",
+      "kind": "documentation",
+      "lane": "delivery_and_reporting",
+      "locator": "url:https://docs.github.com/repositories/archiving-a-github-repository/referencing-and-citing-content",
+      "role": "Repository citation and archiving documentation for reporting public-target and DOI boundaries."
+    },
+    "greco2024predictive_learning_geometry": {
+      "key": "greco2024predictive_learning_geometry",
+      "kind": "primary",
+      "lane": "perception_as_inference",
+      "locator": "doi:10.1038/s41467-024-54032-4",
+      "role": "Predictive learning neuroimaging source for perception, representational geometry, and predictive-coding evidence boundaries."
+    },
+    "groth2013prov_overview": {
+      "key": "groth2013prov_overview",
+      "kind": "documentation",
+      "lane": "delivery_and_reporting",
+      "locator": "url:https://www.w3.org/TR/prov-overview/",
+      "role": "W3C provenance overview for reporting entities, activities, agents, and trust boundaries."
+    },
+    "hartley1749observations": {
+      "key": "hartley1749observations",
+      "kind": "historical",
+      "lane": "pedagogy_and_learning_paths",
+      "locator": "url:https://archive.org/details/observationsonma01hart",
+      "role": "Historical associationist learning source for cognitive habit, education, and motivation."
+    },
+    "heins2022pymdp": {
+      "key": "heins2022pymdp",
+      "kind": "software",
+      "lane": "active_inference_core",
+      "locator": "doi:10.21105/joss.04098",
+      "role": "Production discrete-state software baseline outside this platform."
+    },
+    "helmholtz1867handbuch": {
+      "key": "helmholtz1867handbuch",
+      "kind": "historical",
+      "lane": "perception_as_inference",
+      "locator": "book:Voss-1867",
+      "role": "Historical source for perception as unconscious inference."
+    },
+    "hernandezcampos2025_learning_analytics_outcomes": {
+      "key": "hernandezcampos2025_learning_analytics_outcomes",
+      "kind": "review",
+      "lane": "pedagogy_and_learning_paths",
+      "locator": "doi:10.1177/21582440251347374",
+      "role": "Learning analytics review for learner outcome evaluation, assessment design, and instrumentation boundaries."
+    },
+    "hodson2024empirical": {
+      "key": "hodson2024empirical",
+      "kind": "review",
+      "lane": "applications_and_scope",
+      "locator": "doi:10.1016/j.neubiorev.2023.105473",
+      "role": "Recent empirical-status review grounding limits on predictive-coding and active-inference evidence claims."
+    },
+    "hoffmann2014tidier": {
+      "key": "hoffmann2014tidier",
+      "kind": "methods",
+      "lane": "pedagogy_and_learning_paths",
+      "locator": "doi:10.1136/bmj.g1687",
+      "role": "Educational learning and assessment source for specifying delivery, evaluation, and replication details."
+    },
+    "hohwy2013predictive_mind": {
+      "key": "hohwy2013predictive_mind",
+      "kind": "textbook",
+      "lane": "perception_as_inference",
+      "locator": "doi:10.1093/acprof:oso/9780199682737.001.0001",
+      "role": "Predictive processing and perceptual inference source for hypothesis-testing boundaries."
+    },
+    "hugo2026teacher_development": {
+      "key": "hugo2026teacher_development",
+      "kind": "primary",
+      "lane": "pedagogy_and_learning_paths",
+      "locator": "doi:10.1080/13664530.2026.2631491",
+      "role": "Active-inference pedagogy and education source for active learning and teacher-development boundaries."
+    },
+    "hume1739treatise": {
+      "key": "hume1739treatise",
+      "kind": "historical",
+      "lane": "perception_as_inference",
+      "locator": "url:https://www.gutenberg.org/files/4705/4705-h/4705-h.htm",
+      "role": "Historical perception and predictive association source for impressions, ideas, and cause-effect learning."
+    },
+    "hume1748enquiry": {
+      "key": "hume1748enquiry",
+      "kind": "historical",
+      "lane": "pedagogy_and_learning_paths",
+      "locator": "url:https://fitelson.org/confirmation/hume_enquiry.pdf",
+      "role": "Historical learning and reasoning source for habit, practice, and experience-guided inference."
+    },
+    "huygens1657ratiociniis": {
+      "key": "huygens1657ratiociniis",
+      "kind": "historical",
+      "lane": "mathematical_foundations",
+      "locator": "url:https://math.dartmouth.edu/~doyle/docs/huygens/huygens/",
+      "role": "Early probability source for expectation and chance calculation; not a complete Bayesian or Active-Inference formulation."
+    },
+    "isomura2023experimental": {
+      "key": "isomura2023experimental",
+      "kind": "primary",
+      "lane": "applications_and_scope",
+      "locator": "doi:10.1038/s41467-023-40141-z",
+      "role": "Experimental validation example for FEP scope."
+    },
+    "jaynes2003probability_logic": {
+      "key": "jaynes2003probability_logic",
+      "kind": "textbook",
+      "lane": "mathematical_foundations",
+      "locator": "isbn:9780521592710",
+      "role": "Probability and statistical-inference textbook for Bayesian foundations."
+    },
+    "jordan1999variational": {
+      "key": "jordan1999variational",
+      "kind": "review",
+      "lane": "mathematical_foundations",
+      "locator": "doi:10.1023/A:1007665907178",
+      "role": "Variational-methods background for graphical models and approximation choices."
+    },
+    "kalman1960linear_filtering": {
+      "key": "kalman1960linear_filtering",
+      "kind": "primary",
+      "lane": "mathematical_foundations",
+      "locator": "doi:10.1115/1.3662552",
+      "role": "Foundational linear filtering and state-space inference source for analytic linear-Gaussian posterior examples."
+    },
+    "kant1781critique_pure_reason": {
+      "key": "kant1781critique_pure_reason",
+      "kind": "historical",
+      "lane": "perception_as_inference",
+      "locator": "url:https://www.gutenberg.org/ebooks/4280",
+      "role": "Historical perception and inference source for structured cognition, recognition, and Bayesian boundary context."
+    },
+    "kataoka2026extended_predictive_coding": {
+      "key": "kataoka2026extended_predictive_coding",
+      "kind": "methods",
+      "lane": "perception_as_inference",
+      "locator": "doi:10.48550/arXiv.2605.30882",
+      "role": "Predictive-coding source for perceptual inference scope under exponential-family assumptions."
+    },
+    "kersten2004object_perception": {
+      "key": "kersten2004object_perception",
+      "kind": "review",
+      "lane": "perception_as_inference",
+      "locator": "doi:10.1146/annurev.psych.55.090902.142005",
+      "role": "Bayesian object-perception source for generative recognition and visual inference."
+    },
+    "knill2004bayesian": {
+      "key": "knill2004bayesian",
+      "kind": "review",
+      "lane": "perception_as_inference",
+      "locator": "doi:10.1016/j.tins.2004.10.007",
+      "role": "Modern Bayesian-brain uncertainty framing for perception."
+    },
+    "knuth1984literate": {
+      "key": "knuth1984literate",
+      "kind": "methods",
+      "lane": "delivery_and_reporting",
+      "locator": "url:https://www-cs-faculty.stanford.edu/~knuth/lp.html",
+      "role": "Literate programming source for executable reporting and code-prose integrity."
+    },
+    "kschischang2001factor_graphs": {
+      "key": "kschischang2001factor_graphs",
+      "kind": "primary",
+      "lane": "mathematical_foundations",
+      "locator": "doi:10.1109/18.910572",
+      "role": "Factor-graph and sum-product message-passing source for exact inference on tree-structured graphs."
+    },
+    "lanillos2021active_robotics_survey": {
+      "key": "lanillos2021active_robotics_survey",
+      "kind": "review",
+      "lane": "applications_and_scope",
+      "locator": "doi:10.48550/arXiv.2112.01871",
+      "role": "Robotics survey source for state-estimation applications and control scope."
+    },
+    "laplace1774inverse_probability": {
+      "key": "laplace1774inverse_probability",
+      "kind": "historical",
+      "lane": "mathematical_foundations",
+      "locator": "url:https://www.york.ac.uk/depts/maths/histstat/memoir1774.pdf",
+      "role": "Historical Bayesian inverse-probability source for probabilistic inference and hidden-cause calculation boundaries."
+    },
+    "leo2024workflow_run_rocrate": {
+      "key": "leo2024workflow_run_rocrate",
+      "kind": "methods",
+      "lane": "delivery_and_reporting",
+      "locator": "doi:10.1371/journal.pone.0309210",
+      "role": "Workflow RO-Crate provenance method for interoperable workflow metadata and computational reporting boundaries."
+    },
+    "levine2018probabilistic": {
+      "key": "levine2018probabilistic",
+      "kind": "tutorial",
+      "lane": "applications_and_scope",
+      "locator": "doi:10.48550/arXiv.1805.00909",
+      "role": "Reinforcement-learning comparison boundary for future work."
+    },
+    "liang2018prerequisite": {
+      "key": "liang2018prerequisite",
+      "kind": "methods",
+      "lane": "pedagogy_and_learning_paths",
+      "locator": "doi:10.1609/aaai.v32i1.11396",
+      "role": "Concept prerequisite learning background for graph ordering."
+    },
+    "liu2023_learning_analytics_privacy": {
+      "key": "liu2023_learning_analytics_privacy",
+      "kind": "review",
+      "lane": "pedagogy_and_learning_paths",
+      "locator": "doi:10.1111/bjet.13388",
+      "role": "Learning analytics privacy review for learner data, assessment exports, and evaluation boundaries."
+    },
+    "liu2025learning_analytics_intervention_meta": {
+      "key": "liu2025learning_analytics_intervention_meta",
+      "kind": "review",
+      "lane": "pedagogy_and_learning_paths",
+      "locator": "doi:10.1177/21582440251336707",
+      "role": "Learning analytics intervention meta-analysis for learner outcome evaluation, intervention evidence, and assessment boundaries."
+    },
+    "locke1690essay": {
+      "key": "locke1690essay",
+      "kind": "historical",
+      "lane": "pedagogy_and_learning_paths",
+      "locator": "url:https://www.earlymoderntexts.com/assets/pdfs/locke1690book2.pdf",
+      "role": "Historical learning source for simple ideas, cognitive knowledge units, and curriculum decomposition."
+    },
+    "locke1693education": {
+      "key": "locke1693education",
+      "kind": "historical",
+      "lane": "pedagogy_and_learning_paths",
+      "locator": "url:https://oll.libertyfund.org/titles/locke-the-works-vol-8-some-thoughts-concerning-education-posthumous-works-familiar-letters",
+      "role": "Historical education source for habit, motivation, practice, and learner-sensitive curriculum design."
+    },
+    "mackay2003information_inference": {
+      "key": "mackay2003information_inference",
+      "kind": "textbook",
+      "lane": "mathematical_foundations",
+      "locator": "isbn:9780521642989",
+      "role": "Information theory and inference algorithms textbook for mathematical foundations."
+    },
+    "millidge2020active_control_relationship": {
+      "key": "millidge2020active_control_relationship",
+      "kind": "review",
+      "lane": "applications_and_scope",
+      "locator": "doi:10.48550/arXiv.2006.12964",
+      "role": "Control relationship source for decision-theory comparisons and application scope."
+    },
+    "millidge2021predictive_coding_review": {
+      "key": "millidge2021predictive_coding_review",
+      "kind": "review",
+      "lane": "perception_as_inference",
+      "locator": "doi:10.48550/arXiv.2107.12979",
+      "role": "Predictive-coding theory and experimental-evidence source for perception scope."
+    },
+    "millidge2021whence": {
+      "key": "millidge2021whence",
+      "kind": "methods",
+      "lane": "active_inference_core",
+      "locator": "doi:10.1162/neco_a_01354",
+      "role": "Expected-free-energy derivation and decomposition reference for policy-selection lessons."
+    },
+    "mislevy2003ecd": {
+      "key": "mislevy2003ecd",
+      "kind": "methods",
+      "lane": "pedagogy_and_learning_paths",
+      "locator": "doi:10.1002/j.2333-8504.2003.tb01908.x",
+      "role": "Evidence-centered assessment design source for learner objective and task alignment."
+    },
+    "mitre2026attack": {
+      "key": "mitre2026attack",
+      "kind": "documentation",
+      "lane": "delivery_and_reporting",
+      "locator": "url:https://attack.mitre.org/",
+      "role": "Adversary tactics and techniques knowledge base for APT-aware misuse and threat-model boundaries."
+    },
+    "monib2024microlearning_boundaries": {
+      "key": "monib2024microlearning_boundaries",
+      "kind": "review",
+      "lane": "pedagogy_and_learning_paths",
+      "locator": "doi:10.1016/j.heliyon.2024.e41413",
+      "role": "Systematic microlearning review for curriculum learning design, learner engagement, and outcome boundaries."
+    },
+    "moreau2013prov_dm": {
+      "key": "moreau2013prov_dm",
+      "kind": "documentation",
+      "lane": "delivery_and_reporting",
+      "locator": "url:https://www.w3.org/TR/prov-dm/",
+      "role": "W3C PROV data model for provenance derivation, bundles, and interoperability."
+    },
+    "munafo2017reproducible_science": {
+      "key": "munafo2017reproducible_science",
+      "kind": "review",
+      "lane": "delivery_and_reporting",
+      "locator": "doi:10.1038/s41562-016-0021",
+      "role": "Reproducible-science manifesto for transparent reporting, methods, and boundary-aware evaluation."
+    },
+    "murphy2012probabilistic_ml": {
+      "key": "murphy2012probabilistic_ml",
+      "kind": "textbook",
+      "lane": "mathematical_foundations",
+      "locator": "isbn:9780262018029",
+      "role": "Probabilistic modeling and Bayesian inference textbook for computational foundations."
+    },
+    "murphy2022probabilistic_ml": {
+      "key": "murphy2022probabilistic_ml",
+      "kind": "textbook",
+      "lane": "mathematical_foundations",
+      "locator": "isbn:9780262046824",
+      "role": "Probabilistic machine learning and inference textbook for modern mathematical scope."
+    },
+    "nelson2025coupled_free_energy": {
+      "key": "nelson2025coupled_free_energy",
+      "kind": "methods",
+      "lane": "mathematical_foundations",
+      "locator": "doi:10.48550/arXiv.2506.09091",
+      "role": "Coupled variational-inference and information-geometry source for heavy-tailed distribution boundaries."
+    },
+    "newton1704opticks": {
+      "key": "newton1704opticks",
+      "kind": "historical",
+      "lane": "perception_as_inference",
+      "locator": "url:https://www.newtonproject.ox.ac.uk/view/texts/normalized/NATP00034",
+      "role": "Early-modern optical source for perception, inference, controlled experiments, observation, and mathematical analysis of sensory phenomena; not neuroscience evidence."
+    },
+    "nist2020zerotrust": {
+      "key": "nist2020zerotrust",
+      "kind": "documentation",
+      "lane": "delivery_and_reporting",
+      "locator": "url:https://csrc.nist.gov/publications/detail/sp/800-207/final",
+      "role": "Zero Trust Architecture reference for bounded deployment and access-control posture discussion."
+    },
+    "nist2022ssdf": {
+      "key": "nist2022ssdf",
+      "kind": "documentation",
+      "lane": "delivery_and_reporting",
+      "locator": "url:https://csrc.nist.gov/pubs/sp/800/218/final",
+      "role": "Secure software development framework for security and supply-chain posture boundaries."
+    },
+    "nosek2015top": {
+      "key": "nosek2015top",
+      "kind": "methods",
+      "lane": "delivery_and_reporting",
+      "locator": "doi:10.1126/science.aab2374",
+      "role": "Transparency and openness standards for open-science reporting boundaries."
+    },
+    "nsa2026opensource": {
+      "key": "nsa2026opensource",
+      "kind": "documentation",
+      "lane": "delivery_and_reporting",
+      "locator": "url:https://code.nsa.gov/",
+      "role": "NSA open-source portal context for public NSA-developed software including SkillTree."
+    },
+    "nuijten2025message_passing_efe": {
+      "key": "nuijten2025message_passing_efe",
+      "kind": "methods",
+      "lane": "active_inference_core",
+      "locator": "doi:10.1007/978-3-032-16955-6_5",
+      "role": "Factor-graph message-passing source for expected-free-energy minimization, variational inference, and policy planning."
+    },
+    "nuijten2026efe_planning_vi": {
+      "key": "nuijten2026efe_planning_vi",
+      "kind": "methods",
+      "lane": "active_inference_core",
+      "locator": "doi:10.48550/arXiv.2606.20658",
+      "role": "Variational-inference formulation of expected-free-energy planning with epistemic priors for policy-selection and scalability boundaries."
+    },
+    "nuijten2026what_type_inference": {
+      "key": "nuijten2026what_type_inference",
+      "kind": "methods",
+      "lane": "active_inference_core",
+      "locator": "doi:10.48550/arXiv.2606.04935",
+      "role": "Active-inference formulation source for expected-free-energy, variational-free-energy, entropy-correction, and planning-boundary discussion."
+    },
+    "opensourceinitiative2026mit": {
+      "key": "opensourceinitiative2026mit",
+      "kind": "documentation",
+      "lane": "delivery_and_reporting",
+      "locator": "url:https://opensource.org/license/mit",
+      "role": "Open-source software reporting source for MIT license boundary and public-review provenance."
+    },
+    "parr2019generalised": {
+      "key": "parr2019generalised",
+      "kind": "primary",
+      "lane": "active_inference_core",
+      "locator": "doi:10.1007/s00422-019-00805-w",
+      "role": "Generalised free-energy extension marking release boundaries."
+    },
+    "parr2022active": {
+      "key": "parr2022active",
+      "kind": "textbook",
+      "lane": "active_inference_core",
+      "locator": "doi:10.7551/mitpress/12441.001.0001",
+      "role": "Textbook source for Active Inference terminology."
+    },
+    "pearl1988probabilistic_reasoning": {
+      "key": "pearl1988probabilistic_reasoning",
+      "kind": "textbook",
+      "lane": "mathematical_foundations",
+      "locator": "isbn:978-0-934613-73-6",
+      "role": "Graphical probabilistic inference source for exact belief propagation on tree and DAG models."
+    },
+    "peng2011reproducible": {
+      "key": "peng2011reproducible",
+      "kind": "methods",
+      "lane": "delivery_and_reporting",
+      "locator": "url:https://pubmed.ncbi.nlm.nih.gov/22144613/",
+      "role": "Reproducible computational reporting source for rerunnable claim provenance."
+    },
+    "pezzulo2012cognitive_control": {
+      "key": "pezzulo2012cognitive_control",
+      "kind": "review",
+      "lane": "applications_and_scope",
+      "locator": "doi:10.3389/fpsyg.2012.00478",
+      "role": "Cognitive-control source for action-oriented applications and scope."
+    },
+    "pezzulo2018hierarchical_active_inference": {
+      "key": "pezzulo2018hierarchical_active_inference",
+      "kind": "review",
+      "lane": "applications_and_scope",
+      "locator": "doi:10.1016/j.tics.2018.01.009",
+      "role": "Hierarchical-active-inference and motivated-control source for application scope."
+    },
+    "pezzulo2023generating_meaning": {
+      "key": "pezzulo2023generating_meaning",
+      "kind": "review",
+      "lane": "applications_and_scope",
+      "locator": "doi:10.1016/j.tics.2023.10.002",
+      "role": "Active-inference and generative-meaning source for application and scope limits."
+    },
+    "pezzulo2024sentient_behavior": {
+      "key": "pezzulo2024sentient_behavior",
+      "kind": "review",
+      "lane": "active_inference_core",
+      "locator": "doi:10.1016/j.biopsycho.2023.108741",
+      "role": "Active Inference review framing sentient behavior through internal models, perception, and action."
+    },
+    "piech2015deep_knowledge_tracing": {
+      "key": "piech2015deep_knowledge_tracing",
+      "kind": "primary",
+      "lane": "pedagogy_and_learning_paths",
+      "locator": "url:https://proceedings.neurips.cc/paper_files/paper/2015/file/bac9162b47c56fc8a4d2a519803d51b3-Paper.pdf",
+      "role": "Knowledge tracing source for learner modelling, curriculum recommendation comparisons, and learning scope boundaries."
+    },
+    "queisser2021robot_active_inference": {
+      "key": "queisser2021robot_active_inference",
+      "kind": "primary",
+      "lane": "applications_and_scope",
+      "locator": "doi:10.1162/neco_a_01412",
+      "role": "Active-inference and robot-learning source for visual planning application scope."
+    },
+    "quintilian95institutio_oratoria": {
+      "key": "quintilian95institutio_oratoria",
+      "kind": "historical",
+      "lane": "pedagogy_and_learning_paths",
+      "locator": "url:https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Quintilian/Institutio_Oratoria/home.html",
+      "role": "Ancient education source for ordered instruction, practice, revision, and teacher--student progression; not evidence for modern adaptive tutoring."
+    },
+    "ramstead2018answering": {
+      "key": "ramstead2018answering",
+      "kind": "review",
+      "lane": "applications_and_scope",
+      "locator": "doi:10.1016/j.plrev.2017.09.001",
+      "role": "Biological and organizational free-energy scope framing."
+    },
+    "rao1999predictive": {
+      "key": "rao1999predictive",
+      "kind": "primary",
+      "lane": "applications_and_scope",
+      "locator": "doi:10.1038/4580",
+      "role": "Predictive-coding exemplar for visual neuroscience applications."
+    },
+    "rao2024active_predictive_coding": {
+      "key": "rao2024active_predictive_coding",
+      "kind": "methods",
+      "lane": "perception_as_inference",
+      "locator": "doi:10.1162/neco_a_01627",
+      "role": "Active predictive-coding source for perception, hierarchical planning, and predictive-coding boundaries."
+    },
+    "reuse2024spec": {
+      "key": "reuse2024spec",
+      "kind": "documentation",
+      "lane": "delivery_and_reporting",
+      "locator": "url:https://reuse.software/spec-3.3/",
+      "role": "Software license-notice specification for reporting third-party provenance and reproducibility boundaries."
+    },
+    "roediger2006testenhanced": {
+      "key": "roediger2006testenhanced",
+      "kind": "primary",
+      "lane": "pedagogy_and_learning_paths",
+      "locator": "doi:10.1111/j.1467-9280.2006.01693.x",
+      "role": "Retrieval-practice evidence for retention and transfer assessment boundaries."
+    },
+    "rof2024microlearning_satisfaction": {
+      "key": "rof2024microlearning_satisfaction",
+      "kind": "primary",
+      "lane": "pedagogy_and_learning_paths",
+      "locator": "doi:10.1016/j.iheduc.2024.100952",
+      "role": "Microlearning study for learner satisfaction, effectiveness, learning outcome, and design-context boundaries."
+    },
+    "rousseau1762emile": {
+      "key": "rousseau1762emile",
+      "kind": "historical",
+      "lane": "pedagogy_and_learning_paths",
+      "locator": "url:https://www.gutenberg.org/ebooks/30433",
+      "role": "Eighteenth-century education source for staged development and progression; not evidence for adaptive learner modeling or efficacy."
+    },
+    "sajid2021demystified": {
+      "key": "sajid2021demystified",
+      "kind": "review",
+      "lane": "active_inference_core",
+      "locator": "doi:10.1162/neco_a_01357",
+      "role": "Comparative demystification of active-inference formulations for scope boundaries."
+    },
+    "sales2019cognitive_flexibility_active_inference": {
+      "key": "sales2019cognitive_flexibility_active_inference",
+      "kind": "primary",
+      "lane": "applications_and_scope",
+      "locator": "doi:10.1371/journal.pcbi.1006267",
+      "role": "Cognitive flexibility source for model-based neuroscience applications and scope."
+    },
+    "sandve2013reproducible": {
+      "key": "sandve2013reproducible",
+      "kind": "methods",
+      "lane": "delivery_and_reporting",
+      "locator": "doi:10.1371/journal.pcbi.1003285",
+      "role": "Reproducible computational workflow methods for tracking result provenance and analysis steps."
+    },
+    "sarkka2013bayesian": {
+      "key": "sarkka2013bayesian",
+      "kind": "textbook",
+      "lane": "mathematical_foundations",
+      "locator": "doi:10.1017/CBO9781139344203",
+      "role": "Bayesian filtering and smoothing reference for state-space probability lessons."
+    },
+    "schwartenbeck2015addiction_active_bayes": {
+      "key": "schwartenbeck2015addiction_active_bayes",
+      "kind": "primary",
+      "lane": "applications_and_scope",
+      "locator": "doi:10.1016/j.mehy.2014.12.007",
+      "role": "Active-Bayesian inference and addiction-model source for clinical application scope."
+    },
+    "sclater2015learning_analytics_code": {
+      "key": "sclater2015learning_analytics_code",
+      "kind": "documentation",
+      "lane": "pedagogy_and_learning_paths",
+      "locator": "url:https://www.jisc.ac.uk/guides/code-of-practice-for-learning-analytics",
+      "role": "Learning analytics responsibility source for learning transparency, learner consent, privacy, retention, validity, and intervention boundaries."
+    },
+    "section508alttext": {
+      "key": "section508alttext",
+      "kind": "documentation",
+      "lane": "delivery_and_reporting",
+      "locator": "url:https://www.section508.gov/create/alternative-text/",
+      "role": "Federal alt-text guidance supporting dashboard and manuscript accessibility metadata."
+    },
+    "sennesh2024dcpc": {
+      "key": "sennesh2024dcpc",
+      "kind": "methods",
+      "lane": "perception_as_inference",
+      "locator": "doi:10.48550/arXiv.2408.05834",
+      "role": "Divide-and-conquer predictive-coding source for structured Bayesian inference and scalability boundaries."
+    },
+    "septiani2021gamified_microlearning": {
+      "key": "septiani2021gamified_microlearning",
+      "kind": "review",
+      "lane": "pedagogy_and_learning_paths",
+      "locator": "url:https://www.gbl.uzh.ch/quartz/references/Putri-Septiani-and-Rosmansyah-%282021%29",
+      "role": "Gamified microlearning review for education and learner motivation context."
+    },
+    "seth2020predictive_consciousness": {
+      "key": "seth2020predictive_consciousness",
+      "kind": "review",
+      "lane": "perception_as_inference",
+      "locator": "doi:10.1080/17588928.2020.1838467",
+      "role": "Predictive processing and consciousness inference source for empirical boundaries."
+    },
+    "shannon1948mathematical": {
+      "key": "shannon1948mathematical",
+      "kind": "primary",
+      "lane": "mathematical_foundations",
+      "locator": "url:https://people.math.harvard.edu/~ctm/home/text/others/shannon/entropy/entropy.pdf",
+      "role": "Original entropy and information-theory foundation for kernel definitions."
+    },
+    "shute2008formative_feedback": {
+      "key": "shute2008formative_feedback",
+      "kind": "review",
+      "lane": "pedagogy_and_learning_paths",
+      "locator": "doi:10.3102/0034654307313795",
+      "role": "Formative feedback review for specific learner guidance and quiz-gate interpretation."
+    },
+    "sigstore2026overview": {
+      "key": "sigstore2026overview",
+      "kind": "documentation",
+      "lane": "delivery_and_reporting",
+      "locator": "url:https://docs.sigstore.dev/about/overview/",
+      "role": "Artifact-signing and transparency-log guidance for software supply-chain integrity discussion."
+    },
+    "skilltree2020nsa": {
+      "key": "skilltree2020nsa",
+      "kind": "documentation",
+      "lane": "delivery_and_reporting",
+      "locator": "url:https://www.nsa.gov/Press-Room/Press-Releases-Statements/Press-Release-View/article/2380858/",
+      "role": "National Security Agency press release establishing SkillTree as an internally developed open-source training platform."
+    },
+    "skilltree2026docs": {
+      "key": "skilltree2026docs",
+      "kind": "documentation",
+      "lane": "delivery_and_reporting",
+      "locator": "url:https://skilltreeplatform.dev/overview/",
+      "role": "Current SkillTree model, learner-display, dashboard and integration documentation for the delivery substrate."
+    },
+    "skilltree2026github": {
+      "key": "skilltree2026github",
+      "kind": "software",
+      "lane": "delivery_and_reporting",
+      "locator": "url:https://github.com/NationalSecurityAgency/skills-service",
+      "role": "National Security Agency skills-service source repository that distinguishes SkillTree platform behavior from this curriculum."
+    },
+    "slsa2026framework": {
+      "key": "slsa2026framework",
+      "kind": "documentation",
+      "lane": "delivery_and_reporting",
+      "locator": "url:https://slsa.dev/",
+      "role": "Software supply-chain provenance framework for release integrity and build-attestation context."
+    },
+    "smith2016softwarecitation": {
+      "key": "smith2016softwarecitation",
+      "kind": "methods",
+      "lane": "delivery_and_reporting",
+      "locator": "doi:10.7717/peerj-cs.86",
+      "role": "Software citation principles for reproducible reporting, metadata, and provenance boundaries."
+    },
+    "smith2020predictive_neurophysiology": {
+      "key": "smith2020predictive_neurophysiology",
+      "kind": "review",
+      "lane": "perception_as_inference",
+      "locator": "doi:10.1111/nyas.14321",
+      "role": "Predictive-processing and neurophysiological-evidence source for perception claims."
+    },
+    "smith2021clinical_predictive_coding": {
+      "key": "smith2021clinical_predictive_coding",
+      "kind": "review",
+      "lane": "applications_and_scope",
+      "locator": "doi:10.1111/pcn.13138",
+      "role": "Predictive-coding and clinical-neuroscience source for translational scope boundaries."
+    },
+    "smith2022tutorial": {
+      "key": "smith2022tutorial",
+      "kind": "tutorial",
+      "lane": "active_inference_core",
+      "locator": "doi:10.1016/j.jmp.2021.102632",
+      "role": "Step-by-step active-inference tutorial comparison point for pedagogical sequence design."
+    },
+    "spdx2026mit": {
+      "key": "spdx2026mit",
+      "kind": "documentation",
+      "lane": "delivery_and_reporting",
+      "locator": "url:https://spdx.org/licenses/MIT",
+      "role": "Software reporting provenance source for MIT license metadata and reproducibility signposting."
+    },
+    "spratling2017predictive_algorithms": {
+      "key": "spratling2017predictive_algorithms",
+      "kind": "review",
+      "lane": "perception_as_inference",
+      "locator": "doi:10.1016/j.bandc.2015.11.003",
+      "role": "Predictive-coding algorithms source for perceptual inference and model variants."
+    },
+    "sprevak2023predictive": {
+      "key": "sprevak2023predictive",
+      "kind": "tutorial",
+      "lane": "perception_as_inference",
+      "locator": "doi:10.1111/tops.12704",
+      "role": "Recent predictive-processing introduction distinguishing predictive coding and active inference for reader orientation."
+    },
+    "summerfield2014perceptual_decision": {
+      "key": "summerfield2014perceptual_decision",
+      "kind": "review",
+      "lane": "perception_as_inference",
+      "locator": "doi:10.1038/nrn3838",
+      "role": "Perceptual decision and Bayesian expectation source for sensory inference."
+    },
+    "tao2024q_matrix_constraint": {
+      "key": "tao2024q_matrix_constraint",
+      "kind": "primary",
+      "lane": "pedagogy_and_learning_paths",
+      "locator": "doi:10.3758/s13428-024-02404-5",
+      "role": "Cognitive-diagnosis source for Q-matrix assessment, skill-level inference, personalized learning claims, and model-dependent boundaries."
+    },
+    "tishby1999information": {
+      "key": "tishby1999information",
+      "kind": "methods",
+      "lane": "mathematical_foundations",
+      "locator": "doi:10.48550/arXiv.physics/0004057",
+      "role": "Information bottleneck and rate-distortion framing for task-relevant compression skills."
+    },
+    "tschantz2020learning": {
+      "key": "tschantz2020learning",
+      "kind": "primary",
+      "lane": "active_inference_core",
+      "locator": "doi:10.1371/journal.pcbi.1007805",
+      "role": "Action-oriented model-learning scope for future curriculum growth."
+    },
+    "tschantz2023hybrid_predictive_coding": {
+      "key": "tschantz2023hybrid_predictive_coding",
+      "kind": "methods",
+      "lane": "perception_as_inference",
+      "locator": "doi:10.1371/journal.pcbi.1011280",
+      "role": "Hybrid predictive-coding source for amortized and iterative inference boundaries in generative models."
+    },
+    "vanoostrum2025concise": {
+      "key": "vanoostrum2025concise",
+      "kind": "tutorial",
+      "lane": "active_inference_core",
+      "locator": "doi:10.1016/j.jmp.2025.102921",
+      "role": "Discrete-time Active Inference tutorial and code comparison aligned with pymdp software."
+    },
+    "vilas2022active_consciousness": {
+      "key": "vilas2022active_consciousness",
+      "kind": "review",
+      "lane": "applications_and_scope",
+      "locator": "doi:10.1007/s13164-021-00579-w",
+      "role": "Consciousness model source for conceptual application limits and scope."
+    },
+    "w3c2023wcag22": {
+      "key": "w3c2023wcag22",
+      "kind": "documentation",
+      "lane": "delivery_and_reporting",
+      "locator": "url:https://www.w3.org/TR/WCAG22/",
+      "role": "WCAG web content accessibility standard for dashboard and figure reporting."
+    },
+    "watson2020active_control_inference": {
+      "key": "watson2020active_control_inference",
+      "kind": "review",
+      "lane": "applications_and_scope",
+      "locator": "doi:10.1007/978-3-030-64919-7_2",
+      "role": "Control as inference source for robotics comparison boundaries and applications."
+    },
+    "wei2015efficient_bayesian_perception": {
+      "key": "wei2015efficient_bayesian_perception",
+      "kind": "primary",
+      "lane": "perception_as_inference",
+      "locator": "doi:10.1038/nn.4105",
+      "role": "Bayesian observer and efficient-coding source for perceptual bias boundaries."
+    },
+    "wilkinson2016fair": {
+      "key": "wilkinson2016fair",
+      "kind": "methods",
+      "lane": "delivery_and_reporting",
+      "locator": "doi:10.1038/sdata.2016.18",
+      "role": "FAIR open-data principles for provenance and metadata boundary discussion."
+    },
+    "wilson2014scientific_computing": {
+      "key": "wilson2014scientific_computing",
+      "kind": "methods",
+      "lane": "delivery_and_reporting",
+      "locator": "doi:10.1371/journal.pbio.1001745",
+      "role": "Scientific-computing software practice source for testing, automation, and version-control hygiene."
+    },
+    "winn2005variational": {
+      "key": "winn2005variational",
+      "kind": "methods",
+      "lane": "mathematical_foundations",
+      "locator": "url:https://www.jmlr.org/papers/v6/winn05a.html",
+      "role": "Variational message-passing reference for graph curricula."
+    },
+    "wong2011color": {
+      "key": "wong2011color",
+      "kind": "methods",
+      "lane": "delivery_and_reporting",
+      "locator": "doi:10.1038/nmeth.1618",
+      "role": "Accessible figure palette reference for reporting."
+    },
+    "xie2015knitr": {
+      "key": "xie2015knitr",
+      "kind": "methods",
+      "lane": "delivery_and_reporting",
+      "locator": "isbn:978-1-4987-1696-3",
+      "role": "Literate reporting comparison for executable prose."
+    },
+    "yuille2006vision_bayesian": {
+      "key": "yuille2006vision_bayesian",
+      "kind": "review",
+      "lane": "perception_as_inference",
+      "locator": "doi:10.1016/j.tics.2006.05.002",
+      "role": "Bayesian perception and visual inference source for analysis-by-synthesis boundaries."
+    },
+    "zenodo2026github": {
+      "key": "zenodo2026github",
+      "kind": "documentation",
+      "lane": "delivery_and_reporting",
+      "locator": "url:https://help.zenodo.org/docs/github/",
+      "role": "GitHub-to-Zenodo archiving workflow documentation for DOI and release reproducibility boundaries."
+    },
+    "zhang2024overview": {
+      "key": "zhang2024overview",
+      "kind": "review",
+      "lane": "active_inference_core",
+      "locator": "doi:10.1162/neco_a_01642",
+      "role": "Recent broad review used to update current FEP and Active Inference context."
+    }
+  },
+  "summary": {
+    "bibEntries": 188,
+    "citedSources": 188,
+    "expectedLanes": 6,
+    "invalidSourceRows": 0,
+    "issueCount": 0,
+    "matrixSources": 188,
+    "missingBibEntries": 0,
+    "missingLanes": 0,
+    "missingMatrixEntries": 0,
+    "sectionsWithCitations": 13,
+    "uncitedBibEntries": 0,
+    "unusedMatrixEntries": 0
+  }
+}

@@ -1,0 +1,7 @@
+\frametitle{References: Bibliography and Source-Role Audit}
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{uv}\NormalTok{ run python }\AttributeTok{{-}m}\NormalTok{ infrastructure.reference.citation.cli validate }\DataTypeTok{\textbackslash{}}
+\NormalTok{    manuscript/references.bib }\AttributeTok{{-}{-}strict}
+\end{Highlighting}
+\end{Shaded}

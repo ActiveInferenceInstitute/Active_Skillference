@@ -1,0 +1,11 @@
+{
+  "depositionId": 21865644,
+  "doi": "10.5281/zenodo.21865644",
+  "htmlUrl": "https://zenodo.org/records/21865644",
+  "note": "Published Zenodo deposit for the v1.0.0 release, archiving the rendered manuscript. Reserved by scripts/reserve_zenodo_doi.py and published by scripts/publish_zenodo_deposit.py. The identifier resolves; publication is permanent and the record cannot be deleted. Every DOI surface in this repository is cross-checked against this file by tests/test_publication_readiness.py.",
+  "publishedAt": "2026-08-09",
+  "reservedAt": "2026-08-09",
+  "resolves": true,
+  "state": "done",
+  "submitted": true
+}

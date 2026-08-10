@@ -1,0 +1,16 @@
+{
+  "issues": [],
+  "summary": {
+    "cognitiveKnowledgeBasePointers": 1240,
+    "cognitiveKnowledgeBaseSkills": 630,
+    "cognitiveKnowledgeBaseTopicSkills": 504,
+    "externalPointers": 2026,
+    "materialRecords": 630,
+    "ok": true,
+    "sections": 4410,
+    "skills": 630,
+    "stratumOnlySkills": 99,
+    "topicMatchedSkills": 531,
+    "unresolvedPointerSkills": 0
+  }
+}

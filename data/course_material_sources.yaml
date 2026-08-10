@@ -1,0 +1,131 @@
+version: 1
+policy:
+  summary: >
+    Course-material records use commit-pinned pointers to external Active Inference
+    Institute repositories. This repository stores metadata and links only; it does
+    not copy course or knowledge-base prose into generated lesson records.
+  pointer_policy: pinned-link-metadata-only
+sources:
+  - source_id: aii_courses
+    title: Active Inference Institute Courses
+    repo_url: https://github.com/ActiveInferenceInstitute/courses
+    commit: 0a1f7730407992bf0e6f16273b64029e7505dda8
+    license_status: Repository course materials are externally maintained; use pinned links and preserve upstream licensing context.
+    status_note: Commit-pinned public course repository pointer.
+    path_globs:
+      - published/active-inference/01_philosophy/*/lecture-content/*.md
+      - published/active-inference/02_cognitive_science/*/lecture-content/*.md
+      - published/active-inference/03_math/*/lecture-content/*.md
+      - published/active-inference/04_computer_science/*/lecture-content/*.md
+  - source_id: aii_cognitive_kb
+    title: Active Inference Institute Cognitive Knowledge Base
+    repo_url: https://github.com/ActiveInferenceInstitute/cognitive
+    commit: 3ce7b13d51e029671170d8838463459ee1a1b307
+    license_status: Repository knowledge-base content is externally maintained; use pinned links and preserve upstream licensing context.
+    status_note: Commit-pinned public cognitive knowledge-base pointer.
+    path_globs:
+      - knowledge_base/**/*.md
+stratum_mappings:
+  math_foundations:
+    - source_id: aii_courses
+      title: Mathematics track systems module
+      path: published/active-inference/03_math/01_systems/lecture-content/01_systems-module.md
+      role: course-module
+    - source_id: aii_cognitive_kb
+      title: Mathematics knowledge-base index
+      path: knowledge_base/mathematics/README.md
+      role: knowledge-base-index
+  probability:
+    - source_id: aii_courses
+      title: Mathematics track perception module
+      path: published/active-inference/03_math/03_perception/lecture-content/03_perception-module.md
+      role: course-module
+    - source_id: aii_cognitive_kb
+      title: Bayes theorem knowledge-base note
+      path: knowledge_base/mathematics/bayes_theorem.md
+      role: topic-reference
+  information_theory:
+    - source_id: aii_courses
+      title: Mathematics track communication module
+      path: published/active-inference/03_math/07_communication/lecture-content/07_communication-module.md
+      role: course-module
+    - source_id: aii_cognitive_kb
+      title: Information metrics knowledge-base note
+      path: knowledge_base/research/concepts/information_metrics.md
+      role: topic-reference
+  variational_methods:
+    - source_id: aii_courses
+      title: Mathematics track cognition module
+      path: published/active-inference/03_math/04_cognition/lecture-content/04_cognition-module.md
+      role: course-module
+    - source_id: aii_cognitive_kb
+      title: Variational free energy knowledge-base note
+      path: knowledge_base/free_energy_principle/mathematics/variational_free_energy.md
+      role: topic-reference
+  free_energy_principle:
+    - source_id: aii_courses
+      title: Philosophy track systems module
+      path: published/active-inference/01_philosophy/01_systems/lecture-content/01_systems-module.md
+      role: course-module
+    - source_id: aii_cognitive_kb
+      title: Free Energy Principle knowledge-base index
+      path: knowledge_base/free_energy_principle/README.md
+      role: knowledge-base-index
+  active_inference:
+    - source_id: aii_courses
+      title: Cognitive science track agents module
+      path: published/active-inference/02_cognitive_science/02_agents/lecture-content/02_agents-module.md
+      role: course-module
+    - source_id: aii_cognitive_kb
+      title: Active inference knowledge-base note
+      path: knowledge_base/cognitive/active_inference.md
+      role: topic-reference
+  computation:
+    - source_id: aii_courses
+      title: Computer science track agents module
+      path: published/active-inference/04_computer_science/02_agents/lecture-content/02_agents-module.md
+      role: course-module
+    - source_id: aii_cognitive_kb
+      title: Generic POMDP knowledge-base index
+      path: knowledge_base/agents/GenericPOMDP/README.md
+      role: implementation-reference
+  applications:
+    - source_id: aii_courses
+      title: Cognitive science track action module
+      path: published/active-inference/02_cognitive_science/05_action/lecture-content/05_action-module.md
+      role: course-module
+    - source_id: aii_cognitive_kb
+      title: Education applications knowledge-base note
+      path: knowledge_base/free_energy_principle/applications/education.md
+      role: application-reference
+topic_mappings:
+  - match: [bayes, bayesian, posterior, prior, likelihood]
+    pointers:
+      - source_id: aii_cognitive_kb
+        title: Bayes theorem topic pointer
+        path: knowledge_base/mathematics/bayes_theorem.md
+        role: topic-reference
+  - match: [entropy, information, kl, divergence, mutual]
+    pointers:
+      - source_id: aii_cognitive_kb
+        title: Information metrics topic pointer
+        path: knowledge_base/research/concepts/information_metrics.md
+        role: topic-reference
+  - match: [variational, free energy, vfe, bound, elbo]
+    pointers:
+      - source_id: aii_cognitive_kb
+        title: Variational free energy topic pointer
+        path: knowledge_base/free_energy_principle/mathematics/variational_free_energy.md
+        role: topic-reference
+  - match: [expected free energy, efe, policy, action, planning]
+    pointers:
+      - source_id: aii_courses
+        title: Cognitive science action module topic pointer
+        path: published/active-inference/02_cognitive_science/05_action/lecture-content/05_action-module.md
+        role: course-module
+  - match: [pomdp, markov, state, observation, transition]
+    pointers:
+      - source_id: aii_cognitive_kb
+        title: Generic POMDP topic pointer
+        path: knowledge_base/agents/GenericPOMDP/README.md
+        role: implementation-reference

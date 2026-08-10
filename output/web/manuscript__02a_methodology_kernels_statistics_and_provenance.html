@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.10.1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>02a_methodology_kernels_statistics_and_provenance.md.web</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      white-space: pre-wrap;
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <script data-template-mathjax-config>
+window.MathJax = window.MathJax || {};
+window.MathJax.chtml = Object.assign({}, window.MathJax.chtml, {
+  fontURL: "https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.0.0/chtml/woff2",
+  dynamicPrefix: "https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.0.0/chtml/dynamic"
+});
+window.normalizeTemplateMathJaxAria = function () {
+  document.querySelectorAll("mjx-speech[aria-roledescription]").forEach(function (node) {
+    var roleDescription = node.getAttribute("aria-roledescription") || "";
+    if (/[-]/.test(roleDescription)) {
+      node.setAttribute("aria-roledescription", "mathematical expression");
+    }
+  });
+};
+window.MathJax.startup = Object.assign({}, window.MathJax.startup, {
+  ready: function () {
+    window.MathJax.startup.defaultReady();
+    window.MathJax.startup.promise.then(window.normalizeTemplateMathJaxAria);
+  }
+});
+</script>
+<script defer=""
+  src="https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-chtml.js"
+  type="text/javascript" integrity="sha384-2BWc4dVaHADUocwKrUrK9u3iDwHxVMKXWEcoRmUkXYSFKhAsgVAYClu9ydNuo5Oz" crossorigin="anonymous"></script>
+
+<link data-template-favicon rel="icon" href="favicon.ico">
+
+<style>
+:root {
+  --brand-1: #5b6ee0;
+  --web-bg: #f8f8f8;
+  --web-surface: #ffffff;
+  --web-text: #2c3e50;
+  --web-border: #bdc3c7;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --brand-1: #7e8ce8;
+    --web-bg: #0f1420;
+    --web-surface: #161c2b;
+    --web-text: #e6eaf2;
+    --web-border: #2a3447;
+  }
+}
+.theorem-box {
+  border-left: 4px solid var(--brand-1);
+  background: var(--web-surface);
+  padding: 0.6em 1em;
+  margin: 1.1em 0;
+  border-radius: 0 4px 4px 0;
+}
+.theorem-box.definition { border-left-style: dashed; }
+.theorem-box > p:first-child { margin-top: 0; }
+.theorem-box > p:last-child { margin-bottom: 0; }
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  max-width: 100%;
+}
+
+body {
+  font-family: 'Liberation Serif', 'Times New Roman', serif;
+  line-height: 1.6;
+  width: min(100%, 800px);
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f8f8f8;
+  color: #1a1a1a;
+  overflow-x: visible;
+}
+
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  padding: 0.65rem 0.9rem;
+  transform: translateY(-120%);
+  background-color: #1a1a1a;
+  color: #ffffff;
+  font-family: sans-serif;
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.skip-link:visited {
+  color: #ffffff;
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
+@media (max-width: 600px) {
+  body {
+    width: 100%;
+    max-width: 100%;
+    padding: 16px;
+  }
+
+  figure img {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 800px) {
+  body {
+    width: 100%;
+    max-width: 100vw;
+    margin: 0 auto;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #2c3e50;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 5px;
+  overflow-wrap: anywhere;
+}
+
+code {
+  background-color: #ecf0f1;
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-family: 'Liberation Mono', 'Courier New', monospace;
+}
+
+pre {
+  background-color: #2c3e50;
+  color: #ecf0f1;
+  padding: 15px;
+  border-radius: 5px;
+  overflow-x: auto;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 20px 0;
+}
+
+figure {
+  max-width: 100%;
+  margin: 1.5rem 0;
+}
+
+th, td {
+  border: 1px solid #bdc3c7;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #1f6f8b;
+  color: white;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid #bdc3c7;
+  border-radius: 5px;
+  margin: 20px 0;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+a {
+  color: #b91c1c;
+  text-decoration: underline;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.14em;
+  overflow-wrap: anywhere;
+}
+
+a:visited {
+  color: #8f1d1d;
+}
+
+a:hover {
+  text-decoration-thickness: 0.14em;
+}
+
+a:focus-visible {
+  outline: 3px solid #1f6f8b;
+  outline-offset: 3px;
+}
+
+.toc {
+  background-color: #ecf0f1;
+  padding: 20px;
+  border-radius: 5px;
+  margin-bottom: 30px;
+}
+
+.toc a,
+#TOC a {
+  color: #b91c1c;
+  display: inline-block;
+  min-height: 28px;
+  line-height: 1.5;
+  padding-block: 2px;
+}
+
+.toc li,
+#TOC li {
+  margin-block: 1px;
+}
+
+.math {
+  text-align: center;
+  margin: 20px 0;
+  font-size: 1.1em;
+}
+
+mjx-container[display="true"] {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 0.25rem;
+}
+
+.figure {
+  text-align: center;
+  margin: 30px 0;
+}
+
+.figure img {
+  max-width: 100%;
+  height: auto;
+  border: 2px solid #3498db;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* A reading column keeps prose comfortable, but dense scientific figures need
+   a larger inspection surface.  The rendered image remains responsive and the
+   explicit link opens its source-resolution asset without changing the PDF. */
+.figure-full-size-link {
+  color: inherit;
+  display: block;
+  max-width: 100%;
+  text-align: center;
+}
+
+.figure-full-size-link img {
+  cursor: zoom-in;
+  margin-bottom: 0.45rem;
+}
+
+.figure-full-size-label {
+  color: #1f6f8b;
+  display: inline-block;
+  font-family: sans-serif;
+  font-size: 0.875rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+  text-decoration: underline;
+  text-underline-offset: 0.14em;
+}
+
+.figure-full-size-link:focus-visible {
+  outline: 3px solid #1f6f8b;
+  outline-offset: 4px;
+}
+
+@media (min-width: 1000px) {
+  .figure-full-size-link {
+    left: 50%;
+    max-width: none;
+    position: relative;
+    transform: translateX(-50%);
+    width: min(1080px, calc(100vw - 3rem));
+  }
+}
+
+.figure-caption {
+  font-style: italic;
+  color: #4b5563;
+  margin-top: 10px;
+  text-align: center;
+}
+
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<main id="main-content" tabindex="-1">
+<h1 id="sec:methodology-kernels-provenance">Methods: Computational
+Kernels, Model Scope, and Quantitative Provenance</h1>
+<h2
+id="computational-kernels-as-the-sole-authority-for-quantitative-examples">Computational
+kernels as the sole authority for quantitative examples</h2>
+<!-- claim-support:method_kernels_scope -->
+<p>The <code>src/kernels</code> package implements the mathematics of
+Active Inference as pure, numerically stable, fully typed functions in
+natural-log (nats) units:</p>
+<ul>
+<li><strong>Information</strong> – surprise <span
+class="math inline">\(-\ln p\)</span>, Shannon entropy <span
+class="math inline">\(H(p)=-\sum_x p(x)\ln p(x)\)</span>, cross-entropy,
+Kullback-Leibler divergence <span
+class="math inline">\(\mathrm{KL}(p\|q)\)</span>, and mutual
+information, following the original and textbook information-theory
+treatments [shannon1948mathematical; cover2006elements].</li>
+<li><strong>Distributions</strong> – normalization, a
+precision-parameterized softmax, and Dirichlet expectations; these are
+the small probability utilities needed by the active-inference and
+variational examples [beal2003variational].</li>
+<li><strong>Inference</strong> – exact discrete Bayesian posteriors and
+the variational free-energy identity <span
+class="math inline">\(F[q]=\mathbb{E}_{q(s)}[\ln q(s)-\ln p(o,s)]
+=D_{\mathrm{KL}}(q(s)\|p(s))-\mathbb{E}_{q(s)}[\ln p(o\mid s)]
+=D_{\mathrm{KL}}(q(s)\|p(s\mid o))-\ln p(o)\)</span>, together with the
+log-evidence and the evidence lower bound [bishop2006pattern;
+blei2017variational; buckley2017free].</li>
+<li><strong>Active inference</strong> – expected free energy <span
+class="math inline">\(G(\pi)\)</span> with the convention that lower
+<span class="math inline">\(G\)</span> is preferred, policy selection
+<span class="math inline">\(q(\pi)=\mathrm{softmax}(-\gamma
+G(\pi))\)</span> where <span class="math inline">\(\gamma\)</span> is
+policy precision, and a <code>DiscreteActiveInferenceAgent</code>
+running a deterministic perception -&gt; policy -&gt; action loop
+[friston2015epistemic; friston2017curiosity; dacosta2020synthesis;
+sajid2021demystified; millidge2021whence; champion2026reframing].</li>
+</ul>
+<h3 id="scope-of-the-implemented-kernels">Scope of the implemented
+kernels</h3>
+<p>The implemented kernels intentionally stop at a small, discrete,
+one-step reference agent. Generalized free energy and action-oriented
+model learning are important adjacent targets, but they remain scope
+markers for future kernels rather than hidden features of this release
+[parr2019generalised; tschantz2020learning].</p>
+<h3 id="evidence-boundary-and-analytic-checks">Evidence boundary and
+analytic checks</h3>
+<!-- claim-support:method_model_boundary -->
+<p>The resulting evidence is model-specific twice over. First, a tested
+function establishes that the implementation matches its stated
+mathematical identity under the declared assumptions and conventions.
+Second, a fixed-input simulation shows how that selected model behaves
+under its priors, likelihoods, preferences, precision, and policy set.
+It does not show that the same assumptions describe a biological brain,
+a human learner, or all formulations of Active Inference. This
+distinction follows the separation between process-theory construction,
+implementation choice, and empirical-status assessment in the
+Active-Inference literature [friston2017process; dacosta2020synthesis;
+aguilera2022particular; hodson2024empirical].</p>
+<!-- claim-support:method_kernel_identities -->
+<p>Kernel correctness is asserted against analytic identities: the
+entropy of a uniform distribution over <span
+class="math inline">\(n\)</span> outcomes equals <span
+class="math inline">\(\ln n\)</span>; KL is non-negative and zero only
+at equality; the free-energy bound is tight at the true posterior; and
+the expected-free- energy preference is regime-dependent rather than
+unconditional. The reproducibility section records the exact coverage
+and mock-free gates that must run before treating this build as release
+evidence.</p>
+<h2
+id="statistical-boundary-deterministic-validation-without-learner-outcome-inference">Statistical
+boundary: deterministic validation without learner-outcome
+inference</h2>
+<!-- claim-support:method_statistical_status -->
+<p>Active Skillference does not report inferential statistics, learner
+outcomes, effect sizes, <span class="math inline">\(p\)</span>-values,
+confidence intervals, or population-level empirical claims. Its evidence
+has three narrower classes. First, deterministic enumeration validates
+graph shape, source-matrix coverage, figure/artifact wiring, web math,
+roadmap state and SkillTree export counts. Second, computational kernels
+and simulation sweeps show model-specific mathematical behavior under
+fixed inputs, such as noisy-sensor posterior sensitivity and the
+sample/commit expected-free-energy boundary. Third, browser smoke checks
+and optional online source-health checks are delivery and currentness
+evidence. Those checks can reveal stale routes, missing artifacts,
+failed MathJax rendering or unreachable source locators; they are not
+evidence that learners improved or that a biological process theory is
+empirically confirmed.</p>
+<p>The next two layers apply that evidence discipline to authored
+content. The first keeps numbers traceable to kernels; the second keeps
+citations traceable to explicit support roles.</p>
+<h2
+id="provenance-binding-from-kernel-registry-to-learner-facing-prose">Provenance
+binding from kernel registry to learner-facing prose</h2>
+<!-- claim-support:method_provenance_binding -->
+<p>Worked examples in <code>src/kernels/examples.py</code> run the
+kernels on fixed, documented inputs and register each result in a
+<code>ClaimRegistry</code> under a stable name. Skill descriptions,
+assessment stems, correct numeric answer options, and manuscript prose
+reference these values only through <code>claim:NAME</code> tokens,
+following the reproducible-reporting pattern of binding prose to
+executable analysis rather than hand-maintained results [xie2015knitr;
+sandve2013reproducible]. Three gates enforce integrity:</p>
+<ol type="1">
+<li><strong>Resolution</strong> – every token must resolve to a
+registered claim, or rendering raises.</li>
+<li><strong>Fail-closed export</strong> – the SkillTree exporter calls
+the resolver; an unbacked token aborts the export with nothing
+written.</li>
+<li><strong>Bare-number linter</strong> – any decimal result with two or
+more fractional digits sitting in plain prose (not inside a claim token
+or <code>$...$</code> math) is reported as a violation. Correct answer
+options are scanned as well, so a derived value cannot bypass provenance
+by hiding in an answer key; wrong distractors remain free-form.</li>
+</ol>
+<!-- claim-support:method_provenance_standards -->
+<p>We use “provenance” in a PROV-inspired sense: the system records
+entities, activities, and agents sufficient for local traceability, but
+it does not claim conformance to a full W3C PROV interchange
+implementation. In Active Skillference terms, the entities are claim
+records, rendered skills, manuscript fragments, figures, and SkillTree
+exports; the activities are kernel execution, rendering, export, and
+validation; and the agents are the source files and scripts that produce
+each artifact. The PROV overview, data model, and constraints
+recommendation supply the formal vocabulary for derivation, attribution,
+bundles, and validity checks, while this project implements a
+project-local claim registry and release ledger rather than a general
+PROV service [groth2013prov_overview; moreau2013prov_dm;
+cheney2013prov_constraints]. Workflow Run RO-Crate and the related
+Provenance Run Crate profile provide a useful interoperability target
+for the same boundary: they package workflow-run metadata, inputs,
+outputs, parameters, and execution provenance as RO-Crate records.
+Active Skillference’s <code>claims.json</code>, manuscript variables,
+figure registry, and release ledger play a narrower analogous role
+inside this repository. The project does not emit a conforming RO-Crate,
+validate against those profiles, or expose a general provenance
+interchange endpoint; the comparison is a roadmap-level mapping from the
+local artifact chain to a recognized workflow-provenance model
+[leo2024workflow_run_rocrate].</p>
+<p>This mechanism sits in the lineage of literate and reproducible
+computational reporting: Knuth made code and explanation a joint design
+object, Sweave/knitr-style workflows bind prose to executable analysis,
+and reproducible-research arguments treat rerunnable computational
+claims as a minimum standard when independent replication is difficult
+[knuth1984literate; xie2015knitr; peng2011reproducible;
+sandve2013reproducible]. Active Skillference moves that binding to a
+registry and build gate that protects both the manuscript and the
+exported curriculum.</p>
+<p>Provenance binding and kernel testing are complementary halves of the
+same pedagogical contract. Binding establishes that a value a learner
+sees is a kernel’s output rather than a hand-typed figure; the
+deterministic kernel tests establish that the kernel computes the
+intended quantity in the first place. A learner-facing number is
+therefore only as sound as the kernel behind it, which is why the
+integrity story rests on the tested kernels and not on the binding
+alone: the binding makes a number traceable, and the tests are what make
+that traceability worth anything. The export and render gates abort when
+a kernel token is missing or a result was typed into prose, so an
+unbacked number cannot reach a learner unnoticed.</p>
+<p>Numeric traceability is not enough for a scholarly curriculum. The
+prose also needs to show which cited sources support lineage, method,
+delivery, critique, and scope claims.</p>
+</main>
+</body>
+</html>

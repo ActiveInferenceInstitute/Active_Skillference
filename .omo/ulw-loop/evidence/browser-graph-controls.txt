@@ -1,0 +1,3 @@
+result: "\"Graph:true:Graph Diagnostics\\n630 skills\\n1199 dependencies\\n75 max depth\\n2 roots\\n79 leaves\\nBottleneck Skills\\nSKILL\\tNAME\\tSUBJECT\\tDEPENDENTS\\tDEPTH\\nai_expected_free_energy\\tExpected Free Energy (EFE)\\tExpected Free Energy & Policy Selecti\""
+help[1]:
+  Run `chrome-devtools-axi snapshot` to see current page state

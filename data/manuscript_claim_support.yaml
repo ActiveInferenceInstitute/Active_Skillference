@@ -1,0 +1,454 @@
+claims:
+  - id: abstract_graph_counts
+    section: 00_abstract.md
+    type: descriptive_count
+    summary: Abstract live graph counts and provenance-bound curriculum status.
+    variables: [skill_count, subject_count, edge_count, max_depth]
+    validators: [scripts/build_curriculum.py, scripts/validate_manuscript_variables.py]
+    allow_strong_words: [validated]
+  - id: abstract_delivery_contract
+    section: 00_abstract.md
+    type: delivery
+    summary: Abstract SkillTree export and regenerated artifact delivery contract.
+    validators: [scripts/export_skilltree.py, scripts/run_kernels.py]
+    allow_strong_words: [validated]
+  - id: intro_fep_lineage
+    section: 01_introduction.md
+    type: literature
+    summary: Introductory lineage from Helmholtz and Bayesian brain to active inference.
+    citations: [helmholtz1867handbuch, knill2004bayesian, bogacz2017tutorial, sprevak2023predictive, bernoulli1713ars_conjectandi, demoivre1718doctrine_chances, bayes1763doctrine_chances, laplace1774inverse_probability, berkeley1709new_theory_vision, hume1739treatise, condillac1754sensations, hartley1749observations, locke1690essay, kant1781critique_pure_reason, friston2006free, friston2010free, friston2023simpler, zhang2024overview, friston2017process, dacosta2020synthesis, parr2022active, pezzulo2024sentient_behavior]
+    allow_strong_words: [empirical]
+  - id: intro_prerequisite_opacity
+    section: 01_introduction.md
+    type: literature
+    summary: Prerequisite-depth and term-calibration problem grounded in tutorials, EFE derivations and active-learning education context.
+    citations: [smith2022tutorial, millidge2021whence, champion2026reframing, dipaolo2024school, anokhin2024associative_active_inference]
+    allow_strong_words: [empirical]
+  - id: intro_situation_awareness
+    section: 01_introduction.md
+    type: literature
+    summary: Situation map separating theory, model, software, education, delivery, and future learner-evaluation layers.
+    citations: [friston2023simpler, aguilera2022particular, gershman2019free, hodson2024empirical, friston2017process, dacosta2020synthesis, parr2022active, millidge2021whence, heins2022pymdp, vanoostrum2025concise, dipaolo2024school, doignon1985knowledge_spaces, falmagne2011learning_spaces, fu2025curriculum_aware_gncd, liu2023_learning_analytics_privacy, sclater2015learning_analytics_code, skilltree2026docs, skilltree2020nsa]
+    limitation_markers: [not, model, require, without]
+    allow_strong_words: [empirical]
+  - id: intro_provenance_problem
+    section: 01_introduction.md
+    type: scope_limit
+    summary: Integrity problem statement about hand-typed numbers and drift.
+    limitation_markers: [drift, invented]
+  - id: intro_scholarship_drift
+    section: 01_introduction.md
+    type: literature
+    summary: Scholarship drift and evidence-status concern grounded in critiques and reviews.
+    citations: [aguilera2022particular, aguilera2023confederation, hodson2024empirical, badcock2024psychology_psychiatry, gershman2019free]
+    allow_strong_words: [empirical]
+  - id: intro_graph_approach
+    section: 01_introduction.md
+    type: delivery
+    summary: Validated prerequisite graph approach and prerequisite-sensitive curriculum support.
+    citations: [bloom1956taxonomy, liang2018prerequisite, doignon1985knowledge_spaces, falmagne2011learning_spaces]
+    validators: [scripts/build_curriculum.py]
+    allow_strong_words: [validated]
+  - id: intro_evaluation_questions
+    section: 01_introduction.md
+    type: delivery
+    summary: Four bounded evaluation questions for graph, provenance, evidence-surface, and SkillTree delivery properties.
+    validators: [scripts/build_curriculum.py, scripts/run_kernels.py, scripts/validate_manuscript_artifacts.py, scripts/export_skilltree.py]
+  - id: intro_claim_tokens
+    section: 01_introduction.md
+    type: computed
+    summary: Introductory claim-token example backed by registered kernel outputs.
+    claim_tokens: [entropy_fair_coin, surprise_rare_event]
+    validators: [scripts/run_kernels.py]
+  - id: intro_skilltree_delivery
+    section: 01_introduction.md
+    type: literature
+    summary: SkillTree delivery target described from public SkillTree sources.
+    citations: [skilltree2020nsa, skilltree2026docs, skilltree2026github, nsa2026opensource, activeinferenceinstitute2026website]
+  - id: method_evidence_classes
+    section: 02_methodology.md
+    type: delivery
+    summary: Evidence-class separation between structural, computed, simulation, literature, delivery, and scope-limit evidence.
+    citations: [munafo2017reproducible_science, wilkinson2016fair]
+    validators: [scripts/run_kernels.py, scripts/validate_claim_support.py, scripts/validate_manuscript_artifacts.py]
+    limitation_markers: [rather than, prevent, not]
+  - id: method_kernels_scope
+    section: 02a_methodology_kernels_statistics_and_provenance.md
+    type: delivery
+    summary: Kernel method scope tied to information, variational and active-inference sources.
+    citations: [shannon1948mathematical, cover2006elements, beal2003variational, bishop2006pattern, blei2017variational, buckley2017free]
+    validators: [uv run pytest --cov=src --cov-fail-under=90]
+    limitation_markers: [small, model-dependent, do not provide, not]
+  - id: method_kernel_identities
+    section: 02a_methodology_kernels_statistics_and_provenance.md
+    type: delivery
+    summary: Analytic kernel identities and test coverage status.
+    validators: [uv run pytest --cov=src --cov-fail-under=90]
+  - id: method_model_boundary
+    section: 02a_methodology_kernels_statistics_and_provenance.md
+    type: scope_limit
+    summary: Model-specific boundary separating tested mathematical behavior from biological, learner, and theory-level claims.
+    citations: [friston2017process, dacosta2020synthesis, aguilera2022particular, hodson2024empirical]
+    validators: [scripts/run_kernels.py, uv run pytest --cov=src --cov-fail-under=90]
+    limitation_markers: [model-specific, does not, not, assumptions]
+    allow_strong_words: [empirical]
+  - id: method_statistical_status
+    section: 02a_methodology_kernels_statistics_and_provenance.md
+    type: scope_limit
+    summary: Statistical status distinguishes deterministic artifacts from empirical inference.
+    limitation_markers: [does not report, not evidence, not]
+    allow_strong_words: [empirical, statistically]
+  - id: method_provenance_binding
+    section: 02a_methodology_kernels_statistics_and_provenance.md
+    type: delivery
+    summary: Claim registry, resolver and bare-number linter contract.
+    citations: [xie2015knitr, sandve2013reproducible]
+    validators: [scripts/run_kernels.py, scripts/validate_manuscript_variables.py]
+  - id: method_provenance_standards
+    section: 02a_methodology_kernels_statistics_and_provenance.md
+    type: literature
+    summary: W3C and RO-Crate workflow-provenance framing for entities, activities, agents, derivations, bundles and local artifact-chain boundaries.
+    citations: [groth2013prov_overview, moreau2013prov_dm, cheney2013prov_constraints, leo2024workflow_run_rocrate]
+    limitation_markers: [does not emit, validate against, roadmap-level]
+  - id: method_scholarship_matrix
+    section: 02b_methodology_scholarship_curriculum_and_strata.md
+    type: delivery
+    summary: Scholarship matrix and source-health gate methodology.
+    validators: [scripts/analyze_scholarship.py, scripts/validate_scholarship_sources.py]
+  - id: reproducibility_release_evidence
+    section: 06_reproducibility.md
+    type: delivery
+    summary: Local release-evidence ledger and release-readiness inventory gate.
+    citations: [sandve2013reproducible, wilson2014scientific_computing, munafo2017reproducible_science, wilkinson2016fair, nosek2015top, smith2016softwarecitation, citationfileformat2026, codemeta2026schema, github2026citingcontent, zenodo2026github, spdx2026mit, opensourceinitiative2026mit, reuse2024spec]
+    validators: [scripts/validate_release_readiness_inventory.py, scripts/validate_manuscript_artifacts.py, scripts/validate_rendered_freshness.py]
+    limitation_markers: [local, not, until, blockers, legal advice, relicense]
+  - id: method_curriculum_quality
+    section: 02b_methodology_scholarship_curriculum_and_strata.md
+    type: delivery
+    summary: Curriculum DAG, graph algorithm and quality-gate methodology.
+    citations: [cormen2022introduction, sarkka2013bayesian, tishby1999information, dayan1995helmholtz, friston2010generalised, doignon1985knowledge_spaces, falmagne2011learning_spaces]
+    validators: [scripts/build_curriculum.py]
+  - id: method_stratum_ordering
+    section: 02b_methodology_scholarship_curriculum_and_strata.md
+    type: literature
+    summary: Stratum ordering framed as an inspectable prerequisite-design choice with active-learning alternatives.
+    citations: [bloom1956taxonomy, bloom1968learning_for_mastery, liang2018prerequisite, bacon1620novum_organum, comenius1657great_didactic, locke1693education, clark2016surfing, dipaolo2024school, doignon1985knowledge_spaces, falmagne2011learning_spaces, fu2025curriculum_aware_gncd, hugo2026teacher_development, septiani2021gamified_microlearning, monib2024microlearning_boundaries, rof2024microlearning_satisfaction, freeman2014activelearning, emin2026epistemic_curiosity_mind_wandering, chi2014icap, roediger2006testenhanced, mislevy2003ecd, biggs1996constructive_alignment, black1998assessment, shute2008formative_feedback]
+    limitation_markers: [not as, design parameter, does not evaluate, infer learner states, cannot infer]
+    allow_strong_words: [empirically]
+  - id: method_skilltree_export
+    section: 02c_methodology_skilltree_dashboard_and_publication_surfaces.md
+    type: delivery
+    summary: SkillTree export and seeding order methodology.
+    validators: [scripts/export_skilltree.py]
+    allow_strong_words: [validated]
+  - id: method_dashboard_handoff
+    section: 02c_methodology_skilltree_dashboard_and_publication_surfaces.md
+    type: delivery
+    summary: Learner dashboard as local lesson surface plus read-only SkillTree handoff shell.
+    validators: [scripts/build_course_materials.py, scripts/serve_learner_dashboard.py, tests/test_course_materials.py, tests/test_dashboard.py]
+  - id: setup_learner_outcome_pilot
+    section: 05_experimental_setup.md
+    type: scope_limit
+    summary: Preregistered learner-outcome pilot design and no-efficacy-claim boundary.
+    citations: [freeman2014activelearning, chi2014icap, roediger2006testenhanced, mislevy2003ecd, black1998assessment, shute2008formative_feedback, monib2024microlearning_boundaries, rof2024microlearning_satisfaction, emin2026epistemic_curiosity_mind_wandering, designbasedresearchcollective2003, barab2004design_based, liu2025learning_analytics_intervention_meta, hernandezcampos2025_learning_analytics_outcomes, liu2023_learning_analytics_privacy, sclater2015learning_analytics_code, eldridge2016consort_pilot, hoffmann2014tidier]
+    validators: [scripts/validate_claim_support.py]
+    limitation_markers: [design-only, not as a result, does not report, no efficacy, privacy, data protection]
+  - id: method_cover_asset
+    section: 02c_methodology_skilltree_dashboard_and_publication_surfaces.md
+    type: delivery
+    summary: Generated cover and page-two atlas assets plus publication-asset audit methodology.
+    validators: [scripts/run_kernels.py, scripts/validate_manuscript_artifacts.py]
+  - id: results_curriculum_graph
+    section: 03a_results_curriculum_graph_and_assessment_quality.md
+    type: descriptive_count
+    summary: Results graph counts and curriculum-quality claim.
+    variables: [skill_count, subject_count, edge_count, max_depth]
+    figures: [fig:curriculum_dag]
+    validators: [scripts/build_curriculum.py]
+    allow_strong_words: [valid]
+  - id: results_dependency_flow
+    section: 03a_results_curriculum_graph_and_assessment_quality.md
+    type: visual
+    summary: Dependency-strata flow figure prevents backward-edge drift.
+    figures: [fig:dependency_strata_flow]
+  - id: results_graph_diagnostics
+    section: 03a_results_curriculum_graph_and_assessment_quality.md
+    type: visual
+    summary: Graph bottleneck and neighborhood diagnostic figures.
+    figures: [fig:graph_bottlenecks, fig:skill_neighborhood_paths]
+  - id: results_assessment_depth
+    section: 03a_results_curriculum_graph_and_assessment_quality.md
+    type: visual
+    summary: Assessment-depth heatmap demonstrates quiz-depth floor by stratum.
+    figures: [fig:assessment_depth]
+  - id: results_stratum_balance
+    section: 03a_results_curriculum_graph_and_assessment_quality.md
+    type: visual
+    summary: Stratum-balance audit figure for expansion distribution.
+    figures: [fig:stratum_balance]
+  - id: results_scholarship_coverage
+    section: 03b_results_scholarship_source_health_and_evidence_audits.md
+    type: descriptive_count
+    summary: Scholarship coverage count and source-lane figure.
+    variables: [citation_count]
+    figures: [fig:scholarship_coverage]
+    validators: [scripts/analyze_scholarship.py]
+  - id: results_open_science_sources
+    section: 03b_results_scholarship_source_health_and_evidence_audits.md
+    type: literature
+    summary: Requested Active Inference Institute education ecosystem citations.
+    citations: [activeinferenceinstitute2026courses, activeinferenceinstitute2026start, activeinferenceinstitute2026home, activeinferenceinstitute2026cognitive]
+  - id: results_source_health
+    section: 03b_results_scholarship_source_health_and_evidence_audits.md
+    type: visual
+    summary: Scholarship source-health figure and optional online currentness boundary.
+    figures: [fig:scholarship_source_health]
+  - id: results_validation_surface
+    section: 03b_results_scholarship_source_health_and_evidence_audits.md
+    type: visual
+    summary: Validation-surface matrix binds live counts to explicit gates.
+    figures: [fig:validation_surface_matrix]
+  - id: results_scientific_evidence_matrix
+    section: 03b_results_scholarship_source_health_and_evidence_audits.md
+    type: visual
+    summary: Evidence-taxonomy figure generated from claim-support anchors.
+    figures: [fig:scientific_evidence_matrix]
+    validators: [scripts/validate_claim_support.py]
+    allow_strong_words: [statistical]
+  - id: results_kernel_examples
+    section: 03c_results_kernel_examples.md
+    type: visual
+    summary: Kernel figures are supplemental walkthroughs rather than headline evidence.
+    figures: [fig:free_energy, fig:efe]
+  - id: results_export_delivery
+    section: 03d_results_skilltree_dashboard_and_front_matter_delivery.md
+    type: descriptive_count
+    summary: Export counts and validator-backed SkillTree handoff.
+    variables: [skill_count, subject_count, edge_count, quiz_count, assessment_count]
+    validators: [scripts/run_kernels.py, scripts/export_skilltree.py]
+  - id: results_dashboard_delivery
+    section: 03d_results_skilltree_dashboard_and_front_matter_delivery.md
+    type: delivery
+    summary: Dashboard status payload and official SkillTree handoff route behavior.
+    validators: [tests/test_dashboard.py, scripts/serve_learner_dashboard.py]
+  - id: results_captured_delivery_evidence
+    section: 03d_results_skilltree_dashboard_and_front_matter_delivery.md
+    type: visual
+    summary: Captured browser evidence for the delivery surface, marked as recordings rather than deterministic renders.
+    figures:
+      - fig:app_operational_snapshot
+      - fig:app_official_learner_view
+      - fig:app_curriculum_learn_material
+      - fig:app_dependency_graph
+      - fig:app_runtime_deployment_matrix
+  - id: results_cover_asset
+    section: 03d_results_skilltree_dashboard_and_front_matter_delivery.md
+    type: delivery
+    summary: Generated cover and page-two atlas are checked separately from registered manuscript figures.
+    validators: [scripts/run_kernels.py, scripts/validate_manuscript_artifacts.py]
+  - id: conclusion_evidence_status
+    section: 04_conclusion.md
+    type: delivery
+    summary: Conclusion states checked contracts rather than empirical learner outcomes.
+    validators: [scripts/build_curriculum.py, scripts/run_kernels.py]
+    allow_strong_words: [validated]
+  - id: conclusion_scholarship_thread
+    section: 04_conclusion.md
+    type: literature
+    summary: Conclusion links applications to cited predictive-processing and FEP sources.
+    citations: [rao1999predictive, friston2013life, ramstead2018answering, friston2019particular, piech2015deep_knowledge_tracing, tao2024q_matrix_constraint]
+    limitation_markers: [depend, not universal, comparison, not]
+    allow_strong_words: [empirical]
+  - id: conclusion_delivery
+    section: 04_conclusion.md
+    type: delivery
+    summary: Conclusion describes operational SkillTree export and dashboard inspection.
+    citations: [doignon1985knowledge_spaces, fu2025curriculum_aware_gncd, designbasedresearchcollective2003, liu2023_learning_analytics_privacy, piech2015deep_knowledge_tracing, tao2024q_matrix_constraint, activeinferenceinstitute2026website]
+    validators: [scripts/export_skilltree.py, tests/test_dashboard.py]
+    limitation_markers: [candidate foundation, not an adaptive system, require, not components, not an endorsement]
+    allow_strong_words: [validated]
+  - id: conclusion_roadmap
+    section: 04_conclusion.md
+    type: descriptive_count
+    summary: Current release-state paragraph is generated from roadmap variables.
+    variables: [roadmap_updated, roadmap_task_count, roadmap_completed_count, roadmap_open_count, roadmap_next_surfaces]
+    figures: [fig:roadmap_risk]
+    validators: [scripts/validate_roadmap.py]
+  - id: scope_platform_boundary
+    section: 07a_scope_platform_and_curriculum_boundaries.md
+    type: literature
+    summary: Platform boundary compared with production inference toolboxes.
+    citations: [heins2022pymdp, vanoostrum2025concise, friston2007variational, friston2008dem]
+    allow_strong_words: [validated]
+  - id: scope_curriculum_boundary
+    section: 07a_scope_platform_and_curriculum_boundaries.md
+    type: descriptive_count
+    summary: Scope boundary for broad curriculum and non-operational advice.
+    variables: [skill_count]
+  - id: related_fep_lineage
+    section: 07b_related_work_active_inference_and_information_sources.md
+    type: literature
+    summary: Related-work FEP lineage, POMDP formulation and epistemic-value sources.
+    citations: [helmholtz1867handbuch, knill2004bayesian, bogacz2017tutorial, sprevak2023predictive, friston2006free, friston2010free, friston2023simpler, zhang2024overview, buckley2017free, parr2022active, smith2022tutorial, pezzulo2024sentient_behavior, anokhin2024associative_active_inference, friston2017process, dacosta2020synthesis, friston2015epistemic, friston2017curiosity, millidge2021whence, sajid2021demystified, champion2026reframing, nuijten2026what_type_inference, nuijten2026efe_planning_vi, nuijten2025message_passing_efe]
+  - id: related_pre1800_foundations
+    section: 07b_related_work_active_inference_and_information_sources.md
+    type: literature
+    summary: Pre-1800 historical foundations for probability, perception, association, method, and sequenced learning, with explicit modern-FEP boundary.
+    citations: [bernoulli1713ars_conjectandi, demoivre1718doctrine_chances, bayes1763doctrine_chances, laplace1774inverse_probability, berkeley1709new_theory_vision, hume1739treatise, hume1748enquiry, condillac1754sensations, hartley1749observations, locke1690essay, kant1781critique_pure_reason, aristotle_posterior_analytics, bacon1620novum_organum, locke1693education, comenius1657great_didactic, alhazen1989optics_direct_vision, quintilian95institutio_oratoria, descartes1628rules_direction_mind, huygens1657ratiociniis, newton1704opticks, rousseau1762emile]
+    limitation_markers: [not as claims, before their mathematical formulations, weaker but useful, historical]
+  - id: related_fep_evidence_status
+    section: 07b_related_work_active_inference_and_information_sources.md
+    type: literature
+    summary: FEP critique and empirical-status paragraph support.
+    citations: [aguilera2022particular, aguilera2023confederation, hodson2024empirical, badcock2024psychology_psychiatry, gershman2019free, yuille2006vision_bayesian, clark2013predictive_brain, hohwy2013predictive_mind, kersten2004object_perception, bastos2012canonical_microcircuits, spratling2017predictive_algorithms, summerfield2014perceptual_decision, wei2015efficient_bayesian_perception, millidge2021predictive_coding_review, smith2020predictive_neurophysiology, seth2020predictive_consciousness]
+    limitation_markers: [scope, empirical-status, rather than, not]
+    allow_strong_words: [empirical]
+  - id: related_variational_information_sources
+    section: 07b_related_work_active_inference_and_information_sources.md
+    type: literature
+    summary: Information, variational, filtering and application source set.
+    citations: [shannon1948mathematical, cover2006elements, beal2003variational, tishby1999information, bishop2006pattern, jordan1999variational, winn2005variational, blei2017variational, sarkka2013bayesian, dayan1995helmholtz, rao1999predictive, friston2008hierarchical, friston2017graphical, friston2008dem, friston2010generalised, parr2019generalised, kataoka2026extended_predictive_coding, tschantz2023hybrid_predictive_coding, clark2016surfing, friston2013life, tschantz2020learning, ramstead2018answering, friston2019particular, greco2024predictive_learning_geometry, bagaev2023reactive_message_passing, bagaev2023rxinfer, nelson2025coupled_free_energy, rao2024active_predictive_coding, sennesh2024dcpc, isomura2023experimental, mackay2003information_inference, jaynes2003probability_logic, murphy2012probabilistic_ml, gelman2013bayesian_analysis, murphy2022probabilistic_ml, pezzulo2012cognitive_control, pezzulo2018hierarchical_active_inference, vilas2022active_consciousness, smith2021clinical_predictive_coding, pezzulo2023generating_meaning, watson2020active_control_inference, millidge2020active_control_relationship, schwartenbeck2015addiction_active_bayes, lanillos2021active_robotics_survey, catal2021robot_navigation_active_inference, queisser2021robot_active_inference, sales2019cognitive_flexibility_active_inference]
+    limitation_markers: [scope-extending scholarship, not as implemented kernels, learner-outcome evidence]
+    allow_strong_words: [experimental]
+  - id: related_skilltree_delivery
+    section: 07c_related_work_skilltree_security_reporting_and_open_science.md
+    type: literature
+    summary: SkillTree substrate and curriculum prerequisite learning sources.
+    citations: [skilltree2020nsa, skilltree2026docs, skilltree2026github, bloom1956taxonomy, bloom1968learning_for_mastery, liang2018prerequisite, doignon1985knowledge_spaces, falmagne2011learning_spaces, biggs1996constructive_alignment, black1998assessment, shute2008formative_feedback, dicheva2015gamification, burau2022deciduous, septiani2021gamified_microlearning]
+  - id: related_skilltree_security_posture
+    section: 07c_related_work_skilltree_security_reporting_and_open_science.md
+    type: literature
+    summary: NSA-origin SkillTree substrate and platform ownership boundary.
+    citations: [skilltree2020nsa, skilltree2026github, nsa2026opensource]
+  - id: related_national_security_boundary
+    section: 07c_related_work_skilltree_security_reporting_and_open_science.md
+    type: scope_limit
+    summary: National-security posture and misuse boundaries for educational delivery.
+    citations: [nist2020zerotrust, nist2022ssdf, slsa2026framework, sigstore2026overview, cisa2026sbom, mitre2026attack]
+    limitation_markers: [does not certify, harden, replace, imply NSA approval]
+  - id: related_reproducible_reporting
+    section: 07c_related_work_skilltree_security_reporting_and_open_science.md
+    type: literature
+    summary: Reproducible reporting, graph algorithms, color and alt-text guidance.
+    citations: [knuth1984literate, xie2015knitr, peng2011reproducible, sandve2013reproducible, wilson2014scientific_computing, groth2013prov_overview, moreau2013prov_dm, cheney2013prov_constraints, munafo2017reproducible_science, wilkinson2016fair, nosek2015top, cormen2022introduction, wong2011color, acm2023accessiblefigures, section508alttext, w3c2023wcag22]
+    allow_strong_words: [statistical]
+  - id: related_ip_license_boundary
+    section: 07c_related_work_skilltree_security_reporting_and_open_science.md
+    type: scope_limit
+    summary: License, citation metadata, DOI and third-party notice boundaries for static public review.
+    citations: [smith2016softwarecitation, citationfileformat2026, codemeta2026schema, github2026citingcontent, zenodo2026github, spdx2026mit, opensourceinitiative2026mit, reuse2024spec]
+    validators: [scripts/validate_release_readiness_inventory.py, scripts/validate_scholarship_sources.py]
+    limitation_markers: [not as scientific, legal advice, relicense, static review, production deployment]
+  - id: related_scholarship_audit
+    section: 07c_related_work_skilltree_security_reporting_and_open_science.md
+    type: delivery
+    summary: Source matrix role coverage beyond normal citation resolution.
+    validators: [scripts/analyze_scholarship.py, scripts/audit_scholarship_gaps.py]
+  - id: related_open_science_ecosystem
+    section: 07c_related_work_skilltree_security_reporting_and_open_science.md
+    type: literature
+    summary: Active Inference Institute open-science education ecosystem.
+    citations: [activeinferenceinstitute2026courses, activeinferenceinstitute2026start, activeinferenceinstitute2026home, activeinferenceinstitute2026cognitive, dipaolo2024school, activeinferenceinstitute2026website]
+    limitation_markers: [does not replace, not as copied prose, not an endorsement, not institutional]
+  - id: limitations_delivery_and_scope
+    section: 07d_limitations_delivery_dependencies_and_learner_outcomes.md
+    type: scope_limit
+    summary: Limitations of dashboard, live SkillTree, kernels and RL comparison.
+    citations: [bagaev2023reactive_message_passing, bagaev2023rxinfer, nelson2025coupled_free_energy, rao2024active_predictive_coding, sennesh2024dcpc, friston2008dem, friston2010generalised, parr2019generalised, levine2018probabilistic, badcock2024psychology_psychiatry, monib2024microlearning_boundaries, rof2024microlearning_satisfaction, emin2026epistemic_curiosity_mind_wandering, liu2025learning_analytics_intervention_meta, hernandezcampos2025_learning_analytics_outcomes, liu2023_learning_analytics_privacy, designbasedresearchcollective2003, barab2004design_based]
+    validators: [tests/test_skilltree_client.py, tests/test_dashboard.py]
+    limitation_markers: [does not provide, remain cited roadmap context, not learner-outcome evidence, privacy, data-protection]
+  - id: supplement_skilltree_bridge
+    section: 08_supplement_variational_free_energy.md
+    type: visual
+    summary: Generated SkillTree bridge tying VFE/EFE supplement figures to real subjects, skills, edges, quizzes and routes.
+    variables: [vfe_efe_skilltree_bridge_table]
+    citations: [buckley2017free, parr2022active, smith2022tutorial, millidge2021whence, champion2026reframing, nuijten2026what_type_inference, nuijten2026efe_planning_vi]
+    figures: [fig:vfe_efe_skilltree_bridge]
+    validators: [scripts/run_kernels.py, scripts/export_skilltree.py]
+    allow_strong_words: [validated]
+  - id: supplement_vfe_computed
+    section: 08_supplement_variational_free_energy.md
+    type: computed
+    summary: Noisy-sensor posterior, evidence probability and surprise claims.
+    claim_tokens: [bayes_posterior_present_given_positive, evidence_probability_positive, neg_log_evidence_positive]
+    citations: [cosmides1996intuitive, gigerenzer1995bayesian]
+  - id: supplement_vfe_sweep
+    section: 08_supplement_variational_free_energy.md
+    type: simulation
+    summary: VFE belief sweep and model-specific bound tightness figure.
+    claim_tokens: [vfe_descent_start, vfe_descent_end]
+    figures: [fig:free_energy]
+    allow_strong_words: [universal]
+  - id: supplement_efe_computed
+    section: 08_supplement_variational_free_energy.md
+    type: computed
+    summary: Expected-free-energy epistemic and policy claims.
+    claim_tokens: [efe_epistemic_uncertain, efe_epistemic_certain, agent_g_sample, agent_g_commit, agent_epistemic_sample, agent_epistemic_commit]
+    citations: [friston2015epistemic, friston2017curiosity, dacosta2020synthesis, sajid2021demystified, millidge2021whence, champion2026reframing, nuijten2026what_type_inference, nuijten2026efe_planning_vi]
+  - id: supplement_efe_boundary
+    section: 08_supplement_variational_free_energy.md
+    type: simulation
+    summary: Sensor precision sample/commit boundary and EFE figure.
+    claim_tokens: [agent_regime_switch_precision]
+    figures: [fig:efe]
+    citations: [millidge2021whence, champion2026reframing, nuijten2026what_type_inference, nuijten2026efe_planning_vi]
+    allow_strong_words: [universal]
+  - id: supplement_kernel_sensitivity
+    section: 08_supplement_variational_free_energy.md
+    type: visual
+    summary: Kernel sensitivity profiles for base rate, VFE and EFE regime boundaries.
+    figures: [fig:kernel_sensitivity_profiles]
+    allow_strong_words: [biological]
+  - id: supplement_message_passing
+    section: 08_supplement_variational_free_energy.md
+    type: computed
+    summary: Sum-product belief-propagation marginals on a three-node chain, exact vs brute force.
+    claim_tokens: [bp_marginal_observed_node_state0, bp_marginal_neighbor_node_state0, bp_smoothing_lift_over_prior]
+    citations: [kschischang2001factor_graphs, pearl1988probabilistic_reasoning, parr2022active, nuijten2025message_passing_efe]
+  - id: supplement_parameter_learning
+    section: 08_supplement_variational_free_energy.md
+    type: computed
+    summary: Dirichlet-conjugate parameter learning sharpening a sensor column from observed counts.
+    claim_tokens: [dirichlet_prior_mean_positive, dirichlet_posterior_mean_positive, dirichlet_expected_log_positive]
+    citations: [dacosta2020synthesis]
+  - id: supplement_model_reduction
+    section: 08_supplement_variational_free_energy.md
+    type: computed
+    summary: Bayesian model reduction log Bayes factor between full and reduced noisy-sensor models.
+    claim_tokens: [bmr_log_evidence_full, bmr_log_evidence_reduced, bmr_log_bayes_factor]
+    citations: [friston2018bayesian_model_reduction, parr2022active]
+  - id: supplement_efe_ambiguity
+    section: 08_supplement_variational_free_energy.md
+    type: computed
+    summary: State-dependent ambiguity term as expected likelihood entropy on an asymmetric sensor.
+    claim_tokens: [efe_ambiguity_crisp_state, efe_ambiguity_uniform_belief]
+    citations: [parr2022active, sajid2021demystified]
+  - id: supplement_multistep_planning
+    section: 08_supplement_variational_free_energy.md
+    type: simulation
+    summary: Multi-step policy posterior and measured greedy-vs-optimal look-ahead gain across coupled and decoupled models.
+    claim_tokens: [plan_greedy_policy_g, plan_optimal_policy_g, plan_lookahead_gain_coupled, plan_lookahead_gain_decoupled, plan_best_policy_posterior]
+    figures: [fig:planning_lookahead]
+    citations: [parr2022active, dacosta2020synthesis]
+  - id: supplement_predictive_coding
+    section: 08_supplement_variational_free_energy.md
+    type: simulation
+    summary: Continuous predictive-coding descent settling to the analytic Gaussian posterior with balanced precision-weighted prediction errors.
+    claim_tokens: [pc_observation, pc_posterior_estimate, pc_sensory_prediction_error, pc_prior_prediction_error]
+    figures: [fig:predictive_coding]
+    citations: [kalman1960linear_filtering, sarkka2013bayesian, buckley2017free, parr2022active, kataoka2026extended_predictive_coding]
+  - id: availability_artifact_scope
+    section: 09_code_and_data_availability.md
+    type: delivery
+    summary: Artifact contents, license, and third-party notice boundary.
+    validators: [scripts/validate_release_readiness_inventory.py, tests/test_publication_readiness.py]
+  - id: availability_public_target
+    section: 09_code_and_data_availability.md
+    type: delivery
+    summary: Public repository target exists but is unpublished; identifier fields stay blank and a test enforces it.
+    validators: [scripts/validate_release_readiness_inventory.py, tests/test_publication_readiness.py]
+  - id: availability_generated_artifacts
+    section: 09_code_and_data_availability.md
+    type: delivery
+    summary: Generated outputs are rebuilt from source; captured browser evidence is version-controlled with a provenance record.
+    validators: [scripts/run_kernels.py, scripts/capture_dashboard_screenshots.py]

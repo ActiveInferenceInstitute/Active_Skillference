@@ -1,0 +1,44 @@
+# Generated outputs ARE committed, so a reader can inspect the manuscript,
+# figures, exports and audits without installing anything or running the
+# pipeline. They remain fully regenerable — `scripts/run_kernels.py` and the
+# render pipeline rebuild them from source, and the freshness validator fails if
+# a committed artifact drifts from what the current source produces.
+#
+# The surrounding monorepo ignores output/ globally, so un-exclude it here first;
+# a repository-level .gitignore outranks core.excludesFile.
+!output/
+!output/**
+#
+# What stays out is build detritus with no reader value: LaTeX intermediates and
+# renderer logs, which change on every run and would churn the history.
+output/**/*.aux
+output/**/*.bbl
+output/**/*.blg
+output/**/*.fdb_latexmk
+output/**/*.fls
+output/**/*.log
+output/**/*.nav
+output/**/*.out
+output/**/*.snm
+output/**/*.toc
+.coverage
+.coverage.*
+# Coverage JSON export drifts the instant src/ changes (a committed copy reported
+# 98.85% while measuring only 16 of 78 tracked files). Regenerate on demand via
+# `uv run pytest --cov=src --cov-report=json:coverage_project.json`; never commit it.
+coverage_project.json
+.pytest_cache/
+__pycache__/
+*.pyc
+.benchmarks/
+tmp/
+.playwright-cli/
+
+# Egg-info from local installs (any location — guards against renamed-fork drift).
+**/*.egg-info/
+
+# Project-local virtualenvs (root .venv is shared)
+.venv/
+
+# Local SkillTree bootstrap credentials and trusted-client secrets.
+.active_skillference_local/

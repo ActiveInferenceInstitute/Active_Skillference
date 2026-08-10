@@ -1,0 +1,39 @@
+{
+  "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
+  "@type": "SoftwareSourceCode",
+  "author": [
+    {
+      "@id": "https://orcid.org/0000-0001-6232-9096",
+      "@type": "Person",
+      "affiliation": {
+        "@type": "Organization",
+        "name": "Active Inference Institute"
+      },
+      "familyName": "Friedman",
+      "givenName": "Daniel Ari"
+    }
+  ],
+  "codeRepository": "https://github.com/ActiveInferenceInstitute/Active_Skillference",
+  "dateModified": "2026-08-09",
+  "datePublished": "2026-08-09",
+  "description": "Active Inference and the Free Energy Principle (FEP) provide model-based accounts of belief updating, learning, and action under uncertainty. We present Active Skillference, a provenance-bound curriculum-generation and SkillTree-export system for teaching those formal ideas. The paper evaluates structural validity, quantitative provenance, citation-role coverage, and artifact reproducibility; it does not evaluate learner outcomes, establish a new theory of Active Inference, or present an intelligent tutoring system.",
+  "identifier": "https://doi.org/10.5281/zenodo.21865644",
+  "keywords": [
+    "active inference",
+    "free energy principle",
+    "variational inference",
+    "Bayesian inference",
+    "information theory",
+    "curriculum",
+    "prerequisite graph",
+    "knowledge graph",
+    "SkillTree",
+    "computational provenance",
+    "micro-learning",
+    "reproducible research"
+  ],
+  "license": "https://spdx.org/licenses/MIT",
+  "name": "Active Skillference: A Validated Prerequisite Graph, Computational Claim Registry, and SkillTree Delivery Contract",
+  "url": "https://github.com/ActiveInferenceInstitute/Active_Skillference",
+  "version": "1.0.1"
+}

@@ -1,0 +1,13 @@
+\frametitle{Limitations and planned empirical evaluation}
+The limitations are therefore substantive rather than cosmetic. The
+kernels cover fixed, small discrete teaching cases and bounded
+predictive-coding or planning demonstrations; their conclusions depend
+on the stated model, preferences, inputs, and approximation regime. The
+runtime depends on SkillTree for live progress and quiz state, and this
+release contains no learner-response data, learner-state inference,
+retention measure, transfer measure, efficacy estimate, or
+differential-benefit analysis. The planned pilot described in
+sec.~13 and
+the fuller boundary analysis in
+sec.~19 define
+the evidence needed before those claims can be made.

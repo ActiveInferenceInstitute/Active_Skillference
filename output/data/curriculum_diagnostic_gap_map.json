@@ -1,0 +1,529 @@
+{
+  "assessmentBalance": [
+    {
+      "belowFloorSkills": 0,
+      "minQuestions": 4,
+      "questions": 324,
+      "questionsPerSkill": 4.0,
+      "review": "pass",
+      "skills": 81,
+      "status": "pass",
+      "stratum": "math_foundations"
+    },
+    {
+      "belowFloorSkills": 0,
+      "minQuestions": 4,
+      "questions": 268,
+      "questionsPerSkill": 4.0,
+      "review": "pass",
+      "skills": 67,
+      "status": "pass",
+      "stratum": "probability"
+    },
+    {
+      "belowFloorSkills": 0,
+      "minQuestions": 4,
+      "questions": 288,
+      "questionsPerSkill": 4.0,
+      "review": "pass",
+      "skills": 72,
+      "status": "pass",
+      "stratum": "information_theory"
+    },
+    {
+      "belowFloorSkills": 0,
+      "minQuestions": 4,
+      "questions": 268,
+      "questionsPerSkill": 4.0,
+      "review": "pass",
+      "skills": 67,
+      "status": "pass",
+      "stratum": "variational_methods"
+    },
+    {
+      "belowFloorSkills": 0,
+      "minQuestions": 4,
+      "questions": 232,
+      "questionsPerSkill": 4.0,
+      "review": "pass",
+      "skills": 58,
+      "status": "pass",
+      "stratum": "free_energy_principle"
+    },
+    {
+      "belowFloorSkills": 0,
+      "minQuestions": 4,
+      "questions": 424,
+      "questionsPerSkill": 4.0,
+      "review": "pass",
+      "skills": 106,
+      "status": "pass",
+      "stratum": "active_inference"
+    },
+    {
+      "belowFloorSkills": 0,
+      "minQuestions": 4,
+      "questions": 376,
+      "questionsPerSkill": 4.0,
+      "review": "pass",
+      "skills": 94,
+      "status": "pass",
+      "stratum": "computation"
+    },
+    {
+      "belowFloorSkills": 0,
+      "minQuestions": 4,
+      "questions": 340,
+      "questionsPerSkill": 4.0,
+      "review": "pass",
+      "skills": 85,
+      "status": "pass",
+      "stratum": "applications"
+    }
+  ],
+  "bottlenecks": [
+    {
+      "depth": 0,
+      "directDependentCount": 11,
+      "downstreamDependentCount": 585,
+      "name": "Sets & Functions",
+      "prerequisiteCount": 0,
+      "rank": 1,
+      "reviewReason": "High downstream fan-out; explanation, quiz and prerequisite text have broad blast radius.",
+      "skillId": "m_sets",
+      "stratum": "math_foundations",
+      "subjectId": "sub_linalg",
+      "subjectName": "Linear Algebra & Calculus"
+    },
+    {
+      "depth": 1,
+      "directDependentCount": 4,
+      "downstreamDependentCount": 572,
+      "name": "Vectors & Vector Spaces",
+      "prerequisiteCount": 1,
+      "rank": 2,
+      "reviewReason": "High downstream fan-out; explanation, quiz and prerequisite text have broad blast radius.",
+      "skillId": "m_vectors",
+      "stratum": "math_foundations",
+      "subjectId": "sub_linalg",
+      "subjectName": "Linear Algebra & Calculus"
+    },
+    {
+      "depth": 0,
+      "directDependentCount": 1,
+      "downstreamDependentCount": 548,
+      "name": "Probability Axioms",
+      "prerequisiteCount": 0,
+      "rank": 3,
+      "reviewReason": "High downstream fan-out; explanation, quiz and prerequisite text have broad blast radius.",
+      "skillId": "p_axioms",
+      "stratum": "probability",
+      "subjectId": "sub_prob_found",
+      "subjectName": "Probability Foundations"
+    },
+    {
+      "depth": 1,
+      "directDependentCount": 3,
+      "downstreamDependentCount": 547,
+      "name": "Random Variables",
+      "prerequisiteCount": 1,
+      "rank": 4,
+      "reviewReason": "High downstream fan-out; explanation, quiz and prerequisite text have broad blast radius.",
+      "skillId": "p_random_var",
+      "stratum": "probability",
+      "subjectId": "sub_prob_found",
+      "subjectName": "Probability Foundations"
+    },
+    {
+      "depth": 2,
+      "directDependentCount": 7,
+      "downstreamDependentCount": 530,
+      "name": "Matrices & Matrix Multiplication",
+      "prerequisiteCount": 1,
+      "rank": 5,
+      "reviewReason": "High downstream fan-out; explanation, quiz and prerequisite text have broad blast radius.",
+      "skillId": "m_matrix",
+      "stratum": "math_foundations",
+      "subjectId": "sub_linalg",
+      "subjectName": "Linear Algebra & Calculus"
+    },
+    {
+      "depth": 2,
+      "directDependentCount": 5,
+      "downstreamDependentCount": 530,
+      "name": "Joint, Marginal & Conditional",
+      "prerequisiteCount": 1,
+      "rank": 6,
+      "reviewReason": "High downstream fan-out; explanation, quiz and prerequisite text have broad blast radius.",
+      "skillId": "p_joint_marginal",
+      "stratum": "probability",
+      "subjectId": "sub_prob_found",
+      "subjectName": "Probability Foundations"
+    },
+    {
+      "depth": 1,
+      "directDependentCount": 3,
+      "downstreamDependentCount": 525,
+      "name": "Limits & Continuity",
+      "prerequisiteCount": 1,
+      "rank": 7,
+      "reviewReason": "High downstream fan-out; explanation, quiz and prerequisite text have broad blast radius.",
+      "skillId": "m_functions_real",
+      "stratum": "math_foundations",
+      "subjectId": "sub_linalg",
+      "subjectName": "Linear Algebra & Calculus"
+    },
+    {
+      "depth": 3,
+      "directDependentCount": 23,
+      "downstreamDependentCount": 520,
+      "name": "Bayes' Theorem",
+      "prerequisiteCount": 1,
+      "rank": 8,
+      "reviewReason": "High downstream fan-out; explanation, quiz and prerequisite text have broad blast radius.",
+      "skillId": "p_bayes_theorem",
+      "stratum": "probability",
+      "subjectId": "sub_prob_found",
+      "subjectName": "Probability Foundations"
+    },
+    {
+      "depth": 2,
+      "directDependentCount": 11,
+      "downstreamDependentCount": 511,
+      "name": "Derivatives & Gradients",
+      "prerequisiteCount": 2,
+      "rank": 9,
+      "reviewReason": "High downstream fan-out; explanation, quiz and prerequisite text have broad blast radius.",
+      "skillId": "m_derivative",
+      "stratum": "math_foundations",
+      "subjectId": "sub_optimisation",
+      "subjectName": "Optimisation & Variational Calculus"
+    },
+    {
+      "depth": 2,
+      "directDependentCount": 2,
+      "downstreamDependentCount": 508,
+      "name": "Inner Products & Norms",
+      "prerequisiteCount": 1,
+      "rank": 10,
+      "reviewReason": "High downstream fan-out; explanation, quiz and prerequisite text have broad blast radius.",
+      "skillId": "m_dotproduct",
+      "stratum": "math_foundations",
+      "subjectId": "sub_linalg",
+      "subjectName": "Linear Algebra & Calculus"
+    },
+    {
+      "depth": 3,
+      "directDependentCount": 3,
+      "downstreamDependentCount": 501,
+      "name": "Eigenvalues & Positive-Definiteness",
+      "prerequisiteCount": 1,
+      "rank": 11,
+      "reviewReason": "High downstream fan-out; explanation, quiz and prerequisite text have broad blast radius.",
+      "skillId": "m_eigen",
+      "stratum": "math_foundations",
+      "subjectId": "sub_linalg",
+      "subjectName": "Linear Algebra & Calculus"
+    },
+    {
+      "depth": 3,
+      "directDependentCount": 1,
+      "downstreamDependentCount": 501,
+      "name": "The Chain Rule",
+      "prerequisiteCount": 1,
+      "rank": 12,
+      "reviewReason": "High downstream fan-out; explanation, quiz and prerequisite text have broad blast radius.",
+      "skillId": "m_chain_rule",
+      "stratum": "math_foundations",
+      "subjectId": "sub_optimisation",
+      "subjectName": "Optimisation & Variational Calculus"
+    }
+  ],
+  "claimBoundary": "Diagnostic maintenance map only; it ranks generated curriculum surfaces and does not report learner performance or empirical efficacy.",
+  "longChains": [
+    {
+      "depth": 75,
+      "downstreamDependentCount": 0,
+      "name": "Applications Capstone Mastery Packet",
+      "prerequisiteCount": 2,
+      "rank": 1,
+      "reviewReason": "Deep dependency position; add bridge examples when learners cross strata or dense prerequisite clusters.",
+      "skillId": "mastery_applications_08",
+      "stratum": "applications",
+      "subjectId": "sub_skilltree_mastery_applications",
+      "subjectName": "SkillTree Mastery: Applied Contracts"
+    },
+    {
+      "depth": 74,
+      "downstreamDependentCount": 1,
+      "name": "Applications SkillTree Route Handoff",
+      "prerequisiteCount": 2,
+      "rank": 2,
+      "reviewReason": "Deep dependency position; add bridge examples when learners cross strata or dense prerequisite clusters.",
+      "skillId": "mastery_applications_07",
+      "stratum": "applications",
+      "subjectId": "sub_skilltree_mastery_applications",
+      "subjectName": "SkillTree Mastery: Applied Contracts"
+    },
+    {
+      "depth": 73,
+      "downstreamDependentCount": 2,
+      "name": "Applications Dependency Handoff Review",
+      "prerequisiteCount": 2,
+      "rank": 3,
+      "reviewReason": "Deep dependency position; add bridge examples when learners cross strata or dense prerequisite clusters.",
+      "skillId": "mastery_applications_06",
+      "stratum": "applications",
+      "subjectId": "sub_skilltree_mastery_applications",
+      "subjectName": "SkillTree Mastery: Applied Contracts"
+    },
+    {
+      "depth": 72,
+      "downstreamDependentCount": 3,
+      "name": "Applications Quiz-Authoring Review",
+      "prerequisiteCount": 2,
+      "rank": 4,
+      "reviewReason": "Deep dependency position; add bridge examples when learners cross strata or dense prerequisite clusters.",
+      "skillId": "mastery_applications_05",
+      "stratum": "applications",
+      "subjectId": "sub_skilltree_mastery_applications",
+      "subjectName": "SkillTree Mastery: Applied Contracts"
+    },
+    {
+      "depth": 71,
+      "downstreamDependentCount": 4,
+      "name": "Applications Counterexample and Misuse Review",
+      "prerequisiteCount": 2,
+      "rank": 5,
+      "reviewReason": "Deep dependency position; add bridge examples when learners cross strata or dense prerequisite clusters.",
+      "skillId": "mastery_applications_04",
+      "stratum": "applications",
+      "subjectId": "sub_skilltree_mastery_applications",
+      "subjectName": "SkillTree Mastery: Applied Contracts"
+    },
+    {
+      "depth": 70,
+      "downstreamDependentCount": 5,
+      "name": "Applications Worked-Example Translation",
+      "prerequisiteCount": 2,
+      "rank": 6,
+      "reviewReason": "Deep dependency position; add bridge examples when learners cross strata or dense prerequisite clusters.",
+      "skillId": "mastery_applications_03",
+      "stratum": "applications",
+      "subjectId": "sub_skilltree_mastery_applications",
+      "subjectName": "SkillTree Mastery: Applied Contracts"
+    },
+    {
+      "depth": 69,
+      "downstreamDependentCount": 6,
+      "name": "Applications Core Concept Discriminator",
+      "prerequisiteCount": 2,
+      "rank": 7,
+      "reviewReason": "Deep dependency position; add bridge examples when learners cross strata or dense prerequisite clusters.",
+      "skillId": "mastery_applications_02",
+      "stratum": "applications",
+      "subjectId": "sub_skilltree_mastery_applications",
+      "subjectName": "SkillTree Mastery: Applied Contracts"
+    },
+    {
+      "depth": 68,
+      "downstreamDependentCount": 7,
+      "name": "Applications Prerequisite Map Lab",
+      "prerequisiteCount": 3,
+      "rank": 8,
+      "reviewReason": "Deep dependency position; add bridge examples when learners cross strata or dense prerequisite clusters.",
+      "skillId": "mastery_applications_01",
+      "stratum": "applications",
+      "subjectId": "sub_skilltree_mastery_applications",
+      "subjectName": "SkillTree Mastery: Applied Contracts"
+    },
+    {
+      "depth": 67,
+      "downstreamDependentCount": 8,
+      "name": "Computation Capstone Mastery Packet",
+      "prerequisiteCount": 2,
+      "rank": 9,
+      "reviewReason": "Deep dependency position; add bridge examples when learners cross strata or dense prerequisite clusters.",
+      "skillId": "mastery_computation_08",
+      "stratum": "computation",
+      "subjectId": "sub_skilltree_mastery_computation",
+      "subjectName": "SkillTree Mastery: Computational Contracts"
+    },
+    {
+      "depth": 66,
+      "downstreamDependentCount": 9,
+      "name": "Computation SkillTree Route Handoff",
+      "prerequisiteCount": 2,
+      "rank": 10,
+      "reviewReason": "Deep dependency position; add bridge examples when learners cross strata or dense prerequisite clusters.",
+      "skillId": "mastery_computation_07",
+      "stratum": "computation",
+      "subjectId": "sub_skilltree_mastery_computation",
+      "subjectName": "SkillTree Mastery: Computational Contracts"
+    },
+    {
+      "depth": 65,
+      "downstreamDependentCount": 10,
+      "name": "Computation Dependency Handoff Review",
+      "prerequisiteCount": 2,
+      "rank": 11,
+      "reviewReason": "Deep dependency position; add bridge examples when learners cross strata or dense prerequisite clusters.",
+      "skillId": "mastery_computation_06",
+      "stratum": "computation",
+      "subjectId": "sub_skilltree_mastery_computation",
+      "subjectName": "SkillTree Mastery: Computational Contracts"
+    },
+    {
+      "depth": 64,
+      "downstreamDependentCount": 11,
+      "name": "Computation Quiz-Authoring Review",
+      "prerequisiteCount": 2,
+      "rank": 12,
+      "reviewReason": "Deep dependency position; add bridge examples when learners cross strata or dense prerequisite clusters.",
+      "skillId": "mastery_computation_05",
+      "stratum": "computation",
+      "subjectId": "sub_skilltree_mastery_computation",
+      "subjectName": "SkillTree Mastery: Computational Contracts"
+    }
+  ],
+  "remediationQueue": [
+    {
+      "action": "review high-fan-out explanation and quiz handoff",
+      "priority": 1,
+      "reason": "High downstream fan-out; explanation, quiz and prerequisite text have broad blast radius.",
+      "skillId": "m_sets",
+      "stratum": "math_foundations",
+      "surface": "curriculum"
+    },
+    {
+      "action": "review high-fan-out explanation and quiz handoff",
+      "priority": 2,
+      "reason": "High downstream fan-out; explanation, quiz and prerequisite text have broad blast radius.",
+      "skillId": "m_vectors",
+      "stratum": "math_foundations",
+      "surface": "curriculum"
+    },
+    {
+      "action": "review high-fan-out explanation and quiz handoff",
+      "priority": 3,
+      "reason": "High downstream fan-out; explanation, quiz and prerequisite text have broad blast radius.",
+      "skillId": "p_axioms",
+      "stratum": "probability",
+      "surface": "curriculum"
+    },
+    {
+      "action": "review high-fan-out explanation and quiz handoff",
+      "priority": 4,
+      "reason": "High downstream fan-out; explanation, quiz and prerequisite text have broad blast radius.",
+      "skillId": "p_random_var",
+      "stratum": "probability",
+      "surface": "curriculum"
+    },
+    {
+      "action": "review high-fan-out explanation and quiz handoff",
+      "priority": 5,
+      "reason": "High downstream fan-out; explanation, quiz and prerequisite text have broad blast radius.",
+      "skillId": "m_matrix",
+      "stratum": "math_foundations",
+      "surface": "curriculum"
+    },
+    {
+      "action": "review high-fan-out explanation and quiz handoff",
+      "priority": 6,
+      "reason": "High downstream fan-out; explanation, quiz and prerequisite text have broad blast radius.",
+      "skillId": "p_joint_marginal",
+      "stratum": "probability",
+      "surface": "curriculum"
+    },
+    {
+      "action": "review high-fan-out explanation and quiz handoff",
+      "priority": 7,
+      "reason": "High downstream fan-out; explanation, quiz and prerequisite text have broad blast radius.",
+      "skillId": "m_functions_real",
+      "stratum": "math_foundations",
+      "surface": "curriculum"
+    },
+    {
+      "action": "review high-fan-out explanation and quiz handoff",
+      "priority": 8,
+      "reason": "High downstream fan-out; explanation, quiz and prerequisite text have broad blast radius.",
+      "skillId": "p_bayes_theorem",
+      "stratum": "probability",
+      "surface": "curriculum"
+    },
+    {
+      "action": "add bridge wording or local example for deep chain position",
+      "priority": 9,
+      "reason": "Deep dependency position; add bridge examples when learners cross strata or dense prerequisite clusters.",
+      "skillId": "mastery_applications_08",
+      "stratum": "applications",
+      "surface": "curriculum"
+    },
+    {
+      "action": "add bridge wording or local example for deep chain position",
+      "priority": 10,
+      "reason": "Deep dependency position; add bridge examples when learners cross strata or dense prerequisite clusters.",
+      "skillId": "mastery_applications_07",
+      "stratum": "applications",
+      "surface": "curriculum"
+    },
+    {
+      "action": "add bridge wording or local example for deep chain position",
+      "priority": 11,
+      "reason": "Deep dependency position; add bridge examples when learners cross strata or dense prerequisite clusters.",
+      "skillId": "mastery_applications_06",
+      "stratum": "applications",
+      "surface": "curriculum"
+    },
+    {
+      "action": "add bridge wording or local example for deep chain position",
+      "priority": 12,
+      "reason": "Deep dependency position; add bridge examples when learners cross strata or dense prerequisite clusters.",
+      "skillId": "mastery_applications_05",
+      "stratum": "applications",
+      "surface": "curriculum"
+    },
+    {
+      "action": "add bridge wording or local example for deep chain position",
+      "priority": 13,
+      "reason": "Deep dependency position; add bridge examples when learners cross strata or dense prerequisite clusters.",
+      "skillId": "mastery_applications_04",
+      "stratum": "applications",
+      "surface": "curriculum"
+    },
+    {
+      "action": "add bridge wording or local example for deep chain position",
+      "priority": 14,
+      "reason": "Deep dependency position; add bridge examples when learners cross strata or dense prerequisite clusters.",
+      "skillId": "mastery_applications_03",
+      "stratum": "applications",
+      "surface": "curriculum"
+    },
+    {
+      "action": "add bridge wording or local example for deep chain position",
+      "priority": 15,
+      "reason": "Deep dependency position; add bridge examples when learners cross strata or dense prerequisite clusters.",
+      "skillId": "mastery_applications_02",
+      "stratum": "applications",
+      "surface": "curriculum"
+    },
+    {
+      "action": "add bridge wording or local example for deep chain position",
+      "priority": 16,
+      "reason": "Deep dependency position; add bridge examples when learners cross strata or dense prerequisite clusters.",
+      "skillId": "mastery_applications_01",
+      "stratum": "applications",
+      "surface": "curriculum"
+    }
+  ],
+  "summary": {
+    "assessmentWarningCount": 0,
+    "bottleneckCount": 12,
+    "dependencies": 1199,
+    "longPathCount": 12,
+    "maxDepth": 75,
+    "remediationCandidates": 16,
+    "skills": 630,
+    "subjects": 111
+  }
+}

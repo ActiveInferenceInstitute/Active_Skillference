@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.10.1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>04_conclusion.md.web</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      white-space: pre-wrap;
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+
+<link data-template-favicon rel="icon" href="favicon.ico">
+
+<style>
+:root {
+  --brand-1: #5b6ee0;
+  --web-bg: #f8f8f8;
+  --web-surface: #ffffff;
+  --web-text: #2c3e50;
+  --web-border: #bdc3c7;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --brand-1: #7e8ce8;
+    --web-bg: #0f1420;
+    --web-surface: #161c2b;
+    --web-text: #e6eaf2;
+    --web-border: #2a3447;
+  }
+}
+.theorem-box {
+  border-left: 4px solid var(--brand-1);
+  background: var(--web-surface);
+  padding: 0.6em 1em;
+  margin: 1.1em 0;
+  border-radius: 0 4px 4px 0;
+}
+.theorem-box.definition { border-left-style: dashed; }
+.theorem-box > p:first-child { margin-top: 0; }
+.theorem-box > p:last-child { margin-bottom: 0; }
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  max-width: 100%;
+}
+
+body {
+  font-family: 'Liberation Serif', 'Times New Roman', serif;
+  line-height: 1.6;
+  width: min(100%, 800px);
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f8f8f8;
+  color: #1a1a1a;
+  overflow-x: visible;
+}
+
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  padding: 0.65rem 0.9rem;
+  transform: translateY(-120%);
+  background-color: #1a1a1a;
+  color: #ffffff;
+  font-family: sans-serif;
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.skip-link:visited {
+  color: #ffffff;
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
+@media (max-width: 600px) {
+  body {
+    width: 100%;
+    max-width: 100%;
+    padding: 16px;
+  }
+
+  figure img {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 800px) {
+  body {
+    width: 100%;
+    max-width: 100vw;
+    margin: 0 auto;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #2c3e50;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 5px;
+  overflow-wrap: anywhere;
+}
+
+code {
+  background-color: #ecf0f1;
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-family: 'Liberation Mono', 'Courier New', monospace;
+}
+
+pre {
+  background-color: #2c3e50;
+  color: #ecf0f1;
+  padding: 15px;
+  border-radius: 5px;
+  overflow-x: auto;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 20px 0;
+}
+
+figure {
+  max-width: 100%;
+  margin: 1.5rem 0;
+}
+
+th, td {
+  border: 1px solid #bdc3c7;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #1f6f8b;
+  color: white;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid #bdc3c7;
+  border-radius: 5px;
+  margin: 20px 0;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+a {
+  color: #b91c1c;
+  text-decoration: underline;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.14em;
+  overflow-wrap: anywhere;
+}
+
+a:visited {
+  color: #8f1d1d;
+}
+
+a:hover {
+  text-decoration-thickness: 0.14em;
+}
+
+a:focus-visible {
+  outline: 3px solid #1f6f8b;
+  outline-offset: 3px;
+}
+
+.toc {
+  background-color: #ecf0f1;
+  padding: 20px;
+  border-radius: 5px;
+  margin-bottom: 30px;
+}
+
+.toc a,
+#TOC a {
+  color: #b91c1c;
+  display: inline-block;
+  min-height: 28px;
+  line-height: 1.5;
+  padding-block: 2px;
+}
+
+.toc li,
+#TOC li {
+  margin-block: 1px;
+}
+
+.math {
+  text-align: center;
+  margin: 20px 0;
+  font-size: 1.1em;
+}
+
+mjx-container[display="true"] {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 0.25rem;
+}
+
+.figure {
+  text-align: center;
+  margin: 30px 0;
+}
+
+.figure img {
+  max-width: 100%;
+  height: auto;
+  border: 2px solid #3498db;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* A reading column keeps prose comfortable, but dense scientific figures need
+   a larger inspection surface.  The rendered image remains responsive and the
+   explicit link opens its source-resolution asset without changing the PDF. */
+.figure-full-size-link {
+  color: inherit;
+  display: block;
+  max-width: 100%;
+  text-align: center;
+}
+
+.figure-full-size-link img {
+  cursor: zoom-in;
+  margin-bottom: 0.45rem;
+}
+
+.figure-full-size-label {
+  color: #1f6f8b;
+  display: inline-block;
+  font-family: sans-serif;
+  font-size: 0.875rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+  text-decoration: underline;
+  text-underline-offset: 0.14em;
+}
+
+.figure-full-size-link:focus-visible {
+  outline: 3px solid #1f6f8b;
+  outline-offset: 4px;
+}
+
+@media (min-width: 1000px) {
+  .figure-full-size-link {
+    left: 50%;
+    max-width: none;
+    position: relative;
+    transform: translateX(-50%);
+    width: min(1080px, calc(100vw - 3rem));
+  }
+}
+
+.figure-caption {
+  font-style: italic;
+  color: #4b5563;
+  margin-top: 10px;
+  text-align: center;
+}
+
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<main id="main-content" tabindex="-1">
+<h1
+id="discussion-and-conclusion-what-the-artifact-establishesand-what-it-does-not">Discussion
+and Conclusion: What the Artifact Establishes—and What It Does Not</h1>
+<h2
+id="principal-findings-a-claim-calibrated-curriculum-artifact">Principal
+findings: a claim-calibrated curriculum artifact</h2>
+<!-- claim-support:conclusion_evidence_status -->
+<p>Active Skillference establishes a bounded engineering result: a
+contested formal subject can be represented as an inspectable
+prerequisite graph whose structural, quantitative, scholarly, and
+delivery contracts are checked separately. The curriculum graph is a
+validated DAG; learner-facing computed values are resolved from tested
+kernels; citations are assigned source roles; and generated figures,
+manuscript references, and SkillTree payloads are audited as connected
+artifacts. These are properties of this checkout and its build process,
+not evidence that the selected order is optimal for every learner or
+that the underlying scientific framework is empirically confirmed.</p>
+<h2
+id="interpretation-infrastructure-rather-than-intelligence-or-personalization">Interpretation:
+infrastructure rather than intelligence or personalization</h2>
+<!-- claim-support:conclusion_scholarship_thread -->
+<p>The mathematical examples and the curriculum infrastructure operate
+at different levels. The kernels implement small, model-dependent
+demonstrations of inference and policy evaluation. The curriculum layer
+orders and assesses concepts. The provenance layer records how values
+and sources enter the learner-facing artifact. None of these layers is
+an intelligent tutor, a general-purpose reasoning system, or an adaptive
+learner model. In particular, the term <em>agent</em> in the
+mathematical examples refers to a formal model with specified states,
+observations, preferences, and policies; it should not be read as a
+claim about consciousness, general intelligence, autonomy, or human-like
+learning.</p>
+<p>The related-work literature supports this separation. Active
+Inference formulations can connect belief updating, action selection,
+learning, and epistemic behavior, but their predictions depend on the
+generative model, preferences, approximation, and policy set
+[rao1999predictive; friston2013life; ramstead2018answering;
+friston2019particular]. The supplement therefore keeps the VFE/EFE
+derivations, sign conventions, and preference assumptions visible
+instead of treating one computed policy comparison as a universal
+account of intelligent behavior. Learner-state models such as knowledge
+tracing and Q-matrix cognitive diagnosis belong to a separate
+adaptive-learning evidence layer and are cited here as comparison
+boundaries, not as components of this artifact
+[piech2015deep_knowledge_tracing; tao2024q_matrix_constraint].</p>
+<h2
+id="implications-future-adaptive-learning-systems-and-open-science-interoperability">Implications:
+future adaptive learning systems and open-science interoperability</h2>
+<!-- claim-support:conclusion_delivery -->
+<p>The delivery contract is useful precisely because it does not hide
+ownership boundaries. The exporter creates a SkillTree-compatible
+Project -&gt; Subject -&gt; Skill profile with learning-path
+dependencies and quiz associations. The local dashboard exposes
+generated artifacts and opens official subject and quiz routes, while
+SkillTree remains the owner of progress, ranking, scoring, completion,
+and authentication. This makes the repository a candidate foundation for
+a later adaptive study, not an adaptive system in the present
+release.</p>
+<p>A genuinely adaptive extension would require learner response data, a
+validated model of learner state, a transparent rule for selecting the
+next skill, item-level measurement, privacy and consent controls, and
+prospective evaluation against a preregistered comparator
+[doignon1985knowledge_spaces; fu2025curriculum_aware_gncd;
+designbasedresearchcollective2003; liu2023_learning_analytics_privacy;
+piech2015deep_knowledge_tracing; tao2024q_matrix_constraint]. Knowledge
+tracing and Q-matrix cognitive diagnosis are comparison literatures for
+those stronger commitments, not components of the present export.
+Provenance and graph validation would remain necessary infrastructure,
+but they would not by themselves establish personalization quality or
+learning effectiveness.</p>
+<p>The community contribution should be read at the same bounded level.
+The Active Inference Institute’s public website repository presents a
+public resource hub for learning, research, participation, and
+contribution, with public repositories and a documented boundary between
+internal inputs and verified public projections
+[activeinferenceinstitute2026website]. Active Skillference contributes a
+complementary artifact to that open-science environment: it packages a
+prerequisite graph, kernel-backed examples, source-role audit, and
+SkillTree handoff into a rerunnable educational release. The
+relationship is interoperable and community-facing, not institutional:
+this repository does not claim to be an Institute product, an official
+curriculum, or an endorsement of any contributor or public pathway.</p>
+<h2 id="limitations-and-planned-empirical-evaluation">Limitations and
+planned empirical evaluation</h2>
+<!-- claim-support:conclusion_roadmap -->
+<p>The release state is machine-readable. As of 2026-07-31,
+<code>tasks.yaml</code> records 78 roadmap tasks: 74 completed
+milestones and 4 open items across metadata, skilltree, validation.
+<code>TODO.md</code> is rendered from the same source. <span
+class="citation"
+data-cites="fig:roadmap_risk">[@fig:roadmap_risk]</span> shows the
+current distribution of open versus completed work by surface and
+release class, keeping release-readiness language tied to the validator
+state that drives the roadmap.</p>
+<figure id="fig:roadmap_risk">
+<a class="figure-full-size-link" href="../figures/roadmap_risk.png" target="_blank" rel="noopener" aria-label="Open full-size figure"><img src="../figures/roadmap_risk.png" style="width:88.0%"
+alt="Roadmap status by artifact surface generated from tasks.yaml and the live metrics stored in the roadmap source data." /><span class="figure-full-size-label" aria-hidden="true">Open full-size figure</span></a>
+<figcaption>Roadmap status by artifact surface
+generated from <code>tasks.yaml</code> and the live metrics stored in
+the roadmap source data. The first panel counts roadmap items by status,
+the middle panel groups remaining open or blocked work by surface and
+release class with direct EXT/GIT segment labels, hatching, and surface
+totals, and the final panel reports current curriculum, assessment,
+scholarship, and figure metrics. The figure separates external blockers
+from git-authorization hygiene using machine-readable roadmap data, so
+release-readiness text must agree with the same source.</figcaption>
+</figure>
+<p>The limitations are therefore substantive rather than cosmetic. The
+kernels cover fixed, small discrete teaching cases and bounded
+predictive-coding or planning demonstrations; their conclusions depend
+on the stated model, preferences, inputs, and approximation regime. The
+runtime depends on SkillTree for live progress and quiz state, and this
+release contains no learner-response data, learner-state inference,
+retention measure, transfer measure, efficacy estimate, or
+differential-benefit analysis. The planned pilot described in <span
+class="citation"
+data-cites="sec:evaluation-setup-deterministic-tests-learner-study">[@sec:evaluation-setup-deterministic-tests-learner-study]</span>
+and the fuller boundary analysis in <span class="citation"
+data-cites="sec:limitations-delivery-dependencies-learner-outcomes">[@sec:limitations-delivery-dependencies-learner-outcomes]</span>
+define the evidence needed before those claims can be made.</p>
+<h2 id="conclusion-a-bounded-reproducible-contribution">Conclusion: a
+bounded, reproducible contribution</h2>
+<p>The strongest conclusion is narrower and more useful: Active
+Skillference makes the construction, provenance, and delivery of a
+formal Active Inference curriculum more inspectable, reproducible, and
+auditable. It establishes an infrastructure artifact and an
+open-science-compatible handoff surface; it does not establish
+intelligent tutoring, personalization, learner improvement, or empirical
+confirmation of the Free Energy Principle.</p>
+</main>
+</body>
+</html>
