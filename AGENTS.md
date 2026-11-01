@@ -55,6 +55,13 @@ All logic lives in `src/`; `scripts/` only coordinate I/O. Layers, bottom-up:
   `skilltree.`/`curriculum.` imports — they create dual module identities under the
   `pythonpath=[".", "src"]` config.
 - **No mocks.** HTTP is tested with `pytest-httpserver`; everything else with real data.
+- **GNN specification.** The discrete agent kernel's generative model is specified in
+  `gnn/discrete_active_inference_agent.gnn.md` (Generalized Notation Notation) and
+  validated against the GNN revision pinned in `gnn/upstream.json`, read from that pinned
+  commit via `git archive`, never from the GNN checkout's working tree. Keep the
+  specification and `src/kernels/active_inference.py` in step: changing either means
+  updating `src/gnn_conformance.py` and `tests/test_gnn_conformance.py` in the same
+  change.
 - **Coverage.** `src/` ≥ 90%; kernels should remain fully covered.
 - **Dashboard design system.** Dashboard UI changes must read `DESIGN.md` first, use
   declared CSS tokens, keep payload shapes unchanged, and prove browser-facing behavior
@@ -66,6 +73,7 @@ All logic lives in `src/`; `scripts/` only coordinate I/O. Layers, bottom-up:
 uv run pytest --cov=src --cov-fail-under=90
 uvx ruff check src scripts tests && uvx ruff format --check src scripts tests
 uv run mypy src
+uv run python scripts/validate_gnn_spec.py  # needs the pinned GNN checkout (GNN_ROOT)
 ```
 
 ## Extending the curriculum

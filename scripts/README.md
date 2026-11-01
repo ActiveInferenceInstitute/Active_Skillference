@@ -76,6 +76,7 @@ ls -la output/figures/     # generated PNGs plus figure_registry.json
 | `bootstrap_local_skilltree.py` | Bootstrap local SkillTree `FORM` auth, seed the project, and store ignored trusted-client state | `src.curriculum`, `src.kernels`, `src.provenance`, `src.skilltree.local_auth` | network + `.active_skillference_local/` |
 | `serve_learner_dashboard.py` | Serve the local learner dashboard shell | `src.dashboard` | local HTTP server at `http://127.0.0.1:8765` |
 | `00_preflight.py` | Pre-flight check for manuscript-render prerequisites | `infrastructure.rendering.preflight`, `manuscript/` | none (exit 0 ok, 1 on missing prerequisite) |
+| `validate_gnn_spec.py` | Validate the discrete-agent GNN specification against the pinned GNN revision and the kernel | `gnn/`, `src.gnn_conformance` | none (exit 0 pass, 1 conformance failure, 2 GNN unavailable) |
 | `run_skilltree.sh` | One command: bring up Docker SkillTree + Postgres, wait for the API, then seed | `docker-compose.yml`, `vendor/` | a running instance at `http://localhost:8080` |
 | `run_learning_dashboard.sh` | One command: bring up Docker SkillTree, regenerate/export/seed, then serve the learner dashboard | `docker-compose.yml`, `src.dashboard`, `vendor/` | SkillTree plus dashboard |
 
