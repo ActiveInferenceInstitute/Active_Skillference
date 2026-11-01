@@ -22,6 +22,7 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = [
+    "mypy>=1.15",
     "pytest>=7.4.0",
     "pytest-cov>=4.1.0",
 ]
@@ -75,7 +76,12 @@ ignore_missing_imports = true
 [tool.uv]
 
 [dependency-groups]
+# The tools the documented gates run (`uv run pytest`, `uv run mypy src`) must be
+# part of the default `uv sync` set, or the gates depend on an ambient install.
 dev = [
+    "mypy>=1.15",
+    "pytest>=7.4.0",
+    "pytest-cov>=4.1.0",
     "pytest-httpserver>=1.1.5",
 ]
 # Inherits workspace settings from root pyproject.toml
