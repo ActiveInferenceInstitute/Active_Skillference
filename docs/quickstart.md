@@ -153,6 +153,13 @@ Expected: all tests pass with zero mocks and `src/` line coverage at or above th
 gate. The coverage command is the source of truth for the current test count and
 percentage.
 
+The discrete active-inference agent's generative model is also specified in
+[`../gnn/discrete_active_inference_agent.gnn.md`](../gnn/discrete_active_inference_agent.gnn.md)
+(Generalized Notation Notation). With the pinned GNN checkout available (`GNN_ROOT`, or the
+sibling clone), `uv run python scripts/validate_gnn_spec.py` re-parses that specification
+with the pinned GNN parser and checks it against the kernel; without the checkout the
+script exits `2` and the pytest module runs its structural half only.
+
 ## View results
 
 - **Claims ledger**: `output/data/claims.json`
@@ -240,6 +247,7 @@ uv run python scripts/serve_learner_dashboard.py
 | Validate material/quiz alignment | `uv run python scripts/validate_course_material_alignment.py` |
 | Validate manuscript artifacts | `uv run python scripts/validate_manuscript_artifacts.py` |
 | Export SkillTree JSON | `uv run python scripts/export_skilltree.py` |
+| Validate the GNN agent spec (needs the pinned GNN checkout) | `uv run python scripts/validate_gnn_spec.py` |
 | Run tests + coverage | `uv run pytest tests/ --cov=src --cov-fail-under=90` |
 | Live SkillTree + seed (Docker) | `./scripts/run_skilltree.sh` |
 | Live SkillTree + learner dashboard (Docker) | `./scripts/run_learning_dashboard.sh` |

@@ -114,7 +114,9 @@ computes, validates, or converts.
 13. **`pilot/`** — protocol-only learner-pilot contract validation; it specifies privacy,
     read-only SkillTree exports, feasibility outcomes, and missing-data handling without
     storing learner state or claiming efficacy.
-14. **Top-level modules** — `project_paths.py` (`resolve_project_root`,
+14. **Top-level modules** — `gnn_conformance.py` (the pinned-GNN harness for the
+    discrete-agent specification: pin record, pinned `git archive` extraction, and
+    specification-vs-kernel checks), `project_paths.py` (`resolve_project_root`,
     `project_output_dirs`), `project_identity.py` (the pinned SkillTree project id/name),
     `live_counts.py` (stale generated-count audit across authored surfaces),
     `roadmap.py` (`tasks.yaml` schema/evidence and the generated roadmap pages),

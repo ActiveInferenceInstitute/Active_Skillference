@@ -116,6 +116,45 @@ review.
 `mathematics → probability → information theory → variational methods → the Free Energy
 Principle → active inference → computation → applications`
 
+## Model specification (GNN)
+
+The discrete active-inference agent kernel (`src/kernels/active_inference.py`, the
+sample/commit model of `src/kernels/examples.py`) is specified in
+[`gnn/discrete_active_inference_agent.gnn.md`](gnn/discrete_active_inference_agent.gnn.md) in
+[Generalized Notation Notation](https://github.com/ActiveInferenceInstitute/Generalized_Notation_Notation)
+(GNN): the informative sensor, the sample/commit transition tensor, the neutral
+preference vector, and the uniform state prior.
+
+The specification is validated against the GNN revision pinned in
+[`gnn/upstream.json`](gnn/upstream.json), read from that pinned commit rather than from
+the GNN checkout's working tree:
+
+```sh
+uv run python scripts/validate_gnn_spec.py   # strict gate (needs the GNN checkout)
+uv run pytest tests/test_gnn_conformance.py  # structural + pinned-parser checks
+```
+
+The gate parses the specification with the pinned GNN extractor and checks the extracted
+matrices against the kernel, including that the declared matrices reproduce the kernel's
+expected-free-energy values. The test module runs the same checks under pytest and skips
+only the pinned-parser half when the GNN checkout is unavailable. When editing the
+specification, start from GNN's [Start Here](https://github.com/ActiveInferenceInstitute/Generalized_Notation_Notation/blob/v5.0.3/docs/START_HERE.md),
+[framework integration guide](https://github.com/ActiveInferenceInstitute/Generalized_Notation_Notation/blob/v5.0.3/docs/gnn/integration/framework_integration_guide.md),
+and [syntax reference](https://github.com/ActiveInferenceInstitute/Generalized_Notation_Notation/blob/v5.0.3/docs/gnn/reference/gnn_syntax.md).
+
+### Related repositories
+
+- [Generalized_Notation_Notation](https://github.com/ActiveInferenceInstitute/Generalized_Notation_Notation) —
+  the specification and implementation core this repository's agent spec is pinned to.
+- [ants](https://github.com/ActiveInferenceInstitute/ants) — the 2021 ant-colony foraging
+  MDP companion code; it owns that model's GNN specification.
+- [Active_InferAnts](https://github.com/ActiveInferenceInstitute/Active_InferAnts) — the
+  multi-language Active Inference framework; its framework agent is specified in that
+  repository's `gnn/` directory.
+
+Each concept has one canonical home: this repository owns the discrete agent kernel and
+its curriculum; the other two specify their own models.
+
 ## Layout
 
 | Path | Contents |
@@ -135,6 +174,7 @@ Principle → active inference → computation → applications`
 | `manuscript/` | The platform write-up, its assets, and the captured dashboard screenshots |
 | `output/` | Committed generated artifacts: figures, data, audits, PDF, web, DOCX, EPUB, slides |
 | `data/` | Authored inputs: scholarship matrix, claim-support rows, course-material pins |
+| `gnn/` | The GNN specification of the discrete agent kernel and the pinned GNN revision |
 | `docs/` | Documentation, grouped by the question you arrived with ([index](docs/README.md)) |
 | `vendor/` | Runnable SkillTree instance wiring (see `vendor/README.md`) |
 | `run.sh` | Cold start to the learner surface, with offline and readiness modes |

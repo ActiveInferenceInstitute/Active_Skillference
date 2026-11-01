@@ -24,6 +24,7 @@ SkillTree business logic in this directory.
 | `run_skilltree.sh` | Start the Docker-backed SkillTree runtime and seed it | `docker-compose.yml`, `vendor/` |
 | `run_learning_dashboard.sh` | Start Docker SkillTree, regenerate/seed, then serve the learner dashboard | `src/dashboard/`, `docker-compose.yml`, `vendor/` |
 | `00_preflight.py` | Local environment preflight wrapper | project paths and template render prerequisites |
+| `validate_gnn_spec.py` | Validate the discrete-agent GNN specification against the pinned GNN revision and the kernel | `gnn/`, `src/gnn_conformance.py` |
 
 ## Verification
 
@@ -37,6 +38,7 @@ uv run python scripts/validate_course_material_sources.py --online
 uv run python scripts/validate_course_material_alignment.py
 uv run python scripts/validate_manuscript_artifacts.py
 uv run python scripts/export_skilltree.py
+uv run python scripts/validate_gnn_spec.py   # needs the pinned GNN checkout (GNN_ROOT)
 uv run python scripts/serve_learner_dashboard.py --check
 uv run python scripts/bootstrap_local_skilltree.py --check
 ```
