@@ -55,3 +55,50 @@ jobs:
 
       - name: Tests with the coverage floor
         run: uv run pytest --cov=src --cov-fail-under=90 -q
+
+  gnn-conformance:
+    # Validates gnn/discrete_active_inference_agent.gnn.md with the upstream
+    # parser revision pinned in gnn/upstream.json. The pinned revision is
+    # fetched from the public repository at the recorded SHA into its own
+    # runtime; the strict gate never skips, and tests/test_gnn_conformance.py
+    # fails (never skips) when the explicitly selected GNN_ROOT checkout is
+    # missing or unusable.
+    name: gnn conformance (pinned v5.0.3)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+        with:
+          enable-cache: true
+
+      - name: Sync the locked environment
+        run: uv sync --frozen
+
+      - name: Provision the pinned GNN parser runtime
+        env:
+          GNN_ROOT: ${{ runner.temp }}/gnn
+        run: |
+          REVISION=$(python -c "import json; print(json.load(open('gnn/upstream.json'))['commit'])")
+          TAG=$(python -c "import json; print(json.load(open('gnn/upstream.json'))['tag'])")
+          git init --quiet "$GNN_ROOT"
+          git -C "$GNN_ROOT" remote add origin \
+            https://github.com/ActiveInferenceInstitute/Generalized_Notation_Notation.git
+          # A pin that no longer resolves upstream fails here rather than skipping.
+          git -C "$GNN_ROOT" fetch --depth 1 origin "$REVISION" "refs/tags/$TAG:refs/tags/$TAG"
+          git -C "$GNN_ROOT" checkout --quiet --detach "$REVISION"
+          uv venv --python 3.12 --no-project "$GNN_ROOT/.venv"
+          # The pinned extractor needs numpy and defusedxml; a missing dependency
+          # fails the run loudly instead of degrading to a skip.
+          uv pip install --python "$GNN_ROOT/.venv/bin/python" numpy defusedxml
+
+      - name: Validate the GNN specification against the pinned parser
+        env:
+          GNN_ROOT: ${{ runner.temp }}/gnn
+        run: uv run python scripts/validate_gnn_spec.py
+
+      - name: Run the pinned-upstream conformance tests
+        env:
+          GNN_ROOT: ${{ runner.temp }}/gnn
+        run: uv run pytest tests/test_gnn_conformance.py -q
