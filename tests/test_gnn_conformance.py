@@ -64,7 +64,9 @@ def extracted_model() -> dict:
         return extract_spec()
     except GnnUnavailable as exc:
         if os.environ.get("GNN_ROOT"):
-            pytest.fail(f"GNN_ROOT selects a checkout, but the pinned parser is unavailable: {exc}")
+            pytest.fail(
+                f"GNN_ROOT selects a checkout, but the pinned parser is unavailable: {exc}"
+            )
         pytest.skip(f"pinned GNN checkout unavailable: {exc}")
 
 
