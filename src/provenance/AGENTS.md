@@ -7,5 +7,5 @@
 - Scan every learner-facing field, not only the description. Add the new field
   to `Skill.claim_tokens()` and to the render tests.
 - Never hand-type a computed result into content; add the worked example in
-  `kernels/examples.py` and reference the claim.
+  `../kernels/examples.py` and reference the claim.
 - Parent rules: [../AGENTS.md](../AGENTS.md).
