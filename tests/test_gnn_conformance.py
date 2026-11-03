@@ -2,13 +2,16 @@
 
 The pinned-parser half skips cleanly when the GNN checkout or its interpreter is
 unavailable; the specification-vs-kernel checks run against the kernel's own
-canonical model, so CI still guards the specification.
+canonical model, so CI still guards the specification. When ``GNN_ROOT``
+selects a checkout explicitly (as CI does after provisioning the pinned
+revision), an unusable checkout is a failure, never a skip.
 """
 
 from __future__ import annotations
 
 import copy
 import json
+import os
 import re
 import subprocess
 import sys
@@ -60,6 +63,10 @@ def extracted_model() -> dict:
     try:
         return extract_spec()
     except GnnUnavailable as exc:
+        if os.environ.get("GNN_ROOT"):
+            pytest.fail(
+                f"GNN_ROOT selects a checkout, but the pinned parser is unavailable: {exc}"
+            )
         pytest.skip(f"pinned GNN checkout unavailable: {exc}")
 
 
