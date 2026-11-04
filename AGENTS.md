@@ -62,7 +62,7 @@ All logic lives in `src/`; `scripts/` only coordinate I/O. Layers, bottom-up:
   specification and `src/kernels/active_inference.py` in step: changing either means
   updating `src/gnn_conformance.py` and `tests/test_gnn_conformance.py` in the same
   change. CI runs `scripts/validate_gnn_spec.py` and the conformance tests in the
-  `gnn conformance (pinned v5.0.3)` job, which fetches the pinned revision from the
+  `gnn conformance (pinned)` job, which fetches the pinned revision from the
   public upstream repository and provisions its interpreter, so the pin is re-checked on
   every push and pull request. GNN's [downstream adoption
   guide](https://github.com/ActiveInferenceInstitute/Generalized_Notation_Notation/blob/main/docs/gnn/integration/downstream_adoption.md)

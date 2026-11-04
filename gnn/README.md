@@ -9,4 +9,4 @@ specification of the discrete-agent kernel's generative model.
 `scripts/validate_gnn_spec.py` extracts that pinned commit with `git archive`
 and validates the specification. `tests/test_gnn_conformance.py` checks the
 specification against [`../src/kernels/active_inference.py`](../src/kernels/active_inference.py).
-CI runs both in `gnn conformance (pinned v5.0.3)`.
+CI runs both in `gnn conformance (pinned)`.
