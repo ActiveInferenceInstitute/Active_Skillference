@@ -63,7 +63,7 @@ jobs:
     # runtime; the strict gate never skips, and tests/test_gnn_conformance.py
     # fails (never skips) when the explicitly selected GNN_ROOT checkout is
     # missing or unusable.
-    name: gnn conformance (pinned v5.0.3)
+    name: gnn conformance (pinned)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -102,3 +102,10 @@ jobs:
         env:
           GNN_ROOT: ${{ runner.temp }}/gnn
         run: uv run pytest tests/test_gnn_conformance.py -q
+
+      - name: Report the resolved GNN version
+        run: |
+          PIN=gnn/upstream.json
+          VERSION=$(python3 -c "import json;print(json.load(open('$PIN'))['tag'].removeprefix('v'))")
+          test -n "$VERSION"
+          echo "gnn-version=${VERSION}" >> "$GITHUB_STEP_SUMMARY"
