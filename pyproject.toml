@@ -12,7 +12,7 @@ description = "High-integrity micro-learning platform for Active Inference & the
 authors = [
     {name = "Daniel Ari Friedman", email = "daniel@activeinference.institute"}
 ]
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 dependencies = [
     "numpy>=1.24.0",
     "matplotlib>=3.7.0",
@@ -74,6 +74,7 @@ module = ["scipy.*"]
 ignore_missing_imports = true
 
 [tool.uv]
+constraint-dependencies = ["pillow>=13.0.0"]
 
 [dependency-groups]
 # The tools the documented gates run (`uv run pytest`, `uv run mypy src`) must be

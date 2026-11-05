@@ -153,7 +153,7 @@ def render_release_readiness_inventory(
     date: _dt.date | None = None,
 ) -> str:
     """Render the canonical release-readiness inventory Markdown."""
-    today = date or _dt.datetime.now(_dt.timezone.utc).date()
+    today = date or _dt.datetime.now(_dt.UTC).date()
     probes = blocker_probes or BlockerProbeSummary(
         public_repository="not refreshed by this validation run",
         docker_daemon="not refreshed by this validation run",
