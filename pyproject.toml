@@ -74,6 +74,7 @@ module = ["scipy.*"]
 ignore_missing_imports = true
 
 [tool.uv]
+constraint-dependencies = ["pillow>=13.0.0"]
 
 [dependency-groups]
 # The tools the documented gates run (`uv run pytest`, `uv run mypy src`) must be
