@@ -16,7 +16,7 @@ import signal
 import subprocess
 import sys
 import time
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -65,7 +65,7 @@ def dashboard_pid_path(state_dir: Path) -> Path:
 
 def timestamp() -> str:
     """Return a compact UTC timestamp for backup filenames."""
-    return datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+    return datetime.now(UTC).strftime("%Y%m%dT%H%M%SZ")
 
 
 def backup_auth_state(
