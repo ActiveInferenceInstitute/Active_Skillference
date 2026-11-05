@@ -74,6 +74,7 @@ module = ["scipy.*"]
 ignore_missing_imports = true
 
 [tool.uv]
+required-version = "==0.13.7"
 constraint-dependencies = ["pillow>=13.0.0"]
 
 [dependency-groups]
