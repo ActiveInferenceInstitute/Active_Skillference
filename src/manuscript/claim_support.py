@@ -495,12 +495,10 @@ def _audit_evidence(
             issues.append(
                 f"{location}: {row.claim_id} scope_limit lacks limitation marker"
             )
-    elif row.claim_type == "delivery":
-        if not row.validators:
-            issues.append(f"{location}: {row.claim_id} delivery row needs validators")
-    elif row.claim_type == "visual":
-        if not row.figures:
-            issues.append(f"{location}: {row.claim_id} visual row needs figures")
+    elif row.claim_type == "delivery" and not row.validators:
+        issues.append(f"{location}: {row.claim_id} delivery row needs validators")
+    elif row.claim_type == "visual" and not row.figures:
+        issues.append(f"{location}: {row.claim_id} visual row needs figures")
     return issues
 
 
