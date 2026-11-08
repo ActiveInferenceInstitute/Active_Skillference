@@ -4,13 +4,13 @@
   "configuredTitle": "Named Skill Atlas",
   "dashboardCategory": "cover",
   "imageMetrics": {
-    "bytes": 333639,
+    "bytes": 290098,
     "channels": 4,
     "filename": "active_skillference_skill_atlas.png",
     "height": 1224,
     "maxValue": 1.0,
     "minValue": 0.066667,
-    "stddev": 0.170967,
+    "stddev": 0.169383,
     "width": 2448
   },
   "issues": [],

@@ -2,13 +2,13 @@
   "configuredImage": "../figures/active_skillference_cover.png",
   "dashboardCategory": "cover",
   "imageMetrics": {
-    "bytes": 593538,
+    "bytes": 554676,
     "channels": 4,
     "filename": "active_skillference_cover.png",
     "height": 2880,
     "maxValue": 1.0,
     "minValue": 0.066667,
-    "stddev": 0.153069,
+    "stddev": 0.153898,
     "width": 2880
   },
   "issues": [],
