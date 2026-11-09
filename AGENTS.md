@@ -61,10 +61,8 @@ All logic lives in `src/`; `scripts/` only coordinate I/O. Layers, bottom-up:
   commit via `git archive`, never from the GNN checkout's working tree. Keep the
   specification and `src/kernels/active_inference.py` in step: changing either means
   updating `src/gnn_conformance.py` and `tests/test_gnn_conformance.py` in the same
-  change. CI runs `scripts/validate_gnn_spec.py` and the conformance tests in the
-  `gnn conformance (pinned)` job, which fetches the pinned revision from the
-  public upstream repository and provisions its interpreter, so the pin is re-checked on
-  every push and pull request. GNN's [downstream adoption
+  change. The hosted `gnn conformance (pinned)` job runs the validator and
+  focused tests as a separate CI signal. GNN's [downstream adoption
   guide](https://github.com/ActiveInferenceInstitute/Generalized_Notation_Notation/blob/main/docs/gnn/integration/downstream_adoption.md)
   documents the adoption patterns, pin discipline, and drift-guard checks this invariant
   implements.
@@ -79,8 +77,13 @@ All logic lives in `src/`; `scripts/` only coordinate I/O. Layers, bottom-up:
 uv run pytest --cov=src --cov-fail-under=90
 uvx ruff check src scripts tests && uvx ruff format --check src scripts tests
 uv run mypy src
-uv run python scripts/validate_gnn_spec.py  # needs the pinned GNN checkout (GNN_ROOT)
 ```
+
+For every PR, follow the [required local GNN check](README.md#required-local-gnn-check).
+Use the pinned parser with explicit `GNN_ROOT` and `GNN_PYTHON`. Run the strict validator
+and focused tests on the clean, current PR head with zero skips. Keep the passing
+GitVault receipt and verify that `gnn conformance (local)` was published on that exact
+head through the [reviewed status workflow](README.md#publish-the-local-gnn-result).
 
 ## Extending the curriculum
 

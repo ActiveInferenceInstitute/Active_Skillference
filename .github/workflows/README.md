@@ -10,5 +10,6 @@
   Python 3.12 environment, validates the specification, and runs
   `tests/test_gnn_conformance.py`.
 
-Live Docker, SkillTree and browser proofs are not run here. The job names are
-the required checks; keep them stable when editing.
+Live Docker, SkillTree and browser proofs stay local. Keep the hosted job
+names stable. The required GNN merge status is
+[`gnn conformance (local)`](../../README.md#required-local-gnn-check).
