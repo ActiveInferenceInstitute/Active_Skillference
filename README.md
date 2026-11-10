@@ -125,20 +125,143 @@ sample/commit model of `src/kernels/examples.py`) is specified in
 (GNN): the informative sensor, the sample/commit transition tensor, the neutral
 preference vector, and the uniform state prior.
 
-The specification is validated against the GNN revision pinned in
-[`gnn/upstream.json`](gnn/upstream.json), read from that pinned commit rather than from
-the GNN checkout's working tree:
+The gate parses the specification with the extractor pinned in
+[`gnn/upstream.json`](gnn/upstream.json) and checks that the declared matrices reproduce
+the kernel's expected-free-energy values. It reads the parser source with `git archive`
+at the recorded commit.
+
+### Required local GNN check
+
+Merges to `main` require `gnn conformance (local)`. The hosted
+`gnn conformance (pinned)` job provides a separate CI signal.
+
+Use a clean checkout of the current PR head. Prepare the frozen Skillference environment
+with `uv sync --frozen` and stage the parser before starting the offline run. Use a
+dedicated checkout containing the recorded commit and its tag, plus a Python 3.12
+environment with `numpy` and `defusedxml` for the parser. From the Skillference checkout,
+set `GNN_ROOT` to a new scratch path and run the preparation commands below. In GitVault,
+follow its repository admission rules for this staging work.
 
 ```sh
-uv run python scripts/validate_gnn_spec.py   # strict gate (needs the GNN checkout)
-uv run pytest tests/test_gnn_conformance.py  # structural + pinned-parser checks
+set -eu
+repo=ActiveInferenceInstitute/Active_Skillference
+: "${PR_NUMBER:?Set PR_NUMBER}" "${GNN_ROOT:?Set GNN_ROOT to a new absolute scratch path}"
+pr_head=$(gh pr view "$PR_NUMBER" --repo "$repo" --json headRefOid --jq .headRefOid)
+test "$(git rev-parse HEAD </dev/null)" = "$pr_head"
+changes=$(git status --porcelain </dev/null)
+test -z "$changes"
+
+gnn_revision=$(jq -er .commit gnn/upstream.json)
+gnn_tag=$(jq -er .tag gnn/upstream.json)
+gnn_repo=$(jq -er .repository gnn/upstream.json)
+test "$gnn_repo" = ActiveInferenceInstitute/Generalized_Notation_Notation
+mkdir "$GNN_ROOT"
+git init --quiet "$GNN_ROOT" </dev/null
+git -C "$GNN_ROOT" remote add origin "https://github.com/$gnn_repo.git" </dev/null
+git -C "$GNN_ROOT" fetch --depth 1 origin "$gnn_revision" \
+  "refs/tags/$gnn_tag:refs/tags/$gnn_tag" </dev/null
+git -C "$GNN_ROOT" checkout --quiet --detach "$gnn_revision" </dev/null
+test "$(git -C "$GNN_ROOT" rev-parse --verify "refs/tags/$gnn_tag^{commit}" </dev/null)" = "$gnn_revision"
+uv venv --python 3.12 --no-project "$GNN_ROOT/.venv"
+GNN_PYTHON="$GNN_ROOT/.venv/bin/python"
+uv pip install --python "$GNN_PYTHON" numpy defusedxml
 ```
 
-The gate parses the specification with the pinned GNN extractor and checks the extracted
-matrices against the kernel, including that the declared matrices reproduce the kernel's
-expected-free-energy values. The test module runs the same checks under pytest and skips
-only the pinned-parser half when the GNN checkout is unavailable. When editing the
-specification, start from GNN's [Start Here](https://github.com/ActiveInferenceInstitute/Generalized_Notation_Notation/blob/v5.0.3/docs/START_HERE.md),
+For a standalone run from the Skillference checkout, export `GNN_ROOT` and
+`GNN_PYTHON`, then run the checks with the prepared environments.
+
+```sh
+set -eu
+export GNN_ROOT GNN_PYTHON
+uv sync --frozen --check --offline
+uv run --frozen --offline --no-sync python -B scripts/validate_gnn_spec.py
+uv run --frozen --offline --no-sync python -B -m pytest \
+  tests/test_gnn_conformance.py -q -p no:cacheprovider
+```
+
+For GitVault publication, run both checks in its governed offline test runner
+(`execute --classification test`, described in GitVault's `docs/EXECUTE.md`). Bind
+the intent to the clean PR head and pin inputs. Pass both absolute parser paths as
+arguments to the test runner and set `GNN_ROOT` and `GNN_PYTHON` inside the child so
+the launcher cannot drop them. Set `VAULT_ROOT` to the configured GitVault checkout
+and `GNN_INTENT` to the prepared test intent. From the PR checkout, run the gate
+with its existing project Python.
+
+```sh
+"$VAULT_ROOT/_tools/vault" --config "$VAULT_ROOT/vault.toml" execute \
+  --classification test --intent "$GNN_INTENT" --repository "$repo" --cwd "$PWD" -- \
+  "$PWD/.venv/bin/python" -B -c '
+import os, subprocess, sys
+from pathlib import Path
+
+out = Path(os.environ["GITVAULT_EXECUTION_OUTPUT"])
+env = dict(os.environ, GNN_ROOT=sys.argv[1], GNN_PYTHON=sys.argv[2],
+           TMPDIR=str(out), TEMP=str(out), TMP=str(out), PYTHONDONTWRITEBYTECODE="1",
+           GIT_NO_REPLACE_OBJECTS="1", UV_PROJECT_ENVIRONMENT=str(Path(sys.executable).parent.parent))
+
+def run(argv, log):
+    with (out / log).open("x") as stream:
+        subprocess.run(argv, env=env, stdin=subprocess.DEVNULL, stdout=stream,
+                       stderr=subprocess.STDOUT, check=True)
+
+run(["uv", "sync", "--frozen", "--check", "--offline"], "locked-environment.log")
+run([sys.executable, "-B", "scripts/validate_gnn_spec.py"], "conformance.json")
+run([sys.executable, "-B", "-m", "pytest", "tests/test_gnn_conformance.py",
+     "-q", "-p", "no:cacheprovider"], "pytest.log")
+summary = (out / "pytest.log").read_text().splitlines()[-1]
+if "passed" not in summary or "skipped" in summary or "failed" in summary:
+    raise SystemExit("Pinned GNN tests must pass with zero skips")
+' "$GNN_ROOT" "$GNN_PYTHON" </dev/null
+```
+
+Keep the strict validator JSON, pytest log and terminal receipt. The validator must
+succeed, and the focused pytest suite must finish with zero skips or failures.
+
+### Publish the local GNN result
+
+An authorized maintainer uses GitVault's `github-status` plan with the mapped identity
+and the `state` write class enabled. Set `VAULT_ROOT` to the configured GitVault checkout,
+`PR_NUMBER` to the pull request number and `GNN_RECEIPT` to the run's `exit.json`.
+Review the run evidence for both checks and verify that the receipt reports success and
+unchanged source at the live PR head. A new head needs a fresh run.
+
+```sh
+set -eu
+repo=ActiveInferenceInstitute/Active_Skillference
+: "${VAULT_ROOT:?Set VAULT_ROOT}" "${PR_NUMBER:?Set PR_NUMBER}" "${GNN_RECEIPT:?Set GNN_RECEIPT}"
+vault() { "$VAULT_ROOT/_tools/vault" --config "$VAULT_ROOT/vault.toml" "$@"; }
+tested_head=$(jq -er --arg repo "$repo" '
+  .payload | select(.classification == "test" and .outcome == "SUCCEEDED"
+    and .returncode == 0 and .source_unchanged == true and .binding.source == $repo
+    and .descendants.sample_errors == 0 and .descendants.remaining == [])
+  | .binding.revision | select(test("^[0-9a-f]{40}$"))
+' "$GNN_RECEIPT")
+pr_head=$(gh pr view "$PR_NUMBER" --repo "$repo" --json headRefOid --jq .headRefOid)
+test "$tested_head" = "$pr_head"
+digest=$(shasum -a 256 "$GNN_RECEIPT")
+request=$(jq -nc --arg repo "$repo" --arg head "$tested_head" --arg digest "${digest%% *}" '
+  {method:"plan",arguments:{action:"github-status",parameters:{
+    repository:$repo,expected_commit:$head,context:"gnn conformance (local)",state:"success",
+    description:("Local pinned GNN checks passed. Receipt SHA-256 " + $digest[:16])
+  }}}
+')
+plan=$(vault api --json "$request" | jq -er 'select(.ok == true) | .result.github')
+vault github-apply --plan "$plan"
+```
+
+After reviewing the plan, recheck the live PR head, apply the exact confirmation phrase
+and verify that the local context is successful on the tested commit.
+
+```sh
+test "$tested_head" = "$(gh pr view "$PR_NUMBER" --repo "$repo" --json headRefOid --jq .headRefOid)"
+vault github-apply --plan "$plan" --apply --confirm 'REPORT 1 COMMIT STATUS'
+gh api --method GET "repos/$repo/commits/$tested_head/status" | \
+  jq -e --arg head "$tested_head" '
+    .sha == $head and any(.statuses[]; .context == "gnn conformance (local)" and .state == "success")
+  '
+```
+
+For specification edits, start from GNN's [Start Here](https://github.com/ActiveInferenceInstitute/Generalized_Notation_Notation/blob/v5.0.3/docs/START_HERE.md),
 [framework integration guide](https://github.com/ActiveInferenceInstitute/Generalized_Notation_Notation/blob/v5.0.3/docs/gnn/integration/framework_integration_guide.md),
 and [syntax reference](https://github.com/ActiveInferenceInstitute/Generalized_Notation_Notation/blob/v5.0.3/docs/gnn/reference/gnn_syntax.md).
 For the wider picture (the adoption patterns sibling repositories use, pin discipline, and
