@@ -46,6 +46,8 @@
 | `CITATION.cff` | `citation` | Machine-readable citation metadata. |
 | `tests` | `test` | Test suite. |
 | `docs` | `doc` | Documentation tree. |
+| `gnn` | `doc` | GNN specification of the discrete agent kernel and the pinned revision. |
+| `data` | `dataset` | Authored inputs (scholarship matrix, claim-support rows, course-material pins). |
 | `manuscript` | `publication` | Manuscript sources and artifacts. |
 | `run.sh` | `code` | Cold-start, offline and readiness entry point. |
 | `scripts` | `code` | Thin orchestration scripts. |

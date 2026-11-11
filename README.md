@@ -18,6 +18,13 @@ quiz-gated completion, and can seed a live, gamified instance over REST. The man
 also validates scholarly support through a source-role matrix before generated artifacts
 are emitted.
 
+## Contents
+
+- [Start here](#start-here) · [Read it without installing anything](#read-it-without-installing-anything) · [Why it is "high-integrity"](#why-it-is-high-integrity) · [The eight strata](#the-eight-strata)
+- [Model specification (GNN)](#model-specification-gnn) · [Layout](#layout) · [Quick start](#quick-start)
+- [Code availability, license, and citation](#code-availability-license-and-citation) · [Captured evidence of the running app](#captured-evidence-of-the-running-app) · [Verification at a glance](#verification-at-a-glance) · [Contributing and reporting](#contributing-and-reporting)
+- Documentation: [`docs/README.md`](docs/README.md) (index) · [`docs/quickstart.md`](docs/quickstart.md) · [`docs/architecture.md`](docs/architecture.md) · [`docs/learner_dashboard.md`](docs/learner_dashboard.md)
+
 ## Start here
 
 ```bash

@@ -11,6 +11,7 @@ repo:
     claims come from tested kernels, exported to SkillTree.
 institute:
   category: education
+  status: active
   maturity: released
   steward: Active Inference Institute
 ecosystem:
@@ -50,6 +51,12 @@ artifacts:
 - path: docs
   kind: doc
   description: Documentation tree.
+- path: gnn
+  kind: doc
+  description: GNN specification of the discrete agent kernel and the pinned revision.
+- path: data
+  kind: dataset
+  description: Authored inputs (scholarship matrix, claim-support rows, course-material pins).
 - path: manuscript
   kind: publication
   description: Manuscript sources and artifacts.
