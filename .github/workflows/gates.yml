@@ -11,6 +11,13 @@ on:
   pull_request:
   workflow_dispatch:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
 jobs:
   gates:
     runs-on: ubuntu-latest
@@ -58,6 +65,7 @@ jobs:
         run: uv run pytest --cov=src --cov-fail-under=90 -q
 
   gnn-conformance:
+    timeout-minutes: 60
     # Validates gnn/discrete_active_inference_agent.gnn.md with the upstream
     # parser revision pinned in gnn/upstream.json. The pinned revision is
     # fetched from the public repository at the recorded SHA into its own

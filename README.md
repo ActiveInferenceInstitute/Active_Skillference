@@ -497,3 +497,11 @@ you are touching. The short version: numbers reach learners only through claim t
 prerequisite graph stays acyclic and connected, citations resolve in two places, and every
 gate fails closed. Run `uv run pytest --cov=src --cov-fail-under=90`, `uvx ruff check src
 scripts tests`, and `uv run mypy src` before opening a pull request.
+
+## InstituteOS sidecar
+
+This repository carries a committed [`.aii/`](.aii/README.md) sidecar with curated
+InstituteOS metadata (`aii-sidecar/v1`): category, maturity, ecosystem relations,
+key artifacts, provenance, and portable tasks. It is read by
+[InstituteOS](https://github.com/ActiveInferenceInstitute/InstituteOS) tooling and
+does not affect the project's build or runtime.
