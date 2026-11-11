@@ -11,7 +11,7 @@
 | Maturity | `released` |
 | Steward | Active Inference Institute |
 | Default branch | `main` |
-| Current release | — |
+| Current release | `v1.0.1` |
 | License | `MIT` |
 | Citation | Active Inference Institute — Active_Skillference. |
 
@@ -47,12 +47,14 @@
 | `tests` | `test` | Test suite. |
 | `docs` | `doc` | Documentation tree. |
 | `manuscript` | `publication` | Manuscript sources and artifacts. |
+| `run.sh` | `code` | Cold-start, offline and readiness entry point. |
+| `scripts` | `code` | Thin orchestration scripts. |
 
 ## Portable tasks
 
 | Task | Command | Working directory | Description |
 | --- | --- | --- | --- |
-| `test` | `python -m pytest` | `.` | Run the test suite. |
+| `test` | `uv run pytest --cov=src --cov-fail-under=90` | `.` | Run the test suite with the project coverage gate. |
 
 ## Validation
 

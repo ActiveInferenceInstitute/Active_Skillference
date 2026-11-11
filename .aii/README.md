@@ -45,7 +45,7 @@ Institute repositories without touching this project's own content. The schema i
 
 | Task | Command | Working directory | Description |
 | --- | --- | --- | --- |
-| `test` | `python -m pytest` | `.` | Run the test suite. |
+| `test` | `uv run pytest --cov=src --cov-fail-under=90` | `.` | Run the test suite with the project coverage gate. |
 
 ## Links
 

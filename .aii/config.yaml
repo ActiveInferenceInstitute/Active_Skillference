@@ -1,7 +1,7 @@
 # AII sidecar — InstituteOS metadata. Schema: aii_platform.aii_sidecar
 meta:
   sidecar_version: 1.2.1
-  updated: '2026-11-10'
+  updated: '2026-11-11'
 repo:
   name: Active_Skillference
   slug: active-skillference
@@ -53,10 +53,17 @@ artifacts:
 - path: manuscript
   kind: publication
   description: Manuscript sources and artifacts.
+- path: run.sh
+  kind: code
+  description: Cold-start, offline and readiness entry point.
+- path: scripts
+  kind: code
+  description: Thin orchestration scripts.
 provenance:
   license: MIT
+  current_release: v1.0.1
   citation:
-    doi: 10.5281/zenodo.21865644.svg
+    doi: 10.5281/zenodo.21865644
     text: Active Inference Institute — Active_Skillference.
 instituteos:
   tags:
@@ -76,8 +83,8 @@ capabilities:
 - citation
 tasks:
   test:
-    cmd: python -m pytest
-    description: Run the test suite.
+    cmd: uv run pytest --cov=src --cov-fail-under=90
+    description: Run the test suite with the project coverage gate.
 docs:
 - README.md
 - AGENTS.md
