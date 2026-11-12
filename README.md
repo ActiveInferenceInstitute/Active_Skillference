@@ -312,6 +312,7 @@ its curriculum; the other two specify their own models.
 | `docs/` | Documentation, grouped by the question you arrived with ([index](docs/README.md)) |
 | `vendor/` | Runnable SkillTree instance wiring (see `vendor/README.md`) |
 | `run.sh` | Cold start to the learner surface, with offline and readiness modes |
+| `gates.sh` | The single gate entry point: every offline arm CI runs ([docs/gates.md](docs/gates.md)) |
 
 ## Quick start
 
@@ -477,6 +478,12 @@ uv run python scripts/capture_dashboard_screenshots.py
 
 ## Verification at a glance
 
+One entry point runs every offline gate: `./gates.sh` (default: `lint`, `types`, `fast`) and
+`./gates.sh all` for the full set, with `./gates.sh gnn` for the pinned conformance check and
+`./gates.sh render` for the manuscript PDF. CI runs the same arms, so a command here is the
+command CI runs; [`docs/gates.md`](docs/gates.md) documents each arm and
+[`docs/gate_metrics.md`](docs/gate_metrics.md) carries the measured per-arm wall times.
+
 Full test suite · ≥90% `src/` line coverage gate · ruff + mypy clean · no mock frameworks ·
 every `{{claim}}` resolves · provenance linter clean. Re-running the kernels regenerates
 every number and figure in the curriculum; exact current coverage comes from the test
@@ -502,8 +509,9 @@ Before changing curriculum content, kernels, or the manuscript, read
 [`AGENTS.md`](AGENTS.md) for the invariants and [`docs/`](docs/README.md) for the layer
 you are touching. The short version: numbers reach learners only through claim tokens, the
 prerequisite graph stays acyclic and connected, citations resolve in two places, and every
-gate fails closed. Run `uv run pytest --cov=src --cov-fail-under=90`, `uvx ruff check src
-scripts tests`, and `uv run mypy src` before opening a pull request.
+gate fails closed. Run `./gates.sh all` (or the individual arms — `lint`, `types`,
+`artifacts`, `checks`, `test`, `docs`, `gnn`, `render`) before opening a pull request;
+[`docs/gates.md`](docs/gates.md) lists exactly what each arm runs.
 
 ## InstituteOS sidecar
 

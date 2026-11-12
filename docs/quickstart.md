@@ -143,15 +143,16 @@ It prints, e.g.:
 exported SkillTree project 'Active Skillference' (<skills> skills, <dependencies> dependencies)
 ```
 
-## 4. Run the test suite
+## 4. Run the gates
 
 ```bash
-uv run pytest tests/ --cov=src --cov-fail-under=90
+./gates.sh            # lint, types, fast tests — the developer loop
+./gates.sh test       # full suite + the 90% src/ coverage floor
 ```
 
-Expected: all tests pass with zero mocks and `src/` line coverage at or above the 90%
-gate. The coverage command is the source of truth for the current test count and
-percentage.
+Expected: every arm exits 0 with zero mocks and `src/` line coverage at or above the 90%
+gate. [`gates.md`](gates.md) lists every arm and the exact command it runs; CI runs the
+same arms.
 
 The discrete active-inference agent's generative model is also specified in
 [`../gnn/discrete_active_inference_agent.gnn.md`](../gnn/discrete_active_inference_agent.gnn.md)
@@ -240,15 +241,18 @@ uv run python scripts/serve_learner_dashboard.py
 | Task | Command (from project root) |
 |---|---|
 | Install deps | `uv sync` |
-| Build + validate DAG | `uv run python scripts/build_curriculum.py` |
+| Every gate arm (developer loop) | `./gates.sh` |
+| Every gate arm (full) | `./gates.sh all` |
+| Build + validate DAG | `./gates.sh artifacts` (or `uv run python scripts/build_curriculum.py`) |
 | Run kernels + figures | `uv run python scripts/run_kernels.py` |
 | Build local course materials | `uv run python scripts/build_course_materials.py` |
 | Validate course-material sources | `uv run python scripts/validate_course_material_sources.py --online` |
 | Validate material/quiz alignment | `uv run python scripts/validate_course_material_alignment.py` |
 | Validate manuscript artifacts | `uv run python scripts/validate_manuscript_artifacts.py` |
 | Export SkillTree JSON | `uv run python scripts/export_skilltree.py` |
-| Validate the GNN agent spec (needs the pinned GNN checkout) | `uv run python scripts/validate_gnn_spec.py` |
-| Run tests + coverage | `uv run pytest tests/ --cov=src --cov-fail-under=90` |
+| Validate the GNN agent spec (needs the pinned GNN checkout) | `./gates.sh gnn` |
+| Run tests + coverage | `./gates.sh test` |
+| Render the manuscript PDF | `./gates.sh render` |
 | Live SkillTree + seed (Docker) | `./scripts/run_skilltree.sh` |
 | Live SkillTree + learner dashboard (Docker) | `./scripts/run_learning_dashboard.sh` |
 | Serve artifact dashboard only | `uv run python scripts/serve_learner_dashboard.py` |

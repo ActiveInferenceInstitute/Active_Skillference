@@ -50,6 +50,13 @@ to `n/a`; the figure cannot continue certifying a gate that is absent.
 
 ## The test suite
 
+Modules that repaint every figure or rebuild the full artifact chain carry a module-level
+`slow` mark (`test_figures.py`, `test_pipeline_generated_outputs.py`,
+`test_rendered_freshness.py`, `test_scripts_smoke.py`). `./gates.sh fast` deselects them so
+the editing loop stays short; `./gates.sh test` runs them all and is what CI runs. The
+marker is registered in `pyproject.toml`, and `--strict-markers` is on, so a typo fails
+collection instead of silently selecting nothing.
+
 | File | Covers |
 | --- | --- |
 | [`test_kernels_information.py`](../tests/test_kernels_information.py) | `surprise`, `entropy`, `cross_entropy`, `kl_divergence`, `mutual_information` — analytic identities and input guards |
@@ -155,18 +162,22 @@ fail_under = 90
 ```
 
 The pyproject also sets `pythonpath = [".", "src"]` and `testpaths = ["tests"]`. Run the
-authoritative gate from the project root:
+authoritative gate through the single entry point:
 
 ```bash
-uv run pytest tests/ --cov=src --cov-report=term-missing --cov-fail-under=90
+./gates.sh test    # uv run pytest --cov=src --cov-fail-under=90 -q
+./gates.sh fast    # the same suite with the `slow`-marked modules deselected
 ```
 
 Lint and type gates (also part of "done"):
 
 ```bash
-uvx ruff check src scripts tests && uvx ruff format --check src scripts tests
-uv run mypy src
+./gates.sh lint    # uv run ruff check src scripts tests && uv run ruff format --check ...
+./gates.sh types   # uv run mypy src
 ```
+
+Ruff and mypy come from the locked `dev` dependency group, so a local run and a CI run
+resolve the same versions; [`gates.md`](gates.md) lists every arm.
 
 ## Zero-Mock Checklist
 
@@ -198,7 +209,7 @@ A green exit code is **not** proof the suite ran. Confirm **N collected > 0 AND 
 90%**.
 
 ```bash
-uv run pytest tests/ --cov=src --cov-fail-under=90 -q
+./gates.sh test
 ```
 
 ## See also

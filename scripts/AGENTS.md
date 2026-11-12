@@ -23,7 +23,9 @@ SkillTree business logic in this directory.
 | `serve_learner_dashboard.py` | Serve the local learner dashboard shell and token bridge | `src/dashboard/` |
 | `run_skilltree.sh` | Start the Docker-backed SkillTree runtime and seed it | `docker-compose.yml`, `vendor/` |
 | `run_learning_dashboard.sh` | Start Docker SkillTree, regenerate/seed, then serve the learner dashboard | `src/dashboard/`, `docker-compose.yml`, `vendor/` |
-| `00_preflight.py` | Local environment preflight wrapper | project paths and template render prerequisites |
+| `render_manuscript.py` | Authoritative render path: hydrate, assemble, and drive Pandoc → XeLaTeX (PDF) / Pandoc → HTML (web) | `scripts/z_generate_manuscript_variables.py`, `manuscript/`, `output/manuscript/` |
+| `check_docs_links.py` | Fail on a relative Markdown link or image that does not resolve | authored `*.md` surfaces |
+| `z_generate_gate_metrics.py` | Render or check `docs/gate_metrics.md` from the recorded arm timings | `docs/_generated/arm_timings.json` |
 | `validate_gnn_spec.py` | Validate the discrete-agent GNN specification against the pinned GNN revision and the kernel | `gnn/`, `src/gnn_conformance.py` |
 
 ## Verification
