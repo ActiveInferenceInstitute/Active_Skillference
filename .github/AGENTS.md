@@ -2,6 +2,8 @@
 
 - Keep action references pinned to full commit SHAs with the release in a
   trailing comment. `dependabot.yml` owns upgrades.
+- Workflow steps call `./gates.sh <arm>`; the arm definitions live only in that
+  script ([`../docs/gates.md`](../docs/gates.md)).
 - Keep the offline/live split. Do not add a job that pretends to run the Docker
   or browser proofs; those stay local and explicit.
 - The `gnn-conformance` job reads its tag and commit from

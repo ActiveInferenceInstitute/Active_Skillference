@@ -5,6 +5,9 @@ name: gates
 # needs a Docker daemon and a real browser, so it stays a local proof and is
 # deliberately not simulated here — a green badge must not imply a live check
 # that never ran.
+#
+# Every step delegates to an arm of ./gates.sh, so CI and a local run execute the
+# same command text and a change to a gate lands in one place. See docs/gates.md.
 on:
   push:
     branches: [main]
@@ -21,7 +24,7 @@ permissions:
 jobs:
   gates:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
@@ -31,38 +34,27 @@ jobs:
           version: "0.13.7"
           enable-cache: true
 
+      # One environment for every gate below: the locked set, synced once.
       - name: Sync the locked environment
-        run: uv sync --frozen
+        run: ./gates.sh sync
 
       - name: Lint and format
-        run: |
-          uvx ruff check src scripts tests
-          uvx ruff format --check src scripts tests
+        run: ./gates.sh lint
 
       - name: Type check
-        run: uv run mypy src
+        run: ./gates.sh types
 
       - name: Build the curriculum and generated artifacts
-        run: |
-          uv run python scripts/build_curriculum.py
-          uv run python scripts/run_kernels.py
-          uv run python scripts/export_skilltree.py
+        run: ./gates.sh artifacts
 
       - name: Provenance, scholarship, and manuscript gates
-        run: |
-          uv run python scripts/validate_claim_support.py
-          uv run python scripts/validate_manuscript_artifacts.py
-          uv run python scripts/validate_manuscript_variables.py
-          uv run python scripts/validate_american_english.py
-          uv run python scripts/validate_scholarship_sources.py
-          uv run python scripts/validate_course_material_alignment.py
-          uv run python scripts/validate_learner_pilot_contract.py
-          uv run python scripts/validate_live_counts.py
-          uv run python scripts/validate_roadmap.py
-          uv run python scripts/validate_docker_digests.py
+        run: ./gates.sh checks
 
       - name: Tests with the coverage floor
-        run: uv run pytest --cov=src --cov-fail-under=90 -q
+        run: ./gates.sh test
+
+      - name: Documentation links and generated gate metrics
+        run: ./gates.sh docs
 
   gnn-conformance:
     timeout-minutes: 60
@@ -72,6 +64,11 @@ jobs:
     # runtime; the strict gate never skips, and tests/test_gnn_conformance.py
     # fails (never skips) when the explicitly selected GNN_ROOT checkout is
     # missing or unusable.
+    #
+    # This job keeps its own environment on purpose: the extractor must import
+    # from the pinned upstream tree, never from the project environment. Hosted
+    # jobs cannot share a filesystem, so this is the one install the workflow
+    # pays twice; both jobs run the same ./gates.sh arms and share the uv cache.
     name: gnn conformance (pinned)
     runs-on: ubuntu-latest
     steps:
@@ -83,9 +80,9 @@ jobs:
           version: "0.13.7"
           enable-cache: true
 
-      - name: Sync the locked environment
-        run: uv sync --frozen
-
+      # `uv run` inside the arm syncs the locked set on demand, so the explicit
+      # sync step the gates job needs (for the tools it runs repeatedly) is not
+      # repeated here.
       - name: Provision the pinned GNN parser runtime
         env:
           GNN_ROOT: ${{ runner.temp }}/gnn
@@ -103,15 +100,10 @@ jobs:
           # fails the run loudly instead of degrading to a skip.
           uv pip install --python "$GNN_ROOT/.venv/bin/python" numpy defusedxml
 
-      - name: Validate the GNN specification against the pinned parser
+      - name: Validate the specification and run the pinned conformance tests
         env:
           GNN_ROOT: ${{ runner.temp }}/gnn
-        run: uv run python scripts/validate_gnn_spec.py
-
-      - name: Run the pinned-upstream conformance tests
-        env:
-          GNN_ROOT: ${{ runner.temp }}/gnn
-        run: uv run pytest tests/test_gnn_conformance.py -q
+        run: ./gates.sh gnn
 
       - name: Report the resolved GNN version
         run: |

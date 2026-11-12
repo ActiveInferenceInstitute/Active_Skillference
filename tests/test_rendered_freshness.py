@@ -6,6 +6,8 @@ import sys
 import zipfile
 from pathlib import Path
 
+import pytest
+
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
 sys.path.insert(0, str(REPO / "src"))
@@ -13,6 +15,9 @@ sys.path.insert(0, str(REPO / "scripts"))
 
 import validate_rendered_freshness as freshness
 import z_generate_manuscript_variables as zg
+
+# Rehydrates the manuscript and rebuilds the live graph; `./gates.sh fast` deselects it.
+pytestmark = pytest.mark.slow
 
 
 def _setup(tmp_path: Path, monkeypatch) -> Path:

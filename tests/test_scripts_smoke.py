@@ -12,7 +12,13 @@ import urllib.request
 from pathlib import Path
 from types import ModuleType
 
+import pytest
+
 REPO = Path(__file__).resolve().parents[1]
+
+# Each test re-runs a thin orchestrator as a subprocess, and the kernel/export pair
+# rebuilds the generated bundle; `./gates.sh fast` deselects it, the full arm runs it.
+pytestmark = pytest.mark.slow
 
 
 # Subprocess timeout is deliberately generous: run_kernels.py (the heavy pipeline:

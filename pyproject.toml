@@ -37,6 +37,7 @@ python_functions = ["test_*"]
 addopts = "-v --tb=short --strict-markers"
 markers = [
     "requires_browser: browser subprocess or chrome-devtools-axi integration (opt-in)",
+    "slow: module-level suite that pays for figure rendering or a full artifact rebuild; deselected by ./gates.sh fast",
 ]
 
 [tool.coverage.run]
@@ -85,5 +86,6 @@ dev = [
     "pytest>=7.4.0",
     "pytest-cov>=4.1.0",
     "pytest-httpserver>=1.1.5",
+    "ruff>=0.15",
 ]
 # Inherits workspace settings from root pyproject.toml
