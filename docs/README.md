@@ -3,7 +3,7 @@
 > **Operational guide** for Active Skillference — a high-integrity micro-learning
 > platform for Active Inference (AIF) and the Free Energy Principle (FEP).
 
-**Quick Reference:** [Quickstart](quickstart.md) | [Learner Dashboard](learner_dashboard.md) | [Architecture](architecture.md) | [Active TODO Details](todo/) | [Scholarship](scholarship_coverage.md) | [Learner Pilot](pilot/) | [IP/License](ip_license_status.md) | [Publication Readiness](publication_readiness.md) | [Release Inventory](release_readiness_inventory.md) | [Curriculum Audit](curriculum_expert_audit.md) | [Agent Instructions](agent_instructions.md) | [Testing](testing_philosophy.md) | [Rendering](rendering_pipeline.md) | [Style](style_guide.md) | [Syntax](syntax_guide.md) | [Index](AGENTS.md)
+**Quick Reference:** [Quickstart](quickstart.md) | [Gates](gates.md) | [Gate Metrics](gate_metrics.md) | [Documentation Index](documentation-index.md) | [Learner Dashboard](learner_dashboard.md) | [Architecture](architecture.md) | [Active TODO Details](todo/) | [Scholarship](scholarship_coverage.md) | [Learner Pilot](pilot/) | [IP/License](ip_license_status.md) | [Publication Readiness](publication_readiness.md) | [Release Inventory](release_readiness_inventory.md) | [Curriculum Audit](curriculum_expert_audit.md) | [Agent Instructions](agent_instructions.md) | [Testing](testing_philosophy.md) | [Rendering](rendering_pipeline.md) | [Style](style_guide.md) | [Syntax](syntax_guide.md) | [Index](AGENTS.md)
 
 ## Purpose
 
@@ -76,8 +76,16 @@ fails if the two drift apart.
 | File | Purpose | Audience |
 |---|---|---|
 | [`quickstart.md`](quickstart.md) | 5-minute run: `uv sync` → build curriculum → run kernels → export → test | New users |
+| [`documentation-index.md`](documentation-index.md) | Flat index of every long-lived document and the fact it is authoritative for | All |
 | [`faq.md`](faq.md) | Recurring questions: provenance, DAG, SkillTree | All |
 | [`troubleshooting.md`](troubleshooting.md) | Diagnosed failures with fix commands | Developers |
+
+### Gates and verification
+
+| File | Purpose | Audience |
+|---|---|---|
+| [`gates.md`](gates.md) | The `./gates.sh` entry point: every arm, its command, ordering, and the CI job that runs it | Developers, maintainers |
+| [`gate_metrics.md`](gate_metrics.md) | Generated per-arm wall times plus the recorded test count and coverage | Developers, maintainers |
 
 ### Architecture and conventions
 
@@ -141,12 +149,23 @@ fails if the two drift apart.
 
 ## Verification Commands
 
-Run from the project root:
+Run from the project root. The gate arms and their exact commands are documented in
+[`gates.md`](gates.md); CI runs the same arms.
 
 ```bash
-# Tests pass + coverage ≥90% on src/
-uv run pytest tests/ --cov=src --cov-fail-under=90
+./gates.sh            # lint, types, fast — the developer loop
+./gates.sh all        # every offline arm in CI order
+./gates.sh test       # full suite + the 90% src/ coverage floor
+./gates.sh artifacts  # DAG, kernels/figures, SkillTree export
+./gates.sh checks     # provenance, scholarship, manuscript, roadmap validators
+./gates.sh docs       # documentation links + generated gate-metric freshness
+./gates.sh gnn        # pinned GNN conformance (needs GNN_ROOT)
+./gates.sh render     # manuscript → PDF
+```
 
+Two source-hygiene scans are documented but are not arms, because CI does not run them:
+
+```bash
 # No mocks anywhere in tests/
 grep -r "unittest.mock\|MagicMock\|@patch\|create_autospec" tests/ || echo "Clean"
 
@@ -154,16 +173,14 @@ grep -r "unittest.mock\|MagicMock\|@patch\|create_autospec" tests/ || echo "Clea
 grep -rnE "^(from|import) (kernels|curriculum|skilltree|provenance|figures)\b" src/ scripts/ tests/ \
     && echo "VIOLATION — bare import escapes the src.* namespace" \
     || echo "Clean — all imports under src.*"
+```
 
-# The DAG validates and prints its stats
-uv run python scripts/build_curriculum.py
+Local dashboard checks that need no gate arm:
 
-# Local dashboard Learn material validates
+```bash
 uv run python scripts/build_course_materials.py
 uv run python scripts/validate_course_material_sources.py --online
 uv run python scripts/validate_course_material_alignment.py
-
-# Optional local learner dashboard status (read-only artifact + SkillTree check)
 uv run python scripts/serve_learner_dashboard.py --check
 ```
 

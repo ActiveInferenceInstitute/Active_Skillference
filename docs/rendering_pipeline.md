@@ -7,8 +7,11 @@ that must first be produced by a tested kernel. So the pipeline runs kernels →
 claims → validates the manuscript and scholarship matrix fail-closed → renders figures →
 audits manuscript/dashboard figure wiring → renders the PDF.
 
-This project lives in the parent monorepo's working tree and relies on that monorepo's
-`infrastructure/` for the actual Pandoc/LaTeX rendering and the manuscript pre-flight.
+The render itself is in-repo: [`scripts/render_manuscript.py`](../scripts/render_manuscript.py)
+hydrates the sections from the kernel-emitted variables and drives Pandoc → XeLaTeX with
+the manuscript's own configuration, preamble, and bibliography. It needs `pandoc`,
+`pandoc-crossref`, `xelatex` and `bibtex` on `PATH` and nothing from any other
+repository; the arm is `./gates.sh render` ([`gates.md`](gates.md)).
 
 ## The flow
 
@@ -23,13 +26,17 @@ run_kernels.py ──► src.pipeline.generated_outputs.build_generated_outputs(
        │             claim support, figure/dashboard wiring, and publication-asset wiring,
        │             fail-closed)
        ▼
-00_preflight.py ──► infrastructure.rendering.preflight.run_manuscript_preflight
+z_generate_manuscript_variables.py ──► output/manuscript/*.md
+       │                                ({{claim:NAME}} and count tokens resolved)
+       ▼
+render_manuscript.py ──► pandoc --natbib → xelatex → bibtex → xelatex → xelatex
+       │                  (title page from config.yaml, preamble.md packages,
+       │                   pandoc-crossref figures/sections, references.bib)
+       ▼
+output/pdf/Active_Skillference_combined.pdf
        │
        ▼
-infrastructure rendering (Pandoc → XeLaTeX/HTML) ──► output/pdf/Active_Skillference_combined.pdf
-       │
-       ▼
-ensure_web_math.py + validate_web_math.py ──► MathJax-ready output/web/*.html
+ensure_web_math.py + validate_web_math.py ──► committed output/web/*.html stays MathJax-ready
 ```
 
 The learner dashboard is a local consumer of the same outputs. It is served by
@@ -140,49 +147,61 @@ notes, and dense visuals should widen, wrap, summarize, or use ledger layouts in
 shrinking labels. The dashboard artifact gallery exposes a full-size image link before
 metadata and groups the first-read contract as Question / Grain / Boundary / Failure.
 
-### Step 2 — Manuscript pre-flight (runs inside the render pipeline)
+### Step 2 — Hydrate the authored sections
 
-**Script**: [`scripts/00_preflight.py`](../scripts/00_preflight.py). It imports
-`infrastructure.rendering.preflight.run_manuscript_preflight` from the parent monorepo and
-checks the `manuscript/` directory for rendering prerequisites, returning a non-zero exit
-code with a diagnostic message on failure.
+**Script**: [`scripts/z_generate_manuscript_variables.py`](../scripts/z_generate_manuscript_variables.py).
 
-Because it imports `infrastructure`, this preflight only resolves when the monorepo is on
-the import path — i.e. when it runs **as part of the render pipeline** (Step 3) from the
-template monorepo root. Running it standalone from the project's own directory raises
-`ModuleNotFoundError: No module named 'infrastructure'`; that is expected — use the Step 3
-command, which invokes the preflight with the correct path set up.
+By default it re-runs `scripts/run_kernels.py` first, so the variables file and every
+figure are current, then writes a resolved copy of every section to
+`output/manuscript/`. Tokens are substituted from
+`output/data/manuscript_variables.json`: `{{claim:NAME}}` resolves strictly (an unknown
+claim name raises) and a bare `{{count_token}}` resolves from the same file. Code spans
+are left alone so the syntax documentation stays readable, and any unresolved `{{…}}`
+leftover fails the run. `--skip-kernels` reuses the artifacts already on disk.
 
-### Step 3 — Render the PDF (parent `infrastructure/`)
-
-`working/` projects render through the template renderer, run **from the template
-monorepo root**:
+### Step 3 — Render the PDF (repository toolchain)
 
 ```bash
-# from the template monorepo root (the repo that contains infrastructure/)
-uv run python scripts/pipeline/stage_03_render.py --project Active_Skillference
+./gates.sh render
+# equivalent, and useful when iterating on prose without re-running the kernels:
+uv run python scripts/render_manuscript.py --skip-kernels
 ```
 
-This runs the core pipeline (infrastructure preflight → analysis → render) and drives the
-manuscript to PDF through the parent rendering infrastructure (Pandoc → XeLaTeX), using the
-manuscript metadata in [`manuscript/config.yaml`](../manuscript/config.yaml),
-[`manuscript/preamble.md`](../manuscript/preamble.md), and
-[`manuscript/references.bib`](../manuscript/references.bib). Section files are assembled in
-lexicographic order (`00_abstract.md` … `08_supplement_variational_free_energy.md` …
-`99_references.md`).
+[`scripts/render_manuscript.py`](../scripts/render_manuscript.py) assembles
+`output/manuscript/*.md` in lexicographic order (`00_abstract.md` …
+`08_supplement_variational_free_energy.md` … `99_references.md`) with a page break
+between sections, prepends a title page generated from
+[`manuscript/config.yaml`](../manuscript/config.yaml) (cover image, title, subtitle,
+authors, DOI, version), and then runs one Pandoc pass followed by the standard LaTeX
+citation cycle:
+
+1. `pandoc --to=latex --natbib --standalone --toc --number-sections` with
+   `pandoc-crossref` and the `manuscript/preamble.md` packages;
+2. `xelatex`, `bibtex`, `xelatex`, `xelatex` — the second pass resolves the `.bbl`,
+   the third settles cross-references.
+
+The combined Markdown, `.tex`, `.aux`, `.log`, `.bbl`, bibliography copy and the first
+PDF passes stay in a scratch directory one level below the repository root; only the final
+`output/pdf/Active_Skillference_combined.pdf` is kept. The scratch directory has to sit at
+that depth because the manuscript writes figure paths as `../output/figures/x.png`.
+
+After the passes, the script reads `combined.log` and fails if any reference or citation
+is still undefined, so a PDF with `[??]` in it is never published as the build output.
 
 **Final PDF target**: `output/pdf/Active_Skillference_combined.pdf`.
 
-After a render that emits `output/web/*.html`, run:
+The committed `output/web/`, `output/docx/`, `output/epub/` and `output/slides/` bundles
+are deposited publication artifacts from the wider publishing pipeline; this arm does not
+rewrite them. It does keep their math surfaces honest:
 
 ```bash
 uv run python scripts/ensure_web_math.py
 uv run python scripts/validate_web_math.py
 ```
 
-This normalizes generated HTML pages that contain math so they load MathJax, then fails
-if either the manuscript web output or the learner dashboard can still surface formulas as
-escaped text.
+The first normalizes rendered HTML that contains math so it loads MathJax; the second
+fails if the manuscript web output or the learner dashboard can still surface formulas as
+escaped text. `./gates.sh render` runs both after the PDF.
 
 **Inputs the renderer consumes**:
 
@@ -219,7 +238,7 @@ publication layers:
 ### Optional publication features
 
 These are configured in `manuscript/config.yaml` and are **optional**; they engage only
-through the parent monorepo's publishing/secure tooling and are not required to produce the
+through the wider publishing tooling and are not required to produce the
 combined PDF. **In this project both are disabled** — it is an open (MIT) educational
 manuscript, so no watermarking or transmission bookends are applied.
 
@@ -295,15 +314,32 @@ uv run python scripts/run_kernels.py
 
 **Fix**: Confirm every cited key exists and entries have at least `author`, `title`, `year`.
 
-### Pre-flight fails
+### The render arm stops on a missing tool
 
-**Symptom**: `scripts/00_preflight.py` exits non-zero with a message.
+**Symptom**: `render_manuscript.py` exits non-zero naming `pandoc`,
+`pandoc-crossref`, `xelatex` or `bibtex`.
 
-**Cause**: A manuscript rendering prerequisite reported by
-`infrastructure.rendering.preflight` is missing.
+**Cause**: One of the four tools the render path needs is not on `PATH`, or
+`pandoc-crossref` was built for a different Pandoc major version (it refuses to run
+against an incompatible one).
 
-**Fix**: Read the printed message — it identifies the specific missing prerequisite — and
-provision it, then re-run pre-flight.
+**Fix**: Install the named tool and re-run `./gates.sh render`. On macOS:
+`brew install pandoc pandoc-crossref` and a TeX Live with `xelatex`/`bibtex`
+(TinyTeX or MacTeX). The script names the missing tool precisely and writes no partial
+PDF.
+
+### The render arm reports unresolved references or citations
+
+**Symptom**: `render_manuscript.py` exits with lines from `combined.log` naming an
+undefined citation or reference.
+
+**Cause**: A `[@key]` with no entry in `manuscript/references.bib`, a `[@fig:label]`
+with no matching `{#fig:label}` image attribute, or a `[@sec:label]` with no matching
+section id.
+
+**Fix**: Add the missing bibliography entry, add the label to the figure or heading, or
+correct the reference. Re-run `./gates.sh render`; the log check fails the run rather than
+publishing a PDF with `[??]` in it.
 
 ## See also
 

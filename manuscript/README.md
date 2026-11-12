@@ -3,7 +3,8 @@
 The platform write-up: how the Active Inference / Free Energy Principle curriculum is built
 as a validated prerequisite DAG, why every learner-facing number is produced by a tested
 kernel, and how the curriculum exports to the SkillTree runtime. These Markdown sections
-render to a single academic PDF via the parent monorepo's `infrastructure/` renderer.
+render to a single academic PDF through the repository's own `scripts/render_manuscript.py`
+(Pandoc → XeLaTeX → bibtex) with `config.yaml`, `preamble.md` and `references.bib`.
 
 ## Manuscript inventory and section roles
 
@@ -46,11 +47,17 @@ after changing claim strength, citations, figures, or limitation language.
 # From the project root — regenerate claims + figures (fail-closed provenance gate)
 uv run python scripts/run_kernels.py
 
-# From the template monorepo root — render the PDF with the monorepo infrastructure
-# on the path. The renderer resolves the project by name across the lifecycle
-# folders, so this works whether it sits under projects/working or projects/archive.
-uv run python scripts/pipeline/stage_03_render.py --project Active_Skillference
+# From the project root — hydrate the sections, then render the PDF with the
+# repository's own toolchain (pandoc --natbib, xelatex, bibtex). `--skip-kernels`
+# reuses the artifacts the previous command wrote.
+./gates.sh render
+# or: uv run python scripts/render_manuscript.py --skip-kernels
 ```
+
+The render needs `pandoc`, `pandoc-crossref`, `xelatex` and `bibtex` on `PATH`; a missing
+tool is named and the run stops without writing a partial PDF. `output/pdf/_combined_*`
+intermediates are no longer produced — the combined Markdown, `.tex`, `.aux`/`.log`/`.bbl`
+and the first PDF passes stay in a scratch directory under the project root.
 
 The generated visual assets are written to `output/figures/`: deterministic first-page
 cover and page-two named-skill atlas PNGs plus registered manuscript figures for the
@@ -62,7 +69,7 @@ configured through `front_matter.page_two_visual.image`; both are validated sepa
 from `figure_registry.json`, so neither is cited as a numbered manuscript figure.
 Final PDF assembly
 (`output/pdf/Active_Skillference_combined.pdf`) is
-performed by the parent monorepo `infrastructure/` renderer; see
+performed by `scripts/render_manuscript.py`; see
 [`../docs/rendering_pipeline.md`](../docs/rendering_pipeline.md).
 
 ## Related authoring and rendering references

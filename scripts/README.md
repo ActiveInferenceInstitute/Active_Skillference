@@ -7,6 +7,15 @@ provenance gate, and SkillTree mapping all live in `src/` — scripts coordinate
 
 ## Quick Start
 
+The gate arms run these scripts in dependency order; `.github/workflows/gates.yml` calls
+the arms, so CI and a local run are the same command text:
+
+```bash
+./gates.sh all         # every offline arm (see ../docs/gates.md)
+./gates.sh artifacts   # curriculum → kernels/figures → SkillTree export
+./gates.sh checks      # the provenance/scholarship/manuscript/roadmap validators
+```
+
 ```bash
 uv sync
 uv run python scripts/build_curriculum.py     # DAG stats + diagnostic gap map
@@ -70,12 +79,14 @@ ls -la output/figures/     # generated PNGs plus figure_registry.json
 | `validate_full_app_stack.py` | CLI wrapper around `src.integration.full_app_stack` for the strict Docker + SkillTree + dashboard + browser proof, including dependency reconciliation unless `--app-ready` is selected | `src.integration.full_app_stack`, Docker/Compose, local SkillTree, dashboard, generated artifacts | JSON proof summary on stdout plus a redacted proof artifact under the state directory |
 | `reconcile_live_dependencies.py` | Idempotently reconcile exported learning-path dependencies into a live local SkillTree service when bulk seeding leaves edge parity incomplete | `output/data/skilltree_project.json`, live SkillTree REST API | network (updates local SkillTree dependencies) |
 | `reset_local_skilltree.py` | Back up and reset ignored local SkillTree bootstrap state before rerunning app-ready validation | `.active_skillference_local/`, Docker/Compose, local SkillTree dashboard state | ignored local runtime state + optional app-ready proof |
-| `z_generate_manuscript_variables.py` | Template-render hook; rerun kernels and write provenance-resolved manuscript copies | `scripts/run_kernels.py`, `src.kernels`, `src.provenance`, `manuscript/` | `output/manuscript/*.md` |
+| `z_generate_manuscript_variables.py` | Template-render hook; rerun kernels (or reuse the current artifacts with `--skip-kernels`) and write provenance-resolved manuscript copies | `scripts/run_kernels.py`, `src.kernels`, `src.provenance`, `manuscript/` | `output/manuscript/*.md` |
+| `render_manuscript.py` | Authoritative render path: hydrate sections, assemble them, and drive Pandoc → XeLaTeX (PDF) and Pandoc → HTML (web) | `output/manuscript/`, `manuscript/config.yaml`, `manuscript/preamble.md`, `manuscript/references.bib`, `output/figures/` | `output/pdf/Active_Skillference_combined.pdf`, `output/web/index.html` |
+| `check_docs_links.py` | Fail if a relative Markdown link or image in the authored docs does not resolve on disk | every authored `*.md` surface, `README.md`, `AGENTS.md` | none (exit 0/1) |
+| `z_generate_gate_metrics.py` | Render `docs/gate_metrics.md` from the recorded arm-timing receipt, or `--check` that it is current | `docs/_generated/arm_timings.json` | `docs/gate_metrics.md` with `--write`; none with `--check` |
 | `export_skilltree.py` | Provenance-gate the curriculum and export a SkillTree-native project JSON | `src.curriculum`, `src.kernels`, `src.provenance`, `src.skilltree` | `output/data/skilltree_project.json` |
 | `seed_skilltree.py` | Build + render the project and seed it into a live SkillTree server over REST | `src.curriculum`, `src.kernels`, `src.provenance`, `src.skilltree` | network (a running SkillTree instance) |
 | `bootstrap_local_skilltree.py` | Bootstrap local SkillTree `FORM` auth, seed the project, and store ignored trusted-client state | `src.curriculum`, `src.kernels`, `src.provenance`, `src.skilltree.local_auth` | network + `.active_skillference_local/` |
 | `serve_learner_dashboard.py` | Serve the local learner dashboard shell | `src.dashboard` | local HTTP server at `http://127.0.0.1:8765` |
-| `00_preflight.py` | Pre-flight check for manuscript-render prerequisites | `infrastructure.rendering.preflight`, `manuscript/` | none (exit 0 ok, 1 on missing prerequisite) |
 | `validate_gnn_spec.py` | Validate the discrete-agent GNN specification against the pinned GNN revision and the kernel | `gnn/`, `src.gnn_conformance` | none (exit 0 pass, 1 conformance failure, 2 GNN unavailable) |
 | `run_skilltree.sh` | One command: bring up Docker SkillTree + Postgres, wait for the API, then seed | `docker-compose.yml`, `vendor/` | a running instance at `http://localhost:8080` |
 | `run_learning_dashboard.sh` | One command: bring up Docker SkillTree, regenerate/export/seed, then serve the learner dashboard | `docker-compose.yml`, `src.dashboard`, `vendor/` | SkillTree plus dashboard |
@@ -429,9 +440,17 @@ SkillTree auth by default, seeds the project, and serves the learner dashboard a
 `http://127.0.0.1:8765`. Set `ACTIVE_SKILLFERENCE_LOCAL_AUTH=0` to use the explicit
 deployment-token path instead.
 
-### `00_preflight.py`
-Wraps `infrastructure.rendering.preflight.run_manuscript_preflight` over the
-`manuscript/` directory; exits `0` if render prerequisites are present, `1` otherwise.
+### `render_manuscript.py`
+```bash
+./gates.sh render
+# or, without the web build and without re-running the kernels:
+uv run python scripts/render_manuscript.py --skip-kernels --pdf-only
+```
+Hydrates the authored sections through `z_generate_manuscript_variables.py`, assembles
+them in lexicographic order with page breaks and a generated title page, and drives
+Pandoc with `pandoc-crossref` (for `[@fig:label]` / `[@sec:label]`), `pandoc-citeproc`
+(for `references.bib`), the `manuscript/preamble.md` LaTeX packages and a XeLaTeX engine.
+Missing tooling is named and the run stops; no partial PDF is written.
 
 ## Architecture
 

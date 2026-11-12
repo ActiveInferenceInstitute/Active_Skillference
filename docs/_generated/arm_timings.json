@@ -1,0 +1,57 @@
+{
+  "schema": "gate-arm-timings/v1",
+  "recorded": "2026-11-12",
+  "platform": "Darwin arm64",
+  "arms": [
+    {
+      "arm": "sync",
+      "seconds": 0.04,
+      "exit": 0
+    },
+    {
+      "arm": "lint",
+      "seconds": 0.14,
+      "exit": 0
+    },
+    {
+      "arm": "types",
+      "seconds": 0.42,
+      "exit": 0
+    },
+    {
+      "arm": "fast",
+      "seconds": 195.63,
+      "exit": 0
+    },
+    {
+      "arm": "artifacts",
+      "seconds": 48.16,
+      "exit": 0
+    },
+    {
+      "arm": "checks",
+      "seconds": 26.85,
+      "exit": 0
+    },
+    {
+      "arm": "test",
+      "seconds": 368.19,
+      "exit": 0
+    },
+    {
+      "arm": "gnn",
+      "seconds": 5.77,
+      "exit": 0
+    },
+    {
+      "arm": "docs",
+      "seconds": 0.19,
+      "exit": 0
+    }
+  ],
+  "tests": {
+    "passed": 982,
+    "skipped": 0,
+    "coverage_percent": "90.99"
+  }
+}

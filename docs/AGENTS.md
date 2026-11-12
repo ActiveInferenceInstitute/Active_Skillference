@@ -22,6 +22,9 @@ misleads future contributors even when the code gates are green.
 |---|---|
 | `README.md` | Quick navigation and audience-targeted entry points for this folder |
 | `AGENTS.md` | This index — technical overview of `docs/` + verification commands |
+| `documentation-index.md` | Flat index of every long-lived document, its authoritative subject, and the generated ones |
+| `gates.md` | The `./gates.sh` entry point: arm-by-arm commands, ordering, CI job mapping, render toolchain |
+| `gate_metrics.md` | Generated per-arm wall times and the test/coverage counts from the recorded run |
 | `quickstart.md` | 5-minute first-run walkthrough (build → kernels → export → test) |
 | `learner_dashboard.md` | Local learner dashboard route map, SkillTree ownership boundary, offline behavior |
 | `architecture.md` | Thin-orchestrator flow: the `src/` layers, dependency direction, how to add a skill/subject/kernel |
@@ -88,7 +91,7 @@ under `pythonpath = [".", "src"]` they create a second module identity for the s
 (the dual-identity hazard), so type checks and registry comparisons silently break.
 
 **Thin orchestrator.** All logic lives in `src/`; `scripts/` only coordinate I/O. The
-scripts that exist are `00_preflight.py`, `analyze_scholarship.py`,
+scripts that exist are `analyze_scholarship.py`,
 `audit_scholarship_gaps.py`,
 `build_curriculum.py`, `build_course_materials.py`, `run_kernels.py`,
 `validate_american_english.py`, `validate_claim_support.py`,
@@ -102,7 +105,9 @@ scripts that exist are `00_preflight.py`, `analyze_scholarship.py`,
 `validate_web_math.py`, `export_skilltree.py`, `seed_skilltree.py`,
 `bootstrap_local_skilltree.py`, `reconcile_live_dependencies.py`,
 `reset_local_skilltree.py`, `z_generate_manuscript_variables.py` (the
-provenance-resolved manuscript render hook), `serve_learner_dashboard.py`,
+provenance-resolved manuscript hydration hook), `render_manuscript.py` (the authoritative
+render path), `check_docs_links.py`, `z_generate_gate_metrics.py`,
+`serve_learner_dashboard.py`,
 `run_skilltree.sh`, and `run_learning_dashboard.sh`.
 
 **Zero mocks.** No `unittest.mock`, `MagicMock`, `@patch`, or `create_autospec` in
@@ -111,7 +116,9 @@ local server with `pytest-httpserver` (`tests/test_skilltree_client.py`). Mock t
 pass while the math is wrong.
 
 **Coverage ≥90%.** `pyproject.toml` gates `src/` coverage at 90%; use the coverage run
-as the source of truth for the current test count and percentage.
+as the source of truth. The recorded test count and coverage from the last
+`./gates.sh record` run live in the generated [`gate_metrics.md`](gate_metrics.md) — do not
+copy them here.
 
 **Roadmap surfaces.** `tasks.yaml` is the canonical roadmap/history source.
 `TODO.md` is generated, forward-only, and links each active item to a generated
@@ -129,22 +136,33 @@ as the source of truth for the current test count and percentage.
 
 ## Verification commands
 
-Run all four from the project root before submitting any change:
+Run from the project root. Every one of these is an arm of the single gate entry point,
+[`gates.md`](gates.md); CI runs the same arms, so these commands and the workflow cannot
+drift apart.
 
 ```bash
-# Test suite passes + coverage ≥90% on src/
-uv run pytest tests/ --cov=src --cov-fail-under=90 -q
+./gates.sh lint      # Ruff check + format check over src scripts tests
+./gates.sh types     # mypy over src/
+./gates.sh test      # full suite + the 90% src/ coverage floor
+./gates.sh fast      # the same suite minus the `slow`-marked modules
+./gates.sh artifacts # curriculum, kernels/figures, SkillTree export
+./gates.sh checks    # provenance, scholarship, manuscript, roadmap validators
+./gates.sh docs      # documentation links + generated gate-metric freshness
+./gates.sh gnn       # pinned GNN conformance (needs GNN_ROOT)
+./gates.sh render    # manuscript → PDF/web with the repository's own toolchain
+```
 
-# No mocks in tests/
+Two source-hygiene scans are documented here but are not gate arms, because CI does not
+run them: they are greps for a rule the test suite already depends on.
+
+```bash
+# No mock-framework objects anywhere in tests/
 grep -r "unittest.mock\|MagicMock\|@patch\|create_autospec" tests/ || echo "Clean"
 
-# All imports under the src.* namespace
+# Every import under the src.* namespace
 grep -rnE "^(from|import) (kernels|curriculum|skilltree|provenance|figures)\b" src/ scripts/ tests/ \
-    && echo "VIOLATION — bare import" || echo "Clean — src.* only"
-
-# DAG validates + provenance-gated export succeeds
-uv run python scripts/build_curriculum.py
-uv run python scripts/export_skilltree.py
+    && echo "VIOLATION — bare import escapes the src.* namespace" \
+    || echo "Clean — all imports under src.*"
 ```
 
 ## Source layout reference

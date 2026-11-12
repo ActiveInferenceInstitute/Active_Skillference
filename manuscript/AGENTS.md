@@ -182,20 +182,22 @@ are emitted.
    ```bash
    uv run python scripts/run_kernels.py
    ```
-4. Render to PDF via the parent infrastructure renderer, **from the template monorepo
-   root** (`working/` projects are resolved by name, and `00_preflight.py` cannot run
-   standalone from the project dir because it imports `infrastructure`):
+4. Render to PDF with the repository's own toolchain, from the project root:
    ```bash
-   uv run python scripts/pipeline/stage_03_render.py --project Active_Skillference
+   ./gates.sh render
+   # or, reusing the artifacts step 3 just wrote:
+   uv run python scripts/render_manuscript.py --skip-kernels
    ```
-   (Final PDF assembly uses the monorepo `infrastructure/` renderer; see
+   (The render hydrates the sections, drives `pandoc --natbib` → `xelatex` → `bibtex`,
+   and fails on any unresolved citation or reference; see
    [`../docs/rendering_pipeline.md`](../docs/rendering_pipeline.md).)
 5. Confirm the generated figures and the cited references appear; check the render log for
    LaTeX/citation errors.
 
-> **Mermaid prerequisite.** If a section embeds a ```mermaid``` block, the combined-PDF
-> render shells out to `mmdc`, which needs a pinned `chrome-headless-shell` in the
-> Puppeteer cache (`npx --yes puppeteer browsers install chrome-headless-shell`).
+> **No Mermaid conversion.** The render path has no Mermaid step: a ```mermaid``` block
+> would reach the PDF as a code listing. The sections carry no such block today. If you
+> need a diagram, generate it as a registered figure under `output/figures/` and reference
+> it with `[@fig:label]` instead.
 
 ## Conventions
 

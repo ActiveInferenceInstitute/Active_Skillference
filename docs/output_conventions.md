@@ -95,15 +95,16 @@ Run from the project root. Each script is a thin orchestrator over `src/`.
    ```bash
    uv run python scripts/export_skilltree.py
    ```
-5. **Render the manuscript PDF/web output** (optional; uses the parent monorepo `infrastructure/`).
-   `working/` projects render through the template renderer, run **from the template
-   monorepo root**:
+5. **Render the manuscript PDF** (optional; repository toolchain, no other checkout).
    ```bash
-   # from the template monorepo root
-   uv run python scripts/pipeline/stage_03_render.py --project Active_Skillference
+   ./gates.sh render
+   # or, without re-running the kernels and without the web-math checks:
+   uv run python scripts/render_manuscript.py --skip-kernels
    ```
-   Produces `output/pdf/Active_Skillference_combined.pdf` (plus slide/HTML by-products).
-   See [`rendering_pipeline.md`](rendering_pipeline.md) for the full flow.
+   Produces `output/pdf/Active_Skillference_combined.pdf` from `manuscript/config.yaml`,
+   `manuscript/preamble.md` and `manuscript/references.bib`. Renderer intermediates stay in
+   a scratch directory and are not left in `output/`. See
+   [`rendering_pipeline.md`](rendering_pipeline.md) for the full flow.
 6. **Normalize and validate web math** after any HTML render.
    ```bash
    uv run python scripts/ensure_web_math.py

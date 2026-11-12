@@ -52,7 +52,7 @@ Paths in the table are relative to the project root (`Active_Skillference/`).
 | `output/figures/roadmap_risk.png` | Roadmap status counts, external blockers, git-authorization hygiene, and live metrics | `scripts/run_kernels.py` → `src/figures/plots/roadmap.py::plot_roadmap_risk()` | Run kernels |
 | `output/figures/figure_registry.json` | Deterministic registry of generated figure labels, filenames, captions, alt text, semantic metadata, structured chart-contract fields (`question`, `takeaway`, `data_sources`, `data_grain`, `encoding`, `palette_policy`, `palette_roots`, `non_color_encoding`, `static_read`, `mobile_read`, `failure_mode`), optional table-companion ids, claim tokens, and generator functions | `src/figures/plots/registry_io.py::render_all()` → `src/figures/registry_manifest.py` / `src/figures/registry.py` | Run kernels |
 | `output/data/skilltree_project.json` | SkillTree-native project export with subjects, skills, dependencies, and quizzes, written only after the fail-closed provenance gate passes | `scripts/export_skilltree.py` → `src/skilltree/exporter.py::export_to_json()` | Export SkillTree |
-| `output/pdf/Active_Skillference_combined.pdf` | The combined manuscript PDF (the platform write-up) | parent monorepo `infrastructure/rendering` (preflighted by `scripts/00_preflight.py`) | Render PDF (optional) |
+| `output/pdf/Active_Skillference_combined.pdf` | The combined manuscript PDF (the platform write-up) | `scripts/render_manuscript.py` (hydrate → pandoc --natbib → xelatex/bibtex cycle) | Render PDF (optional) |
 
 The numbered manuscript figures are produced together by `src/figures/plots/registry_io.py::render_all()`,
 which `src.pipeline.generated_outputs.build_generated_outputs()` invokes with the

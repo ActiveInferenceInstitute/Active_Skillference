@@ -68,7 +68,14 @@ This file contains LaTeX packages and commands that are automatically injected i
     Scale          = MatchLowercase,
   ]%
 }{%
-  \setmonofont{Latin Modern Mono}%
+  % TeX Live ships Latin Modern Mono as an OpenType file, and fontconfig does not
+  % always register the family name on a minimal installation (TinyTeX), so probe
+  % the file with fontspec's own check before falling back to the family name.
+  \IfFontExistsTF{lmmono10-regular.otf}{%
+    \setmonofont{lmmono10-regular.otf}[Scale=MatchLowercase]%
+  }{%
+    \setmonofont{Latin Modern Mono}[Scale=MatchLowercase]%
+  }%
 }
 
 % Math font for unicode-math: Latin Modern Math (TeX Live) has full BMP

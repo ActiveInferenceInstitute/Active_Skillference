@@ -2,12 +2,17 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import pytest
+
 from src.pipeline.generated_outputs import (
     GeneratedOutputBundle,
     build_generated_outputs,
 )
 
 REPO = Path(__file__).resolve().parents[1]
+
+# Rebuilds the whole generated artifact bundle; `./gates.sh fast` deselects it.
+pytestmark = pytest.mark.slow
 
 
 def test_build_generated_outputs_returns_existing_artifact_bundle() -> None:

@@ -77,6 +77,9 @@ from src.scholarship.source_health import validate_source_health
 REPO = Path(__file__).resolve().parents[1]
 COURSE_SOURCE_PATH = REPO / "data" / "course_material_sources.yaml"
 
+# Repaints every registered figure; `./gates.sh fast` deselects it, the full arm runs it.
+pytestmark = pytest.mark.slow
+
 
 def test_registry_helper_labels_and_integer_coercion() -> None:
     assert _lane_label("short_lane") == "short lane"
