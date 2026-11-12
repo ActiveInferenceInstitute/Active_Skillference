@@ -13,7 +13,7 @@
 
 ## Scope
 
-The public target exists and is public but currently holds zero refs, so reachability is no longer the gate; published content is. After the target carries a real published release, complete the publication metadata chain: release tag, Zenodo DOI, CFF/CodeMeta/manuscript URL fields, artifact hashes, third-party notices, counsel-review checklist, and release inventory refresh. This task must not fabricate DOI or repository metadata before the upstream blocker is cleared.
+Upstream dependency cleared on 2026-11-12: the public target carries main, 19 pull-request refs, and the annotated tags v1.0.0 (5f32086) and v1.0.1 (c4e34e7), and Zenodo record 21865644 holds version 1.0.0 (published 2026-08-10; concept DOI 10.5281/zenodo.21865643). The release chain can therefore be read from observed records; what remains is making it agree with itself. (1) Version drift: the only deposit is 1.0.0, while .zenodo.json (version 1.0.1, publication_date 2026-08-09), CITATION.cff (version 1.0.1, date-released 2026-08-09), codemeta.json (version 1.0.1, datePublished 2026-08-09) and manuscript/config.yaml (paper.version and book.edition 1.0.1) all claim a release Zenodo does not hold, the v1.0.1 tag has no deposit behind it, and manuscript/config.yaml keeps publication.version_doi and version_record blank. Either deposit v1.0.1 and record the version DOI it returns, or downgrade the claim to the observed 1.0.0. (2) docs/release_readiness_inventory.md is stale at HEAD: validate_release_readiness_inventory.py fails on the tracked-diff summary, on the listed manuscript/README.md modification, and on the recorded figure hashes, and src/release_readiness.py renders "Public DOI/repository remains blocked until git ls-remote succeeds" unconditionally, so a --write refresh would publish a sentence the current probe no longer supports. Fix the generator before refreshing the snapshot. (3) The third-party notice sweep and the counsel-review checklist are still outstanding. Every value must come from the observed records; nothing here may be fabricated.
 
 ## Deliverables
 
@@ -36,7 +36,8 @@ The public target exists and is public but currently holds zero refs, so reachab
 
 ## Evidence Commands
 
-- `git ls-remote --heads https://github.com/ActiveInferenceInstitute/Active_Skillference.git HEAD`
+- `git ls-remote --tags https://github.com/ActiveInferenceInstitute/Active_Skillference.git (v1.0.0 = 5f32086, v1.0.1 = c4e34e7)`
+- `curl -s https://zenodo.org/api/records/21865644/versions (a single version — 1.0.0)`
 - `uv run python scripts/validate_release_readiness_inventory.py --write`
 - `uv run python scripts/validate_release_readiness_inventory.py`
 - `uv run python scripts/validate_manuscript_variables.py`
@@ -56,7 +57,7 @@ The public target exists and is public but currently holds zero refs, so reachab
 -   none
 - Claim-support types: delivery, scope_limit, literature
 - Boundaries:
--   DOI, public URLs, and release timestamps are blank until the repository and archive events occur.
+-   Deposited version identifiers and dates must match the Zenodo record that actually exists (1.0.0, published 2026-08-10), not the locally claimed 1.0.1.
 -   Metadata standards support release reproducibility, not scientific validity, legal advice, or learner outcomes.
 - Phase exit:
 -   A real public tag, archive deposit, DOI, CFF/CodeMeta metadata, hashes, notices, and inventory agree.

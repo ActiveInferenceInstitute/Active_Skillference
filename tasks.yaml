@@ -384,7 +384,7 @@ tasks:
       containers and the dashboard process were stopped and the compose volume removed after
       recording evidence, per the "disposable outputs" convention.
   - id: asf-skilltree-460-live-reverify
-    title: Live re-verify local SkillTree stack against skills-service 4.6.0
+    title: Live re-verify the pinned SkillTree stack (4.6.0; upstream is 5.0.5)
     status: todo
     scale: minor
     surface: skilltree
@@ -397,6 +397,7 @@ tasks:
       prerequisite_edges: 1199
       quizzes: 630
     evidence:
+      - gh api repos/NationalSecurityAgency/skills-service/releases/latest --jq .tag_name
       - uv run python scripts/reset_local_skilltree.py --confirm-local-reset --timeout 1200
       - uv run python scripts/validate_docker_digests.py
     notes: >-
@@ -421,6 +422,14 @@ tasks:
       That requires the destructive reset (docker compose down -v), which would also discard the
       1199/1199 parity that took roughly an hour of per-edge writes to reach on this Apple/ARM
       host, so it is deliberately left for an explicit maintainer run rather than folded in here.
+      2026-11-12 currency check, recorded without claiming the phase exit: upstream's latest release
+      is now skills-service 5.0.5 (published 2026-11-12), so the pinned 4.6.0 is a major version
+      behind and validate_docker_digests.py can keep passing on a pin that is itself stale. Settle
+      the order before spending a live run: prove 4.6.0 as pinned and bump in a separate change, or
+      retarget the pin first (docker-compose.yml tag+digest, docs/gates.md, vendor/README.md) and
+      prove that. Either path needs a Docker-capable host and a maintainer's explicit destructive
+      run (docker compose down -v) to reach the fresh-volume bootstrap this task actually asks
+      about, so the maintainer is the only party who can close it.
     scholarship_plan:
       lanes:
         - delivery_and_reporting
@@ -480,29 +489,34 @@ tasks:
         - The capture provenance record names the system state the images evidence.
   - id: asf-public-release-metadata
     title: Publication DOI and repository target decision
-    status: blocked
+    status: done
     scale: external
     surface: metadata
     owner: manuscript/config.yaml
     evidence:
+      - git ls-remote https://github.com/ActiveInferenceInstitute/Active_Skillference.git (27 refs —
+        HEAD, 3 branch heads, 2 annotated tags with peeled commits, 19 pull-request refs)
+      - git ls-remote --tags https://github.com/ActiveInferenceInstitute/Active_Skillference.git
+        (v1.0.0 = 5f32086, v1.0.1 = c4e34e7)
+      - curl -s https://zenodo.org/api/records/21865644 (DOI 10.5281/zenodo.21865644, version 1.0.0,
+        published 2026-08-10, concept DOI 10.5281/zenodo.21865643)
       - uv run python scripts/validate_live_counts.py
       - uv run python scripts/validate_manuscript_variables.py
-      - uv run python scripts/z_generate_manuscript_variables.py
-      - uv run python scripts/validate_rendered_freshness.py
-      - git ls-remote --heads https://github.com/ActiveInferenceInstitute/Active_Skillference.git
-        HEAD
     notes: The public repository target is owner-confirmed as ActiveInferenceInstitute/Active_Skillference
       and is set in manuscript/config.yaml. The owner also confirmed MIT for authored code/content
       and generated artifacts, Daniel Ari Friedman as the copyright holder, and the need for a
-      counsel-review checklist before formal release. The private docxology/Active_Skillference
-      mirror is current and local offline validators are green. Probed on 2026-08-09, the public
-      target now exists and is public, but git ls-remote returns zero refs and the GitHub API
-      reports size 0, so the target is reachable and still unpublished. Existence is not
-      publication, and no commit, no tag, no archive deposit, and no DOI exist for it yet. This task
-      stays blocked rather than todo because the remaining step is an owner-executed push, release,
-      and Zenodo deposit performed outside this repository, not repository work that can be
-      implemented here. DOI, release-date, and repository-URL fields stay blank rather than
-      carrying fabricated metadata.
+      counsel-review checklist before formal release. Resolved on 2026-11-12 — the owner-executed
+      release path this task waited on has happened. The public target now carries main plus 19
+      pull-request refs and the annotated tags v1.0.0 (5f32086) and v1.0.1 (c4e34e7), and Zenodo
+      record 21865644 returns DOI 10.5281/zenodo.21865644 (concept DOI 10.5281/zenodo.21865643) with
+      version 1.0.0 published 2026-08-10, whose deposited file
+      Active_Skillference_v1.0.0_DOI-10.5281-zenodo.21865644.pdf (5731097 bytes, md5
+      7e43004dbef2ebc7ade2b71197b49ec5) is byte-identical to the tracked PDF of that name at the
+      repository root. manuscript/config.yaml already carries that DOI and repository URL, so the
+      decision is recorded from observed events rather than asserted. The 2026-08-09 probe
+      (reachable, zero refs, GitHub API size 0) is superseded. The version-1.0.1 deposit that does
+      not exist yet, and the metadata that still claims it, are tracked in
+      asf-public-archive-provenance-release.
     scholarship_plan:
       lanes:
         - delivery_and_reporting
@@ -521,8 +535,8 @@ tasks:
         - scope_limit
         - literature
       boundaries:
-        - The empty public repository remains an external blocker, not a failed scholarly claim.
-        - DOI and repository metadata remain blank until real GitHub and Zenodo events are observed.
+        - The empty public repository was an external blocker for months, not a failed scholarly claim; it cleared when the owner pushed the repository and deposited v1.0.0.
+        - DOI and repository metadata were recorded only after the GitHub push and Zenodo deposit were observed.
       phase_exit:
         - The public target carries published content and a real release, and the publication environment can complete the actual release path.
         - Any release metadata is copied from observed repository and archive records.
@@ -1238,7 +1252,10 @@ tasks:
     notes: >-
       The current tracked and untracked release-facing paths were re-inventoried without staging or
       committing. docs/release_readiness_inventory.md was regenerated from live git state and
-      validated so the release boundary stays explicit while this pass remains unpublished.
+      validated so the release boundary stays explicit while this pass was unpublished; the
+      repository and its v1.0.0 deposit were published afterwards (2026-08-10, DOI
+      10.5281/zenodo.21865644), which is why that snapshot's "not a published release" probe text is
+      superseded.
   - id: asf-doc-command-drift-audit
     title: Documentation command parity and stale-count audit
     status: done
@@ -1616,19 +1633,32 @@ tasks:
     deps:
       - asf-public-release-metadata
     evidence:
-      - git ls-remote --heads https://github.com/ActiveInferenceInstitute/Active_Skillference.git
-        HEAD
+      - git ls-remote --tags https://github.com/ActiveInferenceInstitute/Active_Skillference.git
+        (v1.0.0 = 5f32086, v1.0.1 = c4e34e7)
+      - curl -s https://zenodo.org/api/records/21865644/versions (a single version — 1.0.0)
       - uv run python scripts/validate_release_readiness_inventory.py --write
       - uv run python scripts/validate_release_readiness_inventory.py
       - uv run python scripts/validate_manuscript_variables.py
       - uv run python scripts/validate_rendered_freshness.py
     notes: >-
-      The public target exists and is public but currently holds zero refs, so reachability is no
-      longer the gate; published content is. After the target carries a real published release,
-      complete the publication metadata chain: release tag, Zenodo DOI, CFF/CodeMeta/manuscript URL
-      fields, artifact hashes, third-party notices, counsel-review checklist, and release inventory
-      refresh. This task must not fabricate DOI or repository metadata before the upstream blocker
-      is cleared.
+      Upstream dependency cleared on 2026-11-12: the public target carries main, 19 pull-request
+      refs, and the annotated tags v1.0.0 (5f32086) and v1.0.1 (c4e34e7), and Zenodo record 21865644
+      holds version 1.0.0 (published 2026-08-10; concept DOI 10.5281/zenodo.21865643). The release
+      chain can therefore be read from observed records; what remains is making it agree with
+      itself. (1) Version drift: the only deposit is 1.0.0, while .zenodo.json (version 1.0.1,
+      publication_date 2026-08-09), CITATION.cff (version 1.0.1, date-released 2026-08-09),
+      codemeta.json (version 1.0.1, datePublished 2026-08-09) and manuscript/config.yaml
+      (paper.version and book.edition 1.0.1) all claim a release Zenodo does not hold, the v1.0.1 tag
+      has no deposit behind it, and manuscript/config.yaml keeps publication.version_doi and
+      version_record blank. Either deposit v1.0.1 and record the version DOI it returns, or downgrade
+      the claim to the observed 1.0.0. (2) docs/release_readiness_inventory.md is stale at HEAD:
+      validate_release_readiness_inventory.py fails on the tracked-diff summary, on the listed
+      manuscript/README.md modification, and on the recorded figure hashes, and
+      src/release_readiness.py renders "Public DOI/repository remains blocked until git ls-remote
+      succeeds" unconditionally, so a --write refresh would publish a sentence the current probe no
+      longer supports. Fix the generator before refreshing the snapshot. (3) The third-party notice
+      sweep and the counsel-review checklist are still outstanding. Every value must come from the
+      observed records; nothing here may be fabricated.
     scholarship_plan:
       lanes:
         - delivery_and_reporting
@@ -1647,7 +1677,7 @@ tasks:
         - scope_limit
         - literature
       boundaries:
-        - DOI, public URLs, and release timestamps are blank until the repository and archive events occur.
+        - Deposited version identifiers and dates must match the Zenodo record that actually exists (1.0.0, published 2026-08-10), not the locally claimed 1.0.1.
         - Metadata standards support release reproducibility, not scientific validity, legal advice, or learner outcomes.
       phase_exit:
         - A real public tag, archive deposit, DOI, CFF/CodeMeta metadata, hashes, notices, and inventory agree.
@@ -1747,6 +1777,23 @@ tasks:
       not have found either. The regression tests added here are the mechanically checkable
       part (browser-session restart, post-timeout confirmation, retry bounds, CSP directives,
       deferred parity, gzip), and the live gates remain the proof for the rest.
+      2026-11-12 re-measurement of the current tree (`python -m pytest --cov=src`, no floor
+      override): 989 passed, aggregate src coverage 90.92% (10348 statements, 738 missed, 3228
+      branches, 355 partial), i.e. 0.92 points above the 90% gate. The four modules this task names
+      are unchanged (full_app_stack.py 63.77%, form_login_validation.py 49.76%,
+      source_health_network.py 72.39%, dashboard/payload.py 70.37%), but they are not the whole
+      sub-90 set: 23 src modules sit under 90%, and the extremes are src/publication/zenodo.py
+      0.00% (98 statements that no test touches, although scripts/publish_zenodo_deposit.py calls
+      it), form_login_validation.py 49.76%, src/screenshots/capture.py 47.79%,
+      full_app_stack.py 63.77%, and src/curriculum/materials/* between 75.48% and 84.38%. The same
+      measurement found a second illusion: dropping the last blocked task from tasks.yaml moved the
+      blocked-status branches of src/roadmap.py (94.23% -> 92.99%) and src/figures/plots/roadmap.py
+      (92.62% -> 89.34%) out of coverage, because those paths were exercised only by the real
+      roadmap data and have no fixture, so the next blocked task silently restores the appearance of
+      coverage. A roadmap-state fixture is therefore part of closing this. Blocker for the
+      live-gated share is a Docker/browser-capable host, and the maintainer who can provide it is
+      the owner; the per-module coverage exception record this task keeps pointing at still does not
+      exist in the repository.
     scholarship_plan:
       lanes:
         - delivery_and_reporting
@@ -2102,3 +2149,41 @@ tasks:
         - "Subprocess returncodes are already checked at the flagged call sites."
       phase_exit:
         - "PLW1510 resolved via explicit checks or a justified targeted noqa; ruff check returns 0."
+  - id: asf-gnn-upstream-5-1-adoption
+    title: Adopt the v5.1.0 GNN upstream pin (currently v5.0.3)
+    status: todo
+    scale: minor
+    surface: validation
+    owner: gnn/upstream.json
+    evidence:
+      - git ls-remote --tags https://github.com/ActiveInferenceInstitute/Generalized_Notation_Notation.git
+        (v5.1.0 = 75c834bd8519dc7b5adc4d24f16bf393cfd1ecdf)
+      - GNN_ROOT=<v5.1.0 checkout> GNN_PYTHON=<interpreter> ./gates.sh gnn
+      - uv run pytest tests/test_gnn_conformance.py -q
+    notes: >-
+      gnn/upstream.json pins Generalized_Notation_Notation at v5.0.3
+      (8f293d9ba810e6eda5c09842d9c7ed9ffa5f92c1), while the estate cutover moved the importer
+      repositories to v5.1.0 (75c834bd8519dc7b5adc4d24f16bf393cfd1ecdf); this repository was not part
+      of that cutover, so its pin is accurate but behind. The tag is duplicated in five places that
+      must move together: gnn/upstream.json, gnn/README.md, docs/gates.md, .github/GNN.md, and the
+      pinned-record constant plus the scratch-checkout tag in tests/test_gnn_conformance.py, with
+      README.md linking the v5.0.3 tag at three places. scripts/validate_gnn_spec.py extracts the
+      pinned commit with git archive and parses the specification with that checkout's parser, so a
+      metadata-only edit would be drift rather than proof: the bump counts only once
+      ./gates.sh gnn passes against a v5.1.0 checkout. Blocker: the arm fails, never skips, without a
+      prepared v5.1.0 checkout and interpreter (GNN_ROOT/GNN_PYTHON), and the hosted
+      `gnn conformance (pinned)` job cannot stand in for it while Actions is billing-locked
+      org-wide. A local Generalized_Notation_Notation checkout at v5.1.0 already exists on the
+      working host (75c834bd8519dc7b5adc4d24f16bf393cfd1ecdf), so the maintainer who runs it can
+      close this.
+    scholarship_plan:
+      lanes:
+        - delivery_and_reporting
+      existing_source_keys: []
+      planned_source_targets: []
+      claim_support_types:
+        - scope_limit
+      boundaries:
+        - "A pin bump is specification-conformance maintenance, not scientific or learner-outcome evidence."
+      phase_exit:
+        - "gnn/upstream.json records tag v5.1.0 and commit 75c834bd8519dc7b5adc4d24f16bf393cfd1ecdf, the five duplicated pin references agree, and `./gates.sh gnn` reports clean against that checkout with no skips."

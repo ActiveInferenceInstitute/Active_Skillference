@@ -1,7 +1,7 @@
 {
   "schema": "active-skillference-pdf/v1",
   "output_path": "output/pdf/Active_Skillference_combined.pdf",
-  "size_bytes": 5425948,
-  "sha256": "92e00688fba67c672fac6ec65d347464f5fe8beff9d613db606298aaf73145c7",
-  "source_revision": "f2b77fa0fbcd8745b6564b33a8e6bad70d85471b"
+  "size_bytes": 5419540,
+  "sha256": "821802178b229ae4089d72b2c910aafac0485934556594866b5157615009d94b",
+  "source_revision": "222c1f06951c59fe97df4167d359222f2e5941dc"
 }

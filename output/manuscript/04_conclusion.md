@@ -72,7 +72,7 @@ any contributor or public pathway.
 
 <!-- claim-support:conclusion_roadmap -->
 The release state is machine-readable. As of 2026-07-31, `tasks.yaml` records
-78 roadmap tasks: 74 completed milestones
+79 roadmap tasks: 75 completed milestones
 and 4 open items across metadata, skilltree, validation. `TODO.md` is
 rendered from the same source. [@fig:roadmap_risk] shows the current distribution of
 open versus completed work by surface and release class, keeping release-readiness
