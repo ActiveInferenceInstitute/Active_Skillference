@@ -140,7 +140,7 @@ at the recorded commit.
 ### Required local GNN check
 
 Merges to `main` require `gnn conformance (local)`. The hosted
-`gnn conformance (pinned)` job provides a separate CI signal.
+`gnn conformance (pinned)` job remains optional.
 
 Use a clean checkout of the current PR head. Prepare the frozen Skillference environment
 with `uv sync --frozen` and stage the parser before starting the offline run. Use a
@@ -175,15 +175,13 @@ uv pip install --python "$GNN_PYTHON" numpy defusedxml
 ```
 
 For a standalone run from the Skillference checkout, export `GNN_ROOT` and
-`GNN_PYTHON`, then run the checks with the prepared environments.
+`GNN_PYTHON`, then run the same `./gates.sh gnn` arm with the prepared environments.
 
 ```sh
 set -eu
 export GNN_ROOT GNN_PYTHON
 uv sync --frozen --check --offline
-uv run --frozen --offline --no-sync python -B scripts/validate_gnn_spec.py
-uv run --frozen --offline --no-sync python -B -m pytest \
-  tests/test_gnn_conformance.py -q -p no:cacheprovider
+UV_OFFLINE=true UV_FROZEN=true UV_NO_SYNC=true ./gates.sh gnn
 ```
 
 For GitVault publication, run both checks in its governed offline test runner
@@ -195,7 +193,7 @@ and `GNN_INTENT` to the prepared test intent. From the PR checkout, run the gate
 with its existing project Python.
 
 ```sh
-"$VAULT_ROOT/_tools/vault" --config "$VAULT_ROOT/vault.toml" execute \
+"$VAULT_ROOT/_tools/vault" execute \
   --classification test --intent "$GNN_INTENT" --repository "$repo" --cwd "$PWD" -- \
   "$PWD/.venv/bin/python" -B -c '
 import os, subprocess, sys
@@ -226,46 +224,51 @@ succeed, and the focused pytest suite must finish with zero skips or failures.
 
 ### Publish the local GNN result
 
-An authorized maintainer uses GitVault's `github-status` plan with the mapped identity
-and the `state` write class enabled. Set `VAULT_ROOT` to the configured GitVault checkout,
-`PR_NUMBER` to the pull request number and `GNN_RECEIPT` to the run's `exit.json`.
-Review the run evidence for both checks and verify that the receipt reports success and
-unchanged source at the live PR head. A new head needs a fresh run.
+An authorized maintainer uses the configured GitVault launcher with the
+mapped Institute identity and the `state` write class enabled. Set `VAULT`
+to that launcher's absolute path, `PR_NUMBER` to the pull request number, and
+`GNN_EXIT_RECEIPT` to the governed run's `exit.json`. Review the passing
+gate output and its nonempty, zero-skip test report before planning success.
 
 ```sh
 set -eu
 repo=ActiveInferenceInstitute/Active_Skillference
-: "${VAULT_ROOT:?Set VAULT_ROOT}" "${PR_NUMBER:?Set PR_NUMBER}" "${GNN_RECEIPT:?Set GNN_RECEIPT}"
-vault() { "$VAULT_ROOT/_tools/vault" --config "$VAULT_ROOT/vault.toml" "$@"; }
+context='gnn conformance (local)'
+: "${VAULT:?Set VAULT}" "${PR_NUMBER:?Set PR_NUMBER}" "${GNN_EXIT_RECEIPT:?Set GNN_EXIT_RECEIPT}"
 tested_head=$(jq -er --arg repo "$repo" '
   .payload | select(.classification == "test" and .outcome == "SUCCEEDED"
     and .returncode == 0 and .source_unchanged == true and .binding.source == $repo
     and .descendants.sample_errors == 0 and .descendants.remaining == [])
   | .binding.revision | select(test("^[0-9a-f]{40}$"))
-' "$GNN_RECEIPT")
-pr_head=$(gh pr view "$PR_NUMBER" --repo "$repo" --json headRefOid --jq .headRefOid)
-test "$tested_head" = "$pr_head"
-digest=$(shasum -a 256 "$GNN_RECEIPT")
-request=$(jq -nc --arg repo "$repo" --arg head "$tested_head" --arg digest "${digest%% *}" '
-  {method:"plan",arguments:{action:"github-status",parameters:{
-    repository:$repo,expected_commit:$head,context:"gnn conformance (local)",state:"success",
+' "$GNN_EXIT_RECEIPT")
+test "$(gh pr view "$PR_NUMBER" --repo "$repo" --json headRefOid --jq .headRefOid </dev/null)" = "$tested_head"
+
+digest=$(shasum -a 256 "$GNN_EXIT_RECEIPT")
+status_parameters=$(jq -nc --arg repo "$repo" --arg head "$tested_head" --arg context "$context" \
+  --arg digest "${digest%% *}" '{
+    repository:$repo, expected_commit:$head, context:$context, state:"success",
     description:("Local pinned GNN checks passed. Receipt SHA-256 " + $digest[:16])
-  }}}
-')
-plan=$(vault api --json "$request" | jq -er 'select(.ok == true) | .result.github')
-vault github-apply --plan "$plan"
+  }')
+plan=$("$VAULT" plan github-status --parameters "$status_parameters" </dev/null)
+plan_id=$(printf '%s\n' "$plan" | jq -er .github)
+confirmation=$(printf '%s\n' "$plan" | jq -er .confirmation)
+"$VAULT" github-apply --plan "$plan_id" </dev/null
 ```
 
-After reviewing the plan, recheck the live PR head, apply the exact confirmation phrase
-and verify that the local context is successful on the tested commit.
+Review the repository, commit, context, and exact confirmation phrase in the
+plan. In the same shell, recheck the live PR head before applying. Confirm
+that GitHub reports the local context as a passing required check. A new head
+needs a fresh run and publication.
 
 ```sh
-test "$tested_head" = "$(gh pr view "$PR_NUMBER" --repo "$repo" --json headRefOid --jq .headRefOid)"
-vault github-apply --plan "$plan" --apply --confirm 'REPORT 1 COMMIT STATUS'
-gh api --method GET "repos/$repo/commits/$tested_head/status" | \
-  jq -e --arg head "$tested_head" '
-    .sha == $head and any(.statuses[]; .context == "gnn conformance (local)" and .state == "success")
-  '
+test "$(gh pr view "$PR_NUMBER" --repo "$repo" --json headRefOid --jq .headRefOid </dev/null)" = "$tested_head"
+"$VAULT" github-apply --plan "$plan_id" --apply --confirm "$confirmation" </dev/null
+gh api "repos/$repo/commits/$tested_head/status" </dev/null |
+  jq -e --arg head "$tested_head" --arg context "$context" '
+    .sha == $head and any(.statuses[]; .context == $context and .state == "success")'
+test "$(gh pr view "$PR_NUMBER" --repo "$repo" --json headRefOid --jq .headRefOid </dev/null)" = "$tested_head"
+gh pr checks "$PR_NUMBER" --repo "$repo" --required --json name,bucket </dev/null |
+  jq -e --arg context "$context" 'any(.[]; .name == $context and .bucket == "pass")'
 ```
 
 For specification edits, start from GNN's [Start Here](https://github.com/ActiveInferenceInstitute/Generalized_Notation_Notation/blob/v5.0.3/docs/START_HERE.md),
