@@ -96,6 +96,7 @@ arm_render() {
   uv run python scripts/render_manuscript.py
   uv run python scripts/ensure_web_math.py
   uv run python scripts/validate_web_math.py
+  uv run python scripts/validate_rendered_freshness.py
 }
 
 ALL_ARMS=(sync lint types artifacts checks test docs gnn)
