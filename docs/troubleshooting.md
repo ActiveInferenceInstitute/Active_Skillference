@@ -276,24 +276,21 @@ writing anything:
 uv run python scripts/reconcile_live_dependencies.py --check-only
 ```
 
-## `validate_rendered_freshness.py` keeps failing on a bundle no render refreshes
+## `validate_rendered_freshness.py` reports stale text in a deposited bundle
 
 **Symptom.** The freshness gate reports stale roadmap text in a path like
-`output/docx/working/Active_Skillference_combined.docx`, and re-rendering never fixes it.
+`output/docx/Active_Skillference_combined.docx`, and re-running the PDF render never
+fixes it.
 
-**Cause.** The renderer writes under the project name it was given. Invoking it with a
-qualified path (`--project working/Active_Skillference`) creates a nested
-`output/<format>/working/` copy, while the documented invocation
-(`--project Active_Skillference`) writes to `output/<format>/` and never refreshes the
-nested one. The orphan then fails the gate forever.
+**Cause.** `./gates.sh render` owns the PDF only. The DOCX, EPUB, slides and web bundles
+under `output/` are deposited publication artifacts from the wider publishing pipeline; the
+roadmap-open-count sentence in them is checked by
+`check_publication_bundle_roadmap_freshness`, so a roadmap change makes those committed
+bundles stale until the publishing pipeline regenerates them.
 
-**Fix.** Render with the documented form and delete the orphan copies — everything under
-`output/` is generated and gitignored:
-
-```bash
-rm -rf output/docx/working output/epub/working
-cd ../template && uv run python scripts/pipeline/stage_03_render.py --project Active_Skillference
-```
+**Fix.** Regenerate the affected bundle with the publishing pipeline that produced it, or
+restore it from the last published release if the change is not meant to be published yet.
+Everything under `output/` is generated; do not hand-edit a bundle.
 
 ## Browser proofs fail with `browser command timed out` or `code: TIMEOUT`
 

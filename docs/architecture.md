@@ -125,7 +125,9 @@ them, and writes outputs. None contains domain logic.
 | `serve_learner_dashboard.py` | serves the local dashboard shell, checks SkillTree status, reads generated artifacts | (local HTTP server at `http://127.0.0.1:8765`) |
 | `run_skilltree.sh` | `docker compose up` (skills-service + Postgres) → local bootstrap seed by default | (live instance at `http://localhost:8080`) |
 | `run_learning_dashboard.sh` | Docker SkillTree → regenerate/export → seed → dashboard server | (live SkillTree + local dashboard) |
-| `00_preflight.py` | imports `infrastructure.rendering.preflight` from the parent monorepo and checks the `manuscript/` dir before PDF render | (exit status only) |
+| `render_manuscript.py` | hydrates the manuscript, assembles the sections, and drives Pandoc → XeLaTeX → bibtex with `config.yaml`, `preamble.md` and `references.bib` | `output/pdf/Active_Skillference_combined.pdf` |
+| `check_docs_links.py` | resolves every relative Markdown link and image in the authored docs | (exit status only) |
+| `z_generate_gate_metrics.py` | renders or checks `docs/gate_metrics.md` from the recorded arm timings | `docs/gate_metrics.md` with `--write` |
 
 The table above is illustrative — the authoritative, complete `scripts/` inventory and
 its coverage gate live in [`docs/AGENTS.md`](AGENTS.md) (and `scripts/README.md`).
@@ -200,13 +202,15 @@ figures are regenerated together. The manuscript artifact audit closes the separ
 path where a figure file exists but the registry, manuscript label, cross-reference, or
 dashboard artifact inventory no longer agrees.
 
-## Infrastructure dependency (PDF only)
+## Rendering dependency
 
-The project's own pipeline (kernels, DAG, export, figures, tests) has **no dependency**
-on the parent monorepo. The single exception is PDF rendering: `scripts/00_preflight.py`
-imports `infrastructure.rendering.preflight` from the surrounding monorepo to validate
-the `manuscript/` directory before a render. The PDF (`output/pdf/Active_Skillference_combined.pdf`)
-is produced via that monorepo's `infrastructure/` rendering. See
+The project's own pipeline (kernels, DAG, export, figures, tests) and the PDF render have
+**no dependency** on any other repository. `scripts/render_manuscript.py` hydrates the
+sections from `output/data/manuscript_variables.json` and drives Pandoc → XeLaTeX →
+`bibtex` with the project's own `manuscript/config.yaml`, `manuscript/preamble.md` and
+`manuscript/references.bib`, so the PDF
+(`output/pdf/Active_Skillference_combined.pdf`) is reproducible from this checkout plus
+`pandoc`, `pandoc-crossref`, `xelatex` and `bibtex`. See
 [`rendering_pipeline.md`](rendering_pipeline.md).
 
 ## Forbidden patterns

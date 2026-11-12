@@ -84,10 +84,25 @@ def _copy_render_auxiliaries() -> None:
         shutil.copy2(source, OUTPUT_MANUSCRIPT / source.name)
 
 
-def main() -> int:
-    subprocess.run(
-        [sys.executable, str(ROOT / "scripts" / "run_kernels.py")], cwd=ROOT, check=True
-    )
+def main(argv: list[str] | None = None) -> int:
+    # `--skip-kernels` renders the current `output/data/manuscript_variables.json`
+    # without re-running the kernel/provenance gate first. It exists for iterating
+    # on prose and for a render that already follows the artifact arm; the default
+    # path still regenerates and re-validates every claim.
+    arguments = sys.argv[1:] if argv is None else argv
+    if "--skip-kernels" in arguments:
+        if not (ROOT / "output" / "data" / "manuscript_variables.json").is_file():
+            sys.stderr.write(
+                "no output/data/manuscript_variables.json; run "
+                "`uv run python scripts/run_kernels.py` first\n"
+            )
+            return 2
+    else:
+        subprocess.run(
+            [sys.executable, str(ROOT / "scripts" / "run_kernels.py")],
+            cwd=ROOT,
+            check=True,
+        )
 
     if OUTPUT_MANUSCRIPT.exists():
         shutil.rmtree(OUTPUT_MANUSCRIPT)
