@@ -257,13 +257,13 @@
       "width": 1875
     },
     {
-      "bytes": 111302,
+      "bytes": 103266,
       "channels": 4,
       "filename": "roadmap_risk.png",
       "height": 960,
       "maxValue": 1.0,
       "minValue": 0.0,
-      "stddev": 0.22593,
+      "stddev": 0.220876,
       "width": 2010
     },
     {
