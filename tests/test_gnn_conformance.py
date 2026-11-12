@@ -126,10 +126,28 @@ def test_mutated_model_is_rejected() -> None:
         check_conformance(model)
 
 
+@pytest.mark.parametrize("schema", [None, "", 1, {}, "gnn-importer-pin/v2"])
+def test_unsupported_pin_schema_is_rejected(tmp_path, schema) -> None:
+    data = {**CANONICAL_PIN, "schema": schema}
+    pin = tmp_path / "upstream.json"
+    pin.write_text(json.dumps(data), encoding="utf-8")
+    with pytest.raises(ConformanceError, match="schema must be 'gnn-importer-pin/v1'"):
+        load_pin(pin)
+
+
+def test_missing_pin_schema_is_rejected(tmp_path) -> None:
+    pin = tmp_path / "upstream.json"
+    pin.write_text(json.dumps(CANONICAL_PIN), encoding="utf-8")
+    with pytest.raises(ConformanceError, match="schema must be 'gnn-importer-pin/v1'"):
+        load_pin(pin)
+
+
 def test_invalid_pin_commit_is_rejected(tmp_path) -> None:
     pin = tmp_path / "upstream.json"
     pin.write_text(
-        '{"repository": "x", "tag": "v1", "commit": "not-a-sha"}', encoding="utf-8"
+        '{"schema": "gnn-importer-pin/v1", "repository": "x", '
+        '"tag": "v1", "commit": "not-a-sha"}',
+        encoding="utf-8",
     )
     with pytest.raises(ConformanceError, match="40-character"):
         load_pin(pin)
@@ -142,7 +160,10 @@ def test_missing_pin_file_is_rejected(tmp_path) -> None:
 
 def test_incomplete_pin_record_is_rejected(tmp_path) -> None:
     pin = tmp_path / "upstream.json"
-    pin.write_text('{"repository": "x", "tag": "v1"}', encoding="utf-8")
+    pin.write_text(
+        '{"schema": "gnn-importer-pin/v1", "repository": "x", "tag": "v1"}',
+        encoding="utf-8",
+    )
     with pytest.raises(ConformanceError, match="missing the 'commit' field"):
         load_pin(pin)
 

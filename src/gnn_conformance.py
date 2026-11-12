@@ -81,6 +81,11 @@ def load_pin(path: Path = PIN_PATH) -> Pin:
         raise ConformanceError(f"{source} is unreadable: {exc}") from exc
     if not isinstance(data, dict):
         raise ConformanceError(f"{source} must contain a JSON object")
+    if data.get("schema") != "gnn-importer-pin/v1":
+        raise ConformanceError(
+            f"{source}: schema must be 'gnn-importer-pin/v1' "
+            f"(got {data.get('schema')!r})"
+        )
     try:
         pin = Pin(
             repository=str(data["repository"]),

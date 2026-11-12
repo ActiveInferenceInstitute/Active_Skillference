@@ -23,7 +23,7 @@ that step.
 | `checks` | the ten provenance / scholarship / manuscript / roadmap / metadata validators | reads `output/` |
 | `docs` | `check_docs_links.py`, `z_generate_gate_metrics.py --check` | read-only |
 | `gnn` | `validate_gnn_spec.py`, the pinned `tests/test_gnn_conformance.py` | needs `GNN_ROOT` |
-| `render` | `render_manuscript.py`, `ensure_web_math.py`, `validate_web_math.py` | writes `output/pdf/`; normalizes the committed `output/web/*.html` in place when math needs the loader |
+| `render` | `render_manuscript.py`, `ensure_web_math.py`, `validate_web_math.py`, `validate_rendered_freshness.py` | writes `output/pdf/` and its provenance receipt; normalizes the committed `output/web/*.html` in place when math needs the loader; rejects stale rendered publication text |
 | `record` | times every arm except `render` (which needs a LaTeX toolchain), refreshes [`gate_metrics.md`](gate_metrics.md) | writes `docs/_generated/` |
 | `list` | prints the arms | — |
 
@@ -43,7 +43,8 @@ pay for a full artifact rebuild. Both use the same pytest selection mechanism
 ## GNN conformance arm
 
 `./gates.sh gnn` validates `gnn/discrete_active_inference_agent.gnn.md` against the parser
-revision pinned in `gnn/upstream.json` (schema `gnn-importer-pin/v1`): tag `v5.0.3`,
+revision pinned in `gnn/upstream.json` (required schema `gnn-importer-pin/v1`; missing or
+unsupported discriminators are rejected): tag `v5.0.3`,
 commit `8f293d9ba810e6eda5c09842d9c7ed9ffa5f92c1`. It needs a prepared
 pinned checkout and fails — never skips — when `GNN_ROOT` is missing or unusable. The
 preparation commands are in [`../README.md`](../README.md#required-local-gnn-check); the
@@ -55,7 +56,8 @@ parses.
 
 `./gates.sh render` is the manuscript render path: it hydrates the authored sections
 through `z_generate_manuscript_variables.py`, drives Pandoc → XeLaTeX, and normalizes the
-web build for MathJax. It needs on `PATH`:
+web build for MathJax, then validates rendered freshness against current artifacts.
+It needs on `PATH`:
 
 - `pandoc` (3.x; the manuscript relies on `raw_attribute`, fenced divs and MathJax support),
 - `pandoc-crossref` built for the same Pandoc major version (it resolves `[@fig:label]`

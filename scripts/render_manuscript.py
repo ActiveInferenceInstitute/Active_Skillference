@@ -31,6 +31,8 @@ no partial PDF is written.
 from __future__ import annotations
 
 import argparse
+import hashlib
+import json
 import shutil
 import subprocess
 import sys
@@ -239,6 +241,34 @@ def _check_log(log: Path) -> None:
         )
 
 
+def _write_pdf_receipt(target: Path, *, root: Path = ROOT) -> Path:
+    """Record the finalized PDF bytes and the checkout's source revision."""
+    revision = subprocess.run(
+        ["git", "rev-parse", "HEAD"],
+        cwd=root,
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout.strip()
+    content = target.read_bytes()
+    receipt = target.with_suffix(".receipt.json")
+    receipt.write_text(
+        json.dumps(
+            {
+                "schema": "active-skillference-pdf/v1",
+                "output_path": target.relative_to(root).as_posix(),
+                "size_bytes": len(content),
+                "sha256": hashlib.sha256(content).hexdigest(),
+                "source_revision": revision,
+            },
+            indent=2,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    return receipt
+
+
 def _render_pdf(scratch: Path, config: dict[str, object]) -> Path:
     pandoc = _require("pandoc")
     crossref = _require("pandoc-crossref")
@@ -292,6 +322,7 @@ def _render_pdf(scratch: Path, config: dict[str, object]) -> Path:
     OUTPUT_PDF.mkdir(parents=True, exist_ok=True)
     target = OUTPUT_PDF / PDF_NAME
     shutil.copy2(produced, target)
+    _write_pdf_receipt(target)
     print(f"rendered {len(sections)} sections -> {target.relative_to(ROOT)}")
     return target
 
