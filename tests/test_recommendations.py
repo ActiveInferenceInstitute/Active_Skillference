@@ -9,6 +9,8 @@ from src.curriculum.recommendations import recommend_next_skills
 
 def _project() -> dict[str, object]:
     return {
+        "projectId": "recommendations",
+        "name": "Recommendations",
         "subjects": [
             {
                 "subjectId": "sub_foundations",
@@ -48,15 +50,15 @@ def _project() -> dict[str, object]:
         "quizzes": [
             {
                 "quizId": "math_sets_quiz",
-                "questions": [{"question": "What is a set?"}],
+                "questions": [{"question": "What is a set?", "answers": [{"answer": "A collection", "isCorrect": True}]}],
             },
             {
                 "quizId": "prob_events_quiz",
-                "questions": [{"question": "How do events relate to sets?"}],
+                "questions": [{"question": "How do events relate to sets?", "answers": [{"answer": "Events are sets", "isCorrect": True}]}],
             },
             {
                 "quizId": "bayes_update_quiz",
-                "questions": [{"question": "How does evidence update belief?"}],
+                "questions": [{"question": "How does evidence update belief?", "answers": [{"answer": "Bayesian conditioning", "isCorrect": True}]}],
             },
         ],
     }
@@ -134,25 +136,22 @@ def test_frontier_skill_whose_prerequisite_failed_is_remediation() -> None:
     assert "retake the official quiz" not in prob["reason"]
 
 
-def test_cyclic_exports_fail_closed_to_zero_depths() -> None:
-    """A dependency cycle in a malformed export makes _depths fail closed (depth 0)."""
-    project = {
-        "subjects": [
-            {
-                "subjectId": "s",
-                "name": "S",
-                "skills": [
-                    {"skillId": "a", "name": "A", "description": "a"},
-                    {"skillId": "b", "name": "B", "description": "b"},
-                ],
-            }
-        ],
-        "dependencies": [
-            {"skillId": "a", "dependsOnSkillId": "b"},
-            {"skillId": "b", "dependsOnSkillId": "a"},
-        ],
-        "quizzes": [],
-    }
-    result = recommend_next_skills(project)
-    assert result["available"] is True
-    assert all(row["depth"] == 0 for row in result["recommendations"])
+@pytest.mark.parametrize(
+    "dependency",
+    [
+        {"skillId": "math_sets", "dependsOnSkillId": "prob_events"},
+        {"skillId": "prob_events", "dependsOnSkillId": "missing"},
+        {"skillId": "prob_events", "dependsOnSkillId": "prob_events"},
+        {"skillId": "prob_events", "dependsOnSkillId": "math_sets"},
+        "not an edge",
+    ],
+)
+def test_invalid_export_graph_cannot_produce_an_unsuccessful_retake(dependency) -> None:
+    project = _project()
+    project["dependencies"].append(dependency)
+    result = recommend_next_skills(
+        project, unsuccessful_skill_ids=["bayes_update"],
+    )
+    assert result["available"] is False
+    assert result["recommendations"] == []
+    assert result["error"]

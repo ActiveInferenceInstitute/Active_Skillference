@@ -43,13 +43,15 @@ PROJECT_ID = SKILLTREE_PROJECT_ID
 PROJECT_NAME = SKILLTREE_PROJECT_NAME
 
 
-def build_project():  # type: ignore[no-untyped-def]
+def build_project(
+    project_id: str = PROJECT_ID, project_name: str = PROJECT_NAME
+):  # type: ignore[no-untyped-def]
     """Build the provenance-rendered SkillTree project (no network)."""
     graph = build_curriculum()
     registry = build_claim_registry()
     validate_curriculum(graph.skills, registry)
     rendered = render_graph(graph, registry)
-    return export_project(rendered, PROJECT_ID, PROJECT_NAME)
+    return export_project(rendered, project_id, project_name)
 
 
 def main() -> int:
@@ -85,11 +87,11 @@ def main() -> int:
         ),
     )
     parser.add_argument(
-        "--skip-seed-if-live-counts-ready",
+        "--skip-seed-if-live-content-ready",
         action="store_true",
         help=(
-            "After login, skip idempotent core seeding when live SkillTree already "
-            "reports the exported subject and skill counts."
+            "Skip core seeding only after live identities, content and quiz answer "
+            "correctness match the current export."
         ),
     )
     parser.add_argument(
@@ -173,7 +175,7 @@ def main() -> int:
         )
         return 0
 
-    project = None if args.no_seed else build_project()
+    project = None if args.no_seed else build_project(args.project_id, args.project_name)
     try:
         result = ensure_local_skilltree_auth(
             base_url=args.base_url,
@@ -183,7 +185,7 @@ def main() -> int:
             project=project,
             seed_project=not args.no_seed,
             seed_dependencies=not args.skip_dependencies,
-            skip_seed_if_live_counts_ready=args.skip_seed_if_live_counts_ready,
+            skip_seed_if_live_content_ready=args.skip_seed_if_live_content_ready,
             verify_token=True,
         )
     except (LocalSkillTreeAuthError, SkillTreeClientError) as exc:

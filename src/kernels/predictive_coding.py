@@ -50,9 +50,9 @@ class PredictiveCodingResult:
     trajectory: FloatArray  # estimate at each step (length steps + 1)
     free_energy: FloatArray  # free energy at each step
     estimate: float  # final estimate
-    sensory_prediction_error: float  # y - estimate at convergence
-    prior_prediction_error: float  # estimate - prior_mean at convergence
-    steps_to_converge: int  # first step within tolerance of the fixed point
+    sensory_prediction_error: float  # y - final estimate
+    prior_prediction_error: float  # final estimate - prior_mean
+    steps_to_converge: int  # first update <= tolerance, or steps if none qualifies
 
 
 def gaussian_free_energy(
@@ -102,13 +102,15 @@ def predictive_coding_descent(
         obs_variance: Observation variance (inverse sensory precision), > 0.
         rate: Positive learning rate for the gradient step.
         steps: Number of descent steps.
-        tolerance: Convergence tolerance on the distance to the fixed point.
+        tolerance: Threshold on absolute update magnitude, not fixed-point distance.
         start: Initial estimate (defaults to the prior mean).
 
     Returns:
-        A :class:`PredictiveCodingResult` with the trajectory, free-energy curve,
-        the converged estimate, the two prediction errors, and the step at which the
-        estimate first came within ``tolerance`` of the fixed point.
+        A :class:`PredictiveCodingResult` with all ``steps + 1`` trajectory and
+        free-energy samples, the final estimate and prediction errors, and the
+        first step whose absolute update is at most ``tolerance``. If no update
+        qualifies, ``steps_to_converge`` is ``steps``; the trajectory is never
+        truncated when the threshold is reached.
     """
 
     if prior_variance <= 0.0 or obs_variance <= 0.0:
@@ -126,9 +128,8 @@ def predictive_coding_descent(
         estimate, observation, prior_mean, prior_variance, obs_variance
     )
     steps_to_converge = steps
-    # steps_to_converge is measured by the update magnitude (the descent's own stopping
-    # condition), NOT by distance to the analytic target — so this diagnostic stays
-    # independent of the closed form and cannot mask a closed-form bug.
+    # This update-magnitude diagnostic is independent of the analytic target.
+    # It records the first qualifying step but does not stop the trajectory.
     converged = False
     for step in range(1, steps + 1):
         sensory_error = (observation - estimate) / obs_variance

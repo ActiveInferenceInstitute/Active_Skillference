@@ -13,6 +13,8 @@ screen-reader affordances. Use `./run.sh --offline` when Docker is unavailable a
 `./run.sh --check` to test readiness without starting anything. The step-by-step commands
 below are what `run.sh` runs, for when you want to drive them individually.
 
+Help/readiness/artifact-only paths never initialize passwords. Live launchers use the shared password owner. `--skip-seed-if-live-content-ready` admits actual semantic content readiness; the removed count-only shortcut is not sufficient proof. A successful artifact build is not a running official SkillTree stack.
+
 
 Get Active Skillference running in 5 minutes: validate the curriculum DAG, run the
 kernels that produce every claim, export a provenance-gated SkillTree project, and run

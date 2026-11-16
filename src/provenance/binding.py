@@ -20,12 +20,11 @@ inside a ``{{claim:…}}`` token, not in the allowlist) is reported.
 from __future__ import annotations
 
 import re
-import unicodedata
 from dataclasses import dataclass, replace
 from pathlib import Path
 
 from src.curriculum.graph import CurriculumGraph
-from src.curriculum.model import CLAIM_TOKEN_RE, Skill, Subject
+from src.curriculum.model import CLAIM_TOKEN_RE, Skill, Subject, _strip_format_chars
 from src.provenance.claims import ClaimRegistry
 
 # The shape a computed *result* takes: either a decimal with >=2 fractional digits
@@ -66,17 +65,6 @@ class UnbackedNumber:
     context: str
 
 
-def _strip_format_chars(text: str) -> str:
-    """Remove Unicode *format* characters (category Cf: zero-width space U+200B,
-    ZWJ/ZWNJ, BOM, word-joiner, …).
-
-    These are invisible and neither ``\\s`` nor ``\\b`` match them, so a token or number
-    split by one (``{{<ZWSP>claim:e}}``, ``1<ZWSP>.6094``) would slip past both the
-    malformed-token check and the unbacked-number linter. Stripping them before any
-    integrity scan closes that bypass class; they have no legitimate place in curriculum
-    prose, so removal is safe and makes the gates see the real glyph sequence.
-    """
-    return "".join(ch for ch in text if unicodedata.category(ch) != "Cf")
 
 
 def render(text: str, registry: ClaimRegistry) -> str:
@@ -104,21 +92,26 @@ def render(text: str, registry: ClaimRegistry) -> str:
 
 
 def validate_skill(skill: Skill, registry: ClaimRegistry) -> None:
-    """Raise if any claim token in the skill is unbacked."""
-    missing = sorted(t for t in skill.claim_tokens() if not registry.has(t))
-    if missing:
-        raise ProvenanceError(
-            f"skill {skill.skill_id!r} references unbacked claims: {', '.join(missing)}"
-        )
+    """Apply canonical fail-closed token admission to every learner-facing skill field."""
+    texts = [skill.name, skill.objective, skill.description]
+    for question in skill.assessments:
+        texts.append(question.prompt)
+        texts.extend(question.answers)
+    try:
+        for text in texts:
+            render(text, registry)
+    except ProvenanceError as exc:
+        raise ProvenanceError(f"skill {skill.skill_id!r}: {exc}") from exc
 
 
 def validate_curriculum(skills: list[Skill], registry: ClaimRegistry) -> None:
-    """Fail closed if ANY skill references an unbacked claim. Used by the exporter."""
+    """Fail closed on unbacked or malformed learner-field tokens before export."""
     problems: list[str] = []
     for skill in skills:
-        missing = sorted(t for t in skill.claim_tokens() if not registry.has(t))
-        if missing:
-            problems.append(f"{skill.skill_id}: {', '.join(missing)}")
+        try:
+            validate_skill(skill, registry)
+        except ProvenanceError as exc:
+            problems.append(str(exc))
     if problems:
         raise ProvenanceError(
             "unbacked claim tokens (export refused):\n  " + "\n  ".join(problems)
@@ -127,7 +120,7 @@ def validate_curriculum(skills: list[Skill], registry: ClaimRegistry) -> None:
 
 def render_graph(graph: CurriculumGraph, registry: ClaimRegistry) -> CurriculumGraph:
     """Return a copy of the graph with every claim token resolved in EVERY learner-facing
-    field: subject description, skill name/objective/description, and each assessment's
+    field: subject name/description, skill name/objective/description, and each assessment's
     prompt and answer options.
 
     Fails closed: :func:`render` raises :class:`ProvenanceError` on any unbacked OR
@@ -160,11 +153,14 @@ def render_graph(graph: CurriculumGraph, registry: ClaimRegistry) -> CurriculumG
         new_subjects.append(
             replace(
                 subject,
+                name=_render(subject.name),
                 description=_render(subject.description),
                 skills=rendered_skills,
             )
         )
-    return CurriculumGraph(subjects=new_subjects)
+    rendered = CurriculumGraph(subjects=new_subjects)
+    rendered.validate()
+    return rendered
 
 
 def _strip_protected(text: str) -> str:
@@ -266,10 +262,10 @@ def lint_curriculum(
 def lint_graph(
     graph: CurriculumGraph, *, allow: tuple[str, ...] = ()
 ) -> list[UnbackedNumber]:
-    """Lint every learner-facing free-text field in the graph: subject descriptions,
-    skill names, and skill descriptions. Empty list == clean."""
+    """Lint subject names/descriptions and learner-facing skill prose."""
     violations = lint_curriculum(graph.skills, allow=allow)
     for subject in graph.subjects:
+        violations.extend(_scan_text(subject.name, subject.subject_id, allow))
         violations.extend(_scan_text(subject.description, subject.subject_id, allow))
     return violations
 

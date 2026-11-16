@@ -1161,6 +1161,8 @@ function formatBytes(bytes) {
 function renderOfficialFallback(message, config) {
   const container = el("skills-client-container");
   container.setAttribute("aria-busy", "false");
+  container.dataset.mountState = "fallback";
+  container.dataset.route = "";
   const wrapper = document.createElement("div");
   wrapper.className = "embed-state warn";
   const title = document.createElement("strong");
@@ -1191,6 +1193,11 @@ async function mountOfficialDisplay(payload) {
   const config = payload.config;
   const container = el("skills-client-container");
   container.setAttribute("aria-busy", "true");
+  container.dataset.mountState = "pending";
+  container.dataset.projectId = config.project.id;
+  container.dataset.route = "";
+  container.dataset.instanceId = payload.instanceId || "";
+  container.dataset.exportContentDigest = payload.project?.exportContentDigest || "";
   if (!payload.skilltree.available) {
     renderOfficialFallback(
       "SkillTree is offline from this dashboard session. Start the local service or use the artifact panels.",
@@ -1226,6 +1233,22 @@ async function mountOfficialDisplay(payload) {
     client.SkillsConfiguration.configure(skilltreeConfig);
     await client.SkillsConfiguration.afterConfigure();
     const display = new client.SkillsDisplayJS({
+      handleRouteChanged: (route) => {
+        if (container.dataset.mountState === "fallback") {
+          return;
+        }
+        const nativeLearnerRoute = route === "/" || route === "/rank"
+          || ["/subjects/", "/quizzes/", "/badges/", "/tags/"].some(
+            (prefix) => String(route).startsWith(prefix),
+          ) || route === "/badges" || route === "/tags";
+        if (!nativeLearnerRoute) {
+          renderOfficialFallback("The official client did not reach a learner route.", config);
+          return;
+        }
+        container.dataset.route = route;
+        container.dataset.mountState = "ready";
+        container.setAttribute("aria-busy", "false");
+      },
       options: {
         serviceUrl: config.skilltree.url,
         projectId: config.project.id,
@@ -1257,7 +1280,6 @@ async function mountOfficialDisplay(payload) {
       },
     });
     container.innerHTML = "";
-    container.setAttribute("aria-busy", "false");
     display.attachTo(container);
   } catch (error) {
     renderOfficialFallback(
@@ -1431,6 +1453,7 @@ main().catch((error) => {
   setText("service-state", "error");
   document.body.classList.remove("is-loading");
   el("skills-client-container").setAttribute("aria-busy", "false");
+  el("skills-client-container").dataset.mountState = "fallback";
   el("skills-client-container").innerHTML = `
     <div class="embed-state warn">
       <strong>Dashboard data could not load.</strong>

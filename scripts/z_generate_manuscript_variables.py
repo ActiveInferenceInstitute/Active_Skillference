@@ -40,7 +40,9 @@ def _render_prose(text: str, variables: dict[str, str]) -> str:
 
     def replace_variable(match: re.Match[str]) -> str:
         key = match.group(1)
-        return variables.get(key, match.group(0))
+        if key not in variables:
+            raise KeyError(f"unresolved manuscript variable: {key}")
+        return variables[key]
 
     return VARIABLE_TOKEN_RE.sub(
         replace_variable, CLAIM_TOKEN_RE.sub(replace_claim, text)
@@ -52,15 +54,13 @@ def _render_markdown(text: str, variables: dict[str, str]) -> str:
     cursor = 0
     for match in CODE_SPAN_RE.finditer(text):
         parts.append(_render_prose(text[cursor : match.start()], variables))
-        parts.append(match.group(0))
+        # Only code examples lose placeholder syntax; prose must resolve above.
+        code = CLAIM_TOKEN_RE.sub(lambda item: f"claim:{item.group(1)}", match.group(0))
+        parts.append(VARIABLE_TOKEN_RE.sub(lambda item: item.group(1), code))
         cursor = match.end()
     parts.append(_render_prose(text[cursor:], variables))
 
     rendered = "".join(parts)
-    # Code-span examples explain token syntax. Keep them readable without
-    # leaving literal double-brace placeholders in rendered public surfaces.
-    rendered = CLAIM_TOKEN_RE.sub(lambda m: f"claim:{m.group(1)}", rendered)
-    rendered = VARIABLE_TOKEN_RE.sub(lambda m: m.group(1), rendered)
     leftovers = sorted(set(ANY_TOKEN_RE.findall(rendered)))
     if leftovers:
         raise ValueError(f"unresolved manuscript tokens: {', '.join(leftovers)}")

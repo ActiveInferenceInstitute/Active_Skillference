@@ -59,6 +59,7 @@ class DashboardConfig:
     local_auth_enabled: bool = False
     local_state_dir: Path | None = None
     learner_id: str = DEFAULT_LOCAL_LEARNER_ID
+    instance_id: str = ""
 
     def __post_init__(self) -> None:
         if not self.skilltree_url.strip():
@@ -188,6 +189,7 @@ def make_dashboard_config(
     local_auth_enabled: bool = False,
     local_state_dir: Path | None = None,
     learner_id: str = DEFAULT_LOCAL_LEARNER_ID,
+    instance_id: str = "",
 ) -> DashboardConfig:
     """Build the default dashboard config, resolving the project root once."""
     root = project_root or resolve_project_root("src")
@@ -203,6 +205,7 @@ def make_dashboard_config(
         local_auth_enabled=local_auth_enabled,
         local_state_dir=local_state_dir,
         learner_id=learner_id,
+        instance_id=instance_id,
     )
 
 

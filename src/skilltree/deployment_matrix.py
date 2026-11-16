@@ -44,7 +44,7 @@ def skilltree_deployment_matrix(
             else "ready",
         },
         {
-            "browserExposure": "same-origin token endpoint URL, never the token value",
+            "browserExposure": "same-origin endpoint and a temporary learner bearer token in browser memory",
             "evidence": (
                 "trusted-client bridge configured"
                 if local_auth_ready and authenticator_configured
@@ -52,7 +52,7 @@ def skilltree_deployment_matrix(
             ),
             "id": "token_backed_admin_seeding",
             "label": "Token-backed admin seeding",
-            "secretBoundary": "Client secret and admin credentials are exchanged server-side only.",
+            "secretBoundary": "Client secret and admin credentials stay server-side; the learner token is issued to browser memory.",
             "status": (
                 "ready" if local_auth_ready and authenticator_configured else "blocked"
             ),

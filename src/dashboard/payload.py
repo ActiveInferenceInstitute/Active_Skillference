@@ -11,6 +11,7 @@ from src.dashboard.artifacts import (
     load_figure_table_companions,
     load_scholarship_health_network,
     load_skilltree_project,
+    read_json_file,
 )
 from src.dashboard.config import DashboardConfig, DashboardPayload
 from src.dashboard.graph_analysis import analyze_project_graph
@@ -22,6 +23,8 @@ from src.skilltree.local_auth import (
     SkillTreeSessionClient,
     load_local_state,
 )
+from src.skilltree.local_auth_state import _require_same_skilltree_origin
+from src.skilltree.content import compare_live_content
 
 DEFERRED_LIVE_PARITY_REASON = (
     "live dependency parity was deferred for first paint; "
@@ -41,7 +44,10 @@ def dashboard_payload(
     that otherwise blocks every panel on first paint. The default is unchanged,
     so validators and proof artifacts still get a real parity check.
     """
-    project = load_skilltree_project(config.project_root)
+    exported, _ = read_json_file(
+        config.project_root / "output" / "data" / "skilltree_project.json"
+    )
+    project = load_skilltree_project(config.project_root, export_payload=exported)
     public_config = config.to_public_dict()
     skilltree_status = check_skilltree_status(config.skilltree_url)
     public_skilltree = public_config.get("skilltree", {})
@@ -66,7 +72,7 @@ def dashboard_payload(
         "project": project,
         "liveSkilltree": deferred_live_skilltree_summary(project)
         if defer_live
-        else live_skilltree_summary(config, project),
+        else live_skilltree_summary(config, project, export_payload=exported),
         "graphAnalysis": analyze_project_graph(project),
         "claims": load_claims_summary(config.project_root),
         "courseMaterials": load_course_materials_summary(config.project_root),
@@ -96,8 +102,10 @@ def deferred_live_skilltree_summary(project: dict[str, Any]) -> dict[str, object
 def live_skilltree_summary(
     config: DashboardConfig,
     project: dict[str, Any],
+    *,
+    export_payload: dict[str, Any] | None = None,
 ) -> dict[str, object]:
-    """Return browser-safe live SkillTree admin/count parity when local auth is ready."""
+    """Return browser-safe dependency and semantic-content parity when auth is ready."""
     from src.skilltree.client import SkillTreeClientError
     from src.skilltree.dependency_reconciler import (
         dependency_pairs_from_payload,
@@ -133,6 +141,13 @@ def live_skilltree_summary(
         state = load_local_state(state_dir)
         if state is None:
             raise LocalSkillTreeAuthError("local SkillTree auth state is missing")
+        _require_same_skilltree_origin(
+            base_url=config.skilltree_url, state_url=state.skilltree_url,
+        )
+        if state.project_id != config.project_id:
+            raise LocalSkillTreeAuthError(
+                "configured project does not match bootstrapped local auth state"
+            )
         expected_pairs = dependency_pairs_from_payload(dependencies, strict=False)
         client = SkillTreeSessionClient(
             config.skilltree_url,
@@ -140,6 +155,17 @@ def live_skilltree_summary(
             timeout=15.0,
         )
         client.login(state.admin_username, state.admin_password)
+        if export_payload is None:
+            export_payload, _ = read_json_file(
+                config.project_root / "output" / "data" / "skilltree_project.json"
+            )
+        if export_payload is None:
+            raise LocalSkillTreeAuthError("private exported project is unavailable")
+        content = compare_live_content(
+            get=lambda path: client.request_json("GET", path),
+            base_url=config.skilltree_url,
+            project=export_payload,
+        )
         live_pairs = client.live_dependency_pairs()
         parity = summarize_dependency_parity(
             expected_pairs=expected_pairs,
@@ -147,8 +173,9 @@ def live_skilltree_summary(
         )
         return {
             **parity,
-            "skills": client.live_skill_count(),
-            "subjects": client.live_subject_count(),
+            "skills": content["skills"],
+            "subjects": content["subjects"],
+            "content": content,
         }
     except (LocalSkillTreeAuthError, SkillTreeClientError) as exc:
         return {

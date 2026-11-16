@@ -15,12 +15,23 @@ Field names on :class:`Skill` deliberately mirror SkillTree's data model
 from __future__ import annotations
 
 import re
+import unicodedata
 from dataclasses import dataclass, field
 from enum import Enum
 from typing import Literal
 
 # ``{{claim:NAME}}`` token used in skill descriptions for provenance-bound values.
 CLAIM_TOKEN_RE = re.compile(r"\{\{claim:([A-Za-z0-9_.\-]+)\}\}")
+
+
+def _strip_format_chars(text: str) -> str:
+    """Normalize invisible Unicode format characters before claim admission/collection.
+
+    Format characters can split an otherwise identical token or result number.
+    Rendering, validation, linting and original-token provenance share this policy.
+    """
+    return "".join(character for character in text if unicodedata.category(character) != "Cf")
+
 
 SelfReportingType = Literal["HonorSystem", "Approval", "Quiz"]
 _VALID_SELF_REPORTING = ("HonorSystem", "Approval", "Quiz")
@@ -148,7 +159,7 @@ class Skill:
             texts.extend(question.answers)
         tokens: set[str] = set()
         for text in texts:
-            tokens.update(CLAIM_TOKEN_RE.findall(text))
+            tokens.update(CLAIM_TOKEN_RE.findall(_strip_format_chars(text)))
         return tokens
 
     @property

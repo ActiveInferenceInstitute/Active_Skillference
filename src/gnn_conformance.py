@@ -315,6 +315,18 @@ def check_conformance(model: dict) -> list[str]:
     )
     passed.append("dimensions match the kernel's canonical model (2/2/2)")
 
+    try:
+        DiscreteActiveInferenceAgent(
+            A=np.asarray(model["A_matrix"], dtype=float),
+            B=np.asarray(model["B_matrix"], dtype=float),
+            C=np.asarray(model["C_vector"], dtype=float),
+            D=np.asarray(model["D_vector"], dtype=float),
+        )
+    except (TypeError, ValueError) as exc:
+        raise ConformanceError(
+            f"declared probability/transition model is invalid: {exc}"
+        ) from exc
+
     require(
         np.allclose(np.asarray(model["A_matrix"], dtype=float), agent.A),
         "A does not match the kernel's informative sensor",

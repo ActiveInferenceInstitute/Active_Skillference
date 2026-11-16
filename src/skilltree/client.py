@@ -8,6 +8,7 @@ Endpoint paths follow SkillTree's documented admin + report API
 from __future__ import annotations
 
 import json
+import math
 import urllib.error
 import urllib.request
 from typing import Any
@@ -35,6 +36,7 @@ from src.skilltree.model import (
     SkillTreeSkill,
     SkillTreeSubject,
 )
+from src.skilltree.content import missing_quiz_questions
 from src.skilltree.transport import (
     NoCrossOriginBearerRedirect,
     SkillTreeClientError,
@@ -49,12 +51,15 @@ class SkillTreeClient:
     """Thin admin/report client for a single SkillTree project."""
 
     def __init__(
-        self, base_url: str, project_id: str, token: str | None = None
+        self, base_url: str, project_id: str, token: str | None = None,
+        *, timeout: float = 30.0,
     ) -> None:
         if not base_url.strip():
             raise ValueError("base_url must be non-empty")
         if not project_id.strip():
             raise ValueError("project_id must be non-empty")
+        if not math.isfinite(timeout) or timeout <= 0:
+            raise ValueError("timeout must be finite and positive")
         try:
             self.base_url = require_http_url(
                 base_url.rstrip("/"), context="SkillTree client"
@@ -63,6 +68,7 @@ class SkillTreeClient:
             raise ValueError(str(exc)) from exc
         self.project_id = project_id
         self.token = token
+        self.timeout = timeout
         self._opener = urllib.request.build_opener(NoCrossOriginBearerRedirect)
 
     def _get(self, path: str) -> Any:
@@ -72,7 +78,7 @@ class SkillTreeClient:
             headers["Authorization"] = f"Bearer {self.token}"
         request = urllib.request.Request(url, headers=headers, method="GET")
         try:
-            with self._opener.open(request) as response:
+            with self._opener.open(request, timeout=self.timeout) as response:
                 status = response.status
                 raw = response.read().decode("utf-8")
         except urllib.error.HTTPError as exc:
@@ -82,6 +88,8 @@ class SkillTreeClient:
                 status=exc.code,
                 body=raw,
             ) from exc
+        except TimeoutError as exc:
+            raise SkillTreeClientError(f"GET {path} timed out") from exc
         except urllib.error.URLError as exc:  # pragma: no cover - network-dependent
             raise SkillTreeClientError(
                 f"GET {path} transport error: {exc.reason}"
@@ -101,7 +109,7 @@ class SkillTreeClient:
             headers["Authorization"] = f"Bearer {self.token}"
         request = urllib.request.Request(url, data=data, headers=headers, method="POST")
         try:
-            with self._opener.open(request) as response:
+            with self._opener.open(request, timeout=self.timeout) as response:
                 status = response.status
                 raw = response.read().decode("utf-8")
         except urllib.error.HTTPError as exc:
@@ -111,6 +119,8 @@ class SkillTreeClient:
                 status=exc.code,
                 body=raw,
             ) from exc
+        except TimeoutError as exc:
+            raise SkillTreeClientError(f"POST {path} timed out") from exc
         except urllib.error.URLError as exc:  # pragma: no cover - network-dependent
             raise SkillTreeClientError(
                 f"POST {path} transport error: {exc.reason}"
@@ -152,13 +162,8 @@ class SkillTreeClient:
         return result
 
     def _ensure_quiz_questions(self, quiz: Quiz) -> None:
-        if not quiz.questions:
-            return
         existing = self._get(quiz_questions_path(quiz.quiz_id))
-        existing_count = min(quiz_question_count(existing), len(quiz.questions))
-        if existing_count >= len(quiz.questions):
-            return
-        for question in quiz.questions[existing_count:]:
+        for question in missing_quiz_questions(existing, quiz.questions):
             self.create_quiz_question(quiz.quiz_id, question)
 
     def create_quiz_question(self, quiz_id: str, question: QuizQuestion) -> Any:

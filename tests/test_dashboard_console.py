@@ -12,6 +12,7 @@ sys.path.insert(0, str(REPO))
 sys.path.insert(0, str(REPO / "scripts"))
 
 import validate_dashboard_console as gate
+from src.dashboard.browser_validation import unexpected_errors
 
 _INCEPTION = (
     "msgid=89 [error] Error getting service status Error: SkillTree: Unable to "
@@ -21,12 +22,12 @@ _INCEPTION = (
 
 
 def test_known_inception_probe_is_allow_listed() -> None:
-    assert gate.unexpected_errors([_INCEPTION]) == []
+    assert unexpected_errors([_INCEPTION]) == []
 
 
 def test_unexpected_error_is_surfaced() -> None:
     other = "msgid=12 [error] Uncaught TypeError: cannot read property 'x' of undefined"
-    unexpected = gate.unexpected_errors([_INCEPTION, other])
+    unexpected = unexpected_errors([_INCEPTION, other])
     # The cosmetic probe is filtered; a real error must remain so the gate fails on it.
     assert unexpected == [other]
 
@@ -37,7 +38,7 @@ def test_inception_allow_list_does_not_swallow_other_401s() -> None:
         "[error] Unable to authenticate using "
         "[/app/projects/activeInference/users/local-learner/token] Response Code=[401]."
     )
-    assert gate.unexpected_errors([real_401]) == [real_401]
+    assert unexpected_errors([real_401]) == [real_401]
 
 
 def test_dashboard_reachable_rejects_non_http_scheme() -> None:

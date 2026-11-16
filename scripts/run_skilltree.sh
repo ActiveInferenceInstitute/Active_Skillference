@@ -16,7 +16,6 @@ SKILLTREE_WAIT_ATTEMPTS="${SKILLTREE_WAIT_ATTEMPTS:-240}"
 ACTIVE_SKILLFERENCE_LOCAL_AUTH="${ACTIVE_SKILLFERENCE_LOCAL_AUTH:-}"
 ACTIVE_SKILLFERENCE_LEARNER_ID="${ACTIVE_SKILLFERENCE_LEARNER_ID:-local-learner}"
 ACTIVE_SKILLFERENCE_LOCAL_STATE_DIR="${ACTIVE_SKILLFERENCE_LOCAL_STATE_DIR:-.active_skillference_local}"
-POSTGRES_PASSWORD_FILE="$ACTIVE_SKILLFERENCE_LOCAL_STATE_DIR/postgres_password"
 
 if [ -z "$ACTIVE_SKILLFERENCE_LOCAL_AUTH" ]; then
   if [ -n "${SKILLTREE_TOKEN:-}" ]; then
@@ -50,19 +49,9 @@ if [ "$ACTIVE_SKILLFERENCE_LOCAL_AUTH" != "1" ] && [ -z "${SKILLTREE_TOKEN:-}" ]
 fi
 
 if [ -z "${ACTIVE_SKILLFERENCE_POSTGRES_PASSWORD:-}" ]; then
-  mkdir -p "$ACTIVE_SKILLFERENCE_LOCAL_STATE_DIR"
-  chmod 700 "$ACTIVE_SKILLFERENCE_LOCAL_STATE_DIR"
-  if [ ! -s "$POSTGRES_PASSWORD_FILE" ]; then
-    (
-      umask 077
-      uv run python - <<'PY' > "$POSTGRES_PASSWORD_FILE"
-import secrets
-
-print(secrets.token_urlsafe(32))
-PY
-    )
-  fi
-  ACTIVE_SKILLFERENCE_POSTGRES_PASSWORD="$(cat "$POSTGRES_PASSWORD_FILE")"
+  ACTIVE_SKILLFERENCE_POSTGRES_PASSWORD="$(uv run python -c \
+    'import sys; from src.integration.full_app_stack import ensure_postgres_password; print(ensure_postgres_password(sys.argv[1]))' \
+    "$ACTIVE_SKILLFERENCE_LOCAL_STATE_DIR")"
 fi
 export ACTIVE_SKILLFERENCE_POSTGRES_PASSWORD
 

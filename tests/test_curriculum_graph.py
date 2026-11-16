@@ -196,3 +196,53 @@ def test_connectivity_fails_closed_when_no_foundational_roots() -> None:
     )
     assert g.reachable_from_foundations() == set()
     assert not g.is_connected_foundations_to_applications()
+
+
+def test_smallest_newly_ready_id_precedes_a_larger_ready_root() -> None:
+    graph = _graph(_skill("z", _M, ()), _skill("b", _M, ("a",)), _skill("a", _M, ()))
+    assert [skill.skill_id for skill in graph.topological_order()] == ["a", "b", "z"]
+
+
+def test_reverse_stored_deep_chain_has_exact_stack_safe_prerequisite_closure() -> None:
+    from src.curriculum.quality import transitive_prerequisites
+
+    identifiers = [f"k{index:04d}" for index in range(1200)]
+    skills = [
+        _skill(identifier, _M, () if index == 0 else (identifiers[index - 1],))
+        for index, identifier in enumerate(identifiers)
+    ]
+    graph = _graph(*reversed(skills))
+    graph.validate()
+    closure = transitive_prerequisites(graph)
+    assert closure[identifiers[0]] == set()
+    assert closure[identifiers[600]] == set(identifiers[:600])
+    assert closure[identifiers[-1]] == set(identifiers[:-1])
+    assert graph.levels()[identifiers[-1]] == len(identifiers) - 1
+
+
+def test_diamond_closure_deduplicates_shared_ancestors_and_refuses_cycles() -> None:
+    from src.curriculum.quality import transitive_prerequisites
+
+    graph = _graph(
+        _skill("a", _M, ()), _skill("b", _M, ("a",)),
+        _skill("c", _M, ("a",)), _skill("d", _M, ("b", "c")),
+    )
+    assert transitive_prerequisites(graph) == {
+        "a": set(), "b": {"a"}, "c": {"a"}, "d": {"a", "b", "c"},
+    }
+    with pytest.raises(CurriculumError):
+        transitive_prerequisites(_graph(_skill("a", _M, ("b",)), _skill("b", _M, ("a",))))
+    with pytest.raises(CurriculumError):
+        transitive_prerequisites(_graph(_skill("a", _M, ("missing",))))
+
+
+def test_call_scoped_snapshots_do_not_cache_mutable_subject_membership() -> None:
+    graph = _graph(_skill("a", _M, ()))
+    before = graph.skills
+    graph.subjects.append(Subject("extra", "Extra", _M, "d", (_skill("b", _M, ("a",)),)))
+    graph.validate()
+    assert [skill.skill_id for skill in before] == ["a"]
+    assert [skill.skill_id for skill in graph.skills] == ["a", "b"]
+    assert [skill.skill_id for skill in graph.topological_order()] == ["a", "b"]
+    assert graph.stats()["skills"] == 2
+    assert graph.stats()["max_depth"] == 1

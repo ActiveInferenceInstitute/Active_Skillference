@@ -10,7 +10,7 @@ import numpy as np
 from numpy.typing import ArrayLike, NDArray
 
 from .distributions import log_stable, normalize, softmax
-from .inference import bayes_posterior
+from .inference import _as_probability_vector, _validate_model, bayes_posterior
 from .information import kl_divergence
 
 FloatArray: TypeAlias = NDArray[np.float64]
@@ -36,9 +36,12 @@ def expected_free_energy(
         Tuple `(G, epistemic, pragmatic)` in nats.
     """
 
-    state_probs = np.asarray(qs, dtype=np.float64)
+    state_probs = _as_probability_vector(qs, name="qs")
     likelihood = np.asarray(A, dtype=np.float64)
+    _validate_model(state_probs, likelihood, 0)
     preferences = normalize(C)
+    if preferences.shape != (likelihood.shape[0],):
+        raise ValueError("C length must match the number of observations")
 
     qo = likelihood @ state_probs
     pragmatic = float(np.dot(qo, log_stable(preferences)))
@@ -64,7 +67,7 @@ def policy_posterior(G: ArrayLike, gamma: float = 1.0) -> FloatArray:
         Posterior policy distribution `softmax(-gamma * G)`.
     """
 
-    return softmax(-gamma * np.asarray(G, dtype=np.float64))
+    return softmax(-np.asarray(G, dtype=np.float64), precision=gamma)
 
 
 @dataclass
@@ -77,12 +80,25 @@ class DiscreteActiveInferenceAgent:
     D: FloatArray
 
     def __post_init__(self) -> None:
-        """Coerce model components into float arrays."""
+        """Coerce and validate the existing probability-weight model contract."""
 
         self.A = np.asarray(self.A, dtype=np.float64)
         self.B = np.asarray(self.B, dtype=np.float64)
         self.C = np.asarray(self.C, dtype=np.float64)
-        self.D = np.asarray(self.D, dtype=np.float64)
+        self.D = _as_probability_vector(self.D, name="D")
+        _validate_model(self.D, self.A, 0)
+        n_states = self.D.size
+        if (
+            self.B.ndim != 3
+            or self.B.shape[:2] != (n_states, n_states)
+            or self.B.shape[2] == 0
+            or not np.all(np.isfinite(self.B))
+            or np.any(self.B < 0.0)
+            or not np.allclose(self.B.sum(axis=0), 1.0, atol=1e-9, rtol=0.0)
+        ):
+            raise ValueError("B must contain finite non-negative column-stochastic state transitions")
+        if normalize(self.C).shape != (self.A.shape[0],):
+            raise ValueError("C length must match the number of observations")
 
     def infer_states(self, obs: int) -> FloatArray:
         """Infer the posterior state distribution for an observation."""
@@ -92,7 +108,13 @@ class DiscreteActiveInferenceAgent:
     def predict(self, qs: ArrayLike, action: int) -> FloatArray:
         """Predict the next-state distribution under an action."""
 
-        state_probs = np.asarray(qs, dtype=np.float64)
+        state_probs = _as_probability_vector(qs, name="qs")
+        if state_probs.shape != self.D.shape:
+            raise ValueError("qs length must match the model state dimension")
+        if not isinstance(action, (int, np.integer)) or isinstance(action, (bool, np.bool_)):
+            raise ValueError("action must be an integer index")
+        if action < 0 or action >= self.B.shape[2]:
+            raise ValueError("action index out of range")
         return self.B[:, :, action] @ state_probs
 
     def evaluate_policies(self, qs: ArrayLike) -> FloatArray:

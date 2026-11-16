@@ -40,6 +40,7 @@ def build_course_material_index(
     registry: ClaimRegistry | None = None,
 ) -> dict[str, object]:
     """Build one modular material record per skill in the curriculum graph."""
+    registry = registry if registry is not None else ClaimRegistry()
     source_index = {
         str(source["source_id"]): source
         for source in source_payload.get("sources", [])
@@ -53,14 +54,14 @@ def build_course_material_index(
 
     for skill in graph.topological_order():
         subject = subject_by_skill[skill.skill_id]
-        pointers = _pointers_for_skill(skill, source_payload, source_index)
+        pointers = _pointers_for_skill(skill, source_payload, source_index, registry)
         prerequisites = [
-            _skill_ref(skill_by_id[prereq], subject_by_skill[prereq], levels[prereq])
+            _skill_ref(skill_by_id[prereq], subject_by_skill[prereq], levels[prereq], registry)
             for prereq in skill.prerequisites
         ]
         dependents = [
             _skill_ref(
-                skill_by_id[dependent], subject_by_skill[dependent], levels[dependent]
+                skill_by_id[dependent], subject_by_skill[dependent], levels[dependent], registry,
             )
             for dependent in downstream.get(skill.skill_id, ())
         ]
@@ -72,9 +73,9 @@ def build_course_material_index(
         )
         skills[skill.skill_id] = {
             "skillId": skill.skill_id,
-            "name": skill.name,
+            "name": _render_text(skill.name, registry),
             "subjectId": subject.subject_id,
-            "subjectName": subject.name,
+            "subjectName": _render_text(subject.name, registry),
             "stratum": skill.stratum.value,
             "depth": levels[skill.skill_id],
             "objective": _render_text(skill.objective, registry),
@@ -87,7 +88,7 @@ def build_course_material_index(
             ),
             "prerequisites": prerequisites,
             "relatedSkills": _related_skills(
-                skill, skill_by_id, subject_by_skill, levels
+                skill, skill_by_id, subject_by_skill, levels, registry,
             ),
             "downstreamSkills": dependents,
             "assessmentSummary": _assessment_summary(skill),
@@ -110,7 +111,7 @@ def build_course_material_index(
             "externalMaterialPolicy": source_payload.get("policy", {}),
         },
         "summary": {},
-        "sources": _source_summaries(source_index),
+        "sources": _source_summaries(source_index, registry),
         "skills": skills,
     }
     normalized = normalize_course_material_index(payload)

@@ -640,3 +640,65 @@ def test_request_without_host_header_is_allowed(tmp_path: Path) -> None:
     status_line = raw.split(b"\r\n", 1)[0].decode("ascii")
     assert "200" in status_line
     assert b'"ok": true' in raw
+
+
+def test_malformed_provider_token_is_a_secret_safe_service_error(
+    tmp_path: Path, httpserver: HTTPServer,
+) -> None:
+    provider = httpserver.url_for("").rstrip("/")
+    httpserver.expect_request("/oauth/token", method="POST").respond_with_data(
+        '{"access_token": "private-provider-fragment"', content_type="application/json",
+    )
+    state_dir = tmp_path / "state"
+    _write_local_auth_state(state_dir, skilltree_url=provider)
+    config = make_dashboard_config(
+        project_root=tmp_path, skilltree_url=provider,
+        local_auth_enabled=True, local_state_dir=state_dir,
+    )
+    with _DashboardServer(config) as base_url:
+        try:
+            _request(f"{base_url}/api/skilltree/token")
+        except urllib.error.HTTPError as error:
+            status, raw = error.code, error.read()
+        else:
+            raise AssertionError("malformed provider token was accepted")
+    assert status == 503
+    assert "private-provider-fragment" not in raw.decode("utf-8")
+    assert "trusted-secret" not in raw.decode("utf-8")
+
+
+def test_status_requests_see_atomic_export_replacement_without_exposing_answer_keys(
+    tmp_path: Path, httpserver, content_project,
+) -> None:
+    from copy import deepcopy
+
+    from src.artifacts.json_io import write_json_artifact
+    from src.skilltree.content import export_content_digest
+
+    exported = content_project.to_export_dict()
+    path = tmp_path / "output" / "data" / "skilltree_project.json"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    write_json_artifact(path, exported)
+    httpserver.expect_request("/public/status").respond_with_json({"status": "OK"})
+    config = make_dashboard_config(
+        project_root=tmp_path, project_id="p", project_name="Project",
+        skilltree_url=httpserver.url_for(""),
+    )
+    with _DashboardServer(config) as url:
+        code, _headers, body = _request(url + "/api/status?defer_live=1")
+        first = json.loads(body)
+        assert code == 200 and first["project"]["available"] is True
+        assert first["project"]["exportContentDigest"] == export_content_digest(exported)
+        replacement = deepcopy(exported)
+        replacement["subjects"][0]["skills"][0]["description"] = "Replacement lesson"
+        replacement["quizzes"][0]["questions"][0]["answers"][0]["answer"] = "private-replacement-key-7ce8"
+        write_json_artifact(path, replacement)
+        code, _headers, body = _request(url + "/api/status?defer_live=1")
+        second = json.loads(body)
+
+    assert code == 200
+    assert first["instanceId"] == second["instanceId"]
+    assert second["project"]["exportContentDigest"] == export_content_digest(replacement)
+    assert first["project"]["exportContentDigest"] != second["project"]["exportContentDigest"]
+    assert "isCorrect" not in body.decode("utf-8")
+    assert "private-replacement-key-7ce8" not in body.decode("utf-8")

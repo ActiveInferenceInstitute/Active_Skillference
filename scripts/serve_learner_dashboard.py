@@ -34,6 +34,7 @@ def main() -> int:
     parser.add_argument("--skilltree-url", default="http://localhost:8080")
     parser.add_argument("--host", default="127.0.0.1")
     parser.add_argument("--port", type=int, default=8765)
+    parser.add_argument("--instance-id", default="", help="Public identity for an owned proof run.")
     parser.add_argument(
         "--authenticator",
         default=os.environ.get("SKILLTREE_AUTHENTICATOR", ""),
@@ -87,6 +88,7 @@ def main() -> int:
         local_auth_enabled=args.local_auth_enabled,
         local_state_dir=Path(args.local_state_dir),
         learner_id=args.learner_id,
+        instance_id=args.instance_id,
     )
     if args.check:
         print(json.dumps(dashboard_payload(config), indent=2, sort_keys=True))

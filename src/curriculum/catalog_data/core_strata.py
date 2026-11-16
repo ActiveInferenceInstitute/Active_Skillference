@@ -84,8 +84,9 @@ _MATH_LINALG = [
         "Eigenvalues & Positive-Definiteness",
         _M,
         "Interpret eigenvalues and positive-definite matrices.",
-        "For $A\\mathbf{v}=\\lambda\\mathbf{v}$, $\\lambda$ is an eigenvalue; covariance and "
-        "precision matrices are symmetric positive-definite.",
+        "For $A\\mathbf{v}=\\lambda\\mathbf{v}$, $\\lambda$ is an eigenvalue. Covariance matrices "
+        "are symmetric positive-semidefinite; a nonsingular covariance matrix is "
+        "positive-definite, and its inverse precision matrix is also symmetric positive-definite.",
         ("m_matrix",),
         _q(
             "A covariance matrix is always:",
@@ -147,7 +148,7 @@ _MATH_CALC = [
         "partials and certifies local curvature/convexity.",
         ("m_chain_rule", "m_eigen"),
         _q(
-            "A function is locally convex where its Hessian is:",
+            "For a twice continuously differentiable function, which Hessian condition is sufficient for local strict convexity?",
             ["Positive-definite", "Negative-definite", "Singular"],
             0,
         ),
@@ -157,8 +158,12 @@ _MATH_CALC = [
         "Convexity",
         _M,
         "Recognise convex functions and sets.",
-        "A convex function lies below its chords: $f(\\lambda x+(1-\\lambda)y)\\le \\lambda f(x)+(1-\\lambda)f(y)$. "
-        "Convexity guarantees a unique minimum — and powers Jensen's inequality later.",
+        "A convex function lies below its chords for $0\\le\\lambda\\le1$: "
+        "$f(\\lambda x+(1-\\lambda)y)\\le \\lambda f(x)+(1-\\lambda)f(y)$. "
+        "Every local minimum is global, but convexity alone guarantees neither attainment "
+        "nor uniqueness. Strict convexity gives at most one minimizer; existence requires "
+        "additional conditions, such as continuity on a nonempty compact feasible set. "
+        "Convexity also powers Jensen's inequality.",
         ("m_jacobian_hessian",),
         _q(
             "A convex function's graph lies:",

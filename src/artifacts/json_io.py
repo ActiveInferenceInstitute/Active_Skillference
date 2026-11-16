@@ -1,6 +1,9 @@
 from __future__ import annotations
 
 import json
+import os
+import stat
+import tempfile
 from pathlib import Path
 from typing import Any, cast
 
@@ -30,17 +33,23 @@ def write_json_artifact(
     ensure_ascii: bool = True,
 ) -> Path:
     path = Path(path)
+    content = json.dumps(payload, indent=2, sort_keys=True, ensure_ascii=ensure_ascii) + "\n"
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(
-        json.dumps(
-            payload,
-            indent=2,
-            sort_keys=True,
-            ensure_ascii=ensure_ascii,
-        )
-        + "\n",
-        encoding="utf-8",
-    )
+    mode = stat.S_IMODE(path.stat().st_mode) if path.exists() else None
+    temporary: Path | None = None
+    try:
+        with tempfile.NamedTemporaryFile(
+            mode="w", encoding="utf-8", dir=path.parent,
+            prefix=f".{path.name}.", suffix=".tmp", delete=False,
+        ) as stream:
+            temporary = Path(stream.name)
+            stream.write(content)
+        if mode is not None:
+            temporary.chmod(mode)
+        os.replace(temporary, path)
+    finally:
+        if temporary is not None:
+            temporary.unlink(missing_ok=True)
     return path
 
 

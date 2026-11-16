@@ -22,22 +22,6 @@ DASHBOARD_URL="http://${DASHBOARD_HOST}:${DASHBOARD_PORT}"
 SKILLTREE_WAIT_ATTEMPTS="${SKILLTREE_WAIT_ATTEMPTS:-240}"
 ACTIVE_SKILLFERENCE_LOCAL_STATE_DIR="${ACTIVE_SKILLFERENCE_LOCAL_STATE_DIR:-.active_skillference_local}"
 ACTIVE_SKILLFERENCE_LEARNER_ID="${ACTIVE_SKILLFERENCE_LEARNER_ID:-local-learner}"
-# Compose interpolates this; it must match the value the stack was created
-# with, so reuse the stored one and generate it only on first run. This mirrors
-# src/integration/full_app_stack.py::ensure_postgres_password.
-_pg_file="$ACTIVE_SKILLFERENCE_LOCAL_STATE_DIR/postgres_password"
-if [ -z "${ACTIVE_SKILLFERENCE_POSTGRES_PASSWORD:-}" ]; then
-  if [ -s "$_pg_file" ]; then
-    ACTIVE_SKILLFERENCE_POSTGRES_PASSWORD="$(tr -d '\n' < "$_pg_file")"
-  else
-    mkdir -p "$ACTIVE_SKILLFERENCE_LOCAL_STATE_DIR"
-    chmod 700 "$ACTIVE_SKILLFERENCE_LOCAL_STATE_DIR" 2>/dev/null || true
-    ACTIVE_SKILLFERENCE_POSTGRES_PASSWORD="$(LC_ALL=C tr -dc 'A-Za-z0-9' < /dev/urandom | head -c 40)"
-    printf '%s\n' "$ACTIVE_SKILLFERENCE_POSTGRES_PASSWORD" > "$_pg_file"
-    chmod 600 "$_pg_file" 2>/dev/null || true
-  fi
-fi
-export ACTIVE_SKILLFERENCE_POSTGRES_PASSWORD
 
 MODE="full"
 for arg in "$@"; do
@@ -121,6 +105,14 @@ if [ "$MODE" = "offline" ]; then
     --host "$DASHBOARD_HOST" --port "$DASHBOARD_PORT"
 fi
 
+# Live launchers share one private password owner; help/check/offline never enter it.
+if [ -z "${ACTIVE_SKILLFERENCE_POSTGRES_PASSWORD:-}" ]; then
+  ACTIVE_SKILLFERENCE_POSTGRES_PASSWORD="$(uv run python -c \
+    'import sys; from src.integration.full_app_stack import ensure_postgres_password; print(ensure_postgres_password(sys.argv[1]))' \
+    "$ACTIVE_SKILLFERENCE_LOCAL_STATE_DIR")"
+fi
+export ACTIVE_SKILLFERENCE_POSTGRES_PASSWORD
+
 # ------------------------------------------------------------- live SkillTree
 # Run a long command with a live elapsed-time heartbeat, so a slow step is
 # visibly slow rather than indistinguishable from a hang.
@@ -172,9 +164,9 @@ curl -fsS "$SKILLTREE_URL/public/status" >/dev/null 2>&1 || fail \
   "Or run without it:  ./run.sh --offline"
 
 step "Seeding the curriculum into SkillTree"
-note "This is the slow step, and it is idempotent: if SkillTree already reports"
-note "the exported subject and skill counts, seeding is skipped entirely and"
-note "this finishes in seconds."
+note "Seeding is skipped only when the actual project, subjects, skills, quizzes"
+note "and answer keys match the export. Missing resources can be created;"
+note "changed or extra content is refused rather than silently overwritten."
 note "A first seed writes every subject, skill, and quiz over REST. Budget"
 note "10-40 minutes on Apple/ARM Docker emulation; it is working, not stuck."
 note "Prerequisite edges are NOT seeded here. They are far slower and the"
@@ -183,7 +175,7 @@ if ! run_with_heartbeat "seeding" uv run python scripts/bootstrap_local_skilltre
   --base-url "$SKILLTREE_URL" \
   --state-dir "$ACTIVE_SKILLFERENCE_LOCAL_STATE_DIR" \
   --learner-id "$ACTIVE_SKILLFERENCE_LEARNER_ID" \
-  --skip-seed-if-live-counts-ready \
+  --skip-seed-if-live-content-ready \
   --skip-dependencies; then
   fail "Seeding did not complete." \
     "The output above ends with the failing call." \

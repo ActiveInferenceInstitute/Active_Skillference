@@ -13,6 +13,7 @@ The public surface (``subjects``, ``skills``, ``prerequisite_edges()``) is exact
 from __future__ import annotations
 
 from dataclasses import dataclass
+from heapq import heapify, heappop, heappush
 
 from .model import ALL_STRATA, CurriculumError, Skill, Stratum, Subject
 
@@ -147,9 +148,10 @@ class CurriculumGraph:
                 "SkillTree resolves skills and subjects in one id namespace"
             )
 
-    def _check_prerequisites_exist(self) -> None:
-        ids = self.skill_ids()
-        for skill in self.skills:
+    def _check_prerequisites_exist(self, skills: list[Skill] | None = None) -> None:
+        skills = self.skills if skills is None else skills
+        ids = {skill.skill_id for skill in skills}
+        for skill in skills:
             for prereq in skill.prerequisites:
                 if prereq not in ids:
                     raise CurriculumError(
@@ -211,25 +213,26 @@ class CurriculumGraph:
     # -- ordering / depth ---------------------------------------------------
 
     def topological_order(self) -> list[Skill]:
-        """Kahn's algorithm — every skill appears after all its prerequisites."""
-        self._check_prerequisites_exist()
-        by_id = {s.skill_id: s for s in self.skills}
+        """Kahn's algorithm, choosing the smallest currently ready skill id."""
+        skills = self.skills
+        self._check_prerequisites_exist(skills)
+        by_id = {skill.skill_id: skill for skill in skills}
         indegree = {sid: 0 for sid in by_id}
         dependents: dict[str, list[str]] = {sid: [] for sid in by_id}
-        for prereq, dependent in self.prerequisite_edges():
-            indegree[dependent] += 1
-            dependents[prereq].append(dependent)
-        # Deterministic: process ready nodes in sorted id order.
-        ready = sorted(sid for sid, d in indegree.items() if d == 0)
+        for skill in skills:
+            for prereq in skill.prerequisites:
+                indegree[skill.skill_id] += 1
+                dependents[prereq].append(skill.skill_id)
+        ready = [sid for sid, degree in indegree.items() if degree == 0]
+        heapify(ready)
         order: list[Skill] = []
         while ready:
-            sid = ready.pop(0)
+            sid = heappop(ready)
             order.append(by_id[sid])
             for dep in dependents[sid]:
                 indegree[dep] -= 1
                 if indegree[dep] == 0:
-                    ready.append(dep)
-            ready.sort()
+                    heappush(ready, dep)
         if len(order) != len(by_id):
             raise CurriculumError("topological_order failed — graph is cyclic")
         return order
@@ -256,15 +259,16 @@ class CurriculumGraph:
         implementation and cognitive-security families — giving the depth of the actual
         concept chain a learner must climb, separate from review sequencing.
         """
+        ordered = self.topological_order()
         core = {
             skill.skill_id
-            for skill in self.skills
+            for skill in ordered
             if skill.skill_id.split("_")[0] not in _SCAFFOLD_SKILL_PREFIXES
         }
         if not core:
             return 0
         level: dict[str, int] = {}
-        for skill in self.topological_order():
+        for skill in ordered:
             if skill.skill_id not in core:
                 continue
             core_prereqs = [p for p in skill.prerequisites if p in core]
@@ -284,12 +288,15 @@ class CurriculumGraph:
         correctly reported as disconnected, rather than being trivially reachable from
         that illegal root.
         """
-        by_id = {s.skill_id: s for s in self.skills}
+        skills = self.skills
+        by_id = {skill.skill_id: skill for skill in skills}
         forward: dict[str, list[str]] = {sid: [] for sid in by_id}
-        for prereq, dependent in self.prerequisite_edges():
-            forward[prereq].append(dependent)
+        for skill in skills:
+            for prereq in skill.prerequisites:
+                forward[prereq].append(skill.skill_id)
         roots = [
-            s.skill_id for s in self.skills if s.is_root and s.stratum.is_foundational
+            skill.skill_id for skill in skills
+            if skill.is_root and skill.stratum.is_foundational
         ]
         seen: set[str] = set()
         stack = list(roots)
@@ -330,19 +337,36 @@ class CurriculumGraph:
     # -- reporting ----------------------------------------------------------
 
     def stats(self) -> dict[str, object]:
-        levels = self.levels()
+        ordered = self.topological_order()
+        levels: dict[str, int] = {}
+        core_levels: dict[str, int] = {}
+        core_ids = {
+            skill.skill_id for skill in ordered
+            if skill.skill_id.split("_")[0] not in _SCAFFOLD_SKILL_PREFIXES
+        }
+        skills_per_stratum = {stratum.value: 0 for stratum in ALL_STRATA}
+        for skill in ordered:
+            levels[skill.skill_id] = (
+                1 + max(levels[prereq] for prereq in skill.prerequisites)
+                if skill.prerequisites else 0
+            )
+            skills_per_stratum[skill.stratum.value] += 1
+            if skill.skill_id in core_ids:
+                core_prereqs = [prereq for prereq in skill.prerequisites if prereq in core_ids]
+                core_levels[skill.skill_id] = (
+                    1 + max(core_levels[prereq] for prereq in core_prereqs)
+                    if core_prereqs else 0
+                )
+        strata = {subject.stratum for subject in self.subjects}
         return {
             "subjects": len(self.subjects),
-            "skills": len(self.skills),
-            "prerequisite_edges": len(self.prerequisite_edges()),
-            "strata_present": sorted(s.value for s in self.strata_present()),
-            "strata_count": len(self.strata_present()),
-            "all_strata_present": self.strata_present() == set(ALL_STRATA),
-            "max_depth": max(levels.values()) if levels else 0,
-            "core_max_depth": self.core_max_depth(),
-            "roots": sum(1 for s in self.skills if s.is_root),
-            "skills_per_stratum": {
-                stratum.value: sum(1 for s in self.skills if s.stratum is stratum)
-                for stratum in ALL_STRATA
-            },
+            "skills": len(ordered),
+            "prerequisite_edges": sum(len(skill.prerequisites) for skill in ordered),
+            "strata_present": sorted(stratum.value for stratum in strata),
+            "strata_count": len(strata),
+            "all_strata_present": strata == set(ALL_STRATA),
+            "max_depth": max(levels.values(), default=0),
+            "core_max_depth": max(core_levels.values(), default=0),
+            "roots": sum(skill.is_root for skill in ordered),
+            "skills_per_stratum": skills_per_stratum,
         }

@@ -11,37 +11,11 @@ from typing import Any
 
 from src.net_guard import require_http_url
 
+from .helpers import _iter_configured_pointers, _required_string
+
 from .models import CourseMaterialIssue
 
 
-def _required_string(mapping: dict[str, Any], key: str) -> str:
-    value = mapping.get(key)
-    return value if isinstance(value, str) else ""
-
-
-def _as_pointer_list(value: Any) -> list[dict[str, Any]]:
-    if not isinstance(value, list):
-        return []
-    return [item for item in value if isinstance(item, dict)]
-
-
-def _iter_configured_pointers(
-    payload: dict[str, Any],
-) -> list[tuple[str, dict[str, Any]]]:
-    pointers: list[tuple[str, dict[str, Any]]] = []
-    stratum_mappings = payload.get("stratum_mappings")
-    if isinstance(stratum_mappings, dict):
-        for stratum_key, raw in stratum_mappings.items():
-            for pointer in _as_pointer_list(raw):
-                pointers.append((f"stratum_mappings.{stratum_key}", pointer))
-    topic_mappings = payload.get("topic_mappings")
-    if isinstance(topic_mappings, list):
-        for topic_idx, topic in enumerate(topic_mappings):
-            if not isinstance(topic, dict):
-                continue
-            for pointer in _as_pointer_list(topic.get("pointers")):
-                pointers.append((f"topic_mappings[{topic_idx}].pointers", pointer))
-    return pointers
 
 
 def _validate_online_trees(
@@ -117,7 +91,7 @@ def _github_tree_payload(
             with urllib.request.urlopen(request, timeout=timeout) as response:
                 payload = json.loads(response.read().decode("utf-8"))
             if not isinstance(payload, dict):
-                raise TypeError("GitHub response was not a JSON object")
+                raise ValueError("GitHub response was not a JSON object")
             return payload
         except urllib.error.HTTPError as exc:
             last_exc = exc
@@ -156,7 +130,7 @@ def _fetch_github_tree_paths(
     payload = _github_tree_payload(request, timeout=timeout)
     tree = payload.get("tree") if isinstance(payload, dict) else None
     if not isinstance(tree, list):
-        raise TypeError("GitHub response did not include a tree")
+        raise ValueError("GitHub response did not include a tree")
     return {
         str(item.get("path"))
         for item in tree

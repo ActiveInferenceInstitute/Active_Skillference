@@ -17,6 +17,7 @@ from src.skilltree.summary import (
     summarize_export_payload,
     validate_export_payload,
 )
+from src.skilltree.content import export_content_digest
 
 
 class DashboardArtifactError(ValueError):
@@ -26,7 +27,7 @@ class DashboardArtifactError(ValueError):
 # Derived expected artifact count. Roster integrity is guarded by tests for unique ids,
 # unique paths, and registry/dashboard parity rather than a stale hand-maintained literal.
 EXPECTED_ARTIFACT_COUNT = len(ARTIFACTS)
-_ANSWER_KEY_FIELDS = frozenset({"isCorrect"})
+_ANSWER_KEY_FIELDS = frozenset({"isCorrect", "answers"})
 
 
 def artifact_inventory(project_root: Path) -> list[dict[str, object]]:
@@ -62,7 +63,7 @@ def read_json_file(path: Path) -> tuple[dict[str, Any] | None, str | None]:
 
 
 def redact_skilltree_answer_keys(payload: Any) -> Any:
-    """Return a browser-safe SkillTree export projection without quiz answer keys."""
+    """Remove answer options and correctness keys; official SkillTree owns quizzes."""
     if isinstance(payload, dict):
         return {
             key: redact_skilltree_answer_keys(value)
@@ -92,10 +93,12 @@ def load_redacted_skilltree_export(
     return redacted, None
 
 
-def load_skilltree_project(project_root: Path) -> dict[str, Any]:
+def load_skilltree_project(
+    project_root: Path, *, export_payload: dict[str, Any] | None = None,
+) -> dict[str, Any]:
     """Load the exported SkillTree project, summarized for dashboard use."""
     path = project_root / "output" / "data" / "skilltree_project.json"
-    payload, error = read_json_file(path)
+    payload, error = (export_payload, None) if export_payload is not None else read_json_file(path)
     if payload is None:
         return {
             "available": False,
@@ -142,6 +145,7 @@ def load_skilltree_project(project_root: Path) -> dict[str, Any]:
             "id": payload.get("projectId"),
             "name": payload.get("name"),
         },
+        "exportContentDigest": export_content_digest(payload),
         "subjects": subjects,
         "dependencies": dependencies,
         "quizzes": quizzes,

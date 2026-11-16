@@ -29,11 +29,7 @@ roadmap tasks are complete.
 - License, third-party notice, citation metadata, DOI, and public-repository boundaries
   are signposted in `LICENSE`, `THIRD_PARTY_NOTICES.md`, `docs/ip_license_status.md`,
   `CITATION.cff`, `.zenodo.json`, `codemeta.json`, and `manuscript/config.yaml`.
-- Renderer-facing repository and release-date metadata remain blank or omitted until a real
-  published release exists, so rendered PDFs, CFF, and CodeMeta do not advertise an
-  unavailable release endpoint. Probed on 2026-08-09,
-  `https://github.com/ActiveInferenceInstitute/Active_Skillference` exists and is public but
-  holds zero refs, so the target is reachable and still unpublished.
+- The 2026-08-09 observation found a reachable public target with zero refs; that is historical evidence, not today's remote state. Later v1.0.0/DOI records below remain authoritative for their own identifiers. Current metadata must agree with actual records and a newly admitted observation, never a guessed blanket unpublished state.
 
 ## Release-Allowed Claims
 
@@ -43,12 +39,7 @@ roadmap tasks are complete.
 - SkillTree is cited and discussed as an NSA-origin open-source training platform, with explicit non-endorsement and deployment-boundary language.
 - Project code/content metadata currently declares MIT, while third-party materials are
   either inventoried as vendored notices or cited/linked without relicensing.
-- The owner-confirmed public target is
-  `ActiveInferenceInstitute/Active_Skillference`, and that target now exists as an empty
-  public repository; the claim becomes release-allowed only after the repository carries
-  published content and a real release, and the release inventory is refreshed.
-- Platform-facing source-repository links and release dates are not release-allowed while
-  that target holds no published content.
+- Public repository/release claims must match the actual selected release record and newly admitted remote observation. A reachable target, an empty target, advertised refs, a failed probe, and an unrefreshed report are different states. Do not substitute historical reachability for current publication or infer current emptiness from a failed command.
 
 ## Claims To Avoid Until Future Evidence
 
@@ -69,11 +60,8 @@ roadmap tasks are complete.
 
 ## Current Blockers
 
-- DOI/Zenodo release is blocked until an actual release tag and deposit exist.
-- Public repository release is blocked until the confirmed target
-  `ActiveInferenceInstitute/Active_Skillference` holds published content and a real release
-  tag, and repository metadata is refreshed. The target's existence cleared the
-  reachability question only; the publication question is still open.
+- Subsequent DOI/Zenodo reservation, streamed upload, and publication each require explicit authorization and actual receipts. Existing v1.0.0 identifiers remain preserved; this work authorizes no new deposit, tag, upload, or release.
+- A current repository/readiness projection requires its owning generator and an admitted fresh probe. AS-O14's first-page/title identity and product-selection hold, plus legal/date/DOI decisions, remain owner obligations.
 - Learner-outcome claims are blocked until a real study produces evidence.
 - Live deployment claims are blocked until Docker SkillTree, dashboard handoff, privacy,
   security, trademark, and access-control reviews are complete.
@@ -101,11 +89,10 @@ uv run python scripts/validate_web_math.py
 uv run python scripts/validate_release_readiness_inventory.py
 ```
 
-Also re-check the public-target blocker. An empty result means the repository exists but
-nothing is published there, which keeps the blocker in force:
+An explicitly admitted future remote check may inspect advertised refs; empty success is not the same as failed or unrefreshed evidence. No new remote observation is claimed here:
 
 ```bash
-git ls-remote --heads https://github.com/ActiveInferenceInstitute/Active_Skillference.git HEAD
+git ls-remote --refs https://github.com/ActiveInferenceInstitute/Active_Skillference.git
 ```
 
 For a DOI-backed release or deployment publication rather than a static public-review

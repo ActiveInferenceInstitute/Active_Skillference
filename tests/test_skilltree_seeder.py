@@ -68,7 +68,8 @@ def test_seed_returns_correct_summary(httpserver: HTTPServer) -> None:
 
     def handler(request):  # type: ignore[no-untyped-def]
         order.append(request.path)
-        return Response("{}", content_type="application/json", status=200)
+        body = '{"questions": []}' if request.path.endswith("/questions") else "{}"
+        return Response(body, content_type="application/json", status=200)
 
     httpserver.expect_request(re.compile(r"^/.*$")).respond_with_handler(handler)
 
@@ -91,7 +92,8 @@ def test_seed_issues_dependencies_after_all_skills(httpserver: HTTPServer) -> No
 
     def handler(request):  # type: ignore[no-untyped-def]
         order.append(request.path)
-        return Response("{}", content_type="application/json", status=200)
+        body = '{"questions": []}' if request.path.endswith("/questions") else "{}"
+        return Response(body, content_type="application/json", status=200)
 
     httpserver.expect_request(re.compile(r"^/.*$")).respond_with_handler(handler)
 
@@ -128,7 +130,8 @@ def test_seed_full_path_ordering_exact(httpserver: HTTPServer) -> None:
 
     def handler(request):  # type: ignore[no-untyped-def]
         order.append(f"{request.method} {request.path}")
-        return Response("{}", content_type="application/json", status=200)
+        body = '{"questions": []}' if request.path.endswith("/questions") else "{}"
+        return Response(body, content_type="application/json", status=200)
 
     httpserver.expect_request(re.compile(r"^/.*$")).respond_with_handler(handler)
 
@@ -159,7 +162,8 @@ def test_seed_can_defer_dependencies_for_dedicated_reconciler(
 
     def handler(request):  # type: ignore[no-untyped-def]
         order.append(f"{request.method} {request.path}")
-        return Response("{}", content_type="application/json", status=200)
+        body = '{"questions": []}' if request.path.endswith("/questions") else "{}"
+        return Response(body, content_type="application/json", status=200)
 
     httpserver.expect_request(re.compile(r"^/.*$")).respond_with_handler(handler)
     client = SkillTreeClient(

@@ -18,6 +18,7 @@ from src.figures.registry import (
 from src.net_guard import NonHttpUrlError, require_http_url
 from src.project_identity import SKILLTREE_PROJECT_ID, SKILLTREE_PROJECT_NAME
 from src.skilltree.summary import SkillTreeSummaryError, summarize_export_payload
+from src.skilltree.content import compare_live_content, export_content_digest
 
 
 class LiveSkillTreeDashboardError(RuntimeError):
@@ -54,7 +55,7 @@ def _fetch_json(url: str, timeout: float) -> dict[str, Any]:
     return payload
 
 
-def _count_exported_project(project_path: Path) -> dict[str, int]:
+def _load_exported_project(project_path: Path) -> dict[str, Any]:
     try:
         payload = read_json_object(project_path)
     except FileNotFoundError as exc:
@@ -68,9 +69,15 @@ def _count_exported_project(project_path: Path) -> dict[str, int]:
     except JsonArtifactError as exc:
         raise LiveSkillTreeDashboardError(str(exc)) from exc
     try:
-        return summarize_export_payload(payload).project_counts()
+        summarize_export_payload(payload)
+        export_content_digest(payload)
+        return payload
     except SkillTreeSummaryError as exc:
         raise LiveSkillTreeDashboardError(str(exc)) from exc
+
+
+def _count_exported_project(project_path: Path) -> dict[str, int]:
+    return summarize_export_payload(_load_exported_project(project_path)).project_counts()
 
 
 def _require(condition: bool, message: str) -> None:
@@ -284,7 +291,8 @@ def validate_live_skilltree_dashboard(
     material_index = _fetch_json(f"{dashboard_url}/api/course-materials", timeout)
 
     project_path = project_root / "output" / "data" / "skilltree_project.json"
-    exported_counts = _count_exported_project(project_path)
+    exported_project = _load_exported_project(project_path)
+    exported_counts = summarize_export_payload(exported_project).project_counts()
     project = dashboard_status.get("project", {})
     config = dashboard_status.get("config", {})
     dashboard_skilltree = dashboard_status.get("skilltree", {})
@@ -309,10 +317,10 @@ def validate_live_skilltree_dashboard(
         counts == exported_counts,
         f"dashboard counts {counts!r} != export {exported_counts!r}",
     )
-    public_project = config.get("project", {})
-    _require(isinstance(public_project, dict), "public project config is not an object")
-    project_id = project.get("projectId") or public_project.get("id")
-    project_name = project.get("name") or public_project.get("name")
+    public_project = project.get("project", {})
+    _require(isinstance(public_project, dict), "dashboard project identity is not an object")
+    project_id = public_project.get("id")
+    project_name = public_project.get("name")
     _require(
         project_id == SKILLTREE_PROJECT_ID,
         "dashboard project id mismatch",
@@ -429,6 +437,7 @@ def validate_live_skilltree_dashboard(
         local_state_dir=local_state_dir,
         timeout=timeout,
         required=require_live_admin,
+        exported_project=exported_project,
     )
     live_dependencies = _validate_live_dependencies(
         skilltree_url=skilltree_url,
@@ -438,6 +447,16 @@ def validate_live_skilltree_dashboard(
         local_state_dir=local_state_dir,
         timeout=timeout,
         required=require_live_dependencies,
+    )
+    live_content = live_admin.get("content", {"checked": False})
+    _require(
+        not require_live_admin
+        or (
+            live_content.get("checked") is True
+            and live_content.get("complete") is True
+            and project.get("exportContentDigest") == export_content_digest(exported_project)
+        ),
+        "live SkillTree content or dashboard export digest does not match the current export",
     )
     figure_contracts = (
         _validate_figure_contracts(project_root=project_root, artifacts=artifacts)
@@ -449,6 +468,8 @@ def validate_live_skilltree_dashboard(
         "ok": True,
         "skilltreeStatus": skilltree_status,
         "dashboardUrl": dashboard_url,
+        "dashboardInstanceId": dashboard_status.get("instanceId"),
+        "exportContentDigest": export_content_digest(exported_project),
         "skilltreeUrl": skilltree_url,
         "counts": exported_counts,
         "artifacts": {"present": len(artifacts), "missing": 0},
@@ -459,6 +480,7 @@ def validate_live_skilltree_dashboard(
         "figureContracts": figure_contracts,
         "liveAdminProject": live_admin,
         "liveDependencies": live_dependencies,
+        "liveContent": live_content,
         "tokenKeys": token_keys,
     }
 
@@ -548,6 +570,7 @@ def _validate_live_admin_count(
     local_state_dir: Path | None,
     timeout: float,
     required: bool,
+    exported_project: dict[str, Any],
 ) -> dict[str, Any]:
     """Optionally verify the live SkillTree admin project count."""
     from src.skilltree.client import SkillTreeClientError
@@ -585,6 +608,11 @@ def _validate_live_admin_count(
     try:
         client.login(state.admin_username, state.admin_password)
         live_skills = client.live_skill_count()
+        content = compare_live_content(
+            get=lambda path: client.request_json("GET", path),
+            base_url=skilltree_url,
+            project=exported_project,
+        )
     except (LocalSkillTreeAuthError, SkillTreeClientError) as exc:
         _require(not required, f"live SkillTree admin count check failed: {exc}")
         return {
@@ -599,4 +627,5 @@ def _validate_live_admin_count(
     return {
         "checked": True,
         "skills": live_skills,
+        "content": content,
     }

@@ -72,7 +72,8 @@ def _word_count(text: str) -> int:
 def audit_curriculum_quality(graph: CurriculumGraph) -> list[CurriculumQualityIssue]:
     """Return learner-quality issues that structural validation does not cover."""
     issues: list[CurriculumQualityIssue] = []
-    by_id = {skill.skill_id: skill for skill in graph.skills}
+    skills = graph.skills
+    by_id = {skill.skill_id: skill for skill in skills}
 
     for subject in graph.subjects:
         if _word_count(subject.description) < MIN_SUBJECT_DESCRIPTION_WORDS:
@@ -84,7 +85,7 @@ def audit_curriculum_quality(graph: CurriculumGraph) -> list[CurriculumQualityIs
                 )
             )
 
-    for skill in graph.skills:
+    for skill in skills:
         if len(skill.assessments) < MIN_ASSESSMENTS_PER_SKILL:
             issues.append(
                 CurriculumQualityIssue(
@@ -334,24 +335,13 @@ _CONCEPT_PREREQUISITES: tuple[tuple[str, tuple[str, ...], tuple[str, ...]], ...]
 
 
 def transitive_prerequisites(graph: CurriculumGraph) -> dict[str, set[str]]:
-    """Return each skill id -> the set of all skills reachable through prerequisites."""
-    direct = {s.skill_id: set(s.prerequisites) for s in graph.skills}
+    """Return transitive prerequisite sets without recursion on a validated DAG."""
     closure: dict[str, set[str]] = {}
-
-    def resolve(sid: str, seen: frozenset[str]) -> set[str]:
-        if sid in closure:
-            return closure[sid]
-        acc: set[str] = set()
-        for prereq in direct.get(sid, set()):
-            if prereq in seen:  # guard (graph is a validated DAG, but be defensive)
-                continue
-            acc.add(prereq)
-            acc |= resolve(prereq, seen | {prereq})
-        closure[sid] = acc
-        return acc
-
-    for skill in graph.skills:
-        resolve(skill.skill_id, frozenset({skill.skill_id}))
+    for skill in graph.topological_order():
+        ancestors = set(skill.prerequisites)
+        for prereq in skill.prerequisites:
+            ancestors.update(closure[prereq])
+        closure[skill.skill_id] = ancestors
     return closure
 
 
@@ -360,7 +350,8 @@ def semantic_prerequisite_coverage(
 ) -> tuple[SemanticPrerequisiteCoverage, ...]:
     """Return concept-level reachability counts used by the semantic coverage figure."""
     closure = transitive_prerequisites(graph)
-    by_id = {s.skill_id: s for s in graph.skills}
+    skills = graph.skills
+    by_id = {skill.skill_id: skill for skill in skills}
     rows: list[SemanticPrerequisiteCoverage] = []
     for concept, patterns, definers in _CONCEPT_PREREQUISITES:
         compiled = [re.compile(pattern, re.IGNORECASE) for pattern in patterns]
@@ -370,7 +361,7 @@ def semantic_prerequisite_coverage(
             if any(definer in prereqs for definer in definers)
         )
         assessed = 0
-        for skill in graph.skills:
+        for skill in skills:
             if skill.skill_id in definers:
                 continue
             text = " ".join(
@@ -417,8 +408,9 @@ def audit_semantic_prerequisites(
         for concept, pats, definers in _CONCEPT_PREREQUISITES
     ]
     closure = transitive_prerequisites(graph)
-    by_id = {s.skill_id: s for s in graph.skills}
-    for skill in graph.skills:
+    skills = graph.skills
+    by_id = {skill.skill_id: skill for skill in skills}
+    for skill in skills:
         text = " ".join(
             tuple(q.prompt for q in skill.assessments)
             + tuple(a for q in skill.assessments for a in q.answers)

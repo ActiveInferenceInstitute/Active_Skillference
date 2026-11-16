@@ -49,7 +49,10 @@ class NoCrossOriginBearerRedirect(urllib.request.HTTPRedirectHandler):
 
 
 def parse_json_body(raw: str) -> Any:
-    return json.loads(raw) if raw.strip() else {}
+    try:
+        return json.loads(raw) if raw.strip() else {}
+    except json.JSONDecodeError as exc:
+        raise SkillTreeClientError("SkillTree returned malformed JSON") from exc
 
 
 def quiz_question_count(payload: Any) -> int:

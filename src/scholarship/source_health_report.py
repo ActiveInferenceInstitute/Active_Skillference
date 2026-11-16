@@ -35,10 +35,6 @@ def scholarship_source_health_network(
     bot_blocks = _issue_rows(source_health.issue_list, _BOT_BLOCK_CODES)
     role_gaps = _issue_rows(source_health.issue_list, _ROLE_GAP_CODES)
     metadata_issues = _issue_rows(source_health.issue_list, _METADATA_CODES)
-    bot_blocks.extend(_online_status_rows(source_health, "http_error:403"))
-    dead_links.extend(_online_status_rows(source_health, "url_error:"))
-    dead_links.extend(_online_status_rows(source_health, "timeout:"))
-    dead_links.extend(_online_status_rows(source_health, "tls_error:"))
     drift = {
         "singleSectionWithoutClaimSupport": list(
             advisories.get("singleSectionWithoutClaimSupport", [])
@@ -104,15 +100,6 @@ def _issue_rows(
     ]
 
 
-def _online_status_rows(
-    audit: SourceHealthAudit,
-    prefix: str,
-) -> list[dict[str, object]]:
-    return [
-        {"code": "online_status", "key": key, "message": status}
-        for key, status in audit.online_results.items()
-        if status.startswith(prefix)
-    ]
 
 
 def _boundary_source_row(row: dict[str, Any]) -> dict[str, object]:

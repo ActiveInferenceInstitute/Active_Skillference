@@ -5,8 +5,8 @@ The publication surface lives in ``output/manuscript/`` and the PDF is built fro
 Count-bearing prose is substituted from ``output/data/manuscript_variables.json`` at
 render time, so if the curriculum is regenerated but the manuscript is not re-rendered,
 the rendered ``.md`` (and the PDF) silently keep stale numbers while every other gate
-stays green. This gate re-renders each source file from the *current* variables and
-asserts the committed rendered copy is byte-identical, catching exactly that drift.
+stays green. This gate re-renders each source file from the current variables,
+then validates finalized PDF bytes and the complete bound render-input manifest.
 """
 
 from __future__ import annotations
@@ -23,6 +23,7 @@ sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "scripts"))
 
 import z_generate_manuscript_variables as zg
+from src.manuscript.pdf_receipt import pdf_receipt_issues
 
 ROADMAP_OPEN_RE = re.compile(
     r"(?P<count>\d+)\s+open items across\s+(?P<surfaces>[^.]+)",
@@ -174,6 +175,12 @@ def main() -> int:
         for item in stale:
             print(f"  - {item}")
         return 1
+    pdf_stale = pdf_receipt_issues(ROOT)
+    if pdf_stale:
+        print("PDF freshness FAILED (a genuine re-render is required):")
+        for item in pdf_stale:
+            print(f"  - {item}")
+        return 1
     bundle_stale = check_publication_bundle_roadmap_freshness()
     if bundle_stale:
         print("publication bundle freshness FAILED (re-render before publishing):")
@@ -183,7 +190,7 @@ def main() -> int:
     rendered = sorted(zg.OUTPUT_MANUSCRIPT.glob("*.md"))
     print(
         f"rendered manuscript freshness OK ({len(rendered)} files match current "
-        "artifacts; publication roadmap text matches)"
+        "artifacts; PDF bytes/inputs and publication roadmap text match)"
     )
     return 0
 

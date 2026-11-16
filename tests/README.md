@@ -16,6 +16,11 @@ uv run pytest tests/ --cov=src --cov-fail-under=90
 Tests import from the `src.*` namespace (`pythonpath = [".", "src"]`); `conftest.py` also
 puts `src/` on `sys.path` and forces `MPLBACKEND=Agg` so figure tests run headless.
 
+Script smoke tests copy the public source inputs into a module-scoped temporary
+project before running the real orchestrators. Generated artifacts and web-math
+fixtures stay there; running the suite must not regenerate the audited checkout's
+tracked output or alter its source binding.
+
 ## Coverage facts
 
 - The authoritative command is `uv run pytest tests/ --cov=src --cov-fail-under=90`.
@@ -23,6 +28,14 @@ puts `src/` on `sys.path` and forces `MPLBACKEND=Agg` so figure tests run headle
 - The `kernels/` package — the source of every learner-facing number — should remain fully covered.
 - **Zero mocks.** Real numeric computation everywhere; `pytest-httpserver` provides a real
   local HTTP server for SkillTree REST boundaries.
+
+Distribution regressions include extreme finite scores at small inverse temperature,
+where centering before scaling can overflow. Claim-rendering regressions also
+require the rendered graph to retain unique subject and skill names before export.
+
+The admin-content fixture serves the pinned SkillTree quiz definition and its
+separate settings endpoint. Pass requirements are native correct-question counts;
+missing/default settings must not be mistaken for a missing export-only percentage.
 
 ## Test Files
 

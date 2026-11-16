@@ -8,6 +8,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+import pytest
+
 from src.integration import full_app_stack as stack
 
 REPO = Path(__file__).resolve().parents[1]
@@ -20,7 +22,7 @@ def test_full_app_stack_builds_strict_commands() -> None:
         state_dir="state",
         learner_id="learner",
         skip_dependencies=True,
-        skip_seed_if_live_counts_ready=True,
+        skip_seed_if_live_content_ready=True,
     )
     dashboard = stack.dashboard_command(
         python="python",
@@ -57,7 +59,7 @@ def test_full_app_stack_builds_strict_commands() -> None:
     assert bootstrap[:2] == ["python", "scripts/bootstrap_local_skilltree.py"]
     assert "--learner-id" in bootstrap
     assert "--skip-dependencies" in bootstrap
-    assert "--skip-seed-if-live-counts-ready" in bootstrap
+    assert "--skip-seed-if-live-content-ready" in bootstrap
     assert dashboard[:2] == ["python", "scripts/serve_learner_dashboard.py"]
     assert "--local-auth" in dashboard
     assert reconcile[:2] == ["python", "scripts/reconcile_live_dependencies.py"]
@@ -312,48 +314,58 @@ def test_full_app_stack_starts_keep_running_dashboard_with_log(tmp_path: Path) -
         stack.stop_dashboard_process(process, timeout=5)
 
 
+def _browser_receipt() -> dict:
+    return {
+        "ok": True, "checked": True, "projectId": "p",
+        "dashboardInstanceId": "instance", "exportContentDigest": "a" * 64,
+        "views": [
+            {"kind": "project", "route": "/", "state": "ready", "visibleContentChecked": True},
+            {"kind": "subject", "route": "/subjects/s", "state": "ready", "visibleContentChecked": True},
+            {"kind": "quiz", "route": "/subjects/s/skills/k/quizzes/q", "state": "ready", "visibleContentChecked": True},
+        ],
+    }
+
+
+def _live_receipt() -> dict:
+    return {
+        "ok": True, "dashboardInstanceId": "instance", "exportContentDigest": "a" * 64,
+        "counts": {"skills": 630},
+        "artifacts": {"present": 30, "missing": 0},
+        "courseMaterials": {"records": 630},
+        "figureContracts": {"checked": True, "registered": 19},
+        "liveAdminProject": {"checked": True, "skills": 630},
+        "liveDependencies": {"checked": True, "complete": True, "expectedDependencies": 1199},
+        "liveContent": {
+            "checked": True, "complete": True, "projectId": "p",
+            "exportContentDigest": "a" * 64,
+        },
+    }
+
+
 def test_full_app_stack_proof_summary_shape() -> None:
-    pid_path = Path("/tmp/dashboard.pid")
-    log_path = Path("/tmp/dashboard.log")
+    pid_path, log_path = Path("/tmp/dashboard.pid"), Path("/tmp/dashboard.log")
     proof = stack.proof_summary(
         skilltree_url="http://localhost:8080",
         dashboard_url="http://127.0.0.1:8765",
         skilltree_status={"status": "OK"},
-        dashboard_health={"ok": True},
-        live_validation={
-            "counts": {"skills": 630},
-            "artifacts": {"present": 30, "missing": 0},
-            "courseMaterials": {"records": 630},
-            "figureContracts": {"checked": True, "registered": 19},
-            "liveAdminProject": {"checked": True, "skills": 630},
-            "liveDependencies": {"checked": True, "expectedDependencies": 1199},
-        },
-        browser_console_stdout="dashboard console gate OK",
+        dashboard_health={"ok": True, "instanceId": "instance"},
+        live_validation=_live_receipt(),
+        browser_console_stdout=json.dumps(_browser_receipt()),
         raw_skilltree_login={"ok": True, "adminSurfaceVisible": True},
-        kept_running=True,
-        dashboard_pid=12345,
-        dashboard_pid_path=pid_path,
-        dashboard_log_path=log_path,
-        dependency_reconciliation={"ok": True, "missingAfter": 0},
-        app_ready=False,
+        kept_running=True, dashboard_pid=12345,
+        dashboard_pid_path=pid_path, dashboard_log_path=log_path,
+        dependency_reconciliation={"ok": True, "complete": True, "missingAfter": 0},
     )
-
-    encoded = json.dumps(proof, sort_keys=True)
     assert proof["ok"] is True
-    assert proof["counts"] == {"skills": 630}
     assert proof["browserConsole"]["checked"] is True
-    assert proof["rawSkillTreeLogin"] == {"ok": True, "adminSurfaceVisible": True}
-    assert proof["figureContracts"] == {"checked": True, "registered": 19}
-    assert proof["liveDependencies"] == {
-        "checked": True,
-        "expectedDependencies": 1199,
-    }
-    assert proof["dependencyReconciliation"] == {"ok": True, "missingAfter": 0}
+    assert proof["liveContent"]["complete"] is True
+    assert proof["liveDependencies"]["complete"] is True
+    assert proof["runId"] == proof["dashboardInstanceId"] == "instance"
+    assert proof["exportContentDigest"] == proof["liveContent"]["exportContentDigest"]
     assert proof["mode"] == "full-parity"
     assert proof["dashboardPid"] == 12345
     assert proof["dashboardPidPath"] == str(pid_path)
     assert proof["dashboardLogPath"] == str(log_path)
-    assert "dashboard console gate OK" in encoded
 
 
 def test_full_app_stack_proof_summary_does_not_certify_failed_subproof() -> None:
@@ -383,7 +395,58 @@ def test_full_app_stack_writes_redacted_deterministic_proof(tmp_path: Path) -> N
     path = stack.write_proof_artifact(proof, tmp_path / "proof.json")
     payload = json.loads(path.read_text(encoding="utf-8"))
 
-    assert payload["proofVersion"] == 1
+    assert payload["proofVersion"] == 2
     assert payload["token"] == "[REDACTED]"
     assert "super-secret" not in path.read_text(encoding="utf-8")
     assert payload["counts"] == {"skills": 630}
+
+
+@pytest.mark.parametrize("stdout", ["dashboard console gate OK", "{}", '{"ok": true, "checked": false}'])
+def test_console_exit_text_or_unchecked_payload_cannot_certify_a_display(stdout: str) -> None:
+    with pytest.raises(stack.FullAppStackError):
+        stack.proof_summary(
+            skilltree_url="http://localhost:8080", dashboard_url="http://127.0.0.1:8765",
+            skilltree_status={"status": "OK"},
+            dashboard_health={"ok": True, "instanceId": "instance"},
+            live_validation=_live_receipt(), browser_console_stdout=stdout,
+            raw_skilltree_login={"ok": True}, kept_running=False, dashboard_pid=None,
+        )
+
+
+def test_proof_failure_stops_owned_dashboard_even_with_keep_running(
+    tmp_path: Path, httpserver,
+) -> None:
+    import urllib.request
+
+    httpserver.expect_request("/unrelated").respond_with_data("still running")
+    process = stack.start_dashboard([sys.executable, "-c", "import time; time.sleep(30)"])
+    destination = tmp_path / "proof-is-a-directory"
+    destination.mkdir()
+    try:
+        with pytest.raises(OSError):
+            try:
+                stack.write_proof_artifact({"ok": True}, destination)
+            finally:
+                stack.finalize_dashboard_process(
+                    process, state_dir=str(tmp_path), keep_running=True, successful=False,
+                )
+        assert process.poll() is not None
+        assert not (tmp_path / "dashboard.pid").exists()
+        with urllib.request.urlopen(httpserver.url_for("/unrelated"), timeout=2) as response:
+            assert response.read() == b"still running"
+    finally:
+        stack.stop_dashboard_process(process)
+
+
+def test_failed_pid_publication_does_not_leave_the_owned_process_alive(tmp_path: Path) -> None:
+    (tmp_path / "dashboard.pid").mkdir()
+    process = stack.start_dashboard([sys.executable, "-c", "import time; time.sleep(30)"])
+    try:
+        with pytest.raises(OSError):
+            stack.finalize_dashboard_process(
+                process, state_dir=str(tmp_path), keep_running=True, successful=True,
+            )
+        assert process.poll() is not None
+        assert (tmp_path / "dashboard.pid").is_dir()
+    finally:
+        stack.stop_dashboard_process(process)
