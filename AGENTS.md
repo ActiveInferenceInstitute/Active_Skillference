@@ -79,11 +79,13 @@ uvx ruff check src scripts tests && uvx ruff format --check src scripts tests
 uv run mypy src
 ```
 
-For every PR, follow the [required local GNN check](README.md#required-local-gnn-check).
-Use the pinned parser with explicit `GNN_ROOT` and `GNN_PYTHON`. Run the strict validator
-and focused tests on the clean, current PR head with zero skips. Keep the passing
-GitVault receipt and verify that `gnn conformance (local)` was published on that exact
-head through the [reviewed status workflow](README.md#publish-the-local-gnn-result).
+For every PR, run the [required local GNN check](README.md#required-local-gnn-check)
+with the pinned parser and explicit `GNN_ROOT` and `GNN_PYTHON`. The `./gates.sh gnn`
+arm runs the strict validator and focused tests. Require zero skips on the clean,
+current PR head, retain the GitVault receipt, and plan and apply the
+`github-status` result using the [reviewed status workflow](README.md#publish-the-local-gnn-result).
+Verify the exact head and the passing required `gnn conformance (local)` status
+before merging. The hosted GNN job remains optional.
 
 ## Extending the curriculum
 
