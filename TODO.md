@@ -16,10 +16,6 @@
   - Depends on: `asf-skilltree-452-live-reverify`
   - Evidence: `gh api repos/NationalSecurityAgency/skills-service/releases/latest --jq .tag_name`; `uv run python scripts/reset_local_skilltree.py --confirm-local-reset --timeout 1200`; `uv run python scripts/validate_docker_digests.py`
   - Scholarship lanes: delivery_and_reporting
-- [ ] **[asf-gnn-upstream-5-1-adoption](docs/todo/asf-gnn-upstream-5-1-adoption.md)** (validation): Adopt the v5.1.0 GNN upstream pin (currently v5.0.3)
-  - Scope: gnn/upstream.json pins Generalized_Notation_Notation at v5.0.3 (8f293d9ba810e6eda5c09842d9c7ed9ffa5f92c1), while the estate cutover moved the importer repositories to v5.1.0 (75c834bd8519dc7b5adc4d24f16bf393cfd1ecdf); this repository was not part of that cutover, so its pin is accurate but behind. The tag is duplicated in five places that must move together: gnn/upstream.json, gnn/README.md, docs/gates.md, .github/GNN.md, and the pinned-record constant plus the scratch-checkout tag in tests/test_gnn_conformance.py, with README.md linking the v5.0.3 tag at three places. scripts/validate_gnn_spec.py extracts the pinned commit with git archive and parses the specification with that checkout's parser, so a metadata-only edit would be drift rather than proof: the bump counts only once ./gates.sh gnn passes against a v5.1.0 checkout. Blocker: the arm fails, never skips, without a prepared v5.1.0 checkout and interpreter (GNN_ROOT/GNN_PYTHON), and the hosted `gnn conformance (pinned)` job cannot stand in for it while Actions is billing-locked org-wide. A local Generalized_Notation_Notation checkout at v5.1.0 already exists on the working host (75c834bd8519dc7b5adc4d24f16bf393cfd1ecdf), so the maintainer who runs it can close this.
-  - Evidence: `git ls-remote --tags https://github.com/ActiveInferenceInstitute/Generalized_Notation_Notation.git (v5.1.0 = 75c834bd8519dc7b5adc4d24f16bf393cfd1ecdf)`; `GNN_ROOT=<v5.1.0 checkout> GNN_PYTHON=<interpreter> ./gates.sh gnn`; `uv run pytest tests/test_gnn_conformance.py -q`
-  - Scholarship lanes: delivery_and_reporting
 
 ### Major Improvements
 
