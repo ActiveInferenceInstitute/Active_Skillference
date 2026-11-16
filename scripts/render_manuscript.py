@@ -51,9 +51,15 @@ BROKEN_LOG_SUBJECTS = ("Citation", "Reference")
 sys.path.insert(0, str(ROOT))
 
 from src.manuscript.pdf_receipt import (
-    PDF_NAME, add_pdf_assets, capture_pdf_inputs, hydrated_section_files,
-    latex_asset_paths, validate_pdf_inputs, write_pdf_receipt,
+    PDF_NAME,
+    add_pdf_assets,
+    capture_pdf_inputs,
+    hydrated_section_files,
+    latex_asset_paths,
+    validate_pdf_inputs,
+    write_pdf_receipt,
 )
+
 
 def _require(tool: str) -> str:
     found = shutil.which(tool)
@@ -177,21 +183,39 @@ def _page_two_visual(config: dict[str, object]) -> str:
     visual = front["page_two_visual"]
     if not isinstance(visual, dict):
         raise SystemExit("front_matter.page_two_visual must be a mapping")
-    image_name, title, caption = (visual.get(key) for key in ("image", "title", "caption"))
-    if not all(isinstance(value, str) and value.strip() for value in (image_name, title, caption)):
-        raise SystemExit("front_matter.page_two_visual requires image, title and caption")
+    image_name, title, caption = (
+        visual.get(key) for key in ("image", "title", "caption")
+    )
+    if not all(
+        isinstance(value, str) and value.strip()
+        for value in (image_name, title, caption)
+    ):
+        raise SystemExit(
+            "front_matter.page_two_visual requires image, title and caption"
+        )
     image = (OUTPUT_MANUSCRIPT / str(image_name)).resolve()
     if not image.is_file():
-        raise SystemExit(f"front_matter.page_two_visual.image does not resolve to a file: {image}")
-    return "\n".join([
-        "```{=latex}", r"\thispagestyle{empty}", r"\begin{center}",
-        r"{\Large\bfseries " + _latex_escape(str(title)) + r"\par}",
-        r"\vspace{0.6em}",
-        r"\includegraphics[width=\textwidth,height=0.75\textheight,keepaspectratio]{"
-        + image.as_posix() + "}",
-        r"\par\vspace{0.6em}", _latex_escape(str(caption)),
-        r"\end{center}", r"\clearpage", "```", "",
-    ])
+        raise SystemExit(
+            f"front_matter.page_two_visual.image does not resolve to a file: {image}"
+        )
+    return "\n".join(
+        [
+            "```{=latex}",
+            r"\thispagestyle{empty}",
+            r"\begin{center}",
+            r"{\Large\bfseries " + _latex_escape(str(title)) + r"\par}",
+            r"\vspace{0.6em}",
+            r"\includegraphics[width=\textwidth,height=0.75\textheight,keepaspectratio]{"
+            + image.as_posix()
+            + "}",
+            r"\par\vspace{0.6em}",
+            _latex_escape(str(caption)),
+            r"\end{center}",
+            r"\clearpage",
+            "```",
+            "",
+        ]
+    )
 
 
 def _section_files() -> list[Path]:
@@ -206,7 +230,8 @@ def _assemble(config: dict[str, object], destination: Path) -> list[Path]:
             "`uv run python scripts/z_generate_manuscript_variables.py`"
         )
     parts = [
-        _titlepage(config), _page_two_visual(config),
+        _titlepage(config),
+        _page_two_visual(config),
         "```{=latex}\n\\setcounter{tocdepth}{2}\n\\tableofcontents\n\\clearpage\n```\n",
     ]
     for index, path in enumerate(sections):
@@ -277,12 +302,18 @@ def _write_pdf_receipt(target: Path, *, root: Path, inputs: dict[str, object]) -
         text=True,
     ).stdout.strip()
     return write_pdf_receipt(
-        target, root=root, source_revision=revision, inputs=inputs,
+        target,
+        root=root,
+        source_revision=revision,
+        inputs=inputs,
     )
 
 
 def _render_pdf(
-    scratch: Path, config: dict[str, object], *, inputs: dict[str, object],
+    scratch: Path,
+    config: dict[str, object],
+    *,
+    inputs: dict[str, object],
 ) -> Path:
     pandoc = _require("pandoc")
     crossref = _require("pandoc-crossref")
@@ -323,7 +354,9 @@ def _render_pdf(
         what="pandoc",
     )
     inputs = add_pdf_assets(
-        ROOT, inputs, latex_asset_paths(tex, build_directory=scratch, root=ROOT),
+        ROOT,
+        inputs,
+        latex_asset_paths(tex, build_directory=scratch, root=ROOT),
     )
 
     latex = [xelatex, "-interaction=nonstopmode", "-halt-on-error", tex.name]
@@ -341,7 +374,9 @@ def _render_pdf(
     target = OUTPUT_PDF / PDF_NAME
     temporary: Path | None = None
     try:
-        with tempfile.NamedTemporaryFile(dir=OUTPUT_PDF, prefix=f".{PDF_NAME}.", delete=False) as stream:
+        with tempfile.NamedTemporaryFile(
+            dir=OUTPUT_PDF, prefix=f".{PDF_NAME}.", delete=False
+        ) as stream:
             temporary = Path(stream.name)
             with produced.open("rb") as source_stream:
                 shutil.copyfileobj(source_stream, stream)

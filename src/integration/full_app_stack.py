@@ -460,7 +460,9 @@ def wait_for_dashboard(
         try:
             health = _fetch_json(health_url, timeout=_REQUEST_TIMEOUT_SECONDS)
             if instance_id is not None and health.get("instanceId") != instance_id:
-                raise FullAppStackError("health endpoint belongs to another dashboard instance")
+                raise FullAppStackError(
+                    "health endpoint belongs to another dashboard instance"
+                )
             return health
         except (
             FullAppStackError,
@@ -498,9 +500,13 @@ def proof_summary(
         try:
             candidate = json.loads(browser_console_stdout)
         except json.JSONDecodeError as exc:
-            raise FullAppStackError("browser validator did not emit a structured proof") from exc
+            raise FullAppStackError(
+                "browser validator did not emit a structured proof"
+            ) from exc
         if not browser_receipt_complete(candidate):
-            raise FullAppStackError("browser validator did not prove all official learner views")
+            raise FullAppStackError(
+                "browser validator did not prove all official learner views"
+            )
         browser = candidate
     content = live_validation.get("liveContent", {})
     dependencies = live_validation.get("liveDependencies", {})
@@ -511,21 +517,29 @@ def proof_summary(
     ok = (
         live_validation.get("ok") is True
         and dashboard_health.get("ok") is True
-        and isinstance(instance_id, str) and bool(instance_id)
+        and isinstance(instance_id, str)
+        and bool(instance_id)
         and live_validation.get("dashboardInstanceId") == instance_id
-        and isinstance(digest, str) and len(digest) == 64
-        and content.get("checked") is True and content.get("complete") is True
+        and isinstance(digest, str)
+        and len(digest) == 64
+        and content.get("checked") is True
+        and content.get("complete") is True
         and content.get("exportContentDigest") == digest
     )
     if not app_ready:
-        ok = ok and dependencies.get("checked") is True and dependencies.get("complete") is True
+        ok = (
+            ok
+            and dependencies.get("checked") is True
+            and dependencies.get("complete") is True
+        )
     if raw_skilltree_login is not None:
         ok = ok and raw_skilltree_login.get("ok") is True
     if dependency_reconciliation is not None:
         ok = ok and dependency_reconciliation.get("complete") is True
     if browser_console_stdout is not None:
         ok = (
-            ok and browser.get("dashboardInstanceId") == instance_id
+            ok
+            and browser.get("dashboardInstanceId") == instance_id
             and browser.get("exportContentDigest") == digest
             and browser.get("projectId") == content.get("projectId")
         )
@@ -549,12 +563,17 @@ def proof_summary(
         "dependencyReconciliation": dependency_reconciliation or {"checked": False},
         "mode": "app-ready" if app_ready else "full-parity",
         "browserConsole": browser,
-        "rawSkillTreeLogin": raw_skilltree_login if raw_skilltree_login is not None
+        "rawSkillTreeLogin": raw_skilltree_login
+        if raw_skilltree_login is not None
         else {"checked": False, "reason": "skipped by --skip-browser"},
         "keptRunning": kept_running,
         "dashboardPid": dashboard_pid if kept_running else None,
-        "dashboardPidPath": str(dashboard_pid_path) if kept_running and dashboard_pid_path else None,
-        "dashboardLogPath": str(dashboard_log_path) if kept_running and dashboard_log_path else None,
+        "dashboardPidPath": str(dashboard_pid_path)
+        if kept_running and dashboard_pid_path
+        else None,
+        "dashboardLogPath": str(dashboard_log_path)
+        if kept_running and dashboard_log_path
+        else None,
     }
 
 
@@ -754,19 +773,26 @@ def validate_full_app_stack(args: argparse.Namespace) -> dict[str, Any]:
         return proof
     finally:
         finalize_dashboard_process(
-            dashboard, state_dir=state_dir, keep_running=args.keep_running,
+            dashboard,
+            state_dir=state_dir,
+            keep_running=args.keep_running,
             successful=proof_written,
         )
 
 
 def finalize_dashboard_process(
-    process: subprocess.Popen[str], *, state_dir: str,
-    keep_running: bool, successful: bool,
+    process: subprocess.Popen[str],
+    *,
+    state_dir: str,
+    keep_running: bool,
+    successful: bool,
 ) -> None:
     """Keep an owned process only after successful proof publication."""
     if successful and keep_running:
         if process.poll() is not None:
-            raise FullAppStackError("owned dashboard exited before keep-running finalization")
+            raise FullAppStackError(
+                "owned dashboard exited before keep-running finalization"
+            )
         try:
             record_dashboard_process(state_dir=state_dir, pid=process.pid)
         except BaseException:

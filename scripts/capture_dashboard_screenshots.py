@@ -37,7 +37,11 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         help="tracked directory receiving the captured PNGs and provenance record",
     )
     parser.add_argument("--browser-command", default=DEFAULT_BROWSER_COMMAND)
-    parser.add_argument("--proof-path", type=Path, help="Explicit current v2 full-stack proof; older/unmatched proofs remain unassociated.")
+    parser.add_argument(
+        "--proof-path",
+        type=Path,
+        help="Explicit current v2 full-stack proof; older/unmatched proofs remain unassociated.",
+    )
     parser.add_argument("--viewport-width", type=int, default=VIEWPORT_WIDTH)
     parser.add_argument("--viewport-height", type=int, default=VIEWPORT_HEIGHT)
     return parser.parse_args(argv)

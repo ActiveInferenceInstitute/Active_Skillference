@@ -29,6 +29,7 @@ from src.skilltree.admin_ops import (
     subject_create_path,
     subject_payload,
 )
+from src.skilltree.content import missing_quiz_questions
 from src.skilltree.model import (
     Quiz,
     QuizQuestion,
@@ -36,7 +37,6 @@ from src.skilltree.model import (
     SkillTreeSkill,
     SkillTreeSubject,
 )
-from src.skilltree.content import missing_quiz_questions
 from src.skilltree.transport import (
     NoCrossOriginBearerRedirect,
     SkillTreeClientError,
@@ -51,8 +51,12 @@ class SkillTreeClient:
     """Thin admin/report client for a single SkillTree project."""
 
     def __init__(
-        self, base_url: str, project_id: str, token: str | None = None,
-        *, timeout: float = 30.0,
+        self,
+        base_url: str,
+        project_id: str,
+        token: str | None = None,
+        *,
+        timeout: float = 30.0,
     ) -> None:
         if not base_url.strip():
             raise ValueError("base_url must be non-empty")

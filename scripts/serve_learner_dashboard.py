@@ -34,7 +34,9 @@ def main() -> int:
     parser.add_argument("--skilltree-url", default="http://localhost:8080")
     parser.add_argument("--host", default="127.0.0.1")
     parser.add_argument("--port", type=int, default=8765)
-    parser.add_argument("--instance-id", default="", help="Public identity for an owned proof run.")
+    parser.add_argument(
+        "--instance-id", default="", help="Public identity for an owned proof run."
+    )
     parser.add_argument(
         "--authenticator",
         default=os.environ.get("SKILLTREE_AUTHENTICATOR", ""),

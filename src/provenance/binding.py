@@ -65,8 +65,6 @@ class UnbackedNumber:
     context: str
 
 
-
-
 def render(text: str, registry: ClaimRegistry) -> str:
     """Replace every ``{{claim:NAME}}`` with its rendered value.
 

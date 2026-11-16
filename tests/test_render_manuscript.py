@@ -18,7 +18,10 @@ def test_pdf_receipt_records_finalized_output_and_actual_inputs(pdf_project) -> 
     receipt = target.with_suffix(".receipt.json")
     receipt.write_text("outdated receipt", encoding="utf-8")
 
-    assert renderer._write_pdf_receipt(target, root=root, inputs=pdf_project["inputs"]) == receipt
+    assert (
+        renderer._write_pdf_receipt(target, root=root, inputs=pdf_project["inputs"])
+        == receipt
+    )
 
     content = target.read_bytes()
     payload = json.loads(receipt.read_text(encoding="utf-8"))
@@ -28,9 +31,13 @@ def test_pdf_receipt_records_finalized_output_and_actual_inputs(pdf_project) -> 
     assert payload["sha256"] == hashlib.sha256(content).hexdigest()
     assert payload["source_revision"] == pdf_project["revision"]
     expected = {
-        "manuscript/config.yaml", "manuscript/preamble.md", "manuscript/references.bib",
-        "output/manuscript/01_fixture.md", "output/manuscript/assets/cover.pdf",
-        "output/manuscript/assets/atlas.pdf", "output/manuscript/assets/body.pdf",
+        "manuscript/config.yaml",
+        "manuscript/preamble.md",
+        "manuscript/references.bib",
+        "output/manuscript/01_fixture.md",
+        "output/manuscript/assets/cover.pdf",
+        "output/manuscript/assets/atlas.pdf",
+        "output/manuscript/assets/body.pdf",
     }
     rows = payload["inputManifest"]["files"]
     assert {row["path"] for row in rows} == expected
@@ -42,7 +49,9 @@ def test_pdf_receipt_records_finalized_output_and_actual_inputs(pdf_project) -> 
 
 
 @pytest.mark.slow
-def test_real_render_places_configured_atlas_on_physical_page_two(pdf_project, monkeypatch) -> None:
+def test_real_render_places_configured_atlas_on_physical_page_two(
+    pdf_project, monkeypatch
+) -> None:
     required = ("pandoc", "pandoc-crossref", "xelatex", "bibtex", "pdftotext")
     missing = [tool for tool in required if shutil.which(tool) is None]
     if missing:
@@ -60,7 +69,9 @@ def test_real_render_places_configured_atlas_on_physical_page_two(pdf_project, m
 
     extracted = subprocess.run(
         ["pdftotext", "-layout", str(target), "-"],
-        check=True, capture_output=True, text=True,
+        check=True,
+        capture_output=True,
+        text=True,
     ).stdout.split("\f")
     assert "FixtureTitlePage" in extracted[0]
     assert "FixtureAtlasPage" in extracted[1]
@@ -68,7 +79,9 @@ def test_real_render_places_configured_atlas_on_physical_page_two(pdf_project, m
     assert "AtlasGraphic" in extracted[1]
     assert "FixtureBodySection" not in extracted[1]
     assert "FixtureBodySection" in "\f".join(extracted[2:])
-    receipt = json.loads(target.with_suffix(".receipt.json").read_text(encoding="utf-8"))
+    receipt = json.loads(
+        target.with_suffix(".receipt.json").read_text(encoding="utf-8")
+    )
     assert set(receipt["inputManifest"]["assets"]) == {
         path.relative_to(root).as_posix() for path in pdf_project["assets"]
     }

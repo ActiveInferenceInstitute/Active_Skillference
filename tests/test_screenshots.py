@@ -9,8 +9,8 @@ the run that produced it.
 
 from __future__ import annotations
 
-import json
 import hashlib
+import json
 import re
 import subprocess
 import sys
@@ -174,7 +174,10 @@ def test_captured_images_are_tracked_and_carry_provenance() -> None:
         image = SCREENSHOT_DIR / view.filename
         assert image.is_file(), f"{view.filename} is not tracked"
         assert image.stat().st_size > 0
-        assert recorded[view.filename]["sha256"] == hashlib.sha256(image.read_bytes()).hexdigest()
+        assert (
+            recorded[view.filename]["sha256"]
+            == hashlib.sha256(image.read_bytes()).hexdigest()
+        )
 
 
 def test_captured_images_are_readable_and_not_blank() -> None:

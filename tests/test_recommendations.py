@@ -50,15 +50,32 @@ def _project() -> dict[str, object]:
         "quizzes": [
             {
                 "quizId": "math_sets_quiz",
-                "questions": [{"question": "What is a set?", "answers": [{"answer": "A collection", "isCorrect": True}]}],
+                "questions": [
+                    {
+                        "question": "What is a set?",
+                        "answers": [{"answer": "A collection", "isCorrect": True}],
+                    }
+                ],
             },
             {
                 "quizId": "prob_events_quiz",
-                "questions": [{"question": "How do events relate to sets?", "answers": [{"answer": "Events are sets", "isCorrect": True}]}],
+                "questions": [
+                    {
+                        "question": "How do events relate to sets?",
+                        "answers": [{"answer": "Events are sets", "isCorrect": True}],
+                    }
+                ],
             },
             {
                 "quizId": "bayes_update_quiz",
-                "questions": [{"question": "How does evidence update belief?", "answers": [{"answer": "Bayesian conditioning", "isCorrect": True}]}],
+                "questions": [
+                    {
+                        "question": "How does evidence update belief?",
+                        "answers": [
+                            {"answer": "Bayesian conditioning", "isCorrect": True}
+                        ],
+                    }
+                ],
             },
         ],
     }
@@ -150,7 +167,8 @@ def test_invalid_export_graph_cannot_produce_an_unsuccessful_retake(dependency) 
     project = _project()
     project["dependencies"].append(dependency)
     result = recommend_next_skills(
-        project, unsuccessful_skill_ids=["bayes_update"],
+        project,
+        unsuccessful_skill_ids=["bayes_update"],
     )
     assert result["available"] is False
     assert result["recommendations"] == []

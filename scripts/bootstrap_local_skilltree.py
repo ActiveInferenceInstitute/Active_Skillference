@@ -43,9 +43,7 @@ PROJECT_ID = SKILLTREE_PROJECT_ID
 PROJECT_NAME = SKILLTREE_PROJECT_NAME
 
 
-def build_project(
-    project_id: str = PROJECT_ID, project_name: str = PROJECT_NAME
-):  # type: ignore[no-untyped-def]
+def build_project(project_id: str = PROJECT_ID, project_name: str = PROJECT_NAME):  # type: ignore[no-untyped-def]
     """Build the provenance-rendered SkillTree project (no network)."""
     graph = build_curriculum()
     registry = build_claim_registry()
@@ -175,7 +173,9 @@ def main() -> int:
         )
         return 0
 
-    project = None if args.no_seed else build_project(args.project_id, args.project_name)
+    project = (
+        None if args.no_seed else build_project(args.project_id, args.project_name)
+    )
     try:
         result = ensure_local_skilltree_auth(
             base_url=args.base_url,

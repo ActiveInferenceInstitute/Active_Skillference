@@ -229,14 +229,17 @@ def audit_course_material_index(
             except ProvenanceError:
                 issues.append(
                     CourseMaterialIssue(
-                        "unresolved-claim-token", location,
+                        "unresolved-claim-token",
+                        location,
                         "learner-facing material contains an unresolved or malformed claim token",
                     )
                 )
         elif isinstance(value, dict):
             pending.extend((f"{location}.{key}", child) for key, child in value.items())
         elif isinstance(value, (list, tuple)):
-            pending.extend((f"{location}[{idx}]", child) for idx, child in enumerate(value))
+            pending.extend(
+                (f"{location}[{idx}]", child) for idx, child in enumerate(value)
+            )
     normalized = normalize_course_material_index(index)
     if not normalized.skills_is_mapping:
         issues.append(

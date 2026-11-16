@@ -30,7 +30,9 @@ def _strip_format_chars(text: str) -> str:
     Format characters can split an otherwise identical token or result number.
     Rendering, validation, linting and original-token provenance share this policy.
     """
-    return "".join(character for character in text if unicodedata.category(character) != "Cf")
+    return "".join(
+        character for character in text if unicodedata.category(character) != "Cf"
+    )
 
 
 SelfReportingType = Literal["HonorSystem", "Approval", "Quiz"]

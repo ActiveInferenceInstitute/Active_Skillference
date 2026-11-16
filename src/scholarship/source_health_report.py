@@ -100,8 +100,6 @@ def _issue_rows(
     ]
 
 
-
-
 def _boundary_source_row(row: dict[str, Any]) -> dict[str, object]:
     return {
         "area": str(row.get("area", "")),

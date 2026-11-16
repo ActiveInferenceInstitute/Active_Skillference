@@ -673,11 +673,14 @@ def _copy_minimal_source_surfaces(tmp_path: Path) -> None:
         )
 
 
-def test_blocked_task_retains_named_blocker_without_completion_evidence(tmp_path: Path) -> None:
+def test_blocked_task_retains_named_blocker_without_completion_evidence(
+    tmp_path: Path,
+) -> None:
     payload = _valid_roadmap_payload()
     task = payload["tasks"][1]
     task.update(
-        status="blocked", evidence=[],
+        status="blocked",
+        evidence=[],
         notes="Blocked until docker info reported: daemon unavailable.",
     )
     _write_roadmap(tmp_path, payload)
@@ -692,10 +695,14 @@ def test_blocked_task_retains_named_blocker_without_completion_evidence(tmp_path
     _write_roadmap(tmp_path, payload)
     assert audit_roadmap(tmp_path) == []
     assert "[~]" in (tmp_path / "TODO.md").read_text(encoding="utf-8")
-    assert "daemon unavailable." not in "\n".join(render_todo_detail_pages(payload).values())
+    assert "daemon unavailable." not in "\n".join(
+        render_todo_detail_pages(payload).values()
+    )
 
 
-def test_live_count_diagnostic_keeps_real_line_number_after_fenced_example(tmp_path: Path) -> None:
+def test_live_count_diagnostic_keeps_real_line_number_after_fenced_example(
+    tmp_path: Path,
+) -> None:
     _copy_minimal_source_surfaces(tmp_path)
     current = build_live_counts(REPO)["skill_count"].value
     stale = current + 7
@@ -704,7 +711,15 @@ def test_live_count_diagnostic_keeps_real_line_number_after_fenced_example(tmp_p
         encoding="utf-8",
     )
 
-    issues = [issue for issue in audit_live_count_literals(tmp_path) if issue.key == "skill_count"]
+    issues = [
+        issue
+        for issue in audit_live_count_literals(tmp_path)
+        if issue.key == "skill_count"
+    ]
 
     assert len(issues) == 1
-    assert issues[0].line == 6 and issues[0].found == stale and issues[0].expected == current
+    assert (
+        issues[0].line == 6
+        and issues[0].found == stale
+        and issues[0].expected == current
+    )

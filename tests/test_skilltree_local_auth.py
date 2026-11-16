@@ -748,7 +748,9 @@ def test_admin_create_quiz_appends_missing_question_suffix(
     ).respond_with_json({})
     httpserver.expect_request(
         "/admin/quiz-definitions/m_sets_quiz/questions", method="GET"
-    ).respond_with_json({"quizType": "Quiz", "questions": [quiz.questions[0].to_dict()]})
+    ).respond_with_json(
+        {"quizType": "Quiz", "questions": [quiz.questions[0].to_dict()]}
+    )
     httpserver.expect_request(
         "/admin/quiz-definitions/m_sets_quiz/create-question",
         method="POST",
@@ -822,24 +824,39 @@ def _tiny_project() -> SkillTreeProject:
             )
         ],
         dependencies=[],
-        quizzes=[Quiz(
-            quiz_id="m_sets_quiz", name="Sets Quiz",
-            questions=[QuizQuestion(
-                question="Which collection is a set?",
-                answers=[
-                    {"answer": "A collection of distinct elements", "isCorrect": True},
-                    {"answer": "An ordered list requiring repetition", "isCorrect": False},
+        quizzes=[
+            Quiz(
+                quiz_id="m_sets_quiz",
+                name="Sets Quiz",
+                questions=[
+                    QuizQuestion(
+                        question="Which collection is a set?",
+                        answers=[
+                            {
+                                "answer": "A collection of distinct elements",
+                                "isCorrect": True,
+                            },
+                            {
+                                "answer": "An ordered list requiring repetition",
+                                "isCorrect": False,
+                            },
+                        ],
+                    )
                 ],
-            )],
-        )],
+            )
+        ],
     )
 
 
 def test_ensure_local_skilltree_auth_full_first_bootstrap(
-    tmp_path: Path, httpserver: HTTPServer, skilltree_admin_content,
+    tmp_path: Path,
+    httpserver: HTTPServer,
+    skilltree_admin_content,
 ) -> None:
     _bootstrap_httpserver_expectations(
-        httpserver, skilltree_admin_content, needs_bootstrap=True,
+        httpserver,
+        skilltree_admin_content,
+        needs_bootstrap=True,
     )
     base = httpserver.url_for("").rstrip("/")
 
@@ -865,7 +882,8 @@ def test_ensure_local_skilltree_auth_full_first_bootstrap(
     assert stored.client_secret == "bootstrap-secret"
     assert stored.skilltree_url == base
     question_writes = [
-        request.get_json() for request, _response in httpserver.log
+        request.get_json()
+        for request, _response in httpserver.log
         if request.method == "POST" and request.path.endswith("/create-question")
     ]
     assert question_writes == [
@@ -947,7 +965,9 @@ def test_ensure_local_skilltree_auth_rejects_state_url_mismatch_before_login(
 
 
 def test_ensure_local_skilltree_auth_skips_seed_when_live_content_matches(
-    tmp_path: Path, httpserver: HTTPServer, skilltree_admin_content,
+    tmp_path: Path,
+    httpserver: HTTPServer,
+    skilltree_admin_content,
 ) -> None:
     base = httpserver.url_for("").rstrip("/")
     save_local_state(
@@ -1299,7 +1319,8 @@ def test_live_skill_count_rejects_missing_num_skills(httpserver: HTTPServer) -> 
 
 
 def test_verify_seed_landed_passes_when_live_matches(
-    httpserver: HTTPServer, skilltree_admin_content,
+    httpserver: HTTPServer,
+    skilltree_admin_content,
 ) -> None:
     skilltree_admin_content(httpserver, _two_skill_project())
     client = SkillTreeSessionClient(httpserver.url_for("/"), "p")

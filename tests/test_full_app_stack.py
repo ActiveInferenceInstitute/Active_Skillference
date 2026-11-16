@@ -316,27 +316,53 @@ def test_full_app_stack_starts_keep_running_dashboard_with_log(tmp_path: Path) -
 
 def _browser_receipt() -> dict:
     return {
-        "ok": True, "checked": True, "projectId": "p",
-        "dashboardInstanceId": "instance", "exportContentDigest": "a" * 64,
+        "ok": True,
+        "checked": True,
+        "projectId": "p",
+        "dashboardInstanceId": "instance",
+        "exportContentDigest": "a" * 64,
         "views": [
-            {"kind": "project", "route": "/", "state": "ready", "visibleContentChecked": True},
-            {"kind": "subject", "route": "/subjects/s", "state": "ready", "visibleContentChecked": True},
-            {"kind": "quiz", "route": "/subjects/s/skills/k/quizzes/q", "state": "ready", "visibleContentChecked": True},
+            {
+                "kind": "project",
+                "route": "/",
+                "state": "ready",
+                "visibleContentChecked": True,
+            },
+            {
+                "kind": "subject",
+                "route": "/subjects/s",
+                "state": "ready",
+                "visibleContentChecked": True,
+            },
+            {
+                "kind": "quiz",
+                "route": "/subjects/s/skills/k/quizzes/q",
+                "state": "ready",
+                "visibleContentChecked": True,
+            },
         ],
     }
 
 
 def _live_receipt() -> dict:
     return {
-        "ok": True, "dashboardInstanceId": "instance", "exportContentDigest": "a" * 64,
+        "ok": True,
+        "dashboardInstanceId": "instance",
+        "exportContentDigest": "a" * 64,
         "counts": {"skills": 630},
         "artifacts": {"present": 30, "missing": 0},
         "courseMaterials": {"records": 630},
         "figureContracts": {"checked": True, "registered": 19},
         "liveAdminProject": {"checked": True, "skills": 630},
-        "liveDependencies": {"checked": True, "complete": True, "expectedDependencies": 1199},
+        "liveDependencies": {
+            "checked": True,
+            "complete": True,
+            "expectedDependencies": 1199,
+        },
         "liveContent": {
-            "checked": True, "complete": True, "projectId": "p",
+            "checked": True,
+            "complete": True,
+            "projectId": "p",
             "exportContentDigest": "a" * 64,
         },
     }
@@ -352,8 +378,10 @@ def test_full_app_stack_proof_summary_shape() -> None:
         live_validation=_live_receipt(),
         browser_console_stdout=json.dumps(_browser_receipt()),
         raw_skilltree_login={"ok": True, "adminSurfaceVisible": True},
-        kept_running=True, dashboard_pid=12345,
-        dashboard_pid_path=pid_path, dashboard_log_path=log_path,
+        kept_running=True,
+        dashboard_pid=12345,
+        dashboard_pid_path=pid_path,
+        dashboard_log_path=log_path,
         dependency_reconciliation={"ok": True, "complete": True, "missingAfter": 0},
     )
     assert proof["ok"] is True
@@ -401,25 +429,36 @@ def test_full_app_stack_writes_redacted_deterministic_proof(tmp_path: Path) -> N
     assert payload["counts"] == {"skills": 630}
 
 
-@pytest.mark.parametrize("stdout", ["dashboard console gate OK", "{}", '{"ok": true, "checked": false}'])
-def test_console_exit_text_or_unchecked_payload_cannot_certify_a_display(stdout: str) -> None:
+@pytest.mark.parametrize(
+    "stdout", ["dashboard console gate OK", "{}", '{"ok": true, "checked": false}']
+)
+def test_console_exit_text_or_unchecked_payload_cannot_certify_a_display(
+    stdout: str,
+) -> None:
     with pytest.raises(stack.FullAppStackError):
         stack.proof_summary(
-            skilltree_url="http://localhost:8080", dashboard_url="http://127.0.0.1:8765",
+            skilltree_url="http://localhost:8080",
+            dashboard_url="http://127.0.0.1:8765",
             skilltree_status={"status": "OK"},
             dashboard_health={"ok": True, "instanceId": "instance"},
-            live_validation=_live_receipt(), browser_console_stdout=stdout,
-            raw_skilltree_login={"ok": True}, kept_running=False, dashboard_pid=None,
+            live_validation=_live_receipt(),
+            browser_console_stdout=stdout,
+            raw_skilltree_login={"ok": True},
+            kept_running=False,
+            dashboard_pid=None,
         )
 
 
 def test_proof_failure_stops_owned_dashboard_even_with_keep_running(
-    tmp_path: Path, httpserver,
+    tmp_path: Path,
+    httpserver,
 ) -> None:
     import urllib.request
 
     httpserver.expect_request("/unrelated").respond_with_data("still running")
-    process = stack.start_dashboard([sys.executable, "-c", "import time; time.sleep(30)"])
+    process = stack.start_dashboard(
+        [sys.executable, "-c", "import time; time.sleep(30)"]
+    )
     destination = tmp_path / "proof-is-a-directory"
     destination.mkdir()
     try:
@@ -428,23 +467,35 @@ def test_proof_failure_stops_owned_dashboard_even_with_keep_running(
                 stack.write_proof_artifact({"ok": True}, destination)
             finally:
                 stack.finalize_dashboard_process(
-                    process, state_dir=str(tmp_path), keep_running=True, successful=False,
+                    process,
+                    state_dir=str(tmp_path),
+                    keep_running=True,
+                    successful=False,
                 )
         assert process.poll() is not None
         assert not (tmp_path / "dashboard.pid").exists()
-        with urllib.request.urlopen(httpserver.url_for("/unrelated"), timeout=2) as response:
+        with urllib.request.urlopen(
+            httpserver.url_for("/unrelated"), timeout=2
+        ) as response:
             assert response.read() == b"still running"
     finally:
         stack.stop_dashboard_process(process)
 
 
-def test_failed_pid_publication_does_not_leave_the_owned_process_alive(tmp_path: Path) -> None:
+def test_failed_pid_publication_does_not_leave_the_owned_process_alive(
+    tmp_path: Path,
+) -> None:
     (tmp_path / "dashboard.pid").mkdir()
-    process = stack.start_dashboard([sys.executable, "-c", "import time; time.sleep(30)"])
+    process = stack.start_dashboard(
+        [sys.executable, "-c", "import time; time.sleep(30)"]
+    )
     try:
         with pytest.raises(OSError):
             stack.finalize_dashboard_process(
-                process, state_dir=str(tmp_path), keep_running=True, successful=True,
+                process,
+                state_dir=str(tmp_path),
+                keep_running=True,
+                successful=True,
             )
         assert process.poll() is not None
         assert (tmp_path / "dashboard.pid").is_dir()

@@ -116,11 +116,14 @@ def build_release_readiness_snapshot(root: Path) -> ReleaseReadinessSnapshot:
 
 
 def probe_public_repository(
-    root: Path, repository_url: str = PUBLIC_REPOSITORY_URL,
+    root: Path,
+    repository_url: str = PUBLIC_REPOSITORY_URL,
 ) -> subprocess.CompletedProcess[str]:
     """Observe all advertised refs without fetching or mutating either repository."""
     return _run_command(
-        ["git", "ls-remote", "--refs", repository_url], cwd=root, timeout=20,
+        ["git", "ls-remote", "--refs", repository_url],
+        cwd=root,
+        timeout=20,
     )
 
 
@@ -165,7 +168,9 @@ def render_release_readiness_inventory(
     elif probes.public_repository.startswith("reachable but empty"):
         public_observation = "The repository is reachable but advertises no refs."
     elif probes.public_repository.startswith("not refreshed"):
-        public_observation = "No fresh public-repository observation was made by this validation run."
+        public_observation = (
+            "No fresh public-repository observation was made by this validation run."
+        )
     else:
         public_observation = "The public-repository probe failed or was unavailable."
     public_release_line = (

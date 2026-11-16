@@ -163,12 +163,15 @@ def upload_deposit_file(*, token: str, deposition_id: int, path: Path) -> str:
     links = deposition.get("links", {}) if isinstance(deposition, dict) else {}
     bucket = links.get("bucket") if isinstance(links, dict) else None
     if not isinstance(bucket, str) or not bucket:
-        raise ZenodoError(f"deposition {deposition_id} exposes no upload bucket; it may already be published")
+        raise ZenodoError(
+            f"deposition {deposition_id} exposes no upload bucket; it may already be published"
+        )
     try:
         with path.open("rb") as stream:
             request = urllib.request.Request(
                 f"{bucket}/{urllib.parse.quote(path.name)}",
-                data=stream, method="PUT",
+                data=stream,
+                method="PUT",
                 headers={
                     "Authorization": f"Bearer {token}",
                     "Content-Type": "application/octet-stream",
@@ -182,7 +185,11 @@ def upload_deposit_file(*, token: str, deposition_id: int, path: Path) -> str:
         raise ZenodoError(f"Zenodo file upload failed ({exc.code}): {detail}") from exc
     except (OSError, ValueError) as exc:
         raise ZenodoError(f"Zenodo file upload failed: {exc}") from exc
-    if not isinstance(payload, dict) or not isinstance(payload.get("key"), str) or not payload["key"].strip():
+    if (
+        not isinstance(payload, dict)
+        or not isinstance(payload.get("key"), str)
+        or not payload["key"].strip()
+    ):
         raise ZenodoError("Zenodo upload returned no confirmed filename")
     return payload["key"]
 

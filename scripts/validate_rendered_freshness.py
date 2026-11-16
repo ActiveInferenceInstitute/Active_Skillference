@@ -23,6 +23,7 @@ sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "scripts"))
 
 import z_generate_manuscript_variables as zg
+
 from src.manuscript.pdf_receipt import pdf_receipt_issues
 
 ROADMAP_OPEN_RE = re.compile(

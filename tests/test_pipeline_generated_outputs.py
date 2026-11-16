@@ -14,15 +14,23 @@ from src.pipeline.generated_outputs import (
 REPO = Path(__file__).resolve().parents[1]
 
 
-
 @pytest.mark.slow
-def test_build_generated_outputs_returns_existing_artifact_bundle(tmp_path: Path) -> None:
+def test_build_generated_outputs_returns_existing_artifact_bundle(
+    tmp_path: Path,
+) -> None:
     root = tmp_path / "project"
     shutil.copytree(
-        REPO, root,
+        REPO,
+        root,
         ignore=shutil.ignore_patterns(
-            ".git", ".venv", ".local", "__pycache__", ".pytest_cache",
-            ".mypy_cache", ".ruff_cache", "node_modules",
+            ".git",
+            ".venv",
+            ".local",
+            "__pycache__",
+            ".pytest_cache",
+            ".mypy_cache",
+            ".ruff_cache",
+            "node_modules",
         ),
     )
     bundle = build_generated_outputs(root)
@@ -51,16 +59,25 @@ def test_build_generated_outputs_returns_existing_artifact_bundle(tmp_path: Path
         root / "output" / "figures" / "active_skillference_skill_atlas.png"
     ) in bundle.paths
     assert all(path.exists() for path in bundle.paths)
-    variables = json.loads((root / "output" / "data" / "manuscript_variables.json").read_text())
-    registered = json.loads((root / "output" / "figures" / "figure_registry.json").read_text())
-    assert int(variables["figure_count"]) == len(registered) == bundle.registered_figures
+    variables = json.loads(
+        (root / "output" / "data" / "manuscript_variables.json").read_text()
+    )
+    registered = json.loads(
+        (root / "output" / "figures" / "figure_registry.json").read_text()
+    )
+    assert (
+        int(variables["figure_count"]) == len(registered) == bundle.registered_figures
+    )
 
 
-def test_importable_builder_raises_package_error_for_endorsement_overreach(tmp_path: Path) -> None:
+def test_importable_builder_raises_package_error_for_endorsement_overreach(
+    tmp_path: Path,
+) -> None:
     manuscript = tmp_path / "manuscript"
     manuscript.mkdir()
     (manuscript / "00_fixture.md").write_text(
-        "The platform is NSA approved for all learners.", encoding="utf-8",
+        "The platform is NSA approved for all learners.",
+        encoding="utf-8",
     )
     with pytest.raises(ValueError, match="endorsement-overreach"):
         build_generated_outputs(tmp_path)

@@ -609,11 +609,13 @@ def test_validation_intent_mismatch_matrix_figure_written(tmp_path) -> None:
 
     path = plot_validation_intent_mismatch_matrix(
         tmp_path / "validation-intent.png",
-        figure_count=len(planned_figure_registry_entries(
-            include_scholarship=True,
-            include_claim_support=True,
-            include_roadmap=True,
-        )),
+        figure_count=len(
+            planned_figure_registry_entries(
+                include_scholarship=True,
+                include_claim_support=True,
+                include_roadmap=True,
+            )
+        ),
         include_scholarship=True,
         include_claim_support=True,
         include_roadmap=True,
@@ -924,10 +926,16 @@ def test_registered_total_and_rendered_subset_keep_distinct_contracts() -> None:
     from src.figures.registry_manifest import figure_registry_payload
 
     for scholarship, claims, roadmap in product((False, True), repeat=3):
-        flags = dict(include_scholarship=scholarship, include_claim_support=claims, include_roadmap=roadmap)
+        flags = {
+            "include_scholarship": scholarship,
+            "include_claim_support": claims,
+            "include_roadmap": roadmap,
+        }
         registered = figure_registry_payload(**flags)
         rendered = planned_figure_registry_entries(**flags)
         assert planned_figure_count(**flags) == len(registered)
         assert {row["filename"] for row in rendered} == {
-            row["filename"] for row in registered if row.get("evidence_kind", "rendered") != "captured"
+            row["filename"]
+            for row in registered
+            if row.get("evidence_kind", "rendered") != "captured"
         }

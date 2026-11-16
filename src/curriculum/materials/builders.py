@@ -56,12 +56,17 @@ def build_course_material_index(
         subject = subject_by_skill[skill.skill_id]
         pointers = _pointers_for_skill(skill, source_payload, source_index, registry)
         prerequisites = [
-            _skill_ref(skill_by_id[prereq], subject_by_skill[prereq], levels[prereq], registry)
+            _skill_ref(
+                skill_by_id[prereq], subject_by_skill[prereq], levels[prereq], registry
+            )
             for prereq in skill.prerequisites
         ]
         dependents = [
             _skill_ref(
-                skill_by_id[dependent], subject_by_skill[dependent], levels[dependent], registry,
+                skill_by_id[dependent],
+                subject_by_skill[dependent],
+                levels[dependent],
+                registry,
             )
             for dependent in downstream.get(skill.skill_id, ())
         ]
@@ -88,7 +93,11 @@ def build_course_material_index(
             ),
             "prerequisites": prerequisites,
             "relatedSkills": _related_skills(
-                skill, skill_by_id, subject_by_skill, levels, registry,
+                skill,
+                skill_by_id,
+                subject_by_skill,
+                levels,
+                registry,
             ),
             "downstreamSkills": dependents,
             "assessmentSummary": _assessment_summary(skill),

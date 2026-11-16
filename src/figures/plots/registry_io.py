@@ -99,11 +99,13 @@ def render_all(
     include_scholarship = scholarship_audit is not None
     include_claim_support = claim_support_audit is not None
     include_roadmap = roadmap is not None
-    planned_count = len(planned_figure_registry_entries(
-        include_scholarship=include_scholarship,
-        include_claim_support=include_claim_support,
-        include_roadmap=include_roadmap,
-    ))
+    planned_count = len(
+        planned_figure_registry_entries(
+            include_scholarship=include_scholarship,
+            include_claim_support=include_claim_support,
+            include_roadmap=include_roadmap,
+        )
+    )
     figures = [
         plot_curriculum_dag(graph, out_dir / "curriculum_dag.png"),
         plot_dependency_strata_flow(graph, out_dir / "dependency_strata_flow.png"),

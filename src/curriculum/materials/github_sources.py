@@ -12,10 +12,7 @@ from typing import Any
 from src.net_guard import require_http_url
 
 from .helpers import _iter_configured_pointers, _required_string
-
 from .models import CourseMaterialIssue
-
-
 
 
 def _validate_online_trees(
@@ -34,7 +31,7 @@ def _validate_online_trees(
             continue
         try:
             tree_paths = _fetch_github_tree_paths(parts[0], parts[1], commit, timeout)
-        except (OSError, urllib.error.URLError, ValueError) as exc:
+        except (OSError, urllib.error.URLError, ValueError, TypeError) as exc:
             issues.append(
                 CourseMaterialIssue(
                     "github-tree",
@@ -91,7 +88,7 @@ def _github_tree_payload(
             with urllib.request.urlopen(request, timeout=timeout) as response:
                 payload = json.loads(response.read().decode("utf-8"))
             if not isinstance(payload, dict):
-                raise ValueError("GitHub response was not a JSON object")
+                raise TypeError("GitHub response was not a JSON object")
             return payload
         except urllib.error.HTTPError as exc:
             last_exc = exc
@@ -130,7 +127,7 @@ def _fetch_github_tree_paths(
     payload = _github_tree_payload(request, timeout=timeout)
     tree = payload.get("tree") if isinstance(payload, dict) else None
     if not isinstance(tree, list):
-        raise ValueError("GitHub response did not include a tree")
+        raise TypeError("GitHub response did not include a tree")
     return {
         str(item.get("path"))
         for item in tree

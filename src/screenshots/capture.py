@@ -23,11 +23,13 @@ from pathlib import Path
 from typing import Any
 
 from src.artifacts.json_io import write_json_artifact
-from src.net_guard import NonHttpUrlError, is_loopback_host, require_http_url
 from src.dashboard.browser_validation import (
-    BrowserDisplayError, browser_receipt_complete, display_probe, wait_for_official_display,
+    BrowserDisplayError,
+    browser_receipt_complete,
+    display_probe,
+    wait_for_official_display,
 )
-from src.skilltree.local_auth_state import LocalSkillTreeAuthError, _skilltree_origin
+from src.net_guard import NonHttpUrlError, is_loopback_host, require_http_url
 from src.screenshots.manifest import (
     SCREENSHOT_PROVENANCE_FILENAME,
     VIEWPORT_HEIGHT,
@@ -35,6 +37,7 @@ from src.screenshots.manifest import (
     ScreenshotView,
     screenshot_views,
 )
+from src.skilltree.local_auth_state import LocalSkillTreeAuthError, _skilltree_origin
 
 DEFAULT_BROWSER_COMMAND = "chrome-devtools-axi"
 #: The browser automation server writes only inside this root on this platform.
@@ -121,15 +124,26 @@ def _capture_url(url: str) -> str:
         parsed = urllib.parse.urlsplit(url)
     except ValueError as exc:
         raise ScreenshotCaptureError("capture URL is invalid") from exc
-    if parsed.username is not None or parsed.password is not None or parsed.query or parsed.fragment:
-        raise ScreenshotCaptureError("capture requires a credential-free dashboard base URL without query or fragment")
+    if (
+        parsed.username is not None
+        or parsed.password is not None
+        or parsed.query
+        or parsed.fragment
+    ):
+        raise ScreenshotCaptureError(
+            "capture requires a credential-free dashboard base URL without query or fragment"
+        )
     try:
         require_http_url(url, context="screenshot capture")
         port = parsed.port
     except (NonHttpUrlError, ValueError) as exc:
-        raise ScreenshotCaptureError("capture requires an absolute loopback HTTP(S) URL") from exc
+        raise ScreenshotCaptureError(
+            "capture requires an absolute loopback HTTP(S) URL"
+        ) from exc
     if not parsed.hostname or not is_loopback_host(parsed.hostname):
-        raise ScreenshotCaptureError("capture requires an absolute loopback HTTP(S) URL")
+        raise ScreenshotCaptureError(
+            "capture requires an absolute loopback HTTP(S) URL"
+        )
     if port is not None and port <= 0:
         raise ScreenshotCaptureError("capture URL port is invalid")
     return url.rstrip("/")
@@ -137,17 +151,26 @@ def _capture_url(url: str) -> str:
 
 def _capture_target(url: str) -> tuple[tuple[str, str, int], str]:
     normalized = _capture_url(url)
-    return _skilltree_origin(normalized), urllib.parse.urlsplit(normalized).path.rstrip("/") or "/"
+    return _skilltree_origin(normalized), urllib.parse.urlsplit(normalized).path.rstrip(
+        "/"
+    ) or "/"
 
 
 class _LoopbackCaptureRedirect(urllib.request.HTTPRedirectHandler):
     def redirect_request(
-        self, req: urllib.request.Request, fp: Any, code: int, msg: str,
-        headers: Any, newurl: str,
+        self,
+        req: urllib.request.Request,
+        fp: Any,
+        code: int,
+        msg: str,
+        headers: Any,
+        newurl: str,
     ) -> urllib.request.Request | None:
         _capture_url(newurl)
         if _skilltree_origin(req.full_url) != _skilltree_origin(newurl):
-            raise ScreenshotCaptureError("capture redirect changed the requested origin")
+            raise ScreenshotCaptureError(
+                "capture redirect changed the requested origin"
+            )
         return super().redirect_request(req, fp, code, msg, headers, newurl)
 
 
@@ -168,26 +191,45 @@ def _fetch_json(url: str, *, timeout: float) -> dict[str, Any]:
 
 
 def capture_context(
-    settings: CaptureSettings, *, browser_probe: dict[str, Any] | None = None,
+    settings: CaptureSettings,
+    *,
+    browser_probe: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Observe current status and associate only an explicit, matching successful proof."""
     dashboard_url = _capture_url(settings.dashboard_url)
     status = _fetch_json(f"{dashboard_url}/api/status", timeout=_STATUS_TIMEOUT_SECONDS)
-    project, config, live = status.get("project"), status.get("config"), status.get("liveSkilltree")
+    project, config, live = (
+        status.get("project"),
+        status.get("config"),
+        status.get("liveSkilltree"),
+    )
     service = status.get("skilltree")
-    if not all(isinstance(value, dict) for value in (project, config, live, service)):
-        raise ScreenshotCaptureError("dashboard project/config/live state must contain objects")
+    if not (
+        isinstance(project, dict)
+        and isinstance(config, dict)
+        and isinstance(live, dict)
+        and isinstance(service, dict)
+    ):
+        raise ScreenshotCaptureError(
+            "dashboard project/config/live state must contain objects"
+        )
     project_counts = project.get("counts", {})
     public_project, skilltree = config.get("project", {}), config.get("skilltree", {})
-    if not all(isinstance(value, dict) for value in (project_counts, public_project, skilltree)):
-        raise ScreenshotCaptureError("dashboard project counts/identity/target must contain objects")
+    if not all(
+        isinstance(value, dict) for value in (project_counts, public_project, skilltree)
+    ):
+        raise ScreenshotCaptureError(
+            "dashboard project counts/identity/target must contain objects"
+        )
     instance_id = status.get("instanceId")
     digest = project.get("exportContentDigest")
     project_id = public_project.get("id")
     skilltree_url = str(skilltree.get("url", ""))
     if browser_probe is not None:
         try:
-            browser_matches = _capture_target(str(browser_probe.get("url", ""))) == _capture_target(dashboard_url)
+            browser_matches = _capture_target(
+                str(browser_probe.get("url", ""))
+            ) == _capture_target(dashboard_url)
         except (ScreenshotCaptureError, LocalSkillTreeAuthError, ValueError):
             browser_matches = False
         if (
@@ -197,10 +239,16 @@ def capture_context(
             or browser_probe.get("projectId") != project_id
             or not browser_matches
         ):
-            raise ScreenshotCaptureError("browser capture state does not match current dashboard content")
+            raise ScreenshotCaptureError(
+                "browser capture state does not match current dashboard content"
+            )
     association = _proof_association(
-        settings, instance_id=instance_id, digest=digest, project_id=project_id,
-        skilltree_url=skilltree_url, browser_probe=browser_probe,
+        settings,
+        instance_id=instance_id,
+        digest=digest,
+        project_id=project_id,
+        skilltree_url=skilltree_url,
+        browser_probe=browser_probe,
     )
     content = live.get("content", {})
     return {
@@ -210,18 +258,32 @@ def capture_context(
         "projectId": project_id,
         "skilltreeUrl": skilltree_url,
         "skilltreeAvailable": bool(service.get("available")),
-        "viewport": {"width": settings.viewport_width, "height": settings.viewport_height},
-        "exportedCounts": {key: project_counts.get(key, 0) for key in ("skills", "subjects", "dependencies", "quizzes")},
+        "viewport": {
+            "width": settings.viewport_width,
+            "height": settings.viewport_height,
+        },
+        "exportedCounts": {
+            key: project_counts.get(key, 0)
+            for key in ("skills", "subjects", "dependencies", "quizzes")
+        },
         "liveDependencies": {
-            "checked": live.get("checked") is True, "matched": live.get("matchedDependencies"),
-            "expected": live.get("expectedDependencies"), "complete": live.get("complete") is True,
+            "checked": live.get("checked") is True,
+            "matched": live.get("matchedDependencies"),
+            "expected": live.get("expectedDependencies"),
+            "complete": live.get("complete") is True,
         },
         "liveContent": {
-            key: content.get(key) for key in ("checked", "complete", "exportContentDigest")
-        } if isinstance(content, dict) else {"checked": False},
+            key: content.get(key)
+            for key in ("checked", "complete", "exportContentDigest")
+        }
+        if isinstance(content, dict)
+        else {"checked": False},
         "officialDisplay": {
-            key: browser_probe.get(key) for key in ("state", "route", "frameUrl", "frameVisible")
-        } if browser_probe is not None else {"state": "unobserved"},
+            key: browser_probe.get(key)
+            for key in ("state", "route", "frameUrl", "frameVisible")
+        }
+        if browser_probe is not None
+        else {"state": "unobserved"},
         "proofAssociation": association,
         "fullAppStackProofMode": association.get("mode", "not associated"),
         "evidenceKind": "captured browser recording of a live system; pixels are not reproducible byte-for-byte and are not a deterministic render",
@@ -229,8 +291,13 @@ def capture_context(
 
 
 def _proof_association(
-    settings: CaptureSettings, *, instance_id: Any, digest: Any, project_id: Any,
-    skilltree_url: str, browser_probe: dict[str, Any] | None,
+    settings: CaptureSettings,
+    *,
+    instance_id: Any,
+    digest: Any,
+    project_id: Any,
+    skilltree_url: str,
+    browser_probe: dict[str, Any] | None,
 ) -> dict[str, Any]:
     if settings.proof_path is None:
         return {"checked": False, "reason": "no explicit proof path"}
@@ -241,29 +308,42 @@ def _proof_association(
         raw = path.read_bytes()
         proof = json.loads(raw)
     except (OSError, ValueError) as exc:
-        return {"checked": False, "reason": f"proof is unreadable: {type(exc).__name__}"}
+        return {
+            "checked": False,
+            "reason": f"proof is unreadable: {type(exc).__name__}",
+        }
     if not isinstance(proof, dict) or proof.get("proofVersion") != 2:
-        return {"checked": False, "reason": "historical/unsupported proof schema is unassociated"}
+        return {
+            "checked": False,
+            "reason": "historical/unsupported proof schema is unassociated",
+        }
     content = proof.get("liveContent", {})
     browser = proof.get("browserConsole", {})
     try:
-        same_targets = (
-            _capture_target(str(proof.get("dashboardUrl", ""))) == _capture_target(settings.dashboard_url)
-            and _skilltree_origin(str(proof.get("skilltreeUrl", ""))) == _skilltree_origin(skilltree_url)
-        )
+        same_targets = _capture_target(
+            str(proof.get("dashboardUrl", ""))
+        ) == _capture_target(settings.dashboard_url) and _skilltree_origin(
+            str(proof.get("skilltreeUrl", ""))
+        ) == _skilltree_origin(skilltree_url)
     except (ScreenshotCaptureError, LocalSkillTreeAuthError, ValueError):
         same_targets = False
     complete = (
-        proof.get("ok") is True and same_targets
+        proof.get("ok") is True
+        and same_targets
         and proof.get("mode") in ("app-ready", "full-parity")
-        and isinstance(instance_id, str) and bool(instance_id)
-        and isinstance(digest, str) and len(digest) == 64
+        and isinstance(instance_id, str)
+        and bool(instance_id)
+        and isinstance(digest, str)
+        and len(digest) == 64
         and proof.get("runId") == proof.get("dashboardInstanceId") == instance_id
         and proof.get("exportContentDigest") == digest
         and proof.get("projectId") == project_id
-        and isinstance(content, dict) and content.get("checked") is True
-        and content.get("complete") is True and content.get("exportContentDigest") == digest
-        and browser_probe is not None and browser_receipt_complete(browser)
+        and isinstance(content, dict)
+        and content.get("checked") is True
+        and content.get("complete") is True
+        and content.get("exportContentDigest") == digest
+        and browser_probe is not None
+        and browser_receipt_complete(browser)
         and browser.get("dashboardInstanceId") == instance_id
         and browser.get("exportContentDigest") == digest
         and browser.get("projectId") == project_id
@@ -271,14 +351,22 @@ def _proof_association(
     if proof.get("mode") == "full-parity":
         dependencies = proof.get("liveDependencies", {})
         complete = (
-            complete and isinstance(dependencies, dict)
-            and dependencies.get("checked") is True and dependencies.get("complete") is True
+            complete
+            and isinstance(dependencies, dict)
+            and dependencies.get("checked") is True
+            and dependencies.get("complete") is True
         )
     if not complete:
-        return {"checked": False, "reason": "proof does not match this successful current browser/content/instance state"}
+        return {
+            "checked": False,
+            "reason": "proof does not match this successful current browser/content/instance state",
+        }
     return {
-        "checked": True, "mode": proof["mode"], "runId": proof["runId"],
-        "proofSha256": hashlib.sha256(raw).hexdigest(), "proofPath": str(path),
+        "checked": True,
+        "mode": proof["mode"],
+        "runId": proof["runId"],
+        "proofSha256": hashlib.sha256(raw).hexdigest(),
+        "proofPath": str(path),
     }
 
 
@@ -308,8 +396,19 @@ def _capture_one(
         after = display_probe(browser_command=settings.browser_command, timeout=30.0)
     except BrowserDisplayError as exc:
         raise ScreenshotCaptureError(str(exc)) from exc
-    if any(after.get(key) != probe.get(key) for key in ("state", "route", "url", "dashboardInstanceId", "exportContentDigest")):
-        raise ScreenshotCaptureError("browser state changed while the screenshot was being recorded")
+    if any(
+        after.get(key) != probe.get(key)
+        for key in (
+            "state",
+            "route",
+            "url",
+            "dashboardInstanceId",
+            "exportContentDigest",
+        )
+    ):
+        raise ScreenshotCaptureError(
+            "browser state changed while the screenshot was being recorded"
+        )
     target = settings.output_dir / view.filename
     target.write_bytes(staged.read_bytes())
     staged.unlink()
@@ -328,7 +427,9 @@ def _capture_one(
 def capture_screenshots(settings: CaptureSettings) -> dict[str, Any]:
     """Capture every manifest view and write the registry plus provenance record."""
     dashboard_url = _capture_url(settings.dashboard_url)
-    with _capture_opener().open(dashboard_url, timeout=_STATUS_TIMEOUT_SECONDS) as response:
+    with _capture_opener().open(
+        dashboard_url, timeout=_STATUS_TIMEOUT_SECONDS
+    ) as response:
         _capture_url(response.geturl())
     restarted = ensure_browser_ready(browser_command=settings.browser_command)
     _run(
@@ -340,18 +441,24 @@ def capture_screenshots(settings: CaptureSettings) -> dict[str, Any]:
         ]
     )
     _run([settings.browser_command, "open", settings.dashboard_url])
-    initial = _fetch_json(f"{dashboard_url}/api/status", timeout=_STATUS_TIMEOUT_SECONDS)
+    initial = _fetch_json(
+        f"{dashboard_url}/api/status", timeout=_STATUS_TIMEOUT_SECONDS
+    )
     try:
         probe = wait_for_official_display(
-            browser_command=settings.browser_command, dashboard_url=dashboard_url,
+            browser_command=settings.browser_command,
+            dashboard_url=dashboard_url,
             skilltree_url=str(initial["config"]["skilltree"]["url"]),
-            project_id=str(initial["config"]["project"]["id"]), route="/",
+            project_id=str(initial["config"]["project"]["id"]),
+            route="/",
             dashboard_instance_id=str(initial["instanceId"]),
             export_digest=str(initial["project"]["exportContentDigest"]),
             timeout=_STATUS_TIMEOUT_SECONDS,
         )
     except (BrowserDisplayError, KeyError, TypeError) as exc:
-        raise ScreenshotCaptureError("official display did not provide capture-ready identity") from exc
+        raise ScreenshotCaptureError(
+            "official display did not provide capture-ready identity"
+        ) from exc
     context = capture_context(settings, browser_probe=probe)
     settings.output_dir.mkdir(parents=True, exist_ok=True)
 

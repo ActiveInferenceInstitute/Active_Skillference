@@ -12,12 +12,12 @@ from src.dashboard.artifact_catalog import (
     DashboardArtifact,
 )
 from src.dashboard.figure_metadata import load_figure_metadata as _load_figure_metadata
+from src.skilltree.content import export_content_digest
 from src.skilltree.summary import (
     SkillTreeSummaryError,
     summarize_export_payload,
     validate_export_payload,
 )
-from src.skilltree.content import export_content_digest
 
 
 class DashboardArtifactError(ValueError):
@@ -94,11 +94,15 @@ def load_redacted_skilltree_export(
 
 
 def load_skilltree_project(
-    project_root: Path, *, export_payload: dict[str, Any] | None = None,
+    project_root: Path,
+    *,
+    export_payload: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Load the exported SkillTree project, summarized for dashboard use."""
     path = project_root / "output" / "data" / "skilltree_project.json"
-    payload, error = (export_payload, None) if export_payload is not None else read_json_file(path)
+    payload, error = (
+        (export_payload, None) if export_payload is not None else read_json_file(path)
+    )
     if payload is None:
         return {
             "available": False,

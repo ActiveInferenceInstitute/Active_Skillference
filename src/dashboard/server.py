@@ -41,8 +41,11 @@ def dashboard_recommendations(config: DashboardConfig) -> dict[str, Any]:
     )
     if project is None:
         return {
-            "available": False, "error": error,
-            "recommendations": [], "personalized": False, "signalSource": "none",
+            "available": False,
+            "error": error,
+            "recommendations": [],
+            "personalized": False,
+            "signalSource": "none",
         }
     return recommend_next_skills(project)
 

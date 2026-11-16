@@ -224,14 +224,21 @@ def test_diamond_closure_deduplicates_shared_ancestors_and_refuses_cycles() -> N
     from src.curriculum.quality import transitive_prerequisites
 
     graph = _graph(
-        _skill("a", _M, ()), _skill("b", _M, ("a",)),
-        _skill("c", _M, ("a",)), _skill("d", _M, ("b", "c")),
+        _skill("a", _M, ()),
+        _skill("b", _M, ("a",)),
+        _skill("c", _M, ("a",)),
+        _skill("d", _M, ("b", "c")),
     )
     assert transitive_prerequisites(graph) == {
-        "a": set(), "b": {"a"}, "c": {"a"}, "d": {"a", "b", "c"},
+        "a": set(),
+        "b": {"a"},
+        "c": {"a"},
+        "d": {"a", "b", "c"},
     }
     with pytest.raises(CurriculumError):
-        transitive_prerequisites(_graph(_skill("a", _M, ("b",)), _skill("b", _M, ("a",))))
+        transitive_prerequisites(
+            _graph(_skill("a", _M, ("b",)), _skill("b", _M, ("a",)))
+        )
     with pytest.raises(CurriculumError):
         transitive_prerequisites(_graph(_skill("a", _M, ("missing",))))
 
@@ -239,7 +246,9 @@ def test_diamond_closure_deduplicates_shared_ancestors_and_refuses_cycles() -> N
 def test_call_scoped_snapshots_do_not_cache_mutable_subject_membership() -> None:
     graph = _graph(_skill("a", _M, ()))
     before = graph.skills
-    graph.subjects.append(Subject("extra", "Extra", _M, "d", (_skill("b", _M, ("a",)),)))
+    graph.subjects.append(
+        Subject("extra", "Extra", _M, "d", (_skill("b", _M, ("a",)),))
+    )
     graph.validate()
     assert [skill.skill_id for skill in before] == ["a"]
     assert [skill.skill_id for skill in graph.skills] == ["a", "b"]

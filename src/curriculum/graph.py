@@ -295,7 +295,8 @@ class CurriculumGraph:
             for prereq in skill.prerequisites:
                 forward[prereq].append(skill.skill_id)
         roots = [
-            skill.skill_id for skill in skills
+            skill.skill_id
+            for skill in skills
             if skill.is_root and skill.stratum.is_foundational
         ]
         seen: set[str] = set()
@@ -341,21 +342,26 @@ class CurriculumGraph:
         levels: dict[str, int] = {}
         core_levels: dict[str, int] = {}
         core_ids = {
-            skill.skill_id for skill in ordered
+            skill.skill_id
+            for skill in ordered
             if skill.skill_id.split("_")[0] not in _SCAFFOLD_SKILL_PREFIXES
         }
         skills_per_stratum = {stratum.value: 0 for stratum in ALL_STRATA}
         for skill in ordered:
             levels[skill.skill_id] = (
                 1 + max(levels[prereq] for prereq in skill.prerequisites)
-                if skill.prerequisites else 0
+                if skill.prerequisites
+                else 0
             )
             skills_per_stratum[skill.stratum.value] += 1
             if skill.skill_id in core_ids:
-                core_prereqs = [prereq for prereq in skill.prerequisites if prereq in core_ids]
+                core_prereqs = [
+                    prereq for prereq in skill.prerequisites if prereq in core_ids
+                ]
                 core_levels[skill.skill_id] = (
                     1 + max(core_levels[prereq] for prereq in core_prereqs)
-                    if core_prereqs else 0
+                    if core_prereqs
+                    else 0
                 )
         strata = {subject.stratum for subject in self.subjects}
         return {

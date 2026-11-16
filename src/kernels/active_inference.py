@@ -96,7 +96,9 @@ class DiscreteActiveInferenceAgent:
             or np.any(self.B < 0.0)
             or not np.allclose(self.B.sum(axis=0), 1.0, atol=1e-9, rtol=0.0)
         ):
-            raise ValueError("B must contain finite non-negative column-stochastic state transitions")
+            raise ValueError(
+                "B must contain finite non-negative column-stochastic state transitions"
+            )
         if normalize(self.C).shape != (self.A.shape[0],):
             raise ValueError("C length must match the number of observations")
 
@@ -111,8 +113,10 @@ class DiscreteActiveInferenceAgent:
         state_probs = _as_probability_vector(qs, name="qs")
         if state_probs.shape != self.D.shape:
             raise ValueError("qs length must match the model state dimension")
-        if not isinstance(action, (int, np.integer)) or isinstance(action, (bool, np.bool_)):
-            raise ValueError("action must be an integer index")
+        if not isinstance(action, (int, np.integer)) or isinstance(
+            action, (bool, np.bool_)
+        ):
+            raise TypeError("action must be an integer index")
         if action < 0 or action >= self.B.shape[2]:
             raise ValueError("action index out of range")
         return self.B[:, :, action] @ state_probs

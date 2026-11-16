@@ -17,8 +17,8 @@ from src.figures.registry import (
 )
 from src.net_guard import NonHttpUrlError, require_http_url
 from src.project_identity import SKILLTREE_PROJECT_ID, SKILLTREE_PROJECT_NAME
-from src.skilltree.summary import SkillTreeSummaryError, summarize_export_payload
 from src.skilltree.content import compare_live_content, export_content_digest
+from src.skilltree.summary import SkillTreeSummaryError, summarize_export_payload
 
 
 class LiveSkillTreeDashboardError(RuntimeError):
@@ -77,7 +77,9 @@ def _load_exported_project(project_path: Path) -> dict[str, Any]:
 
 
 def _count_exported_project(project_path: Path) -> dict[str, int]:
-    return summarize_export_payload(_load_exported_project(project_path)).project_counts()
+    return summarize_export_payload(
+        _load_exported_project(project_path)
+    ).project_counts()
 
 
 def _require(condition: bool, message: str) -> None:
@@ -318,7 +320,9 @@ def validate_live_skilltree_dashboard(
         f"dashboard counts {counts!r} != export {exported_counts!r}",
     )
     public_project = project.get("project", {})
-    _require(isinstance(public_project, dict), "dashboard project identity is not an object")
+    _require(
+        isinstance(public_project, dict), "dashboard project identity is not an object"
+    )
     project_id = public_project.get("id")
     project_name = public_project.get("name")
     _require(
@@ -454,7 +458,8 @@ def validate_live_skilltree_dashboard(
         or (
             live_content.get("checked") is True
             and live_content.get("complete") is True
-            and project.get("exportContentDigest") == export_content_digest(exported_project)
+            and project.get("exportContentDigest")
+            == export_content_digest(exported_project)
         ),
         "live SkillTree content or dashboard export digest does not match the current export",
     )

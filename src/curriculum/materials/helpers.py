@@ -255,13 +255,17 @@ def _pointers_for_skill(
             repo_url = _required_string(source, "repo_url").rstrip("/")
             merged[key] = {
                 "sourceId": source_id,
-                "sourceTitle": _render_text(_required_string(source, "title"), registry),
+                "sourceTitle": _render_text(
+                    _required_string(source, "title"), registry
+                ),
                 "title": _render_text(_required_string(pointer, "title"), registry),
                 "role": _render_text(role, registry),
                 "path": path,
                 "commit": commit,
                 "url": f"{repo_url}/blob/{commit}/{path}",
-                "licenseStatus": _render_text(_required_string(source, "license_status"), registry),
+                "licenseStatus": _render_text(
+                    _required_string(source, "license_status"), registry
+                ),
             }
         scope_sets[key].add(match_scope)
         term_sets[key].update(matched_terms)
@@ -390,7 +394,10 @@ def _related_skills(
 
 
 def _skill_ref(
-    skill: Skill, subject: Subject, depth: int, registry: ClaimRegistry,
+    skill: Skill,
+    subject: Subject,
+    depth: int,
+    registry: ClaimRegistry,
 ) -> dict[str, object]:
     return {
         "skillId": skill.skill_id,
@@ -416,7 +423,8 @@ def _downstream_map(graph: CurriculumGraph) -> dict[str, tuple[str, ...]]:
 
 
 def _source_summaries(
-    source_index: dict[str, dict[str, Any]], registry: ClaimRegistry,
+    source_index: dict[str, dict[str, Any]],
+    registry: ClaimRegistry,
 ) -> list[dict[str, str]]:
     rows: list[dict[str, str]] = []
     for source_id in sorted(source_index):
@@ -427,8 +435,12 @@ def _source_summaries(
                 "title": _render_text(_required_string(source, "title"), registry),
                 "repoUrl": _required_string(source, "repo_url"),
                 "commit": _required_string(source, "commit"),
-                "licenseStatus": _render_text(_required_string(source, "license_status"), registry),
-                "statusNote": _render_text(_required_string(source, "status_note"), registry),
+                "licenseStatus": _render_text(
+                    _required_string(source, "license_status"), registry
+                ),
+                "statusNote": _render_text(
+                    _required_string(source, "status_note"), registry
+                ),
             }
         )
     return rows

@@ -280,7 +280,9 @@ def test_summarize_probe_distinguishes_reachable_and_blocked() -> None:
     assert _summarize_probe(silent) == "blocked (exit 3)"
 
 
-def test_public_probe_distinguishes_empty_populated_and_tags_only_local_repositories(tmp_path: Path) -> None:
+def test_public_probe_distinguishes_empty_populated_and_tags_only_local_repositories(
+    tmp_path: Path,
+) -> None:
     from src.release_readiness import probe_public_repository
 
     empty = tmp_path / "empty.git"
@@ -292,20 +294,29 @@ def test_public_probe_distinguishes_empty_populated_and_tags_only_local_reposito
     root = _repo_with_dirty_release_state(tmp_path)
     populated = probe_public_repository(tmp_path, str(root))
     assert populated.returncode == 0
-    assert any(line.split()[1].startswith("refs/heads/") for line in populated.stdout.splitlines())
+    assert any(
+        line.split()[1].startswith("refs/heads/")
+        for line in populated.stdout.splitlines()
+    )
 
     subprocess.run(["git", "-C", str(root), "tag", "fixture_tag"], check=True)
     branch = subprocess.run(
         ["git", "-C", str(root), "symbolic-ref", "HEAD"],
-        check=True, capture_output=True, text=True,
+        check=True,
+        capture_output=True,
+        text=True,
     ).stdout.strip()
     subprocess.run(["git", "-C", str(root), "update-ref", "-d", branch], check=True)
     tags_only = probe_public_repository(tmp_path, str(root))
     assert tags_only.returncode == 0
-    assert {line.split()[1] for line in tags_only.stdout.splitlines()} == {"refs/tags/fixture_tag"}
+    assert {line.split()[1] for line in tags_only.stdout.splitlines()} == {
+        "refs/tags/fixture_tag"
+    }
 
 
-def test_public_probe_missing_local_target_is_not_an_empty_success(tmp_path: Path) -> None:
+def test_public_probe_missing_local_target_is_not_an_empty_success(
+    tmp_path: Path,
+) -> None:
     from src.release_readiness import probe_public_repository
 
     result = probe_public_repository(tmp_path, str(tmp_path / "missing.git"))

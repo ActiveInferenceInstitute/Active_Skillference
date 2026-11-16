@@ -12,6 +12,7 @@ sys.path.insert(0, str(REPO))
 sys.path.insert(0, str(REPO / "scripts"))
 
 import validate_dashboard_console as gate
+
 from src.dashboard.browser_validation import unexpected_errors
 
 _INCEPTION = (

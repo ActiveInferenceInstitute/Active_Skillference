@@ -19,16 +19,28 @@ from src.manuscript.pdf_receipt import (
 
 def _receipt(project):
     return write_pdf_receipt(
-        project["target"], root=project["root"], source_revision=project["revision"], inputs=project["inputs"],
+        project["target"],
+        root=project["root"],
+        source_revision=project["revision"],
+        inputs=project["inputs"],
     )
 
 
-@pytest.mark.parametrize("relative", [
-    "manuscript/config.yaml", "manuscript/preamble.md", "manuscript/references.bib",
-    "output/manuscript/01_fixture.md", "output/manuscript/assets/cover.pdf",
-    "output/manuscript/assets/atlas.pdf", "output/manuscript/assets/body.pdf",
-])
-def test_changed_actual_input_invalidates_unchanged_pdf_and_cannot_refresh_receipt(pdf_project, relative: str) -> None:
+@pytest.mark.parametrize(
+    "relative",
+    [
+        "manuscript/config.yaml",
+        "manuscript/preamble.md",
+        "manuscript/references.bib",
+        "output/manuscript/01_fixture.md",
+        "output/manuscript/assets/cover.pdf",
+        "output/manuscript/assets/atlas.pdf",
+        "output/manuscript/assets/body.pdf",
+    ],
+)
+def test_changed_actual_input_invalidates_unchanged_pdf_and_cannot_refresh_receipt(
+    pdf_project, relative: str
+) -> None:
     receipt = _receipt(pdf_project)
     old_receipt, old_pdf = receipt.read_bytes(), pdf_project["target"].read_bytes()
     path = pdf_project["root"] / relative
@@ -41,8 +53,13 @@ def test_changed_actual_input_invalidates_unchanged_pdf_and_cannot_refresh_recei
     assert pdf_project["target"].read_bytes() == old_pdf
 
 
-@pytest.mark.parametrize("change", ["add-section", "delete-section", "delete-image", "replace-pdf", "delete-pdf"])
-def test_changed_input_set_or_final_pdf_is_not_fresh(pdf_project, pdf_bytes, change: str) -> None:
+@pytest.mark.parametrize(
+    "change",
+    ["add-section", "delete-section", "delete-image", "replace-pdf", "delete-pdf"],
+)
+def test_changed_input_set_or_final_pdf_is_not_fresh(
+    pdf_project, pdf_bytes, change: str
+) -> None:
     receipt = _receipt(pdf_project)
     old_receipt = receipt.read_bytes()
     if change == "add-section":
@@ -59,26 +76,55 @@ def test_changed_input_set_or_final_pdf_is_not_fresh(pdf_project, pdf_bytes, cha
     assert receipt.read_bytes() == old_receipt
 
 
-@pytest.mark.parametrize("raw", [b"not JSON", b"[]", b'{"schema":"active-skillference-pdf/v1"}', b'{"schema":"active-skillference-pdf/v2"}'])
-def test_legacy_or_incomplete_receipt_requires_real_rerender_without_relabeling(pdf_project, raw: bytes) -> None:
+@pytest.mark.parametrize(
+    "raw",
+    [
+        b"not JSON",
+        b"[]",
+        b'{"schema":"active-skillference-pdf/v1"}',
+        b'{"schema":"active-skillference-pdf/v2"}',
+    ],
+)
+def test_legacy_or_incomplete_receipt_requires_real_rerender_without_relabeling(
+    pdf_project, raw: bytes
+) -> None:
     receipt = pdf_project["target"].with_suffix(".receipt.json")
     receipt.write_bytes(raw)
     assert pdf_receipt_issues(pdf_project["root"])
     assert receipt.read_bytes() == raw
 
 
-def test_missing_receipt_is_not_created_by_read_only_freshness_audit(pdf_project) -> None:
+def test_missing_receipt_is_not_created_by_read_only_freshness_audit(
+    pdf_project,
+) -> None:
     receipt = pdf_project["target"].with_suffix(".receipt.json")
     assert pdf_receipt_issues(pdf_project["root"])
     assert not receipt.exists()
 
 
-@pytest.mark.parametrize("damage", ["missing-primary", "missing-section", "missing-image", "duplicate-path", "unsafe-path", "bad-digest", "missing-assets-list"])
-def test_incomplete_or_unsafe_input_manifest_is_rejected(pdf_project, damage: str) -> None:
+@pytest.mark.parametrize(
+    "damage",
+    [
+        "missing-primary",
+        "missing-section",
+        "missing-image",
+        "duplicate-path",
+        "unsafe-path",
+        "bad-digest",
+        "missing-assets-list",
+    ],
+)
+def test_incomplete_or_unsafe_input_manifest_is_rejected(
+    pdf_project, damage: str
+) -> None:
     manifest = deepcopy(pdf_project["inputs"])
     rows = manifest["files"]
     if damage.startswith("missing-") and damage != "missing-assets-list":
-        kind = {"missing-primary": "config", "missing-section": "section", "missing-image": "asset"}[damage]
+        kind = {
+            "missing-primary": "config",
+            "missing-section": "section",
+            "missing-image": "asset",
+        }[damage]
         rows.remove(next(row for row in rows if row["kind"] == kind))
     elif damage == "duplicate-path":
         rows.append(dict(rows[0]))
@@ -92,7 +138,9 @@ def test_incomplete_or_unsafe_input_manifest_is_rejected(pdf_project, damage: st
         validate_pdf_inputs(pdf_project["root"], manifest)
 
 
-def test_actual_latex_image_inputs_are_deduplicated_and_comments_do_not_create_inputs(pdf_project) -> None:
+def test_actual_latex_image_inputs_are_deduplicated_and_comments_do_not_create_inputs(
+    pdf_project,
+) -> None:
     root = pdf_project["root"]
     tex = root / "build.tex"
     cover, _atlas, body = pdf_project["assets"]
@@ -103,11 +151,17 @@ def test_actual_latex_image_inputs_are_deduplicated_and_comments_do_not_create_i
     )
     paths = latex_asset_paths(tex, build_directory=root, root=root)
     assert paths == sorted([cover.resolve(), body.resolve()])
-    manifest = add_pdf_assets(root, capture_pdf_inputs(root, [pdf_project["section"]]), paths)
-    assert set(manifest["assets"]) == {path.relative_to(root).as_posix() for path in (cover, body)}
+    manifest = add_pdf_assets(
+        root, capture_pdf_inputs(root, [pdf_project["section"]]), paths
+    )
+    assert set(manifest["assets"]) == {
+        path.relative_to(root).as_posix() for path in (cover, body)
+    }
 
 
-def test_nonliteral_latex_image_input_cannot_create_incomplete_provenance(pdf_project) -> None:
+def test_nonliteral_latex_image_input_cannot_create_incomplete_provenance(
+    pdf_project,
+) -> None:
     root = pdf_project["root"]
     tex = root / "build.tex"
     tex.write_text(r"\includegraphics{\chosenImage{}}")
@@ -115,7 +169,9 @@ def test_nonliteral_latex_image_input_cannot_create_incomplete_provenance(pdf_pr
         latex_asset_paths(tex, build_directory=root, root=root)
 
 
-def test_unrelated_repository_file_does_not_invalidate_actual_input_snapshot(pdf_project) -> None:
+def test_unrelated_repository_file_does_not_invalidate_actual_input_snapshot(
+    pdf_project,
+) -> None:
     _receipt(pdf_project)
     (pdf_project["root"] / "unrelated.txt").write_text("Not a PDF compiler input.")
     assert pdf_receipt_issues(pdf_project["root"]) == []

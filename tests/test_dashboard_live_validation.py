@@ -59,7 +59,9 @@ def _serve_dashboard_payloads(
     httpserver.expect_request("/api/status").respond_with_json(
         {
             "instanceId": "live-validation-fixture",
-            "project": project_summary if project_summary is not None else {
+            "project": project_summary
+            if project_summary is not None
+            else {
                 "project": {"id": SKILLTREE_PROJECT_ID, "name": SKILLTREE_PROJECT_NAME},
                 "dependencies": [],
                 "counts": project_counts,
@@ -181,12 +183,18 @@ def test_fetch_json_rejects_non_http_scheme() -> None:
 
 @pytest.mark.parametrize("changed", [False, True])
 def test_strict_live_validator_binds_actual_admin_content_not_just_matching_counts(
-    tmp_path: Path, httpserver, content_project, skilltree_admin_content, changed: bool,
+    tmp_path: Path,
+    httpserver,
+    content_project,
+    skilltree_admin_content,
+    changed: bool,
 ) -> None:
     exported = content_project.to_export_dict()
     exported.update(projectId=SKILLTREE_PROJECT_ID, name=SKILLTREE_PROJECT_NAME)
     exported["subjects"][0]["skills"][0]["skillId"] = "live_validation_01"
-    exported["quizzes"][0]["questions"][0]["answers"].append({"answer": "other", "isCorrect": False})
+    exported["quizzes"][0]["questions"][0]["answers"].append(
+        {"answer": "other", "isCorrect": False}
+    )
     _write_project_export(tmp_path, exported)
     public = load_skilltree_project(tmp_path, export_payload=exported)
     base_url = _serve_dashboard_payloads(httpserver, project_summary=public)
@@ -195,27 +203,45 @@ def test_strict_live_validator_binds_actual_admin_content_not_just_matching_coun
         answers = live["quizzes"][0]["questions"][0]["answers"]
         answers[0]["isCorrect"], answers[1]["isCorrect"] = False, True
     skilltree_admin_content(httpserver, live)
-    httpserver.expect_request("/", method="GET").respond_with_data("<html>Session</html>", content_type="text/html")
+    httpserver.expect_request("/", method="GET").respond_with_data(
+        "<html>Session</html>", content_type="text/html"
+    )
     httpserver.expect_request("/performLogin", method="POST").respond_with_json({})
     httpserver.expect_request(
-        f"/admin/projects/{SKILLTREE_PROJECT_ID}/dependency/graph", method="GET",
+        f"/admin/projects/{SKILLTREE_PROJECT_ID}/dependency/graph",
+        method="GET",
     ).respond_with_json({"nodes": [], "edges": []})
     state_dir = tmp_path / "private-state"
-    save_local_state(state_dir, LocalSkillTreeState(
-        admin_username="fixture-admin", admin_password="fixture-password",
-        learner_id="fixture-learner", project_id=SKILLTREE_PROJECT_ID,
-        skilltree_url=base_url, client_secret="fixture-client-secret",
-    ))
+    save_local_state(
+        state_dir,
+        LocalSkillTreeState(
+            admin_username="fixture-admin",
+            admin_password="fixture-password",
+            learner_id="fixture-learner",
+            project_id=SKILLTREE_PROJECT_ID,
+            skilltree_url=base_url,
+            client_secret="fixture-client-secret",
+        ),
+    )
     arguments = {
-        "dashboard_url": base_url, "skilltree_url": base_url, "project_root": tmp_path,
-        "local_state_dir": state_dir, "require_token": False, "require_live_admin": True,
+        "dashboard_url": base_url,
+        "skilltree_url": base_url,
+        "project_root": tmp_path,
+        "local_state_dir": state_dir,
+        "require_token": False,
+        "require_live_admin": True,
     }
     if changed:
         with pytest.raises(LiveSkillTreeDashboardError, match="content"):
             validate_live_skilltree_dashboard(**arguments)
     else:
         result = validate_live_skilltree_dashboard(**arguments)
-        assert result["liveContent"]["checked"] is True and result["liveContent"]["complete"] is True
+        assert (
+            result["liveContent"]["checked"] is True
+            and result["liveContent"]["complete"] is True
+        )
         assert result["exportContentDigest"] == export_content_digest(exported)
         assert result["dashboardInstanceId"] == "live-validation-fixture"
-        assert "isCorrect" not in json.dumps(result) and "fixture-password" not in json.dumps(result)
+        assert "isCorrect" not in json.dumps(
+            result
+        ) and "fixture-password" not in json.dumps(result)

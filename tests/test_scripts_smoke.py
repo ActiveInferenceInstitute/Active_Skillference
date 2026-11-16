@@ -92,8 +92,6 @@ def test_validate_docker_digests_helper_flags_tag_only_lines() -> None:
     )
 
 
-
-
 def test_form_login_password_handoff_avoids_eval_argv_secret() -> None:
     module = _load_script_module("validate_skilltree_form_login.py")
 
@@ -290,7 +288,7 @@ def test_validate_american_english_script_runs() -> None:
 def test_validate_web_math_script_runs_with_rendered_html() -> None:
     web_dir = REPO / "output" / "web"
     web_dir.mkdir(parents=True, exist_ok=True)
-    (web_dir / "math_smoke.html").write_text(
+    (web_dir / "index.html").write_text(
         """
         <!doctype html>
         <html>

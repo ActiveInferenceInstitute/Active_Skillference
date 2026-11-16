@@ -368,9 +368,13 @@ def test_github_tree_fetch_retries_transient_5xx(httpserver) -> None:
     from src.curriculum.materials.github_sources import _github_tree_payload
 
     httpserver.expect_ordered_request("/tree").respond_with_json({}, status=503)
-    httpserver.expect_ordered_request("/tree").respond_with_json({"tree": [{"path": "a.md", "type": "blob"}]})
+    httpserver.expect_ordered_request("/tree").respond_with_json(
+        {"tree": [{"path": "a.md", "type": "blob"}]}
+    )
     result = _github_tree_payload(
-        urllib.request.Request(httpserver.url_for("/tree")), timeout=2, base_delay=0,
+        urllib.request.Request(httpserver.url_for("/tree")),
+        timeout=2,
+        base_delay=0,
     )
     assert result == {"tree": [{"path": "a.md", "type": "blob"}]}
     assert len(httpserver.log) == 2
@@ -385,7 +389,9 @@ def test_github_tree_fetch_raises_immediately_on_permanent_4xx(httpserver) -> No
     httpserver.expect_ordered_request("/tree").respond_with_json({}, status=404)
     with pytest.raises(urllib.error.HTTPError) as error:
         _github_tree_payload(
-            urllib.request.Request(httpserver.url_for("/tree")), timeout=2, base_delay=0,
+            urllib.request.Request(httpserver.url_for("/tree")),
+            timeout=2,
+            base_delay=0,
         )
     assert error.value.code == 404
     assert len(httpserver.log) == 1
@@ -404,11 +410,16 @@ def test_github_tree_fetch_raises_connection_error_from_real_loopback() -> None:
         url = f"http://127.0.0.1:{endpoint.getsockname()[1]}/tree"
         with pytest.raises(urllib.error.URLError):
             _github_tree_payload(
-                urllib.request.Request(url), timeout=0.2, attempts=2, base_delay=0,
+                urllib.request.Request(url),
+                timeout=0.2,
+                attempts=2,
+                base_delay=0,
             )
 
 
-def test_github_tree_fetch_raises_final_error_after_exhausting_attempts(httpserver) -> None:
+def test_github_tree_fetch_raises_final_error_after_exhausting_attempts(
+    httpserver,
+) -> None:
     import urllib.error
     import urllib.request
 
@@ -418,7 +429,9 @@ def test_github_tree_fetch_raises_final_error_after_exhausting_attempts(httpserv
         httpserver.expect_ordered_request("/tree").respond_with_json({}, status=503)
     with pytest.raises(urllib.error.HTTPError) as error:
         _github_tree_payload(
-            urllib.request.Request(httpserver.url_for("/tree")), timeout=2, base_delay=0,
+            urllib.request.Request(httpserver.url_for("/tree")),
+            timeout=2,
+            base_delay=0,
         )
     assert error.value.code == 503
     assert len(httpserver.log) == 3
@@ -426,7 +439,9 @@ def test_github_tree_fetch_raises_final_error_after_exhausting_attempts(httpserv
 
 @pytest.mark.parametrize("malformed", [[], None, {"tree": None}])
 def test_malformed_successful_github_response_becomes_one_source_issue(
-    httpserver, monkeypatch, malformed,
+    httpserver,
+    monkeypatch,
+    malformed,
 ) -> None:
     httpserver.expect_request(
         "/repos/testorg/testrepo/git/trees/0123456789abcdef0123456789abcdef01234567"
@@ -440,7 +455,9 @@ def test_malformed_successful_github_response_becomes_one_source_issue(
 
 @pytest.mark.parametrize("include_second", [False, True])
 def test_offline_and_online_pointer_owners_agree_on_whitespace_and_all_list_entries(
-    httpserver, monkeypatch, include_second: bool,
+    httpserver,
+    monkeypatch,
+    include_second: bool,
 ) -> None:
     from src.curriculum.model import ALL_STRATA
 
@@ -453,8 +470,18 @@ def test_offline_and_online_pointer_owners_agree_on_whitespace_and_all_list_entr
     source["path_globs"] = ["*.md"]
     payload["stratum_mappings"] = {
         stratum.value: [
-            {"source_id": f" {source_id} ", "path": " first.md ", "title": " First ", "role": " Context "},
-            {"source_id": f" {source_id} ", "path": " second.md ", "title": " Second ", "role": " Context "},
+            {
+                "source_id": f" {source_id} ",
+                "path": " first.md ",
+                "title": " First ",
+                "role": " Context ",
+            },
+            {
+                "source_id": f" {source_id} ",
+                "path": " second.md ",
+                "title": " Second ",
+                "role": " Context ",
+            },
         ]
         for stratum in ALL_STRATA
     }
@@ -464,7 +491,9 @@ def test_offline_and_online_pointer_owners_agree_on_whitespace_and_all_list_entr
     paths = ["first.md", "second.md"] if include_second else ["first.md"]
     httpserver.expect_request(
         "/repos/testorg/testrepo/git/trees/0123456789abcdef0123456789abcdef01234567"
-    ).respond_with_json({"tree": [{"path": path, "type": "blob"} for path in paths], "truncated": False})
+    ).respond_with_json(
+        {"tree": [{"path": path, "type": "blob"} for path in paths], "truncated": False}
+    )
 
     issues = validate_material_sources(payload, online=True, timeout=2)
 

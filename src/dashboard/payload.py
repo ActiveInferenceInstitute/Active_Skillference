@@ -16,6 +16,7 @@ from src.dashboard.artifacts import (
 from src.dashboard.config import DashboardConfig, DashboardPayload
 from src.dashboard.graph_analysis import analyze_project_graph
 from src.dashboard.status import check_skilltree_status
+from src.skilltree.content import compare_live_content
 from src.skilltree.deployment_matrix import skilltree_deployment_matrix
 from src.skilltree.local_auth import (
     DEFAULT_LOCAL_STATE_DIR,
@@ -24,7 +25,6 @@ from src.skilltree.local_auth import (
     load_local_state,
 )
 from src.skilltree.local_auth_state import _require_same_skilltree_origin
-from src.skilltree.content import compare_live_content
 
 DEFERRED_LIVE_PARITY_REASON = (
     "live dependency parity was deferred for first paint; "
@@ -142,7 +142,8 @@ def live_skilltree_summary(
         if state is None:
             raise LocalSkillTreeAuthError("local SkillTree auth state is missing")
         _require_same_skilltree_origin(
-            base_url=config.skilltree_url, state_url=state.skilltree_url,
+            base_url=config.skilltree_url,
+            state_url=state.skilltree_url,
         )
         if state.project_id != config.project_id:
             raise LocalSkillTreeAuthError(

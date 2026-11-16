@@ -44,7 +44,9 @@ def _validate_model(prior: FloatArray, A: FloatArray, obs: int) -> None:
     if obs < 0 or obs >= A.shape[0]:
         raise ValueError("obs index out of range for A")
     if not np.all(np.isfinite(A)) or np.any(A < 0.0):
-        raise ValueError("A must be finite and non-negative (it is a likelihood P(o|s))")
+        raise ValueError(
+            "A must be finite and non-negative (it is a likelihood P(o|s))"
+        )
     if not np.allclose(np.sum(A, axis=0), 1.0, atol=_PROB_TOL, rtol=0.0):
         raise ValueError("each column of A (P(o|s) for fixed state s) must sum to 1")
 
@@ -105,7 +107,11 @@ def variational_free_energy(
     mask = q_probs > 0.0
     if np.any(prior_probs[mask] == 0.0) or np.any(likelihood[obs, mask] == 0.0):
         return float("inf")
-    terms = np.log(q_probs[mask]) - np.log(prior_probs[mask]) - np.log(likelihood[obs, mask])
+    terms = (
+        np.log(q_probs[mask])
+        - np.log(prior_probs[mask])
+        - np.log(likelihood[obs, mask])
+    )
     return float(np.dot(q_probs[mask], terms))
 
 
@@ -130,7 +136,9 @@ def log_evidence(A: ArrayLike, obs: int, prior: ArrayLike) -> float:
     support = (likelihood[obs, :] > 0.0) & (prior_probs > 0.0)
     if not np.any(support):
         return float("-inf")
-    return float(logsumexp(np.log(likelihood[obs, support]) + np.log(prior_probs[support])))
+    return float(
+        logsumexp(np.log(likelihood[obs, support]) + np.log(prior_probs[support]))
+    )
 
 
 def belief_propagation_chain(
