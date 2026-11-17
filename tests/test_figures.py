@@ -605,12 +605,16 @@ def test_validation_surface_matrix_figure_written(tmp_path) -> None:
 
 
 def test_validation_intent_mismatch_matrix_figure_written(tmp_path) -> None:
+    from src.figures.plots.registry_io import planned_figure_registry_entries
+
     path = plot_validation_intent_mismatch_matrix(
         tmp_path / "validation-intent.png",
-        figure_count=planned_figure_count(
-            include_scholarship=True,
-            include_claim_support=True,
-            include_roadmap=True,
+        figure_count=len(
+            planned_figure_registry_entries(
+                include_scholarship=True,
+                include_claim_support=True,
+                include_roadmap=True,
+            )
         ),
         include_scholarship=True,
         include_claim_support=True,
@@ -913,3 +917,25 @@ def test_validation_surface_matrix_is_derived_from_validator_files(
     # Against an empty root no validator files exist -> every cell is n/a (0).
     _, _, empty = validation_surface_matrix(tmp_path)
     assert empty.sum() == 0
+
+
+def test_registered_total_and_rendered_subset_keep_distinct_contracts() -> None:
+    from itertools import product
+
+    from src.figures.plots.registry_io import planned_figure_registry_entries
+    from src.figures.registry_manifest import figure_registry_payload
+
+    for scholarship, claims, roadmap in product((False, True), repeat=3):
+        flags = {
+            "include_scholarship": scholarship,
+            "include_claim_support": claims,
+            "include_roadmap": roadmap,
+        }
+        registered = figure_registry_payload(**flags)
+        rendered = planned_figure_registry_entries(**flags)
+        assert planned_figure_count(**flags) == len(registered)
+        assert {row["filename"] for row in rendered} == {
+            row["filename"]
+            for row in registered
+            if row.get("evidence_kind", "rendered") != "captured"
+        }

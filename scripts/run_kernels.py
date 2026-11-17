@@ -20,7 +20,10 @@ from src.pipeline.generated_outputs import build_generated_outputs
 
 
 def main() -> list[Path]:
-    bundle = build_generated_outputs(_ROOT)
+    try:
+        bundle = build_generated_outputs(_ROOT)
+    except ValueError as exc:
+        raise SystemExit(str(exc)) from None
     print(f"registered {bundle.provenance_claims} provenance claims")
     print(f"validated scholarship coverage: {bundle.cited_sources} cited sources")
     print(

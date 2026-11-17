@@ -178,12 +178,13 @@ _NEW_GEOMETRY = [
         "Measure local distinguishability of distributions with the Fisher metric.",
         "The Fisher information matrix "
         "$g_{ij}(\\theta)=\\mathbb{E}_{p_\\theta}[\\partial_i\\log p_\\theta\\,\\partial_j\\log p_\\theta]$ "
-        "is the unique (up to scale) Riemannian metric on a statistical manifold invariant under "
-        "reparameterisation. It tells you how far apart two nearby distributions are in information "
-        "terms.",
+        "defines a Riemannian metric for a regular model with nonsingular Fisher information. "
+        "Its line element is invariant under smooth invertible reparameterisation, but this "
+        "coordinate invariance alone does not establish uniqueness. The metric measures "
+        "the local distinguishability of nearby distributions.",
         ("geo_statistical_manifold",),
         _q(
-            "The Fisher information matrix plays the role of what on a statistical manifold?",
+            "For a regular model with nonsingular Fisher information, the Fisher matrix plays which role?",
             ["A Riemannian metric", "A prior", "A loss function"],
             0,
         ),

@@ -90,6 +90,10 @@ between them fails instead of silently changing the resolution.
 The live half of the gate set (Docker, a real SkillTree, browser proofs, captured
 screenshots) stays local and explicit. No arm here simulates it.
 
+Strict live proof requires semantic content parity and actual official SDK project/subject/quiz views with visible same-origin frames, ready/accessibility evidence, and matching project/instance/export digest. Capture consumes a successful v2 `--proof-path` and matching PNG associations. Pending/fallback/unchecked views and controlled loopback fixtures are not live proof.
+
+The 2026-11-13 full non-browser census failed: its native source binding changed, seven tests failed, and coverage was below the unchanged 90% floor. The separate seven-node continuation and appended coverage database are narrower observations, not a fresh immutable whole-source certificate. The complete per-module census still records under-floor modules with no approved exceptions. Script smoke tests now run real generators in a disposable copy of public source inputs instead of rewriting the audited checkout's tracked output; final qualification must still verify the native unchanged-source receipt. Source-bound machine reports remain authoritative. Keep science K4, the pinned GNN origin, real stack/browser, and roadmap-owner holds separate; generated `tasks.yaml`/TODO/readiness projections are not hand-updated.
+
 ## Measured numbers
 
 Per-arm wall times and the test/coverage counts are generated, not written by hand:

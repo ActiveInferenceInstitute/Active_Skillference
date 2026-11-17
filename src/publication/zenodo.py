@@ -1,19 +1,15 @@
-"""Reserve a Zenodo concept DOI without publishing anything.
+"""Explicit Zenodo reservation, upload and publication operations.
 
-Zenodo allocates a DOI to an unpublished draft deposition. That allocation is
-real — the identifier is issued to this account and nobody else can receive it —
-but it does not resolve until the draft is published, and a draft can still be
-discarded. Reserving is therefore the one DOI action that is not irreversible,
-which is why this module can perform it and deliberately cannot publish.
-
-There is no publish call here on purpose. Minting a live DOI is a permanent,
-outward-facing act and belongs to a human running the release tooling, not to a
-build step.
+A reserved DOI belongs to an unpublished draft and does not resolve until that
+draft is published. Publication is a separate irreversible operation guarded by
+the expected DOI. No build/import path publishes or contacts Zenodo implicitly;
+release authority and credentials remain with the operator.
 """
 
 from __future__ import annotations
 
 import json
+import os
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -162,37 +158,40 @@ def find_draft(*, token: str, title: str) -> ReservedDoi | None:
 
 
 def upload_deposit_file(*, token: str, deposition_id: int, path: Path) -> str:
-    """Attach one file to a draft deposition and return its Zenodo filename.
-
-    Zenodo will not publish a deposition with no files, so this runs first. It
-    uses the modern bucket API, which streams the body rather than building a
-    multipart form in memory.
-    """
+    """Stream one real file to the draft bucket with an explicit content length."""
     deposition = _request(f"/deposit/depositions/{deposition_id}", token=token)
-    bucket = str(deposition.get("links", {}).get("bucket", ""))
-    if not bucket:
+    links = deposition.get("links", {}) if isinstance(deposition, dict) else {}
+    bucket = links.get("bucket") if isinstance(links, dict) else None
+    if not isinstance(bucket, str) or not bucket:
         raise ZenodoError(
-            f"deposition {deposition_id} exposes no upload bucket; it may already "
-            "be published"
+            f"deposition {deposition_id} exposes no upload bucket; it may already be published"
         )
-    request = urllib.request.Request(
-        f"{bucket}/{urllib.parse.quote(path.name)}",
-        data=path.read_bytes(),
-        method="PUT",
-        headers={
-            "Authorization": f"Bearer {token}",
-            "Content-Type": "application/octet-stream",
-        },
-    )
     try:
-        with urllib.request.urlopen(request, timeout=600) as response:
-            payload = json.loads(response.read().decode("utf-8"))
+        with path.open("rb") as stream:
+            request = urllib.request.Request(
+                f"{bucket}/{urllib.parse.quote(path.name)}",
+                data=stream,
+                method="PUT",
+                headers={
+                    "Authorization": f"Bearer {token}",
+                    "Content-Type": "application/octet-stream",
+                    "Content-Length": str(os.fstat(stream.fileno()).st_size),
+                },
+            )
+            with urllib.request.urlopen(request, timeout=600) as response:
+                payload = json.loads(response.read().decode("utf-8"))
     except urllib.error.HTTPError as exc:
-        detail = exc.read().decode("utf-8")[:500]
+        detail = exc.read().decode("utf-8", errors="replace")[:500]
         raise ZenodoError(f"Zenodo file upload failed ({exc.code}): {detail}") from exc
-    except (urllib.error.URLError, TimeoutError, ValueError) as exc:
+    except (OSError, ValueError) as exc:
         raise ZenodoError(f"Zenodo file upload failed: {exc}") from exc
-    return str(payload.get("key", path.name))
+    if (
+        not isinstance(payload, dict)
+        or not isinstance(payload.get("key"), str)
+        or not payload["key"].strip()
+    ):
+        raise ZenodoError("Zenodo upload returned no confirmed filename")
+    return payload["key"]
 
 
 def publish_deposit(
@@ -261,7 +260,7 @@ def reserve_doi(*, token: str, metadata: dict[str, Any]) -> ReservedDoi:
     )
     if result.is_published:
         raise ZenodoError(
-            f"deposition {deposition_id} reports as published; this module only "
-            "reserves and must never mint a resolving DOI"
+            f"deposition {deposition_id} reports as published; the reservation "
+            "operation refuses an already-published record"
         )
     return result

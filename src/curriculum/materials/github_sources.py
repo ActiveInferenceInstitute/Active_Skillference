@@ -11,37 +11,8 @@ from typing import Any
 
 from src.net_guard import require_http_url
 
+from .helpers import _iter_configured_pointers, _required_string
 from .models import CourseMaterialIssue
-
-
-def _required_string(mapping: dict[str, Any], key: str) -> str:
-    value = mapping.get(key)
-    return value if isinstance(value, str) else ""
-
-
-def _as_pointer_list(value: Any) -> list[dict[str, Any]]:
-    if not isinstance(value, list):
-        return []
-    return [item for item in value if isinstance(item, dict)]
-
-
-def _iter_configured_pointers(
-    payload: dict[str, Any],
-) -> list[tuple[str, dict[str, Any]]]:
-    pointers: list[tuple[str, dict[str, Any]]] = []
-    stratum_mappings = payload.get("stratum_mappings")
-    if isinstance(stratum_mappings, dict):
-        for stratum_key, raw in stratum_mappings.items():
-            for pointer in _as_pointer_list(raw):
-                pointers.append((f"stratum_mappings.{stratum_key}", pointer))
-    topic_mappings = payload.get("topic_mappings")
-    if isinstance(topic_mappings, list):
-        for topic_idx, topic in enumerate(topic_mappings):
-            if not isinstance(topic, dict):
-                continue
-            for pointer in _as_pointer_list(topic.get("pointers")):
-                pointers.append((f"topic_mappings[{topic_idx}].pointers", pointer))
-    return pointers
 
 
 def _validate_online_trees(
@@ -60,7 +31,7 @@ def _validate_online_trees(
             continue
         try:
             tree_paths = _fetch_github_tree_paths(parts[0], parts[1], commit, timeout)
-        except (OSError, urllib.error.URLError, ValueError) as exc:
+        except (OSError, urllib.error.URLError, ValueError, TypeError) as exc:
             issues.append(
                 CourseMaterialIssue(
                     "github-tree",

@@ -209,6 +209,7 @@ def _pointers_for_skill(
     skill: Skill,
     payload: dict[str, Any],
     source_index: dict[str, dict[str, Any]],
+    registry: ClaimRegistry,
 ) -> list[dict[str, object]]:
     raw_pointers: list[tuple[dict[str, Any], str, tuple[str, ...]]] = []
     stratum_mappings = payload.get("stratum_mappings", {})
@@ -254,13 +255,17 @@ def _pointers_for_skill(
             repo_url = _required_string(source, "repo_url").rstrip("/")
             merged[key] = {
                 "sourceId": source_id,
-                "sourceTitle": _required_string(source, "title"),
-                "title": _required_string(pointer, "title"),
-                "role": role,
+                "sourceTitle": _render_text(
+                    _required_string(source, "title"), registry
+                ),
+                "title": _render_text(_required_string(pointer, "title"), registry),
+                "role": _render_text(role, registry),
                 "path": path,
                 "commit": commit,
                 "url": f"{repo_url}/blob/{commit}/{path}",
-                "licenseStatus": _required_string(source, "license_status"),
+                "licenseStatus": _render_text(
+                    _required_string(source, "license_status"), registry
+                ),
             }
         scope_sets[key].add(match_scope)
         term_sets[key].update(matched_terms)
@@ -277,7 +282,7 @@ def _sections_for_skill(
     prerequisites: list[dict[str, object]],
     dependents: list[dict[str, object]],
     pointers: list[dict[str, object]],
-    registry: ClaimRegistry | None,
+    registry: ClaimRegistry,
 ) -> list[dict[str, str]]:
     prereq_body = (
         "This root skill can be entered without a prior local prerequisite."
@@ -308,11 +313,11 @@ def _sections_for_skill(
         },
         {
             "heading": "Prerequisite Context",
-            "body": prereq_body,
+            "body": _render_text(prereq_body, registry),
         },
         {
             "heading": "Downstream Role",
-            "body": downstream_body,
+            "body": _render_text(downstream_body, registry),
         },
         {
             "heading": "Assessment Contract",
@@ -366,6 +371,7 @@ def _related_skills(
     skill_by_id: dict[str, Skill],
     subject_by_skill: dict[str, Subject],
     levels: dict[str, int],
+    registry: ClaimRegistry,
 ) -> list[dict[str, object]]:
     related_ids = list(skill.related)
     for prereq in skill.prerequisites:
@@ -381,17 +387,23 @@ def _related_skills(
                 related_skill,
                 subject_by_skill[related_skill.skill_id],
                 levels[related_skill.skill_id],
+                registry,
             )
         )
     return rows
 
 
-def _skill_ref(skill: Skill, subject: Subject, depth: int) -> dict[str, object]:
+def _skill_ref(
+    skill: Skill,
+    subject: Subject,
+    depth: int,
+    registry: ClaimRegistry,
+) -> dict[str, object]:
     return {
         "skillId": skill.skill_id,
-        "name": skill.name,
+        "name": _render_text(skill.name, registry),
         "subjectId": subject.subject_id,
-        "subjectName": subject.name,
+        "subjectName": _render_text(subject.name, registry),
         "stratum": skill.stratum.value,
         "depth": depth,
     }
@@ -410,18 +422,25 @@ def _downstream_map(graph: CurriculumGraph) -> dict[str, tuple[str, ...]]:
     }
 
 
-def _source_summaries(source_index: dict[str, dict[str, Any]]) -> list[dict[str, str]]:
+def _source_summaries(
+    source_index: dict[str, dict[str, Any]],
+    registry: ClaimRegistry,
+) -> list[dict[str, str]]:
     rows: list[dict[str, str]] = []
     for source_id in sorted(source_index):
         source = source_index[source_id]
         rows.append(
             {
                 "sourceId": source_id,
-                "title": _required_string(source, "title"),
+                "title": _render_text(_required_string(source, "title"), registry),
                 "repoUrl": _required_string(source, "repo_url"),
                 "commit": _required_string(source, "commit"),
-                "licenseStatus": _required_string(source, "license_status"),
-                "statusNote": _required_string(source, "status_note"),
+                "licenseStatus": _render_text(
+                    _required_string(source, "license_status"), registry
+                ),
+                "statusNote": _render_text(
+                    _required_string(source, "status_note"), registry
+                ),
             }
         )
     return rows
@@ -502,5 +521,5 @@ def _write_json(path: Path, payload: object) -> None:
     write_json_artifact(path, payload)
 
 
-def _render_text(text: str, registry: ClaimRegistry | None) -> str:
-    return render(text, registry) if registry is not None else text
+def _render_text(text: str, registry: ClaimRegistry) -> str:
+    return render(text, registry)

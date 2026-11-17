@@ -4,7 +4,6 @@ from __future__ import annotations
 
 from copy import deepcopy
 from pathlib import Path
-from typing import Self
 
 import pytest
 
@@ -363,124 +362,143 @@ def test_course_material_normalizer_surfaces_malformed_record_shape() -> None:
     assert any(issue.code == "record-type" for issue in audit.issues)
 
 
-def test_github_tree_fetch_retries_transient_5xx(monkeypatch) -> None:
-    """A transient 5xx is retried with backoff and the fetch then succeeds."""
-    import io
-    import json
-    import urllib.error
+def test_github_tree_fetch_retries_transient_5xx(httpserver) -> None:
+    import urllib.request
 
-    from src.curriculum.materials import github_sources as gs
+    from src.curriculum.materials.github_sources import _github_tree_payload
 
-    body = json.dumps({"tree": [{"path": "a.md", "type": "blob"}]}).encode()
-    state = {"calls": 0}
-
-    class FakeResponse:
-        def __init__(self, data: bytes) -> None:
-            self._data = data
-
-        def __enter__(self) -> Self:
-            return self
-
-        def __exit__(self, *exc: object) -> bool:
-            return False
-
-        def read(self) -> bytes:
-            return self._data
-
-    def fake_urlopen(request, timeout):
-        state["calls"] += 1
-        if state["calls"] == 1:
-            raise urllib.error.HTTPError(
-                request.full_url,
-                503,
-                "Service Unavailable",
-                {},
-                io.BytesIO(b"boom"),
-            )
-        return FakeResponse(body)
-
-    monkeypatch.setattr(gs.urllib.request, "urlopen", fake_urlopen)
-    monkeypatch.setattr(gs.time, "sleep", lambda _seconds: None)
-
-    paths = gs._fetch_github_tree_paths("o", "r", "c" * 40, timeout=2.0)
-    assert paths == {"a.md"}
-    assert state["calls"] == 2
+    httpserver.expect_ordered_request("/tree").respond_with_json({}, status=503)
+    httpserver.expect_ordered_request("/tree").respond_with_json(
+        {"tree": [{"path": "a.md", "type": "blob"}]}
+    )
+    result = _github_tree_payload(
+        urllib.request.Request(httpserver.url_for("/tree")),
+        timeout=2,
+        base_delay=0,
+    )
+    assert result == {"tree": [{"path": "a.md", "type": "blob"}]}
+    assert len(httpserver.log) == 2
 
 
-def test_github_tree_fetch_raises_immediately_on_permanent_4xx(monkeypatch) -> None:
-    """A permanent 4xx is not retried (it can never succeed)."""
-    import io
+def test_github_tree_fetch_raises_immediately_on_permanent_4xx(httpserver) -> None:
     import urllib.error
     import urllib.request
 
-    from src.curriculum.materials import github_sources as gs
+    from src.curriculum.materials.github_sources import _github_tree_payload
 
-    def fake_urlopen(request, timeout):
-        raise urllib.error.HTTPError(
-            request.full_url, 404, "Not Found", {}, io.BytesIO(b"missing")
+    httpserver.expect_ordered_request("/tree").respond_with_json({}, status=404)
+    with pytest.raises(urllib.error.HTTPError) as error:
+        _github_tree_payload(
+            urllib.request.Request(httpserver.url_for("/tree")),
+            timeout=2,
+            base_delay=0,
         )
-
-    monkeypatch.setattr(gs.time, "sleep", lambda _seconds: None)
-
-    with pytest.raises(urllib.request.HTTPError):
-        gs._github_tree_payload(
-            urllib.request.Request("https://api.github.com/x"), timeout=2.0
-        )
+    assert error.value.code == 404
+    assert len(httpserver.log) == 1
 
 
-def test_github_tree_fetch_retries_transient_network_error(monkeypatch) -> None:
-    """A transient network/timeout error is retried and the fetch then succeeds."""
-    import json
+def test_github_tree_fetch_raises_connection_error_from_real_loopback() -> None:
+    import socket
+    import urllib.error
+    import urllib.request
 
-    from src.curriculum.materials import github_sources as gs
+    from src.curriculum.materials.github_sources import _github_tree_payload
 
-    body = json.dumps({"tree": [{"path": "a.md", "type": "blob"}]}).encode()
-    state = {"calls": 0}
-
-    class FakeResponse:
-        def __enter__(self) -> Self:
-            return self
-
-        def __exit__(self, *exc: object) -> bool:
-            return False
-
-        def read(self) -> bytes:
-            return body
-
-    def fake_urlopen(request, timeout):
-        state["calls"] += 1
-        if state["calls"] == 1:
-            raise TimeoutError("timed out")
-        return FakeResponse()
-
-    monkeypatch.setattr(gs.urllib.request, "urlopen", fake_urlopen)
-    monkeypatch.setattr(gs.time, "sleep", lambda _seconds: None)
-
-    paths = gs._fetch_github_tree_paths("o", "r", "c" * 40, timeout=2.0)
-    assert paths == {"a.md"}
-    assert state["calls"] == 2
+    # Reserve a non-listening endpoint without stopping the shared HTTP fixture.
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as endpoint:
+        endpoint.bind(("127.0.0.1", 0))
+        url = f"http://127.0.0.1:{endpoint.getsockname()[1]}/tree"
+        with pytest.raises(urllib.error.URLError):
+            _github_tree_payload(
+                urllib.request.Request(url),
+                timeout=0.2,
+                attempts=2,
+                base_delay=0,
+            )
 
 
 def test_github_tree_fetch_raises_final_error_after_exhausting_attempts(
-    monkeypatch,
+    httpserver,
 ) -> None:
-    """If every retry fails with 5xx, the final HTTPError is re-raised."""
-    import io
     import urllib.error
     import urllib.request
 
-    from src.curriculum.materials import github_sources as gs
+    from src.curriculum.materials.github_sources import _github_tree_payload
 
-    def fake_urlopen(request, timeout):
-        raise urllib.error.HTTPError(
-            request.full_url, 503, "Service Unavailable", {}, io.BytesIO(b"boom")
+    for _ in range(3):
+        httpserver.expect_ordered_request("/tree").respond_with_json({}, status=503)
+    with pytest.raises(urllib.error.HTTPError) as error:
+        _github_tree_payload(
+            urllib.request.Request(httpserver.url_for("/tree")),
+            timeout=2,
+            base_delay=0,
         )
+    assert error.value.code == 503
+    assert len(httpserver.log) == 3
 
-    monkeypatch.setattr(gs.urllib.request, "urlopen", fake_urlopen)
-    monkeypatch.setattr(gs.time, "sleep", lambda _seconds: None)
 
-    with pytest.raises(urllib.request.HTTPError) as exc_info:
-        gs._github_tree_payload(
-            urllib.request.Request("https://api.github.com/x"), timeout=2.0
-        )
-    assert exc_info.value.code == 503
+@pytest.mark.parametrize("malformed", [[], None, {"tree": None}])
+def test_malformed_successful_github_response_becomes_one_source_issue(
+    httpserver,
+    monkeypatch,
+    malformed,
+) -> None:
+    httpserver.expect_request(
+        "/repos/testorg/testrepo/git/trees/0123456789abcdef0123456789abcdef01234567"
+    ).respond_with_json(malformed)
+    monkeypatch.setenv("ASF_GITHUB_API_BASE", httpserver.url_for(""))
+    issues = validate_material_sources(_online_payload(), online=True, timeout=2)
+    findings = [issue for issue in issues if issue.code == "github-tree"]
+    assert len(findings) == 1
+    assert len(httpserver.log) == 1
+
+
+@pytest.mark.parametrize("include_second", [False, True])
+def test_offline_and_online_pointer_owners_agree_on_whitespace_and_all_list_entries(
+    httpserver,
+    monkeypatch,
+    include_second: bool,
+) -> None:
+    from src.curriculum.model import ALL_STRATA
+
+    monkeypatch.setenv("ASF_GITHUB_API_BASE", httpserver.url_for(""))
+    payload = _online_payload()
+    source = payload["sources"][0]
+    source_id = source["source_id"].strip()
+    for field in ("source_id", "repo_url", "commit"):
+        source[field] = "  " + source[field].strip() + "  "
+    source["path_globs"] = ["*.md"]
+    payload["stratum_mappings"] = {
+        stratum.value: [
+            {
+                "source_id": f" {source_id} ",
+                "path": " first.md ",
+                "title": " First ",
+                "role": " Context ",
+            },
+            {
+                "source_id": f" {source_id} ",
+                "path": " second.md ",
+                "title": " Second ",
+                "role": " Context ",
+            },
+        ]
+        for stratum in ALL_STRATA
+    }
+    payload["topic_mappings"] = []
+    assert validate_material_sources(payload) == []
+    assert httpserver.log == []
+    paths = ["first.md", "second.md"] if include_second else ["first.md"]
+    httpserver.expect_request(
+        "/repos/testorg/testrepo/git/trees/0123456789abcdef0123456789abcdef01234567"
+    ).respond_with_json(
+        {"tree": [{"path": path, "type": "blob"} for path in paths], "truncated": False}
+    )
+
+    issues = validate_material_sources(payload, online=True, timeout=2)
+
+    if include_second:
+        assert issues == []
+    else:
+        assert issues and all("second.md" in issue.message for issue in issues)
+    assert len(httpserver.log) == 1

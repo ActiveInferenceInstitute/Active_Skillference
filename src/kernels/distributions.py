@@ -25,14 +25,15 @@ def normalize(x: ArrayLike) -> FloatArray:
     """
 
     values = np.asarray(x, dtype=np.float64)
+    if values.ndim != 1 or not values.size or not np.all(np.isfinite(values)):
+        raise ValueError("values must be a non-empty finite vector")
     if np.any(values < 0.0):
         raise ValueError("values must be non-negative")
-
-    total = float(np.sum(values))
-    if total <= 0.0:
+    scale = float(np.max(values))
+    if scale <= 0.0:
         raise ValueError("values must have a positive sum")
-
-    return values / total
+    scaled = values / scale
+    return scaled / np.sum(scaled)
 
 
 def softmax(x: ArrayLike, precision: float = 1.0) -> FloatArray:
@@ -52,14 +53,22 @@ def softmax(x: ArrayLike, precision: float = 1.0) -> FloatArray:
         ValueError: If precision is not strictly positive.
     """
 
-    if precision <= 0.0:
-        raise ValueError("precision must be > 0")
-
+    if not np.isfinite(precision) or precision <= 0.0:
+        raise ValueError("precision must be finite and > 0")
     values = np.asarray(x, dtype=np.float64)
-    scaled = precision * values
-    shifted = scaled - np.max(scaled)
-    exp_shifted = np.exp(shifted)
-    return exp_shifted / np.sum(exp_shifted)
+    if values.ndim != 1 or not values.size or not np.all(np.isfinite(values)):
+        raise ValueError("scores must be a non-empty finite vector")
+    # Scale small precision first so centering cannot erase finite scaled mass.
+    # At precision >= 1, center first to avoid overflowing large absolute scores.
+    with np.errstate(over="ignore", under="ignore"):
+        if precision < 1.0:
+            shifted = values * precision
+            shifted -= np.max(shifted)
+        else:
+            shifted = values - np.max(values)
+            shifted *= precision
+        np.exp(shifted, out=shifted)
+    return shifted / np.sum(shifted)
 
 
 def log_stable(x: ArrayLike, eps: float = 1e-16) -> FloatArray:
@@ -91,10 +100,8 @@ def dirichlet_expected(alpha: ArrayLike) -> FloatArray:
         ValueError: If any concentration parameter is non-positive.
     """
 
-    concentration = np.asarray(alpha, dtype=np.float64)
-    if np.any(concentration <= 0.0):
-        raise ValueError("alpha must be strictly positive")
-    return concentration / np.sum(concentration)
+    concentration = _concentrations(alpha)
+    return normalize(concentration)
 
 
 def dirichlet_expected_log(alpha: ArrayLike) -> FloatArray:
@@ -110,10 +117,27 @@ def dirichlet_expected_log(alpha: ArrayLike) -> FloatArray:
         ValueError: If any concentration parameter is non-positive.
     """
 
+    concentration = _concentrations(alpha)
+    scale = float(np.max(concentration))
+    scaled_total = float(np.sum(concentration / scale))
+    if scale > np.finfo(np.float64).max / scaled_total:
+        # At this magnitude the digamma asymptotic correction is unrepresentable.
+        total_digamma = np.log(scale) + np.log(scaled_total)
+    else:
+        total_digamma = digamma(scale * scaled_total)
+    return digamma(concentration) - total_digamma
+
+
+def _concentrations(alpha: ArrayLike) -> FloatArray:
     concentration = np.asarray(alpha, dtype=np.float64)
-    if np.any(concentration <= 0.0):
-        raise ValueError("alpha must be strictly positive")
-    return digamma(concentration) - digamma(np.sum(concentration))
+    if (
+        concentration.ndim != 1
+        or not concentration.size
+        or not np.all(np.isfinite(concentration))
+        or np.any(concentration <= 0.0)
+    ):
+        raise ValueError("alpha must be a non-empty vector of finite positive values")
+    return concentration
 
 
 __all__ = [

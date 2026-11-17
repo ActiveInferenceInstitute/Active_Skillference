@@ -40,6 +40,8 @@ it is doing and what to do if it stops; a run that refuses with a reason is work
 intended. The live path needs a running Docker daemon because SkillTree owns quizzes,
 completion, points, and ranking. The offline path needs neither Docker nor a network.
 
+Help, readiness, and artifact-only exits do not initialize passwords. Live launchers share the password owner; bootstrap may skip seeding only with `--skip-seed-if-live-content-ready` after semantic content verification, not matching counts. Offline artifacts and controlled regressions do not prove a live official SkillTree display.
+
 ## Read it without installing anything
 
 Generated outputs are committed, so the artifacts are browsable straight from the

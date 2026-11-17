@@ -14,6 +14,8 @@ from collections import defaultdict, deque
 from collections.abc import Iterable, Mapping
 from typing import Any
 
+from src.skilltree.summary import SkillTreeSummaryError, validate_export_payload
+
 _TOKEN_RE = re.compile(r"[A-Za-z][A-Za-z0-9_-]{3,}")
 _STOP_WORDS = frozenset(
     {
@@ -164,6 +166,10 @@ def _index_project(
     dict[str, set[str]],
     dict[str, tuple[Mapping[str, Any], ...]],
 ]:
+    try:
+        validate_export_payload(project)
+    except SkillTreeSummaryError:
+        return {}, {}, {}, {}
     raw_subjects = project.get("subjects")
     raw_dependencies = project.get("dependencies")
     raw_quizzes = project.get("quizzes")
@@ -256,9 +262,7 @@ def _depths(
             if indegree[dependent] == 0:
                 queue.append(dependent)
     if visited != len(skill_ids):
-        # The export validator normally prevents this.  Keeping the recommendation
-        # helper fail-closed avoids inventing a path if it is called on raw data.
-        return {skill_id: 0 for skill_id in skill_ids}
+        raise SkillTreeSummaryError("SkillTree project dependencies contain a cycle")
     return depths
 
 

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import gzip
 import json
+import uuid
 from http import HTTPStatus
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -32,8 +33,21 @@ from src.skilltree.local_auth import (
 
 
 def dashboard_recommendations(config: DashboardConfig) -> dict[str, Any]:
-    """Return the read-only path prototype for the current exported project."""
-    return recommend_next_skills(load_skilltree_project(config.project_root))
+    """Validate the private export; return only answer-key-free path candidates."""
+    from src.dashboard.artifacts import read_json_file
+
+    project, error = read_json_file(
+        config.project_root / "output" / "data" / "skilltree_project.json"
+    )
+    if project is None:
+        return {
+            "available": False,
+            "error": error,
+            "recommendations": [],
+            "personalized": False,
+            "signalSource": "none",
+        }
+    return recommend_next_skills(project)
 
 
 ASSETS_ROOT = Path(__file__).resolve().parent / "assets"
@@ -163,6 +177,7 @@ def _host_header_hostname(host_header: str) -> str:
 
 def make_dashboard_handler(config: DashboardConfig) -> type[BaseHTTPRequestHandler]:
     """Create a request handler bound to one immutable dashboard config."""
+    instance_id = config.instance_id or uuid.uuid4().hex
 
     class DashboardRequestHandler(BaseHTTPRequestHandler):
         server_version = "ActiveSkillferenceDashboard/1.0"
@@ -227,6 +242,7 @@ def make_dashboard_handler(config: DashboardConfig) -> type[BaseHTTPRequestHandl
                 self._send_json(
                     {
                         "ok": True,
+                        "instanceId": instance_id,
                         "projectId": config.project_id,
                         "skilltreeUrl": config.skilltree_url,
                     }
@@ -238,10 +254,13 @@ def make_dashboard_handler(config: DashboardConfig) -> type[BaseHTTPRequestHandl
             if path == "/api/status":
                 query = parse_qs(parsed.query)
                 self._send_json(
-                    dashboard_payload(
-                        config,
-                        defer_live=_query_flag(query, "defer_live"),
-                    )
+                    {
+                        **dashboard_payload(
+                            config,
+                            defer_live=_query_flag(query, "defer_live"),
+                        ),
+                        "instanceId": instance_id,
+                    }
                 )
                 return
             if path == "/api/recommendations":

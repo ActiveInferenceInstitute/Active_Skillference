@@ -1,41 +1,33 @@
 #!/usr/bin/env python3
-"""Opt-in browser smoke gate: fail on unexpected dashboard console errors.
+"""Opt-in real-browser proof of official project, subject and quiz views.
 
-The server-side dashboard tests cannot see what the learner's browser logs. This gate
-drives a real browser (chrome-devtools-axi) against a running dashboard and fails if any
-console error appears EXCEPT the one known, cosmetic upstream probe: the
-``@skilltree/skills-client-js`` SDK checks service status against SkillTree's built-in
-default ``Inception`` project, which returns 401 under our project-scoped authenticator.
-That probe is non-blocking (the real ``activeInference`` learner view still renders) and
-is not fixable from our configuration, so it is allow-listed and everything else fails.
-
-Requires a running dashboard and the ``chrome-devtools-axi`` CLI. By default, if either
-is absent the gate reports ``skipped`` (not ``clean``) and exits 0, matching the project
-convention that optional local browser tooling must not break offline checks. Strict
-callers can pass ``--require-browser`` and ``--require-dashboard`` to fail closed.
+The gate waits for the official SDK's actual route callback, a visible frame
+on the configured SkillTree origin, and matching browser-visible content.
+Fallback and unresolved pending states fail even when the console is empty.
+Only the established cosmetic upstream Inception probe is allow-listed.
+Absent tooling/dashboard remains an explicit optional skip unless required.
 """
 
 from __future__ import annotations
 
 import argparse
-import re
+import json
 import shutil
-import subprocess
-import time
+import sys
 import urllib.error
 import urllib.request
+from pathlib import Path
 from urllib.parse import urlparse
 
-# Console errors that are known, cosmetic, and outside our control are allow-listed here.
-_ALLOWED_ERROR_PATTERNS = (
-    re.compile(r"projects/Inception/.*token.*401", re.IGNORECASE),
-    re.compile(r"Unable to authenticate.*Inception", re.IGNORECASE),
-)
-
-# This script deliberately stays import-free from the project's src/ package (no
-# sys.path bootstrap), so the http(s)-only guard is inlined rather than shared via
-# src.net_guard; keep both checks in sync (see also src/net_guard.py).
 _ALLOWED_URL_SCHEMES = frozenset({"http", "https"})
+
+_ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(_ROOT))
+
+from src.dashboard.browser_validation import (
+    BrowserDisplayError,
+    validate_dashboard_browser,
+)
 
 
 def _dashboard_reachable(url: str, timeout: float) -> bool:
@@ -49,42 +41,14 @@ def _dashboard_reachable(url: str, timeout: float) -> bool:
         return False
 
 
-def _console_errors(url: str, settle_seconds: float) -> list[str]:
-    subprocess.run(
-        ["chrome-devtools-axi", "open", url],
-        check=True,
-        capture_output=True,
-        text=True,
-        timeout=60,
-    )
-    time.sleep(settle_seconds)
-    result = subprocess.run(
-        ["chrome-devtools-axi", "console", "--type", "error"],
-        check=True,
-        capture_output=True,
-        text=True,
-        timeout=60,
-    )
-    errors: list[str] = []
-    for line in result.stdout.splitlines():
-        if "[error]" in line:
-            errors.append(line.strip())
-    return errors
-
-
-def unexpected_errors(errors: list[str]) -> list[str]:
-    """Return console errors that are not on the cosmetic-upstream allow-list."""
-    return [
-        error
-        for error in errors
-        if not any(pattern.search(error) for pattern in _ALLOWED_ERROR_PATTERNS)
-    ]
-
-
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--dashboard-url", default="http://127.0.0.1:8765/")
     parser.add_argument("--settle-seconds", type=float, default=5.0)
+    parser.add_argument("--timeout", type=float, default=45.0)
+    parser.add_argument(
+        "--json", action="store_true", help="Emit the structured browser proof."
+    )
     parser.add_argument(
         "--require-browser",
         action="store_true",
@@ -114,18 +78,24 @@ def main() -> int:
         print(message)
         return 0
 
-    errors = _console_errors(args.dashboard_url, args.settle_seconds)
-    unexpected = unexpected_errors(errors)
-    if unexpected:
-        print("dashboard console gate FAILED — unexpected console errors:")
-        for error in unexpected:
-            print(f"  - {error}")
+    try:
+        summary = validate_dashboard_browser(
+            args.dashboard_url,
+            timeout=args.timeout,
+            settle_seconds=args.settle_seconds,
+        )
+    except BrowserDisplayError as exc:
+        if args.json:
+            print(json.dumps({"ok": False, "checked": False, "error": str(exc)}))
+        else:
+            print(f"dashboard console gate FAILED: {exc}")
         return 1
-    allowed = len(errors) - len(unexpected)
-    print(
-        f"dashboard console gate OK (no unexpected errors; {allowed} known "
-        "upstream Inception probe message(s) allow-listed)"
-    )
+    if args.json:
+        print(json.dumps(summary, sort_keys=True))
+    else:
+        print(
+            "dashboard console gate OK (official project, subject and quiz views ready)"
+        )
     return 0
 
 

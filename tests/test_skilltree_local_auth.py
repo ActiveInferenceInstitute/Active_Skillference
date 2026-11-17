@@ -686,6 +686,9 @@ def test_admin_create_methods_hit_expected_paths(httpserver: HTTPServer) -> None
     httpserver.expect_request(
         "/admin/quiz-definitions/m_sets_quiz", method="POST"
     ).respond_with_json({})
+    httpserver.expect_request(
+        "/admin/quiz-definitions/m_sets_quiz/questions", method="GET"
+    ).respond_with_json({"questions": []})
 
     client.create_project("Active Inference")
     client.create_subject(subject)
@@ -745,7 +748,9 @@ def test_admin_create_quiz_appends_missing_question_suffix(
     ).respond_with_json({})
     httpserver.expect_request(
         "/admin/quiz-definitions/m_sets_quiz/questions", method="GET"
-    ).respond_with_json({"quizType": "Quiz", "questions": [{"id": 1}]})
+    ).respond_with_json(
+        {"quizType": "Quiz", "questions": [quiz.questions[0].to_dict()]}
+    )
     httpserver.expect_request(
         "/admin/quiz-definitions/m_sets_quiz/create-question",
         method="POST",
@@ -763,7 +768,7 @@ def test_admin_create_quiz_appends_missing_question_suffix(
 
 
 def _bootstrap_httpserver_expectations(
-    httpserver: HTTPServer, *, needs_bootstrap: bool
+    httpserver: HTTPServer, skilltree_admin_content, *, needs_bootstrap: bool
 ) -> None:
     httpserver.expect_request("/public/config", method="GET").respond_with_json(
         {"needToBootstrap": needs_bootstrap}
@@ -788,11 +793,7 @@ def _bootstrap_httpserver_expectations(
     httpserver.expect_request(
         "/admin/quiz-definitions/m_sets_quiz", method="POST"
     ).respond_with_json({})
-    # Post-seed verification (verify_seed_landed) reads the live skill count; the
-    # tiny project defines exactly 1 skill, so report 1 to confirm the seed landed.
-    httpserver.expect_request(
-        "/admin/projects/activeInference", method="GET"
-    ).respond_with_json({"numSkills": 1, "numSubjects": 1})
+    skilltree_admin_content(httpserver, _tiny_project(), initially_missing=True)
     httpserver.expect_request(
         "/admin/projects/activeInference/clientSecret", method="GET"
     ).respond_with_data("bootstrap-secret", content_type="text/plain")
@@ -823,14 +824,40 @@ def _tiny_project() -> SkillTreeProject:
             )
         ],
         dependencies=[],
-        quizzes=[Quiz(quiz_id="m_sets_quiz", name="Sets Quiz")],
+        quizzes=[
+            Quiz(
+                quiz_id="m_sets_quiz",
+                name="Sets Quiz",
+                questions=[
+                    QuizQuestion(
+                        question="Which collection is a set?",
+                        answers=[
+                            {
+                                "answer": "A collection of distinct elements",
+                                "isCorrect": True,
+                            },
+                            {
+                                "answer": "An ordered list requiring repetition",
+                                "isCorrect": False,
+                            },
+                        ],
+                    )
+                ],
+            )
+        ],
     )
 
 
 def test_ensure_local_skilltree_auth_full_first_bootstrap(
-    tmp_path: Path, httpserver: HTTPServer
+    tmp_path: Path,
+    httpserver: HTTPServer,
+    skilltree_admin_content,
 ) -> None:
-    _bootstrap_httpserver_expectations(httpserver, needs_bootstrap=True)
+    _bootstrap_httpserver_expectations(
+        httpserver,
+        skilltree_admin_content,
+        needs_bootstrap=True,
+    )
     base = httpserver.url_for("").rstrip("/")
 
     result = ensure_local_skilltree_auth(
@@ -854,6 +881,14 @@ def test_ensure_local_skilltree_auth_full_first_bootstrap(
     assert stored is not None
     assert stored.client_secret == "bootstrap-secret"
     assert stored.skilltree_url == base
+    question_writes = [
+        request.get_json()
+        for request, _response in httpserver.log
+        if request.method == "POST" and request.path.endswith("/create-question")
+    ]
+    assert question_writes == [
+        _tiny_project().quizzes[0].questions[0].to_admin_create_payload()
+    ]
 
 
 def test_ensure_local_skilltree_auth_reuses_existing_state(
@@ -929,8 +964,10 @@ def test_ensure_local_skilltree_auth_rejects_state_url_mismatch_before_login(
     httpserver.check_assertions()
 
 
-def test_ensure_local_skilltree_auth_skips_seed_when_live_counts_ready(
-    tmp_path: Path, httpserver: HTTPServer
+def test_ensure_local_skilltree_auth_skips_seed_when_live_content_matches(
+    tmp_path: Path,
+    httpserver: HTTPServer,
+    skilltree_admin_content,
 ) -> None:
     base = httpserver.url_for("").rstrip("/")
     save_local_state(
@@ -953,9 +990,7 @@ def test_ensure_local_skilltree_auth_skips_seed_when_live_counts_ready(
         content_type="text/html",
     )
     httpserver.expect_request("/performLogin", method="POST").respond_with_json({})
-    httpserver.expect_request(
-        "/admin/projects/activeInference", method="GET"
-    ).respond_with_json({"numSkills": 1, "numSubjects": 1})
+    skilltree_admin_content(httpserver, _tiny_project())
     httpserver.expect_request(
         "/admin/projects/activeInference/clientSecret", method="GET"
     ).respond_with_data("trusted-secret", content_type="text/plain")
@@ -966,7 +1001,7 @@ def test_ensure_local_skilltree_auth_skips_seed_when_live_counts_ready(
         state_dir=tmp_path,
         project=_tiny_project(),
         seed_project=True,
-        skip_seed_if_live_counts_ready=True,
+        skip_seed_if_live_content_ready=True,
         verify_token=False,
     )
 
@@ -1283,10 +1318,11 @@ def test_live_skill_count_rejects_missing_num_skills(httpserver: HTTPServer) -> 
         raise AssertionError("missing numSkills did not raise")
 
 
-def test_verify_seed_landed_passes_when_live_matches(httpserver: HTTPServer) -> None:
-    httpserver.expect_request("/admin/projects/p", method="GET").respond_with_json(
-        {"numSkills": 2, "numSubjects": 1}
-    )
+def test_verify_seed_landed_passes_when_live_matches(
+    httpserver: HTTPServer,
+    skilltree_admin_content,
+) -> None:
+    skilltree_admin_content(httpserver, _two_skill_project())
     client = SkillTreeSessionClient(httpserver.url_for("/"), "p")
     # Exactly-equal live count must not raise.
     verify_seed_landed(client, _two_skill_project())

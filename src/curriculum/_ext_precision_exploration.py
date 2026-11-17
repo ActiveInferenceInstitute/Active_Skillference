@@ -112,7 +112,7 @@ _PRECISION_EXPLORATION: list[Skill] = [
         "Guidance Functions and Risk-Sensitive Policies",
         _AI,
         "Distinguish risk (divergence from preferences) from ambiguity in policy scoring.",
-        "The guidance view decomposes the pragmatic part of expected free energy into a risk "
+        "The guidance view decomposes total expected free energy into a risk "
         "term, the divergence between predicted and preferred outcomes, and an ambiguity term, "
         "the expected uncertainty of the likelihood. Shaping the preference distribution C is "
         "therefore how a designer steers behaviour: tightening C makes the policy risk-averse "
@@ -146,9 +146,13 @@ _PRECISION_EXPLORATION: list[Skill] = [
         "Rate-distortion theory asks for the least information an agent must keep to hold "
         "expected distortion below a bound; expected free energy makes the mirror trade-off, "
         "balancing the epistemic value of an observation against the pragmatic value of a "
-        "preferred outcome. Both say a bounded agent should pay for information only to the "
-        "extent it buys reduced cost, which is why precision behaves like the slope that "
-        "sets the exchange rate between bits gathered and value pursued.",
+        "preferred outcome. A rate-distortion multiplier can set a model's relative trade-off. "
+        "Policy precision is different: in $q(\\pi)=\\sigma(-\\gamma G(\\pi))$, $\\gamma$ "
+        "scales total expected free energy and controls policy-selection sharpness for fixed "
+        "scores, not the relative coefficients of epistemic and pragmatic components. "
+        "Under the kernel's signed-value convention, pragmatic cost is the negative of "
+        "pragmatic value. This policy-precision statement does not identify every model or "
+        "sensory precision with the same role.",
         ("ai_expected_free_energy", "im_rate_distortion", "ai_epistemic_value"),
         _q(
             "Expected free energy and rate-distortion theory share which structure?",
@@ -160,11 +164,11 @@ _PRECISION_EXPLORATION: list[Skill] = [
             0,
         ),
         _q(
-            "In this reading, precision plays the role of:",
+            "For fixed EFE scores, increasing policy precision $\\gamma$ does what?",
             [
-                "The slope setting the exchange rate between information and value",
-                "A fixed constant unrelated to the trade-off",
-                "The number of policies considered",
+                "Concentrates probability on policies with lower total expected free energy",
+                "Changes only the epistemic coefficient relative to the pragmatic coefficient",
+                "Leaves relative policy probabilities unchanged",
             ],
             0,
         ),

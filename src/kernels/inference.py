@@ -8,7 +8,7 @@ import numpy as np
 from numpy.typing import ArrayLike, NDArray
 from scipy.special import logsumexp
 
-from .distributions import log_stable, normalize
+from .distributions import normalize
 
 FloatArray: TypeAlias = NDArray[np.float64]
 _PROB_TOL = 1e-9
@@ -20,8 +20,8 @@ def _as_probability_vector(x: ArrayLike, *, name: str) -> FloatArray:
     values = np.asarray(x, dtype=np.float64)
     if values.ndim != 1:
         raise ValueError(f"{name} must be a 1D probability vector")
-    if np.any(values < 0.0):
-        raise ValueError(f"{name} must be non-negative and sum to 1")
+    if not np.all(np.isfinite(values)) or np.any(values < 0.0):
+        raise ValueError(f"{name} must be finite, non-negative and sum to 1")
     if not np.isclose(np.sum(values), 1.0, atol=_PROB_TOL, rtol=0.0):
         raise ValueError(f"{name} must sum to 1")
     return values
@@ -43,8 +43,10 @@ def _validate_model(prior: FloatArray, A: FloatArray, obs: int) -> None:
         raise ValueError("prior length must match the number of states in A")
     if obs < 0 or obs >= A.shape[0]:
         raise ValueError("obs index out of range for A")
-    if np.any(A < 0.0):
-        raise ValueError("A must be non-negative (it is a likelihood P(o|s))")
+    if not np.all(np.isfinite(A)) or np.any(A < 0.0):
+        raise ValueError(
+            "A must be finite and non-negative (it is a likelihood P(o|s))"
+        )
     if not np.allclose(np.sum(A, axis=0), 1.0, atol=_PROB_TOL, rtol=0.0):
         raise ValueError("each column of A (P(o|s) for fixed state s) must sum to 1")
 
@@ -103,11 +105,14 @@ def variational_free_energy(
         raise ValueError("q length must match prior length")
 
     mask = q_probs > 0.0
-    energy = np.sum(
-        q_probs[mask] * (log_stable(q_probs[mask]) - log_stable(prior_probs[mask]))
+    if np.any(prior_probs[mask] == 0.0) or np.any(likelihood[obs, mask] == 0.0):
+        return float("inf")
+    terms = (
+        np.log(q_probs[mask])
+        - np.log(prior_probs[mask])
+        - np.log(likelihood[obs, mask])
     )
-    accuracy_cost = np.sum(q_probs[mask] * log_stable(likelihood[obs, mask]))
-    return float(energy - accuracy_cost)
+    return float(np.dot(q_probs[mask], terms))
 
 
 def log_evidence(A: ArrayLike, obs: int, prior: ArrayLike) -> float:
@@ -128,7 +133,12 @@ def log_evidence(A: ArrayLike, obs: int, prior: ArrayLike) -> float:
     prior_probs = _as_probability_vector(prior, name="prior")
     likelihood = np.asarray(A, dtype=np.float64)
     _validate_model(prior_probs, likelihood, obs)
-    return float(logsumexp(log_stable(likelihood[obs, :]) + log_stable(prior_probs)))
+    support = (likelihood[obs, :] > 0.0) & (prior_probs > 0.0)
+    if not np.any(support):
+        return float("-inf")
+    return float(
+        logsumexp(np.log(likelihood[obs, support]) + np.log(prior_probs[support]))
+    )
 
 
 def belief_propagation_chain(

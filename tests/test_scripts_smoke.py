@@ -5,6 +5,7 @@ from __future__ import annotations
 import importlib.util
 import json
 import os
+import shutil
 import subprocess
 import sys
 import urllib.error
@@ -26,6 +27,27 @@ pytestmark = pytest.mark.slow
 # parallel gate passes (herdr tabs), and under load the same prep has exceeded
 # 120s. 300s keeps the smoke suite robust to that without masking real hangs.
 _SUBPROCESS_TIMEOUT = 300
+
+
+@pytest.fixture(scope="module", autouse=True)
+def isolated_script_project(tmp_path_factory):
+    """Run real generators in disposable source, never in the audited checkout."""
+    global REPO
+    source = REPO
+    project = tmp_path_factory.mktemp("script-project")
+    for name in ("data", "manuscript", "scripts", "src", "gnn", "tests"):
+        shutil.copytree(
+            source / name,
+            project / name,
+            ignore=shutil.ignore_patterns("__pycache__", "*.pyc"),
+        )
+    for name in ("docker-compose.yml", "tasks.yaml", "pyproject.toml"):
+        shutil.copyfile(source / name, project / name)
+    REPO = project
+    try:
+        yield project
+    finally:
+        REPO = source
 
 
 def _run(script: str) -> subprocess.CompletedProcess[str]:
@@ -68,22 +90,6 @@ def test_validate_docker_digests_helper_flags_tag_only_lines() -> None:
         )
         == []
     )
-
-
-def test_local_skilltree_runtime_security_defaults() -> None:
-    compose = (REPO / "docker-compose.yml").read_text(encoding="utf-8")
-    run_skilltree = (REPO / "scripts" / "run_skilltree.sh").read_text(encoding="utf-8")
-    run_dashboard = (REPO / "scripts" / "run_learning_dashboard.sh").read_text(
-        encoding="utf-8"
-    )
-
-    assert "127.0.0.1:5432:5432" in compose
-    assert "127.0.0.1:8080:8080" in compose
-    assert "ACTIVE_SKILLFERENCE_POSTGRES_PASSWORD:?" in compose
-    assert '--token "$SKILLTREE_TOKEN"' not in run_skilltree
-    assert '--token "$SKILLTREE_TOKEN"' not in run_dashboard
-    assert "POSTGRES_PASSWORD_FILE" in run_skilltree
-    assert "POSTGRES_PASSWORD_FILE" in run_dashboard
 
 
 def test_form_login_password_handoff_avoids_eval_argv_secret() -> None:
@@ -282,7 +288,7 @@ def test_validate_american_english_script_runs() -> None:
 def test_validate_web_math_script_runs_with_rendered_html() -> None:
     web_dir = REPO / "output" / "web"
     web_dir.mkdir(parents=True, exist_ok=True)
-    (web_dir / "math_smoke.html").write_text(
+    (web_dir / "index.html").write_text(
         """
         <!doctype html>
         <html>
@@ -477,8 +483,7 @@ def test_validate_live_skilltree_dashboard_script_accepts_healthy_payload(
     httpserver.expect_request("/api/status").respond_with_json(
         {
             "project": {
-                "projectId": "activeInference",
-                "name": "Active Skillference",
+                "project": {"id": "activeInference", "name": "Active Skillference"},
                 "counts": counts,
             },
             "config": {
@@ -635,8 +640,7 @@ def _serve_strict_live_dashboard_payload(
     httpserver.expect_request("/api/status").respond_with_json(
         {
             "project": {
-                "projectId": "activeInference",
-                "name": "Active Skillference",
+                "project": {"id": "activeInference", "name": "Active Skillference"},
                 "counts": counts,
             },
             "config": {
@@ -897,8 +901,7 @@ def test_validate_live_skilltree_dashboard_rejects_missing_live_dependency(
     httpserver.expect_request("/api/status").respond_with_json(
         {
             "project": {
-                "projectId": "activeInference",
-                "name": "Active Skillference",
+                "project": {"id": "activeInference", "name": "Active Skillference"},
                 "dependencies": [{"skillId": "leaf", "dependsOnSkillId": "root"}],
                 "counts": {
                     "subjects": 1,

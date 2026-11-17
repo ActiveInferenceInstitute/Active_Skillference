@@ -17,6 +17,8 @@ The contract requires consent and data minimization, prohibits direct identifier
 analysis export, names the unit of analysis and missing-data policy, and keeps SkillTree as
 the system of record for progress and quiz state.
 
+Four nonempty linked populations establish schema readiness only. They do not establish recruitment, participant data, demographics, collection completion, or educational efficacy.
+
 ## Protocol sequence
 
 1. Pre-register recruitment, inclusion/exclusion, outcomes, observation windows, stopping

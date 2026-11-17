@@ -8,6 +8,8 @@ import yaml  # type: ignore[import-untyped]
 from src.curriculum.graph import CurriculumGraph
 from src.curriculum.model import ALL_STRATA
 from src.curriculum.source_contracts import GITHUB_COMMIT_RE
+from src.provenance.binding import ProvenanceError, render
+from src.provenance.claims import ClaimRegistry
 
 from .github_sources import _github_repo_parts, _validate_online_trees
 from .helpers import (
@@ -217,6 +219,27 @@ def audit_course_material_index(
 ) -> CourseMaterialAudit:
     """Check that every skill has non-empty material and external pointers."""
     issues: list[CourseMaterialIssue] = []
+    registry = ClaimRegistry()
+    pending: list[tuple[str, object]] = [("materials", index)]
+    while pending:
+        location, value = pending.pop()
+        if isinstance(value, str):
+            try:
+                render(value, registry)
+            except ProvenanceError:
+                issues.append(
+                    CourseMaterialIssue(
+                        "unresolved-claim-token",
+                        location,
+                        "learner-facing material contains an unresolved or malformed claim token",
+                    )
+                )
+        elif isinstance(value, dict):
+            pending.extend((f"{location}.{key}", child) for key, child in value.items())
+        elif isinstance(value, (list, tuple)):
+            pending.extend(
+                (f"{location}[{idx}]", child) for idx, child in enumerate(value)
+            )
     normalized = normalize_course_material_index(index)
     if not normalized.skills_is_mapping:
         issues.append(
@@ -282,14 +305,6 @@ def audit_course_material_index(
                         )
                     )
                     continue
-                if "{{claim:" in str(section.get("body", "")):
-                    issues.append(
-                        CourseMaterialIssue(
-                            "unresolved-claim-token",
-                            f"skills.{skill_id}.sections[{section_idx}]",
-                            "section body contains an unresolved claim token",
-                        )
-                    )
         if not isinstance(pointers, list) or not pointers:
             issues.append(
                 CourseMaterialIssue(

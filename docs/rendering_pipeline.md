@@ -13,13 +13,9 @@ the manuscript's own configuration, preamble, and bibliography. It needs `pandoc
 `pandoc-crossref`, `xelatex` and `bibtex` on `PATH` and nothing from any other
 repository; the arm is `./gates.sh render` ([`gates.md`](gates.md)).
 
-After finalizing the PDF, the renderer writes the tracked
-`output/pdf/Active_Skillference_combined.receipt.json`: schema
-`active-skillference-pdf/v1`, repository-relative output path, exact byte count,
-SHA-256, and the checkout's Git `HEAD` source revision. Commit source changes before
-rendering so that revision identifies the source used; commit the receipt alongside
-the PDF. The render arm finishes with `validate_rendered_freshness.py`, which rejects
-stale hydrated sections, graph counts, or publication-bundle roadmap text.
+After finalizing the PDF, the renderer writes an `active-skillference-pdf/v2` receipt binding actual configuration, preamble, bibliography, ordered hydrated sections, literal TeX assets, and finalized output bytes. HEAD alone is not source identity. Legacy receipts require a new admitted render, never relabeling or restamping. Unknown prose placeholders fail while literal code examples survive.
+
+The configured atlas is physical page two, before the table of contents; its placement has a real-render regression. Input/content custody, retained-publication identity, and parent visual inspection remain separate requirements. The freshness validator still rejects stale sections, graph counts, and roadmap text.
 
 ## The flow
 

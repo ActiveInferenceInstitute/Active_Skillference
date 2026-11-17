@@ -165,7 +165,10 @@ def audit_live_count_literals(root: Path) -> list[LiveCountIssue]:
 
     for path in audited_count_paths(root):
         rel = path.relative_to(root)
-        text = _CODE_BLOCK_RE.sub("", path.read_text(encoding="utf-8"))
+        text = _CODE_BLOCK_RE.sub(
+            lambda match: "\n" * match.group(0).count("\n"),
+            path.read_text(encoding="utf-8"),
+        )
         for line_number, line in enumerate(text.splitlines(), start=1):
             for key, pattern in patterns.items():
                 expected = counts[key].value

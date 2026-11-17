@@ -31,8 +31,7 @@ no partial PDF is written.
 from __future__ import annotations
 
 import argparse
-import hashlib
-import json
+import os
 import shutil
 import subprocess
 import sys
@@ -43,13 +42,23 @@ ROOT = Path(__file__).resolve().parents[1]
 MANUSCRIPT = ROOT / "manuscript"
 OUTPUT_MANUSCRIPT = ROOT / "output" / "manuscript"
 OUTPUT_PDF = ROOT / "output" / "pdf"
-PDF_NAME = "Active_Skillference_combined.pdf"
-# Files the hydrator writes beside the sections that are not manuscript sections.
-SECTION_EXCLUDE = {"config.yaml", "preamble.md", "README.md", "AGENTS.md", "SYNTAX.md"}
 # Log lines that mean the PDF would ship with broken references or citations. A LaTeX
 # "Font Warning: ... undefined" line must not be read as a broken reference, so a match
 # needs both the subject ("Citation"/"Reference") and the word "undefined".
 BROKEN_LOG_SUBJECTS = ("Citation", "Reference")
+
+
+sys.path.insert(0, str(ROOT))
+
+from src.manuscript.pdf_receipt import (
+    PDF_NAME,
+    add_pdf_assets,
+    capture_pdf_inputs,
+    hydrated_section_files,
+    latex_asset_paths,
+    validate_pdf_inputs,
+    write_pdf_receipt,
+)
 
 
 def _require(tool: str) -> str:
@@ -167,12 +176,50 @@ def _titlepage(config: dict[str, object]) -> str:
     return "\n".join(lines)
 
 
+def _page_two_visual(config: dict[str, object]) -> str:
+    front = config.get("front_matter")
+    if not isinstance(front, dict) or "page_two_visual" not in front:
+        return ""
+    visual = front["page_two_visual"]
+    if not isinstance(visual, dict):
+        raise SystemExit("front_matter.page_two_visual must be a mapping")
+    image_name, title, caption = (
+        visual.get(key) for key in ("image", "title", "caption")
+    )
+    if not all(
+        isinstance(value, str) and value.strip()
+        for value in (image_name, title, caption)
+    ):
+        raise SystemExit(
+            "front_matter.page_two_visual requires image, title and caption"
+        )
+    image = (OUTPUT_MANUSCRIPT / str(image_name)).resolve()
+    if not image.is_file():
+        raise SystemExit(
+            f"front_matter.page_two_visual.image does not resolve to a file: {image}"
+        )
+    return "\n".join(
+        [
+            "```{=latex}",
+            r"\thispagestyle{empty}",
+            r"\begin{center}",
+            r"{\Large\bfseries " + _latex_escape(str(title)) + r"\par}",
+            r"\vspace{0.6em}",
+            r"\includegraphics[width=\textwidth,height=0.75\textheight,keepaspectratio]{"
+            + image.as_posix()
+            + "}",
+            r"\par\vspace{0.6em}",
+            _latex_escape(str(caption)),
+            r"\end{center}",
+            r"\clearpage",
+            "```",
+            "",
+        ]
+    )
+
+
 def _section_files() -> list[Path]:
-    return [
-        path
-        for path in sorted(OUTPUT_MANUSCRIPT.glob("*.md"))
-        if path.name not in SECTION_EXCLUDE
-    ]
+    return hydrated_section_files(OUTPUT_MANUSCRIPT)
 
 
 def _assemble(config: dict[str, object], destination: Path) -> list[Path]:
@@ -182,7 +229,11 @@ def _assemble(config: dict[str, object], destination: Path) -> list[Path]:
             f"no hydrated sections in {OUTPUT_MANUSCRIPT}; run "
             "`uv run python scripts/z_generate_manuscript_variables.py`"
         )
-    parts = [_titlepage(config)]
+    parts = [
+        _titlepage(config),
+        _page_two_visual(config),
+        "```{=latex}\n\\setcounter{tocdepth}{2}\n\\tableofcontents\n\\clearpage\n```\n",
+    ]
     for index, path in enumerate(sections):
         if index:
             parts.append("```{=latex}\n\\newpage\n```\n")
@@ -241,8 +292,8 @@ def _check_log(log: Path) -> None:
         )
 
 
-def _write_pdf_receipt(target: Path, *, root: Path = ROOT) -> Path:
-    """Record the finalized PDF bytes and the checkout's source revision."""
+def _write_pdf_receipt(target: Path, *, root: Path, inputs: dict[str, object]) -> Path:
+    """Record final PDF bytes and the actual pre-render input manifest."""
     revision = subprocess.run(
         ["git", "rev-parse", "HEAD"],
         cwd=root,
@@ -250,26 +301,20 @@ def _write_pdf_receipt(target: Path, *, root: Path = ROOT) -> Path:
         capture_output=True,
         text=True,
     ).stdout.strip()
-    content = target.read_bytes()
-    receipt = target.with_suffix(".receipt.json")
-    receipt.write_text(
-        json.dumps(
-            {
-                "schema": "active-skillference-pdf/v1",
-                "output_path": target.relative_to(root).as_posix(),
-                "size_bytes": len(content),
-                "sha256": hashlib.sha256(content).hexdigest(),
-                "source_revision": revision,
-            },
-            indent=2,
-        )
-        + "\n",
-        encoding="utf-8",
+    return write_pdf_receipt(
+        target,
+        root=root,
+        source_revision=revision,
+        inputs=inputs,
     )
-    return receipt
 
 
-def _render_pdf(scratch: Path, config: dict[str, object]) -> Path:
+def _render_pdf(
+    scratch: Path,
+    config: dict[str, object],
+    *,
+    inputs: dict[str, object],
+) -> Path:
     pandoc = _require("pandoc")
     crossref = _require("pandoc-crossref")
     xelatex = _require("xelatex")
@@ -289,8 +334,6 @@ def _render_pdf(scratch: Path, config: dict[str, object]) -> Path:
             str(source),
             "--to=latex",
             "--standalone",
-            "--toc",
-            "--toc-depth=2",
             "--number-sections",
             "--filter",
             crossref,
@@ -302,11 +345,18 @@ def _render_pdf(scratch: Path, config: dict[str, object]) -> Path:
             "--metadata",
             "documentclass=article",
             *_metadata(config),
+            "--variable",
+            "title=",
             "-o",
             str(tex),
         ],
         cwd=scratch,
         what="pandoc",
+    )
+    inputs = add_pdf_assets(
+        ROOT,
+        inputs,
+        latex_asset_paths(tex, build_directory=scratch, root=ROOT),
     )
 
     latex = [xelatex, "-interaction=nonstopmode", "-halt-on-error", tex.name]
@@ -315,14 +365,27 @@ def _render_pdf(scratch: Path, config: dict[str, object]) -> Path:
     _run(latex, cwd=scratch, what="the second xelatex pass")
     _run(latex, cwd=scratch, what="the final xelatex pass")
     _check_log(scratch / "combined.log")
+    validate_pdf_inputs(ROOT, inputs)
 
     produced = scratch / "combined.pdf"
     if not produced.is_file() or produced.stat().st_size == 0:
         raise SystemExit(f"xelatex reported success but wrote no PDF ({produced})")
     OUTPUT_PDF.mkdir(parents=True, exist_ok=True)
     target = OUTPUT_PDF / PDF_NAME
-    shutil.copy2(produced, target)
-    _write_pdf_receipt(target)
+    temporary: Path | None = None
+    try:
+        with tempfile.NamedTemporaryFile(
+            dir=OUTPUT_PDF, prefix=f".{PDF_NAME}.", delete=False
+        ) as stream:
+            temporary = Path(stream.name)
+            with produced.open("rb") as source_stream:
+                shutil.copyfileobj(source_stream, stream)
+        shutil.copystat(produced, temporary)
+        os.replace(temporary, target)
+    finally:
+        if temporary is not None:
+            temporary.unlink(missing_ok=True)
+    _write_pdf_receipt(target, root=ROOT, inputs=inputs)
     print(f"rendered {len(sections)} sections -> {target.relative_to(ROOT)}")
     return target
 
@@ -341,10 +404,11 @@ def main(argv: list[str] | None = None) -> int:
     _require("xelatex")
     _require("bibtex")
     _hydrate(args.skip_kernels)
+    inputs = capture_pdf_inputs(ROOT, _section_files())
     config = _config()
 
     with tempfile.TemporaryDirectory(dir=ROOT, prefix=".render-") as scratch:
-        _render_pdf(Path(scratch), config)
+        _render_pdf(Path(scratch), config, inputs=inputs)
     return 0
 
 

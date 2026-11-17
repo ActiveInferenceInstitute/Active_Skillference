@@ -115,13 +115,21 @@ def build_release_readiness_snapshot(root: Path) -> ReleaseReadinessSnapshot:
     )
 
 
-def collect_blocker_probes(root: Path) -> BlockerProbeSummary:
-    """Probe volatile external blockers for inventory rendering."""
-    public = _run_command(
-        ["git", "ls-remote", "--heads", PUBLIC_REPOSITORY_URL, "HEAD"],
+def probe_public_repository(
+    root: Path,
+    repository_url: str = PUBLIC_REPOSITORY_URL,
+) -> subprocess.CompletedProcess[str]:
+    """Observe all advertised refs without fetching or mutating either repository."""
+    return _run_command(
+        ["git", "ls-remote", "--refs", repository_url],
         cwd=root,
         timeout=20,
     )
+
+
+def collect_blocker_probes(root: Path) -> BlockerProbeSummary:
+    """Probe volatile external blockers for inventory rendering."""
+    public = probe_public_repository(root)
     docker = _run_command(["docker", "info"], cwd=root, timeout=20)
     return BlockerProbeSummary(
         public_repository=_summarize_public_repository_probe(public),
@@ -132,12 +140,9 @@ def collect_blocker_probes(root: Path) -> BlockerProbeSummary:
 def _summarize_public_repository_probe(
     result: subprocess.CompletedProcess[str],
 ) -> str:
-    """Report reachability *and* whether the public target has any content.
+    """Separate transport failure, an empty target and advertised repository refs.
 
-    ``git ls-remote`` exits 0 for a repository that exists but holds no refs, so
-    a bare exit-code check reads an empty placeholder repository as ready. That
-    is the difference between "the target exists" and "the release is published",
-    and DOI/archive metadata must stay blank across that gap.
+    Neither transport success nor advertised refs proves a release/archive/DOI.
     """
     if result.returncode != 0:
         return _summarize_probe(result)
@@ -157,6 +162,22 @@ def render_release_readiness_inventory(
     probes = blocker_probes or BlockerProbeSummary(
         public_repository="not refreshed by this validation run",
         docker_daemon="not refreshed by this validation run",
+    )
+    if probes.public_repository == "reachable (refs present)":
+        public_observation = "The repository is reachable and advertises refs."
+    elif probes.public_repository.startswith("reachable but empty"):
+        public_observation = "The repository is reachable but advertises no refs."
+    elif probes.public_repository.startswith("not refreshed"):
+        public_observation = (
+            "No fresh public-repository observation was made by this validation run."
+        )
+    else:
+        public_observation = "The public-repository probe failed or was unavailable."
+    public_release_line = (
+        f"- {public_observation} Advertised-ref probe: "
+        f"`git ls-remote --refs {PUBLIC_REPOSITORY_URL}`. "
+        f"Current probe: {probes.public_repository}. "
+        "Release approval, public archive availability and DOI publication require independent evidence."
     )
     status_count = len(snapshot.status_lines)
     tracked_count = len(snapshot.modified_tracked_files)
@@ -269,11 +290,7 @@ def render_release_readiness_inventory(
             "",
             "## Remaining Release Blockers",
             "",
-            (
-                "- Public DOI/repository remains blocked until "
-                f"`git ls-remote {PUBLIC_REPOSITORY_URL}` succeeds. Current probe: "
-                f"{probes.public_repository}."
-            ),
+            public_release_line,
             live_stack_line,
             (
                 "- Cross-vendor security audit evidence is closed as a point-in-time "

@@ -32,8 +32,7 @@ def validate_pilot_contract(payload: Mapping[str, Any]) -> None:
         raise PilotContractError("contractVersion must be 1")
     _require_text(payload, "status", expected="protocol-only")
     _require_text(payload, "purpose")
-    _require_mapping(payload, "claimsBoundary")
-    boundary = payload["claimsBoundary"]
+    boundary = _require_mapping(payload, "claimsBoundary")
     _require_list(boundary, "allowed")
     _require_list(boundary, "prohibited")
     if not boundary["allowed"] or not boundary["prohibited"]:
@@ -50,13 +49,14 @@ def validate_pilot_contract(payload: Mapping[str, Any]) -> None:
     if participants.get("directIdentifiersAllowed") is not False:
         raise PilotContractError("directIdentifiersAllowed must be false")
     fields = _require_list(participants, "requiredFields")
-    _unique_texts(fields, "participants.requiredFields")
+    _unique_texts(fields, "participants.requiredFields", {"participant_id_hash"})
 
     events = _require_mapping(payload, "events")
     event_types = _require_list(events, "allowedEventTypes")
     _unique_texts(event_types, "events.allowedEventTypes")
     event_fields = _require_list(events, "requiredFields")
-    _unique_texts(event_fields, "events.requiredFields")
+    linking_fields = {"participant_id_hash", "event_type", "event_timestamp"}
+    _unique_texts(event_fields, "events.requiredFields", linking_fields)
 
     outcomes = _require_mapping(payload, "outcomes")
     primary = _require_mapping(outcomes, "primary")
@@ -87,7 +87,7 @@ def validate_pilot_contract(payload: Mapping[str, Any]) -> None:
     export = _require_mapping(payload, "export")
     _require_text(export, "sourceBoundary")
     export_fields = _require_list(export, "fields")
-    _unique_texts(export_fields, "export.fields")
+    _unique_texts(export_fields, "export.fields", linking_fields)
 
 
 def _require_mapping(payload: Mapping[str, Any], key: str) -> dict[str, Any]:
@@ -115,7 +115,11 @@ def _require_text(
     return value
 
 
-def _unique_texts(values: list[Any], location: str) -> None:
+def _unique_texts(
+    values: list[Any], location: str, required: set[str] | None = None
+) -> None:
+    if not values:
+        raise PilotContractError(f"{location} must not be empty")
     texts = []
     for index, value in enumerate(values, start=1):
         if not isinstance(value, str) or not value.strip():
@@ -123,3 +127,8 @@ def _unique_texts(values: list[Any], location: str) -> None:
         texts.append(value)
     if len(texts) != len(set(texts)):
         raise PilotContractError(f"{location} must not contain duplicates")
+    missing = (required or set()) - set(texts)
+    if missing:
+        raise PilotContractError(
+            f"{location} is missing linking fields: {', '.join(sorted(missing))}"
+        )

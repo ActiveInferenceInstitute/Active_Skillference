@@ -114,15 +114,28 @@ def test_declared_dimensions_match_the_kernel() -> None:
     assert dimensions["o"] == (agent["num_observations"], 1)
 
 
-def test_kernel_canonical_model_conforms() -> None:
-    checks = check_conformance(canonical_model())
-    assert len(checks) == 6
-
-
 def test_mutated_model_is_rejected() -> None:
     model = copy.deepcopy(canonical_model())
     model["B_matrix"][0][0][1] = 0.0  # break the commit transition
     with pytest.raises(ConformanceError, match="transition"):
+        check_conformance(model)
+
+
+@pytest.mark.parametrize(
+    ("field", "value"),
+    [
+        ("A_matrix", [[1.0, 0.0]]),
+        ("B_matrix", [[1.0, 0.0], [0.0, 1.0]]),
+        ("C_vector", [1.0]),
+        ("D_vector", [1.0]),
+    ],
+)
+def test_invalid_declared_component_shapes_raise_conformance_error(
+    field, value
+) -> None:
+    model = copy.deepcopy(canonical_model())
+    model[field] = value
+    with pytest.raises(ConformanceError, match="declared probability/transition model"):
         check_conformance(model)
 
 

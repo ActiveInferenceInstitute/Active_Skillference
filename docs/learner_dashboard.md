@@ -95,14 +95,9 @@ uv run python scripts/validate_full_app_stack.py --keep-running
 Use this when reporting that the app is live. It starts or reuses the Docker Compose
 SkillTree stack, regenerates project artifacts, bootstraps and seeds local SkillTree auth,
 reconciles missing live prerequisite edges, starts the dashboard, requires `/healthz`,
-requires live admin count parity, requires live dependency parity, checks
-figure-registry/dashboard chart-contract parity, proves the raw SkillTree `FORM` login
-through `chrome-devtools-axi`, and runs the Chrome console gate. Docker daemon
-availability is a hard precondition: if Docker or Colima is not running, this command
-fails rather than silently downgrading to artifact-only mode. `--app-ready` is the faster
-local usability proof and is explicitly not a full dependency-parity proof.
-`--keep-running` leaves the dashboard process open for manual inspection at
-`http://127.0.0.1:8765`.
+requires semantic admin content parity and complete live dependency parity, checks figure-registry/dashboard chart contracts, and proves real FORM login plus the official SDK's project, subject, and quiz views. Visible matching-origin frames, ready callback/accessibility snapshots, and matching project/instance/export digest are required; pending, fallback, unchecked, or count-only states are not green. `chrome-devtools-axi` and a real Docker/SkillTree stack are prerequisites, not substituted boundaries.
+
+Successful v2 browser/full-stack proof supplies `--proof-path` to screenshot capture. Use explicit task-owned screenshot output with matching PNG associations. `--keep-running` retains only a successfully admitted dashboard server; failure must settle it. `--app-ready` remains a narrower usability scope, not full dependency parity.
 
 Artifact-only mode:
 
@@ -163,7 +158,7 @@ lesson.
   are absolute, credential-free HTTP(S) URLs; unsafe schemes remain plain text.
 - SkillTree deployment matrix: exposes only browser-safe deployment mode status for local
   FORM bootstrap, ignored local state, token-backed admin seeding, and externally operated
-  SkillTree. Admin secrets, client secrets, and bearer tokens remain server-side.
+  SkillTree. Root credentials and trusted-client secrets remain server-side. The temporary learner bearer token reaches official browser-client memory, never persistent browser storage; it is not accurate to call all bearer tokens server-only.
 - Official display host: imports `@skilltree/skills-client-js` and configures
   `SkillsConfiguration` with `serviceUrl`, `projectId=activeInference`, and an absolute
   dashboard URL for the local `/api/skilltree/token` authenticator when bootstrap is
@@ -175,6 +170,8 @@ lesson.
   static assets. `localAuth.ready` means the ignored bridge state is complete; it is not
   proof that the live SkillTree process is currently running or accepting browser
   passwords.
+
+Public artifact/status projections remove quiz answer options and correctness keys recursively; the raw validated export and semantic digest remain server-side authorities. `/api/status.project.project` supplies the nested public identity used by live validation. No public projection or fixture response is a scientific, security-review, or live-service qualification by itself.
 
 ## Accessibility
 

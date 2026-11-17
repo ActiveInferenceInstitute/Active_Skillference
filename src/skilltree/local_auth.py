@@ -1,15 +1,15 @@
 """Local-only SkillTree FORM auth bootstrap and trusted-client token bridge.
 
-This module intentionally keeps credentials server-side. It creates or reuses a
-single local root/admin account, stores local-only secrets in an ignored state
-directory, and exchanges the SkillTree project trusted-client secret for learner
-tokens. Browser code only ever sees the dashboard token endpoint path.
+Root credentials and trusted-client secrets stay server-side in ignored local
+state. The dashboard token bridge issues a temporary learner bearer token to
+browser memory for the official SkillTree client; that token is not persisted.
 """
 
 from __future__ import annotations
 
 import base64
 import json
+import math
 import os
 import sys
 import urllib.error
@@ -31,6 +31,7 @@ from src.skilltree.admin_ops import (
     subject_create_path,
     subject_payload,
 )
+from src.skilltree.content import compare_live_content, missing_quiz_questions
 from src.skilltree.local_auth_state import (
     DEFAULT_LOCAL_ADMIN_PASSWORD,
     DEFAULT_LOCAL_ADMIN_USERNAME,
@@ -69,7 +70,7 @@ from src.skilltree.model import (
     SkillTreeSubject,
 )
 from src.skilltree.seeder import seed
-from src.skilltree.transport import SkillTreeClientError, quiz_question_count
+from src.skilltree.transport import SkillTreeClientError, parse_json_body
 
 # Backwards-compatible re-export surface pulled from local_auth_state so downstream
 # callers can import these names from src.skilltree.local_auth. Declared explicitly
@@ -104,6 +105,8 @@ class SkillTreeSessionClient:
             raise ValueError("base_url must be non-empty")
         if not project_id.strip():
             raise ValueError("project_id must be non-empty")
+        if not math.isfinite(timeout) or timeout <= 0:
+            raise ValueError("timeout must be finite and positive")
         self.base_url = base_url.rstrip("/")
         self.project_id = project_id
         self.timeout = timeout
@@ -133,7 +136,7 @@ class SkillTreeSessionClient:
             form_body=form_body,
             headers=headers,
         )
-        return json.loads(raw) if raw.strip() else {}
+        return parse_json_body(raw)
 
     def request_text(
         self,
@@ -432,16 +435,11 @@ class SkillTreeSessionClient:
         return result
 
     def _ensure_quiz_questions(self, quiz: Quiz) -> None:
-        """Create any exported quiz questions missing from the live quiz."""
-        if not quiz.questions:
-            return
+        """Create missing semantic question occurrences, never infer a prefix by count."""
         existing = self.request_json(
             "GET", f"/admin/quiz-definitions/{quiz.quiz_id}/questions"
         )
-        existing_count = min(quiz_question_count(existing), len(quiz.questions))
-        if existing_count >= len(quiz.questions):
-            return
-        for question in quiz.questions[existing_count:]:
+        for question in missing_quiz_questions(existing, quiz.questions):
             self.create_quiz_question(quiz.quiz_id, question)
 
     def create_quiz_question(self, quiz_id: str, question: QuizQuestion) -> Any:
@@ -550,17 +548,20 @@ def verify_seed_landed(
             "server-side rejection swallowed as idempotent). Inspect for duplicate "
             "names / invalid ids before trusting the live instance."
         )
+    if not live_project_content(client, project)["complete"]:
+        raise LocalSkillTreeAuthError(
+            "seed verification failed: live content differs from the exported project"
+        )
 
 
-def live_project_counts_match(
+def live_project_content(
     client: SkillTreeSessionClient, project: SkillTreeProject
-) -> bool:
-    """Return whether live SkillTree already has this export's core resources."""
-    expected_skills = sum(len(subject.skills) for subject in project.subjects)
-    expected_subjects = len(project.subjects)
-    return (
-        client.live_skill_count() == expected_skills
-        and client.live_subject_count() == expected_subjects
+) -> dict[str, Any]:
+    """Compare identities, learner content and answer keys, not resource counts."""
+    return compare_live_content(
+        get=lambda path: client.request_json("GET", path),
+        base_url=client.base_url,
+        project=project.to_export_dict(),
     )
 
 
@@ -651,19 +652,25 @@ def _seed_project_if_requested(
     project: SkillTreeProject | None,
     seed_project: bool,
     seed_dependencies: bool,
-    skip_seed_if_live_counts_ready: bool,
+    skip_seed_if_live_content_ready: bool,
     verify_seed: bool,
 ) -> tuple[bool, dict[str, int] | None]:
     if not seed_project or project is None:
         return False, None
-    should_seed = True
-    if skip_seed_if_live_counts_ready:
-        try:
-            should_seed = not live_project_counts_match(client, project)
-        except (LocalSkillTreeAuthError, SkillTreeClientError):
-            should_seed = True
-    if not should_seed:
-        return False, None
+    try:
+        content = live_project_content(client, project)
+    except SkillTreeClientError as exc:
+        if exc.status != 404:
+            raise
+        content = None
+    if content is not None:
+        if content["changedResources"] or content["extraResources"]:
+            raise LocalSkillTreeAuthError(
+                "live SkillTree content differs from the export; existing content "
+                "was not overwritten. Review the reported drift before reseeding."
+            )
+        if skip_seed_if_live_content_ready and content["complete"]:
+            return False, None
     seed_summary = seed(client, project, include_dependencies=seed_dependencies)
     if verify_seed:
         verify_seed_landed(client, project)
@@ -723,11 +730,15 @@ def ensure_local_skilltree_auth(
     project: SkillTreeProject | None = None,
     seed_project: bool = True,
     seed_dependencies: bool = True,
-    skip_seed_if_live_counts_ready: bool = False,
+    skip_seed_if_live_content_ready: bool = False,
     verify_seed: bool = True,
     verify_token: bool = True,
 ) -> BootstrapResult:
     """Bootstrap local root auth, seed the project, and store client credentials."""
+    if project is not None and project.project_id != project_id:
+        raise LocalSkillTreeAuthError(
+            "exported project id does not match the requested bootstrap target"
+        )
     client = SkillTreeSessionClient(
         base_url, project_id, timeout=default_local_request_timeout()
     )
@@ -744,7 +755,7 @@ def ensure_local_skilltree_auth(
         project=project,
         seed_project=seed_project,
         seed_dependencies=seed_dependencies,
-        skip_seed_if_live_counts_ready=skip_seed_if_live_counts_ready,
+        skip_seed_if_live_content_ready=skip_seed_if_live_content_ready,
         verify_seed=verify_seed,
     )
     state = _project_client_secret_state(
@@ -851,6 +862,8 @@ def exchange_trusted_client_token(
             status=exc.code,
             body=raw,
         ) from exc
+    except TimeoutError as exc:
+        raise SkillTreeClientError("POST /oauth/token timed out") from exc
     except urllib.error.URLError as exc:  # pragma: no cover - network dependent
         raise SkillTreeClientError(
             f"POST /oauth/token transport error: {exc.reason}"
@@ -862,7 +875,12 @@ def exchange_trusted_client_token(
         raise LocalSkillTreeAuthError(
             "SkillTree token endpoint returned an empty response"
         )
-    payload = json.loads(raw)
+    try:
+        payload = json.loads(raw)
+    except json.JSONDecodeError as exc:
+        raise LocalSkillTreeAuthError(
+            "SkillTree token endpoint returned malformed JSON"
+        ) from exc
     if not isinstance(payload, dict):
         raise LocalSkillTreeAuthError(
             "SkillTree token endpoint returned non-object JSON"

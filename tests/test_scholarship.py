@@ -1386,3 +1386,38 @@ def test_role_gate_rejects_lane_name_padding() -> None:
         )
         is True
     )
+
+
+@pytest.mark.parametrize("status,bucket", [(403, "botBlocks"), (404, "deadLinks")])
+def test_online_source_failure_appears_once_in_network_report(
+    tmp_path: Path, httpserver, status: int, bucket: str
+) -> None:
+    httpserver.expect_request("/failed-source", method="HEAD").respond_with_data(
+        "", status=status
+    )
+    _manuscript, matrix_path, bib_path = _write_fixture(
+        tmp_path,
+        manuscript="Claim [@known].",
+        bib="@article{known,\n}\n",
+        matrix=_health_matrix(httpserver.url_for("/failed-source")),
+    )
+    health = audit_source_health(
+        matrix_path, bib_path, online=True, timeout=5.0, allow_private=True
+    )
+    scholarship = validate_scholarship(
+        REPO / "manuscript",
+        REPO / "data" / "scholarship_sources.yaml",
+        REPO / "manuscript" / "references.bib",
+    )
+    gaps = validate_scholarship_gaps(
+        scholarship,
+        _real_claim_support(),
+        REPO / "manuscript" / "references.bib",
+    )
+
+    report = scholarship_source_health_network(
+        scholarship=scholarship, source_health=health, gap_report=gaps
+    )
+
+    assert report["summary"][bucket] == 1
+    assert [row["key"] for row in report[bucket]] == ["known"]

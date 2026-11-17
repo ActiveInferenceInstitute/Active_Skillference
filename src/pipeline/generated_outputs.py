@@ -98,7 +98,7 @@ def build_generated_outputs(project_root: Path | None = None) -> GeneratedOutput
         banned = audit_manuscript_banned_phrases(manuscript_dir)
         if banned:
             detail = "; ".join(f"{name}: {hits}" for name, hits in banned.items())
-            raise SystemExit(
+            raise ValueError(
                 f"manuscript endorsement-overreach phrases found: {detail}"
             )
     scholarship_audit = validate_scholarship(

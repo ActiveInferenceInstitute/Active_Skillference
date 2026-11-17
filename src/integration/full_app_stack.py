@@ -208,7 +208,7 @@ def bootstrap_command(
     state_dir: str,
     learner_id: str,
     skip_dependencies: bool = False,
-    skip_seed_if_live_counts_ready: bool = False,
+    skip_seed_if_live_content_ready: bool = False,
 ) -> list[str]:
     command = [
         python,
@@ -222,8 +222,8 @@ def bootstrap_command(
     ]
     if skip_dependencies:
         command.append("--skip-dependencies")
-    if skip_seed_if_live_counts_ready:
-        command.append("--skip-seed-if-live-counts-ready")
+    if skip_seed_if_live_content_ready:
+        command.append("--skip-seed-if-live-content-ready")
     return command
 
 
@@ -254,8 +254,9 @@ def dashboard_command(
     port: int,
     state_dir: str,
     learner_id: str,
+    instance_id: str | None = None,
 ) -> list[str]:
-    return [
+    command = [
         python,
         "scripts/serve_learner_dashboard.py",
         "--skilltree-url",
@@ -270,6 +271,9 @@ def dashboard_command(
         "--learner-id",
         learner_id,
     ]
+    if instance_id is not None:
+        command.extend(["--instance-id", instance_id])
+    return command
 
 
 def live_validation_command(
@@ -313,6 +317,7 @@ def console_validation_command(
         dashboard_url,
         "--require-browser",
         "--require-dashboard",
+        "--json",
     ]
 
 
@@ -441,6 +446,7 @@ def wait_for_dashboard(
     *,
     dashboard_url: str,
     timeout: float,
+    instance_id: str | None = None,
 ) -> dict[str, Any]:
     health_url = f"{dashboard_url.rstrip('/')}/healthz"
     deadline = time.monotonic() + timeout
@@ -452,7 +458,12 @@ def wait_for_dashboard(
                 f"dashboard process exited before /healthz became ready\n{output}"
             )
         try:
-            return _fetch_json(health_url, timeout=_REQUEST_TIMEOUT_SECONDS)
+            health = _fetch_json(health_url, timeout=_REQUEST_TIMEOUT_SECONDS)
+            if instance_id is not None and health.get("instanceId") != instance_id:
+                raise FullAppStackError(
+                    "health endpoint belongs to another dashboard instance"
+                )
+            return health
         except (
             FullAppStackError,
             TimeoutError,
@@ -482,19 +493,62 @@ def proof_summary(
     dependency_reconciliation: dict[str, Any] | None = None,
     app_ready: bool = False,
 ) -> dict[str, Any]:
-    checks = [live_validation, dashboard_health]
+    from src.dashboard.browser_validation import browser_receipt_complete
+
+    browser: dict[str, Any] = {"checked": False, "reason": "skipped by --skip-browser"}
+    if browser_console_stdout is not None:
+        try:
+            candidate = json.loads(browser_console_stdout)
+        except json.JSONDecodeError as exc:
+            raise FullAppStackError(
+                "browser validator did not emit a structured proof"
+            ) from exc
+        if not browser_receipt_complete(candidate):
+            raise FullAppStackError(
+                "browser validator did not prove all official learner views"
+            )
+        browser = candidate
+    content = live_validation.get("liveContent", {})
+    dependencies = live_validation.get("liveDependencies", {})
+    if not isinstance(content, dict) or not isinstance(dependencies, dict):
+        raise FullAppStackError("live content/dependency proof must contain objects")
+    instance_id = dashboard_health.get("instanceId")
+    digest = live_validation.get("exportContentDigest")
+    ok = (
+        live_validation.get("ok") is True
+        and dashboard_health.get("ok") is True
+        and isinstance(instance_id, str)
+        and bool(instance_id)
+        and live_validation.get("dashboardInstanceId") == instance_id
+        and isinstance(digest, str)
+        and len(digest) == 64
+        and content.get("checked") is True
+        and content.get("complete") is True
+        and content.get("exportContentDigest") == digest
+    )
+    if not app_ready:
+        ok = (
+            ok
+            and dependencies.get("checked") is True
+            and dependencies.get("complete") is True
+        )
     if raw_skilltree_login is not None:
-        checks.append(raw_skilltree_login)
+        ok = ok and raw_skilltree_login.get("ok") is True
     if dependency_reconciliation is not None:
-        checks.append(dependency_reconciliation)
-    ok = all(check.get("ok") is not False for check in checks)
-    if (
-        dependency_reconciliation is not None
-        and dependency_reconciliation.get("complete") is False
-    ):
-        ok = False
+        ok = ok and dependency_reconciliation.get("complete") is True
+    if browser_console_stdout is not None:
+        ok = (
+            ok
+            and browser.get("dashboardInstanceId") == instance_id
+            and browser.get("exportContentDigest") == digest
+            and browser.get("projectId") == content.get("projectId")
+        )
     return {
         "ok": ok,
+        "runId": instance_id,
+        "dashboardInstanceId": instance_id,
+        "exportContentDigest": digest,
+        "projectId": content.get("projectId"),
         "skilltreeUrl": skilltree_url,
         "dashboardUrl": dashboard_url,
         "skilltreeStatus": skilltree_status,
@@ -504,13 +558,11 @@ def proof_summary(
         "courseMaterials": live_validation.get("courseMaterials", {}),
         "figureContracts": live_validation.get("figureContracts", {"checked": False}),
         "liveAdminProject": live_validation.get("liveAdminProject", {}),
-        "liveDependencies": live_validation.get("liveDependencies", {}),
+        "liveDependencies": dependencies,
+        "liveContent": content,
         "dependencyReconciliation": dependency_reconciliation or {"checked": False},
         "mode": "app-ready" if app_ready else "full-parity",
-        "browserConsole": {
-            "checked": browser_console_stdout is not None,
-            "summary": (browser_console_stdout or "skipped by --skip-browser").strip(),
-        },
+        "browserConsole": browser,
         "rawSkillTreeLogin": raw_skilltree_login
         if raw_skilltree_login is not None
         else {"checked": False, "reason": "skipped by --skip-browser"},
@@ -530,7 +582,7 @@ def write_proof_artifact(proof: dict[str, Any], path: Path) -> Path:
     safe = _redact_proof_value(proof)
     if not isinstance(safe, dict):  # pragma: no cover - defensive type narrowing
         raise FullAppStackError("full-app proof must be a JSON object")
-    safe["proofVersion"] = 1
+    safe["proofVersion"] = 2
     return write_json_artifact(Path(path), safe, ensure_ascii=False)
 
 
@@ -601,7 +653,7 @@ def validate_full_app_stack(args: argparse.Namespace) -> dict[str, Any]:
                 state_dir=state_dir,
                 learner_id=args.learner_id,
                 skip_dependencies=True,
-                skip_seed_if_live_counts_ready=True,
+                skip_seed_if_live_content_ready=True,
             ),
         ],
         timeout=args.timeout,
@@ -626,6 +678,7 @@ def validate_full_app_stack(args: argparse.Namespace) -> dict[str, Any]:
         )
 
     pid_path, log_path = dashboard_runtime_paths(state_dir)
+    instance_id = secrets.token_hex(16)
     dashboard = start_dashboard(
         [
             "uv",
@@ -636,15 +689,18 @@ def validate_full_app_stack(args: argparse.Namespace) -> dict[str, Any]:
                 port=args.port,
                 state_dir=state_dir,
                 learner_id=args.learner_id,
+                instance_id=instance_id,
             ),
         ],
         log_path=log_path if args.keep_running else None,
     )
+    proof_written = False
     try:
         dashboard_health = wait_for_dashboard(
             dashboard,
             dashboard_url=dashboard_url,
             timeout=args.timeout,
+            instance_id=instance_id,
         )
         live_result = run_checked(
             [
@@ -713,9 +769,34 @@ def validate_full_app_stack(args: argparse.Namespace) -> dict[str, Any]:
             )
         proof["proofPath"] = str(proof_path)
         write_proof_artifact(proof, proof_path)
+        proof_written = True
         return proof
     finally:
-        if args.keep_running and dashboard.poll() is None:
-            record_dashboard_process(state_dir=state_dir, pid=dashboard.pid)
-        elif not args.keep_running:
-            stop_dashboard_process(dashboard)
+        finalize_dashboard_process(
+            dashboard,
+            state_dir=state_dir,
+            keep_running=args.keep_running,
+            successful=proof_written,
+        )
+
+
+def finalize_dashboard_process(
+    process: subprocess.Popen[str],
+    *,
+    state_dir: str,
+    keep_running: bool,
+    successful: bool,
+) -> None:
+    """Keep an owned process only after successful proof publication."""
+    if successful and keep_running:
+        if process.poll() is not None:
+            raise FullAppStackError(
+                "owned dashboard exited before keep-running finalization"
+            )
+        try:
+            record_dashboard_process(state_dir=state_dir, pid=process.pid)
+        except BaseException:
+            stop_dashboard_process(process)
+            raise
+    else:
+        stop_dashboard_process(process)

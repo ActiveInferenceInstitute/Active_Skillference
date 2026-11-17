@@ -133,7 +133,9 @@ def test_create_quiz_does_not_duplicate_existing_questions(
     ).respond_with_json({"quizId": "bayes_quiz"})
     httpserver.expect_request(
         "/admin/quiz-definitions/bayes_quiz/questions", method="GET"
-    ).respond_with_json({"quizType": "Quiz", "questions": [{"id": 1}]})
+    ).respond_with_json(
+        {"quizType": "Quiz", "questions": [quiz.questions[0].to_dict()]}
+    )
 
     assert client.create_quiz(quiz) == {"quizId": "bayes_quiz"}
 
@@ -154,7 +156,9 @@ def test_create_quiz_appends_missing_question_suffix(
     ).respond_with_json({"quizId": "bayes_quiz"})
     httpserver.expect_request(
         "/admin/quiz-definitions/bayes_quiz/questions", method="GET"
-    ).respond_with_json({"quizType": "Quiz", "questions": [{"id": 1}]})
+    ).respond_with_json(
+        {"quizType": "Quiz", "questions": [quiz.questions[0].to_dict()]}
+    )
     httpserver.expect_request(
         "/admin/quiz-definitions/bayes_quiz/create-question",
         method="POST",
