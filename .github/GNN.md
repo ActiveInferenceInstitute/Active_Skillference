@@ -2,8 +2,8 @@
 
 `gnn conformance (pinned)` is defined in `.github/workflows/gates.yml` as the
 `gnn-conformance` job and reads `gnn/upstream.json` (schema `gnn-importer-pin/v1`), which
-pins `ActiveInferenceInstitute/Generalized_Notation_Notation` at `v5.0.3`
-(`8f293d9ba810e6eda5c09842d9c7ed9ffa5f92c1`). The job's only gate step is
+pins `ActiveInferenceInstitute/Generalized_Notation_Notation` at `v5.1.0`
+(`75c834bd8519dc7b5adc4d24f16bf393cfd1ecdf`). The job's only gate step is
 `./gates.sh gnn`, the same arm a contributor runs locally.
 
 The job fetches that commit into its own checkout, then runs `./gates.sh gnn`, which is

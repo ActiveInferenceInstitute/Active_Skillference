@@ -2150,8 +2150,8 @@ tasks:
       phase_exit:
         - "PLW1510 resolved via explicit checks or a justified targeted noqa; ruff check returns 0."
   - id: asf-gnn-upstream-5-1-adoption
-    title: Adopt the v5.1.0 GNN upstream pin (currently v5.0.3)
-    status: todo
+    title: Adopt the v5.1.0 GNN upstream pin
+    status: done
     scale: minor
     surface: validation
     owner: gnn/upstream.json
@@ -2161,21 +2161,19 @@ tasks:
       - GNN_ROOT=<v5.1.0 checkout> GNN_PYTHON=<interpreter> ./gates.sh gnn
       - uv run pytest tests/test_gnn_conformance.py -q
     notes: >-
-      gnn/upstream.json pins Generalized_Notation_Notation at v5.0.3
-      (8f293d9ba810e6eda5c09842d9c7ed9ffa5f92c1), while the estate cutover moved the importer
-      repositories to v5.1.0 (75c834bd8519dc7b5adc4d24f16bf393cfd1ecdf); this repository was not part
-      of that cutover, so its pin is accurate but behind. The tag is duplicated in five places that
-      must move together: gnn/upstream.json, gnn/README.md, docs/gates.md, .github/GNN.md, and the
-      pinned-record constant plus the scratch-checkout tag in tests/test_gnn_conformance.py, with
-      README.md linking the v5.0.3 tag at three places. scripts/validate_gnn_spec.py extracts the
-      pinned commit with git archive and parses the specification with that checkout's parser, so a
-      metadata-only edit would be drift rather than proof: the bump counts only once
-      ./gates.sh gnn passes against a v5.1.0 checkout. Blocker: the arm fails, never skips, without a
-      prepared v5.1.0 checkout and interpreter (GNN_ROOT/GNN_PYTHON), and the hosted
-      `gnn conformance (pinned)` job cannot stand in for it while Actions is billing-locked
-      org-wide. A local Generalized_Notation_Notation checkout at v5.1.0 already exists on the
-      working host (75c834bd8519dc7b5adc4d24f16bf393cfd1ecdf), so the maintainer who runs it can
-      close this.
+      gnn/upstream.json now pins Generalized_Notation_Notation at v5.1.0
+      (75c834bd8519dc7b5adc4d24f16bf393cfd1ecdf, recorded 2026-11-16), replacing v5.0.3
+      (8f293d9ba810e6eda5c09842d9c7ed9ffa5f92c1) and joining the estate importer cutover. The
+      duplicated pin references moved together: gnn/upstream.json, gnn/README.md, docs/gates.md,
+      .github/GNN.md, the CANONICAL_PIN record in tests/test_gnn_conformance.py, and the README.md
+      GNN documentation links, which now resolve at the v5.1.0 tag (the downstream adoption guide
+      exists at that tag, so it no longer links the default branch). The scratch-checkout fixture
+      in tests/test_gnn_conformance.py builds its own stub tag and never reads the real pin, so it
+      was left as is. Proof is the required local check rather than a metadata-only edit:
+      scripts/validate_gnn_spec.py and tests/test_gnn_conformance.py passed with no skips against
+      a v5.1.0 checkout (GNN_ROOT/GNN_PYTHON) in an offline run, and that result is published as the
+      `gnn conformance (local)` commit status because the hosted `gnn conformance (pinned)` job
+      remains billing-locked.
     scholarship_plan:
       lanes:
         - delivery_and_reporting
