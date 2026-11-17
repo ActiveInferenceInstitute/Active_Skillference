@@ -273,13 +273,13 @@ gh pr checks "$PR_NUMBER" --repo "$repo" --required --json name,bucket </dev/nul
   jq -e --arg context "$context" 'any(.[]; .name == $context and .bucket == "pass")'
 ```
 
-For specification edits, start from GNN's [Start Here](https://github.com/ActiveInferenceInstitute/Generalized_Notation_Notation/blob/v5.0.3/docs/START_HERE.md),
-[framework integration guide](https://github.com/ActiveInferenceInstitute/Generalized_Notation_Notation/blob/v5.0.3/docs/gnn/integration/framework_integration_guide.md),
-and [syntax reference](https://github.com/ActiveInferenceInstitute/Generalized_Notation_Notation/blob/v5.0.3/docs/gnn/reference/gnn_syntax.md).
+For specification edits, start from GNN's [Start Here](https://github.com/ActiveInferenceInstitute/Generalized_Notation_Notation/blob/v5.1.0/docs/START_HERE.md),
+[framework integration guide](https://github.com/ActiveInferenceInstitute/Generalized_Notation_Notation/blob/v5.1.0/docs/gnn/integration/framework_integration_guide.md),
+and [syntax reference](https://github.com/ActiveInferenceInstitute/Generalized_Notation_Notation/blob/v5.1.0/docs/gnn/reference/gnn_syntax.md).
 For the wider picture (the adoption patterns sibling repositories use, pin discipline, and
 the drift guard these checks implement), see GNN's
-[downstream adoption guide](https://github.com/ActiveInferenceInstitute/Generalized_Notation_Notation/blob/main/docs/gnn/integration/downstream_adoption.md),
-linked on GNN's default branch because it landed after the v5.0.3 pin.
+[downstream adoption guide](https://github.com/ActiveInferenceInstitute/Generalized_Notation_Notation/blob/v5.1.0/docs/gnn/integration/downstream_adoption.md)
+at the v5.1.0 pin.
 
 ### Related repositories
 

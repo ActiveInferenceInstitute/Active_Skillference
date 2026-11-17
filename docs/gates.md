@@ -44,8 +44,8 @@ pay for a full artifact rebuild. Both use the same pytest selection mechanism
 
 `./gates.sh gnn` validates `gnn/discrete_active_inference_agent.gnn.md` against the parser
 revision pinned in `gnn/upstream.json` (required schema `gnn-importer-pin/v1`; missing or
-unsupported discriminators are rejected): tag `v5.0.3`,
-commit `8f293d9ba810e6eda5c09842d9c7ed9ffa5f92c1`. It needs a prepared
+unsupported discriminators are rejected): tag `v5.1.0`,
+commit `75c834bd8519dc7b5adc4d24f16bf393cfd1ecdf`. It needs a prepared
 pinned checkout and fails — never skips — when `GNN_ROOT` is missing or unusable. The
 preparation commands are in [`../README.md`](../README.md#required-local-gnn-check); the
 job that runs this arm in CI is `gnn-conformance`, displayed as
