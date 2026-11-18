@@ -70,5 +70,5 @@ files on disk.
 | [`../TODO.md`](../TODO.md) | Generated forward-only roadmap surface (`tasks.yaml` is the source) |
 | [`../manuscript/AGENTS.md`](../manuscript/AGENTS.md) | Manuscript directory rules and the claim-token protocol |
 | [`../vendor/README.md`](../vendor/README.md) | Running a live SkillTree instance |
-| [`../.github/README.md`](../.github/README.md) | GitHub automation: workflows, Dependabot |
+| [`../.github/AUTOMATION.md`](../.github/AUTOMATION.md) | GitHub automation: workflows, Dependabot |
 | [`../.github/GNN.md`](../.github/GNN.md) | What the GNN conformance job parses and which pin it reads |
