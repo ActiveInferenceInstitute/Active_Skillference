@@ -137,6 +137,6 @@ directly only when the target deployment supports explicit admin bearer-token wr
 - [`quickstart.md`](quickstart.md) — basic commands.
 - [`troubleshooting.md`](troubleshooting.md) — symptom-driven recipes.
 - [`forking_guide.md`](forking_guide.md) — extending the curriculum and kernels.
-- [`output_conventions.md`](output_conventions.md) — the `output/` tree and regeneration.
-- [`architecture.md`](architecture.md) — module boundaries.
-- [`../AGENTS.md`](../AGENTS.md) — invariants and the provenance chain.
+- [`output_conventions.md`](../reference/output_conventions.md) — the `output/` tree and regeneration.
+- [`architecture.md`](../architecture/architecture.md) — module boundaries.
+- [`../AGENTS.md`](../../AGENTS.md) — invariants and the provenance chain.

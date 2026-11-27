@@ -200,7 +200,7 @@ def pdf_project(tmp_path, pdf_bytes):
     from src.manuscript.pdf_receipt import PDF_NAME, add_pdf_assets, capture_pdf_inputs
 
     root = tmp_path / "publication"
-    manuscript = root / "manuscript"
+    manuscript = root / "docs" / "manuscript"
     hydrated = root / "output" / "manuscript"
     manuscript.mkdir(parents=True)
     hydrated.mkdir(parents=True)

@@ -11,7 +11,7 @@ The gate arms run these scripts in dependency order; `.github/workflows/gates.ym
 the arms, so CI and a local run are the same command text:
 
 ```bash
-./gates.sh all         # every offline arm (see ../docs/gates.md)
+./gates.sh all         # every offline arm (see ../docs/validation/gates.md)
 ./gates.sh artifacts   # curriculum → kernels/figures → SkillTree export
 ./gates.sh checks      # the provenance/scholarship/manuscript/roadmap validators
 ```
@@ -51,23 +51,23 @@ ls -la output/figures/     # generated PNGs plus figure_registry.json
 | Script | Role | Reads | Writes |
 | --- | --- | --- | --- |
 | `build_curriculum.py` | Build and validate the prerequisite DAG; print and persist graph stats plus diagnostic gap-map rows | `src.curriculum.catalog`, `src.curriculum.diagnostics` | `output/data/curriculum_stats.json`, `output/data/curriculum_diagnostic_gap_map.json` |
-| `analyze_scholarship.py` | Validate manuscript citation coverage and render scholarship/source figures, including the open-science learning-source ledger with course-material coverage, frontier gap report, and source-health network | `src.scholarship`, `src.manuscript.claim_support`, `src.curriculum.materials`, `src.figures`, `data/scholarship_sources.yaml`, `data/course_material_sources.yaml`, `manuscript/` | `output/data/scholarship_coverage.json`, `output/data/scholarship_source_health.json`, `output/data/scholarship_source_health_network.json`, `output/data/scholarship_gap_report.json`, scholarship and open-science learning-source figures |
-| `audit_scholarship_gaps.py` | Validate high-value frontier sources against manuscript citation, BibTeX, and claim-support bindings | `src.scholarship.gap_report`, `src.manuscript.claim_support`, `data/scholarship_sources.yaml`, `data/manuscript_claim_support.yaml`, `manuscript/` | `output/data/scholarship_gap_report.json` |
-| `run_kernels.py` | Print the generated-output bundle emitted by `src.pipeline.generated_outputs`; the pipeline runs kernels, provenance, American English, scholarship, scholarship-gap, claim-support, roadmap, figure/front-matter, manuscript/dashboard artifact, and course-material gates | `src.pipeline.generated_outputs`, `src.kernels`, `src.provenance`, `src.scholarship`, `src.curriculum`, `src.figures`, `src.manuscript`, `src.dashboard`, `src.roadmap` | `output/data/claims.json`, `output/data/curriculum_diagnostic_gap_map.json`, `output/data/manuscript_variables.json`, `output/data/scholarship_coverage.json`, `output/data/scholarship_source_health.json`, `output/data/scholarship_source_health_network.json`, `output/data/scholarship_gap_report.json`, `output/data/figure_table_companions.json`, `output/data/manuscript_claim_support.json`, `output/data/manuscript_artifacts.json`, `output/data/cover_asset_audit.json`, `output/data/front_matter_visual_audit.json`, `output/data/course_material_index.json`, `output/data/course_material_audit.json`, figures and `figure_registry.json` in `output/figures/` |
+| `analyze_scholarship.py` | Validate manuscript citation coverage and render scholarship/source figures, including the open-science learning-source ledger with course-material coverage, frontier gap report, and source-health network | `src.scholarship`, `src.manuscript.claim_support`, `src.curriculum.materials`, `src.figures`, `data/scholarship_sources.yaml`, `data/course_material_sources.yaml`, `docs/manuscript/` | `output/data/scholarship_coverage.json`, `output/data/scholarship_source_health.json`, `output/data/scholarship_source_health_network.json`, `output/data/scholarship_gap_report.json`, scholarship and open-science learning-source figures |
+| `audit_scholarship_gaps.py` | Validate high-value frontier sources against manuscript citation, BibTeX, and claim-support bindings | `src.scholarship.gap_report`, `src.manuscript.claim_support`, `data/scholarship_sources.yaml`, `data/manuscript_claim_support.yaml`, `docs/manuscript/` | `output/data/scholarship_gap_report.json` |
+| `run_kernels.py` | Print the generated-output bundle emitted by `src.pipeline.generated_outputs`; the pipeline runs kernels, provenance, American English, scholarship, scholarship-gap, claim-support, roadmap, figure/front-matter, docs/manuscript/dashboard artifact, and course-material gates | `src.pipeline.generated_outputs`, `src.kernels`, `src.provenance`, `src.scholarship`, `src.curriculum`, `src.figures`, `src.manuscript`, `src.dashboard`, `src.roadmap` | `output/data/claims.json`, `output/data/curriculum_diagnostic_gap_map.json`, `output/data/manuscript_variables.json`, `output/data/scholarship_coverage.json`, `output/data/scholarship_source_health.json`, `output/data/scholarship_source_health_network.json`, `output/data/scholarship_gap_report.json`, `output/data/figure_table_companions.json`, `output/data/manuscript_claim_support.json`, `output/data/manuscript_artifacts.json`, `output/data/cover_asset_audit.json`, `output/data/front_matter_visual_audit.json`, `output/data/course_material_index.json`, `output/data/course_material_audit.json`, figures and `figure_registry.json` in `output/figures/` |
 | `build_course_materials.py` | Build local read-only dashboard lesson records with pinned external material pointers | `src.curriculum`, `src.kernels`, `data/course_material_sources.yaml` | `output/data/course_material_index.json`, `output/data/course_material_audit.json` |
 | `validate_course_material_sources.py` | Validate the pinned external source contract for dashboard Learn pointers; `--online` verifies GitHub commits, globs, and paths | `src.curriculum.materials`, `data/course_material_sources.yaml` | none (exit 0/1) |
 | `validate_course_material_alignment.py` | Validate exported skills, local lesson records, learning-path prerequisite lists, handoff routes, and quiz definitions agree | `src.curriculum.alignment`, `output/data/skilltree_project.json`, course-material artifacts | none (exit 0/1) |
-| `validate_scholarship_sources.py` | Re-check scholarship locator syntax, role specificity, lane coverage, and optional online reachability | `src.scholarship.source_health`, `data/scholarship_sources.yaml`, `manuscript/references.bib` | `output/data/scholarship_source_health.json` |
+| `validate_scholarship_sources.py` | Re-check scholarship locator syntax, role specificity, lane coverage, and optional online reachability | `src.scholarship.source_health`, `data/scholarship_sources.yaml`, `docs/manuscript/references.bib` | `output/data/scholarship_source_health.json` |
 | `validate_docker_digests.py` | Fail if Docker images are referenced by mutable tags without digest pins | `docker-compose.yml` | none (exit 0/1) |
-| `validate_claim_support.py` | Re-check anchored manuscript scientific claims against computed, count, simulation, literature, scope-limit, delivery, and visual evidence classes | `data/manuscript_claim_support.yaml`, `src.manuscript.claim_support`, `manuscript/`, scholarship matrix | `output/data/manuscript_claim_support.json` |
-| `validate_manuscript_artifacts.py` | Re-check generated figure registry, manuscript figure labels/cross-references, PNG readability/information content, captions, alt text, semantic metadata, visual QA contract fields, dense figure companion ids, claim tokens, dashboard figure artifacts, and front-matter visual assets | `src.manuscript`, `src.dashboard`, `manuscript/`, `output/figures/`, `output/data/figure_table_companions.json` | `output/data/manuscript_artifacts.json`, `output/data/cover_asset_audit.json`, `output/data/front_matter_visual_audit.json` |
-| `validate_manuscript_variables.py` | Fail if manuscript prose hard-codes live generated counts instead of variable tokens | `output/data/manuscript_variables.json`, `manuscript/` | none (exit 0/1) |
-| `validate_rendered_freshness.py` | Fail if rendered manuscript or publication-bundle roadmap prose is stale versus current variables/artifacts | `manuscript/`, `output/manuscript/`, `output/pdf/`, `output/web/`, `output/docx/`, `output/epub/`, `output/slides/` | none (exit 0/1) |
-| `validate_american_english.py` | Fail if authored manuscript markdown uses British spelling variants instead of American English | `src.manuscript.american_english`, `manuscript/*.md` | none (exit 0/1) |
+| `validate_claim_support.py` | Re-check anchored manuscript scientific claims against computed, count, simulation, literature, scope-limit, delivery, and visual evidence classes | `data/manuscript_claim_support.yaml`, `src.manuscript.claim_support`, `docs/manuscript/`, scholarship matrix | `output/data/manuscript_claim_support.json` |
+| `validate_manuscript_artifacts.py` | Re-check generated figure registry, manuscript figure labels/cross-references, PNG readability/information content, captions, alt text, semantic metadata, visual QA contract fields, dense figure companion ids, claim tokens, dashboard figure artifacts, and front-matter visual assets | `src.manuscript`, `src.dashboard`, `docs/manuscript/`, `output/figures/`, `output/data/figure_table_companions.json` | `output/data/manuscript_artifacts.json`, `output/data/cover_asset_audit.json`, `output/data/front_matter_visual_audit.json` |
+| `validate_manuscript_variables.py` | Fail if manuscript prose hard-codes live generated counts instead of variable tokens | `output/data/manuscript_variables.json`, `docs/manuscript/` | none (exit 0/1) |
+| `validate_rendered_freshness.py` | Fail if rendered manuscript or publication-bundle roadmap prose is stale versus current variables/artifacts | `docs/manuscript/`, `output/manuscript/`, `output/pdf/`, `output/web/`, `output/docx/`, `output/epub/`, `output/slides/` | none (exit 0/1) |
+| `validate_american_english.py` | Fail if authored manuscript markdown uses British spelling variants instead of American English | `src.manuscript.american_english`, `docs/manuscript/*.md` | none (exit 0/1) |
 | `validate_live_counts.py` | Fail if authored docs, metadata, roadmap, or manuscript surfaces carry stale generated counts | `src.live_counts`, docs, metadata, manuscript, `tasks.yaml`, `TODO.md` | none (exit 0/1) |
 | `validate_roadmap.py` | Validate `tasks.yaml` schema, generated metrics, evidence commands, exact generated `TODO.md` text, and generated active `docs/todo/*.md` handoff pages | `src.roadmap`, `tasks.yaml`, `TODO.md`, `docs/todo/` | none by default; `--write-todo` refreshes `TODO.md` and `docs/todo/*.md` |
 | `validate_learner_pilot_contract.py` | Validate the protocol-only learner-pilot contract, privacy boundary, event schema, outcomes, and missing-data policy | `src.pilot.contract`, `data/learner_pilot_contract.json` | none; prints a deterministic contract summary |
-| `validate_release_readiness_inventory.py` | Validate or regenerate the release inventory against real git status, untracked files, tracked diff stat, and ignored generated-output examples | `src.release_readiness`, `docs/release_readiness_inventory.md`, git status | none by default; `--write` refreshes `docs/release_readiness_inventory.md` and current blocker probes |
+| `validate_release_readiness_inventory.py` | Validate or regenerate the release inventory against real git status, untracked files, tracked diff stat, and ignored generated-output examples | `src.release_readiness`, `docs/publication/release_readiness_inventory.md`, git status | none by default; `--write` refreshes `docs/publication/release_readiness_inventory.md` and current blocker probes |
 | `ensure_web_math.py` | Insert MathJax into rendered web HTML files that contain math but lack the loader | `src.manuscript.web_math`, `output/web/` | normalized `output/web/*.html` |
 | `validate_web_math.py` | Fail if dashboard or rendered web HTML math surfaces lack MathJax support | `src.dashboard/assets/`, `output/web/` | none (exit 0/1) |
 | `publish_zenodo_deposit.py` | Upload the release artifact to the reserved Zenodo draft and publish it, minting a permanent DOI | `ZENODO_PROD_TOKEN`, `data/zenodo_reservation.json`, a release file | published deposit JSON on stdout |
@@ -79,10 +79,10 @@ ls -la output/figures/     # generated PNGs plus figure_registry.json
 | `validate_full_app_stack.py` | CLI wrapper around `src.integration.full_app_stack` for the strict Docker + SkillTree + dashboard + browser proof, including dependency reconciliation unless `--app-ready` is selected | `src.integration.full_app_stack`, Docker/Compose, local SkillTree, dashboard, generated artifacts | JSON proof summary on stdout plus a redacted proof artifact under the state directory |
 | `reconcile_live_dependencies.py` | Idempotently reconcile exported learning-path dependencies into a live local SkillTree service when bulk seeding leaves edge parity incomplete | `output/data/skilltree_project.json`, live SkillTree REST API | network (updates local SkillTree dependencies) |
 | `reset_local_skilltree.py` | Back up and reset ignored local SkillTree bootstrap state before rerunning app-ready validation | `.active_skillference_local/`, Docker/Compose, local SkillTree dashboard state | ignored local runtime state + optional app-ready proof |
-| `z_generate_manuscript_variables.py` | Template-render hook; rerun kernels (or reuse the current artifacts with `--skip-kernels`) and write provenance-resolved manuscript copies | `scripts/run_kernels.py`, `src.kernels`, `src.provenance`, `manuscript/` | `output/manuscript/*.md` |
-| `render_manuscript.py` | Authoritative render path: hydrate sections, assemble them, and drive Pandoc → XeLaTeX (PDF) and Pandoc → HTML (web) | `output/manuscript/`, `manuscript/config.yaml`, `manuscript/preamble.md`, `manuscript/references.bib`, `output/figures/` | `output/pdf/Active_Skillference_combined.pdf`, `output/web/index.html` |
+| `z_generate_manuscript_variables.py` | Template-render hook; rerun kernels (or reuse the current artifacts with `--skip-kernels`) and write provenance-resolved manuscript copies | `scripts/run_kernels.py`, `src.kernels`, `src.provenance`, `docs/manuscript/` | `output/manuscript/*.md` |
+| `render_manuscript.py` | Authoritative render path: hydrate sections, assemble them, and drive Pandoc → XeLaTeX (PDF) and Pandoc → HTML (web) | `output/manuscript/`, `docs/manuscript/config.yaml`, `docs/manuscript/preamble.md`, `docs/manuscript/references.bib`, `output/figures/` | `output/pdf/Active_Skillference_combined.pdf`, `output/web/index.html` |
 | `check_docs_links.py` | Fail if a relative Markdown link or image in the authored docs does not resolve on disk | every authored `*.md` surface, `README.md`, `AGENTS.md` | none (exit 0/1) |
-| `z_generate_gate_metrics.py` | Render `docs/gate_metrics.md` from the recorded arm-timing receipt, or `--check` that it is current | `docs/_generated/arm_timings.json` | `docs/gate_metrics.md` with `--write`; none with `--check` |
+| `z_generate_gate_metrics.py` | Render `docs/validation/gate_metrics.md` from the recorded arm-timing receipt, or `--check` that it is current | `docs/_generated/arm_timings.json` | `docs/validation/gate_metrics.md` with `--write`; none with `--check` |
 | `export_skilltree.py` | Provenance-gate the curriculum and export a SkillTree-native project JSON | `src.curriculum`, `src.kernels`, `src.provenance`, `src.skilltree` | `output/data/skilltree_project.json` |
 | `seed_skilltree.py` | Build + render the project and seed it into a live SkillTree server over REST | `src.curriculum`, `src.kernels`, `src.provenance`, `src.skilltree` | network (a running SkillTree instance) |
 | `bootstrap_local_skilltree.py` | Bootstrap shared live password owner, seed semantic content, store ignored trusted-client state; `--skip-seed-if-live-content-ready` replaces count-only readiness | Actual local SkillTree and current export | network + ignored private state |
@@ -104,7 +104,7 @@ foundations→applications connectivity, then writes `curriculum_stats.json` and
 Calls `src.pipeline.generated_outputs.build_generated_outputs()` and prints the returned
 `GeneratedOutputBundle`. The importable pipeline builds the claim registry from
 `src.kernels.examples.build_claim_registry()` and the validated graph, runs the
-provenance gate against **both** the curriculum and every `*.md` under `manuscript/` if
+provenance gate against **both** the curriculum and every `*.md` under `docs/manuscript/` if
 present, validates American English manuscript prose and scholarship support, writes the
 claim/support/scholarship/course-material/manuscript-artifact JSON outputs, renders the
 cover, page-two atlas and registered figures, writes dense figure table companions, and validates the figure/dashboard
@@ -148,7 +148,7 @@ artifacts under `output/pdf/`, `output/web/`, `output/docx/`, `output/epub/`, an
 uv run python scripts/validate_release_readiness_inventory.py
 uv run python scripts/validate_release_readiness_inventory.py --write
 ```
-Checks `docs/release_readiness_inventory.md` against real `git status --short`,
+Checks `docs/publication/release_readiness_inventory.md` against real `git status --short`,
 `git ls-files -o --exclude-standard`, `git diff --stat`, ignored generated-output
 examples, and required evidence commands. `--write` regenerates the inventory from the
 current checkout and refreshes the public-repository and Docker blocker probe summaries;
@@ -158,7 +158,7 @@ it does not stage, commit, push, clean, or publish anything.
 ```bash
 uv run python scripts/analyze_scholarship.py
 ```
-Validates authored manuscript citations against `manuscript/references.bib` and
+Validates authored manuscript citations against `docs/manuscript/references.bib` and
 `data/scholarship_sources.yaml`, builds the course-material coverage payload from
 `data/course_material_sources.yaml`, writes `output/data/scholarship_coverage.json` and
 `output/data/scholarship_source_health_network.json`, and
@@ -350,7 +350,7 @@ uv run python scripts/capture_dashboard_screenshots.py --dashboard-url http://12
 Drives a real browser over the running dashboard and records the views registered in
 `src/screenshots/manifest.py` as manuscript evidence. Unlike the deterministic figures these
 images cannot be rebuilt from project data, so they are version-controlled under
-`manuscript/assets/screenshots/` rather than generated into `output/`, are registered in
+`docs/manuscript/assets/screenshots/` rather than generated into `output/`, are registered in
 `figure_registry.json` with `evidence_kind: captured`, and are excluded from the
 render/registry parity check. Each run rewrites `screenshot_provenance.json` with the
 dashboard URL, viewport, live SkillTree counts, full-app proof mode, and a SHA-256 per
@@ -449,7 +449,7 @@ uv run python scripts/render_manuscript.py --skip-kernels --pdf-only
 Hydrates the authored sections through `z_generate_manuscript_variables.py`, assembles
 them in lexicographic order with page breaks and a generated title page, and drives
 Pandoc with `pandoc-crossref` (for `[@fig:label]` / `[@sec:label]`), `pandoc-citeproc`
-(for `references.bib`), the `manuscript/preamble.md` LaTeX packages and a XeLaTeX engine.
+(for `references.bib`), the `docs/manuscript/preamble.md` LaTeX packages and a XeLaTeX engine.
 Missing tooling is named and the run stops; no partial PDF is written.
 
 ## Architecture

@@ -244,10 +244,10 @@ def test_real_manuscript_passes_strict_registry_and_validator_gates() -> None:
     from src.kernels.examples import build_claim_registry
 
     audit = validate_claim_support(
-        manuscript_dir=REPO / "manuscript",
+        manuscript_dir=REPO / "docs" / "manuscript",
         support_path=REPO / "data" / "manuscript_claim_support.yaml",
         source_matrix_path=REPO / "data" / "scholarship_sources.yaml",
-        bib_path=REPO / "manuscript" / "references.bib",
+        bib_path=REPO / "docs" / "manuscript" / "references.bib",
         registry_claim_ids=build_claim_registry().names(),
         project_root=REPO,
     )
@@ -256,10 +256,10 @@ def test_real_manuscript_passes_strict_registry_and_validator_gates() -> None:
 
 def test_real_manuscript_claim_support_passes(tmp_path: Path) -> None:
     audit = validate_claim_support(
-        manuscript_dir=REPO / "manuscript",
+        manuscript_dir=REPO / "docs" / "manuscript",
         support_path=REPO / "data" / "manuscript_claim_support.yaml",
         source_matrix_path=REPO / "data" / "scholarship_sources.yaml",
-        bib_path=REPO / "manuscript" / "references.bib",
+        bib_path=REPO / "docs" / "manuscript" / "references.bib",
     )
     path = write_claim_support_audit(audit, tmp_path / "claim_support.json")
 

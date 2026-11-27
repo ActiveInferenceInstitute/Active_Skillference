@@ -9,24 +9,24 @@ by a tested kernel and bound through a `{{claim:NAME}}` token, never hand-typed.
 
 ## 1. Kernel purity (the source of every number)
 
-The numeric primitives in [`src/kernels/`](../src/kernels/) are the **only** place
+The numeric primitives in [`src/kernels/`](../../src/kernels/) are the **only** place
 quantitative values may be computed. They are pure, deterministic, side-effect-free
 functions over discrete probability distributions, in nats:
 
-- [`information.py`](../src/kernels/information.py) — `surprise`, `entropy`,
+- [`information.py`](../../src/kernels/information.py) — `surprise`, `entropy`,
   `cross_entropy`, `kl_divergence`, `mutual_information`
-- [`distributions.py`](../src/kernels/distributions.py) — `normalize`, `softmax`,
+- [`distributions.py`](../../src/kernels/distributions.py) — `normalize`, `softmax`,
   `log_stable`, `dirichlet_expected`, `dirichlet_expected_log`
-- [`inference.py`](../src/kernels/inference.py) — `bayes_posterior`, `log_evidence`,
+- [`inference.py`](../../src/kernels/inference.py) — `bayes_posterior`, `log_evidence`,
   `variational_free_energy`, `elbo`
-- [`active_inference.py`](../src/kernels/active_inference.py) — `expected_free_energy`,
+- [`active_inference.py`](../../src/kernels/active_inference.py) — `expected_free_energy`,
   `policy_posterior`, `DiscreteActiveInferenceAgent`
 
 A kernel must not do I/O, read configuration, or import the curriculum, SkillTree, or
 figures layers. (**Exception:** `examples.py` imports `src.provenance.claims` only, to
 register claims — kernel modules themselves stay dependency-free apart from numpy.) If a
 function needs any of that, it is not a kernel — it
-belongs in [`src/kernels/examples.py`](../src/kernels/examples.py) (worked examples that
+belongs in [`src/kernels/examples.py`](../../src/kernels/examples.py) (worked examples that
 *drive* the kernels) or in `scripts/` (orchestration).
 
 **Verify kernel purity** (kernels never import the higher layers):
@@ -126,7 +126,7 @@ grep -rn "^from \(kernels\|curriculum\|skilltree\|provenance\|figures\)\." src s
 
 ## 4. The thin-orchestrator pattern
 
-All logic lives in `src/`; files in [`scripts/`](../scripts/) only coordinate I/O. A script
+All logic lives in `src/`; files in [`scripts/`](../../scripts/) only coordinate I/O. A script
 may build the registry/graph, write JSON, and render figures, but must not re-implement any
 math, DAG validation, or provenance rule that belongs in `src/`.
 
@@ -155,7 +155,7 @@ test for it.
 
 ## 5. Zero-mock policy
 
-Mock frameworks are forbidden anywhere in [`tests/`](../tests/). The kernels are pure, so you can
+Mock frameworks are forbidden anywhere in [`tests/`](../../tests/). The kernels are pure, so you can
 always test them with real numpy arrays and real analytic results — a test that needs a
 mock is testing the wrong thing (that one function *calls* another, not that the math is
 correct).
@@ -165,7 +165,7 @@ patched HTTP transports. Narrow `pytest.monkeypatch` use is permitted for enviro
 isolation and explicit OS/subprocess failure branches, but it is not integration proof.
 
 **Correct** — assert real mathematical properties (from
-[`tests/test_kernels_information.py`](../tests/test_kernels_information.py)):
+[`tests/test_kernels_information.py`](../../tests/test_kernels_information.py)):
 
 ```python
 import numpy as np
@@ -178,8 +178,8 @@ def test_uniform_distribution_matches_log_cardinality() -> None:
 
 HTTP (the SkillTree REST client/seeder) is tested against a real local server with
 `pytest-httpserver`, never a mock — see
-[`tests/test_skilltree_client.py`](../tests/test_skilltree_client.py) and
-[`tests/test_skilltree_seeder.py`](../tests/test_skilltree_seeder.py).
+[`tests/test_skilltree_client.py`](../../tests/test_skilltree_client.py) and
+[`tests/test_skilltree_seeder.py`](../../tests/test_skilltree_seeder.py).
 
 **Verify cleanliness**:
 
@@ -187,14 +187,14 @@ HTTP (the SkillTree REST client/seeder) is tested against a real local server wi
 grep -rn "unittest.mock\|MagicMock\|@patch" tests/ && echo "MOCK FOUND" || echo "clean"
 ```
 
-See [`testing_philosophy.md`](testing_philosophy.md) for the full standard.
+See [`testing_philosophy.md`](../validation/testing_philosophy.md) for the full standard.
 
 ---
 
 ## 6. Typed APIs and dataclasses
 
-Follow the patterns established in [`src/curriculum/model.py`](../src/curriculum/model.py)
-and [`src/provenance/claims.py`](../src/provenance/claims.py):
+Follow the patterns established in [`src/curriculum/model.py`](../../src/curriculum/model.py)
+and [`src/provenance/claims.py`](../../src/provenance/claims.py):
 
 - `from __future__ import annotations` at the top of every module.
 - Python 3.10+ union syntax: `list[float] | None`, not `Optional[List[float]]`.
@@ -260,7 +260,7 @@ project's root so the same filename in different layers is unambiguous:
 | kernel runner (claims + figures) | `scripts/run_kernels.py` |
 | curriculum builder | `scripts/build_curriculum.py` |
 | SkillTree export | `scripts/export_skilltree.py` |
-| manuscript config | `manuscript/config.yaml` |
+| manuscript config | `docs/manuscript/config.yaml` |
 | provenance ledger | `output/data/claims.json` |
 | final PDF | `output/pdf/Active_Skillference_combined.pdf` |
 
@@ -269,6 +269,6 @@ project's root so the same filename in different layers is unambiguous:
 ## See also
 
 - [`syntax_guide.md`](syntax_guide.md) — authoring syntax and the `{{claim:NAME}}` system
-- [`testing_philosophy.md`](testing_philosophy.md) — the no-mocks testing standard
-- [`rendering_pipeline.md`](rendering_pipeline.md) — manuscript → PDF flow
-- [`../AGENTS.md`](../AGENTS.md) — invariants and the provenance chain
+- [`testing_philosophy.md`](../validation/testing_philosophy.md) — the no-mocks testing standard
+- [`rendering_pipeline.md`](../publication/rendering_pipeline.md) — manuscript → PDF flow
+- [`../AGENTS.md`](../../AGENTS.md) — invariants and the provenance chain

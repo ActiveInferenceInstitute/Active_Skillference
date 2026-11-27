@@ -2,7 +2,7 @@
 """Capture learner-dashboard evidence screenshots from a running local stack.
 
 Unlike the deterministic figures, these images cannot be rebuilt from project
-data, so they are version-controlled under ``manuscript/assets/screenshots/``
+data, so they are version-controlled under ``docs/manuscript/assets/screenshots/``
 and refreshed only by running this script against a live dashboard. It requires
 a running SkillTree stack, a running dashboard, and the browser automation CLI.
 """

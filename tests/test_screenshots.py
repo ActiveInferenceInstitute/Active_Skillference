@@ -129,7 +129,7 @@ def test_every_captured_view_is_declared_and_cross_referenced_in_the_manuscript(
 ):
     body = "\n".join(
         path.read_text(encoding="utf-8")
-        for path in sorted((REPO / "manuscript").glob("[0-9][0-9]*_*.md"))
+        for path in sorted((REPO / "docs" / "manuscript").glob("[0-9][0-9]*_*.md"))
     )
 
     for view in screenshot_views():
@@ -317,7 +317,7 @@ def test_manuscript_caption_matches_the_manifest_caption_exactly() -> None:
     manifest is the source; the manuscript copy must match it word for word.
     """
     body = (
-        (REPO / "manuscript")
+        (REPO / "docs" / "manuscript")
         .joinpath("03d_results_skilltree_dashboard_and_front_matter_delivery.md")
         .read_text(encoding="utf-8")
     )

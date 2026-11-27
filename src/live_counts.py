@@ -66,9 +66,9 @@ def build_live_counts(root: Path) -> dict[str, LiveCount]:
         export_project(graph, SKILLTREE_PROJECT_ID, SKILLTREE_PROJECT_NAME)
     )
     scholarship = validate_scholarship(
-        root / "manuscript",
+        root / "docs" / "manuscript",
         root / "data" / "scholarship_sources.yaml",
-        root / "manuscript" / "references.bib",
+        root / "docs" / "manuscript" / "references.bib",
     )
     figure_count = _figure_registry_count(root)
 
@@ -149,10 +149,9 @@ def audited_count_paths(root: Path) -> tuple[Path, ...]:
         root / ".zenodo.json",
         root / "codemeta.json",
     ]
-    for folder in (root / "docs", root / "manuscript"):
-        if folder.exists():
-            paths.extend(sorted(folder.rglob("*.md")))
-            paths.extend(sorted(folder.rglob("*.yaml")))
+    docs = root / "docs"
+    paths.extend(sorted(docs.rglob("*.md")))
+    paths.extend(sorted(docs.rglob("*.yaml")))
     return tuple(path for path in paths if path.exists())
 
 

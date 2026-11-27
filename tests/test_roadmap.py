@@ -594,14 +594,14 @@ def test_validate_live_count_literals_passes_when_clean(tmp_path: Path) -> None:
 
 
 def test_build_live_counts_rejects_missing_figure_registry(tmp_path: Path) -> None:
-    for rel in ("data/scholarship_sources.yaml", "manuscript/references.bib"):
+    for rel in ("data/scholarship_sources.yaml", "docs/manuscript/references.bib"):
         src = REPO / rel
         dst = tmp_path / rel
         dst.parent.mkdir(parents=True, exist_ok=True)
         dst.write_text(src.read_text(encoding="utf-8"), encoding="utf-8")
     manuscript_dir = tmp_path / "manuscript"
     for pattern in ("[0-9][0-9]_*.md", "[0-9][0-9][a-z]_*.md"):
-        for src in (REPO / "manuscript").glob(pattern):
+        for src in (REPO / "docs" / "manuscript").glob(pattern):
             (manuscript_dir / src.name).write_text(
                 src.read_text(encoding="utf-8"), encoding="utf-8"
             )
@@ -645,7 +645,7 @@ def _copy_minimal_source_surfaces(tmp_path: Path) -> None:
     """Provide files needed by live-count builders while testing temp roadmaps."""
     for rel in (
         "data/scholarship_sources.yaml",
-        "manuscript/references.bib",
+        "docs/manuscript/references.bib",
         "output/figures/figure_registry.json",
     ):
         src = REPO / rel
@@ -667,7 +667,7 @@ def _copy_minimal_source_surfaces(tmp_path: Path) -> None:
         dst.parent.mkdir(parents=True, exist_ok=True)
         dst.write_bytes(src.read_bytes())
     manuscript_dir = tmp_path / "manuscript"
-    for src in (REPO / "manuscript").glob("[0-9][0-9]*_*.md"):
+    for src in (REPO / "docs" / "manuscript").glob("[0-9][0-9]*_*.md"):
         (manuscript_dir / src.name).write_text(
             src.read_text(encoding="utf-8"), encoding="utf-8"
         )

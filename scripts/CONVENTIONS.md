@@ -94,7 +94,7 @@ data_dir.mkdir(parents=True, exist_ok=True)
 The pipeline refuses to emit learner-facing artifacts when provenance is broken:
 
 - `validate_curriculum` raises if any skill references an unbacked claim token.
-- `validate_manuscript_dir` raises if any `manuscript/*.md` references a dead token.
+- `validate_manuscript_dir` raises if any `docs/manuscript/*.md` references a dead token.
 - `validate_scholarship` raises if a manuscript citation lacks a BibTeX entry or
   source-role matrix row, or if the bibliography/source matrix contains stale uncited
   entries.
@@ -123,4 +123,4 @@ Before submitting a new or modified script, verify:
 - [`README.md`](README.md) — Quick reference for this directory
 - [`../src/STYLE.md`](../src/STYLE.md) — Style guide for the code scripts import
 - [`../src/AGENTS.md`](../src/AGENTS.md) — Source-code boundaries and invariants
-- [`../docs/architecture.md`](../docs/architecture.md) — Thin-orchestrator flow
+- [`../docs/architecture/architecture.md`](../docs/architecture/architecture.md) — Thin-orchestrator flow

@@ -23,7 +23,7 @@ are emitted.
 - [Start here](#start-here) · [Read it without installing anything](#read-it-without-installing-anything) · [Why it is "high-integrity"](#why-it-is-high-integrity) · [The eight strata](#the-eight-strata)
 - [Model specification (GNN)](#model-specification-gnn) · [Layout](#layout) · [Quick start](#quick-start)
 - [Code availability, license, and citation](#code-availability-license-and-citation) · [Captured evidence of the running app](#captured-evidence-of-the-running-app) · [Verification at a glance](#verification-at-a-glance) · [Contributing and reporting](#contributing-and-reporting)
-- Documentation: [`docs/README.md`](docs/README.md) (index) · [`docs/quickstart.md`](docs/quickstart.md) · [`docs/architecture.md`](docs/architecture.md) · [`docs/learner_dashboard.md`](docs/learner_dashboard.md)
+- Documentation: [`docs/README.md`](docs/README.md) (index) · [`docs/guides/quickstart.md`](docs/guides/quickstart.md) · [`docs/architecture/architecture.md`](docs/architecture/architecture.md) · [`docs/architecture/learner_dashboard.md`](docs/architecture/learner_dashboard.md)
 
 ## Start here
 
@@ -56,7 +56,7 @@ repository:
 | The claim ledger | [`output/data/claims.json`](output/data/claims.json) |
 | Audits and coverage records | [`output/data/`](output/data/) |
 | Web, DOCX, EPUB and slide builds | [`output/web/`](output/web/), [`output/docx/`](output/docx/), [`output/epub/`](output/epub/), [`output/slides/`](output/slides/) |
-| Dashboard screenshots | [`manuscript/assets/screenshots/`](manuscript/assets/screenshots/) |
+| Dashboard screenshots | [`docs/manuscript/assets/screenshots/`](docs/manuscript/assets/screenshots/) |
 
 Committing them does not weaken the regenerability claim. Running the kernels rebuilds
 every one from source, and `validate_rendered_freshness.py` fails if a committed artifact
@@ -100,7 +100,7 @@ review.
   something they could not yet have learned. A non-empty-scan guard keeps the gate from
   silently going vacuous if the corpus drifts.
 - **Scholarship coverage.** Authored citations must resolve to both
-  `manuscript/references.bib` and `data/scholarship_sources.yaml`, where each source has
+  `docs/manuscript/references.bib` and `data/scholarship_sources.yaml`, where each source has
   a support lane, role, kind, and locator.
 - **Claim-support taxonomy.** Anchored manuscript claims must declare whether they are
   computed, descriptive counts, simulations, literature claims, scope limits, delivery
@@ -115,7 +115,7 @@ review.
 - **License/IP signposting.** The repository declares MIT in `LICENSE` and metadata
   files, records vendored/runtime notices in `THIRD_PARTY_NOTICES.md`, and keeps the
   owner-confirmed public-review boundary explicit in
-  [`docs/ip_license_status.md`](docs/ip_license_status.md).
+  [`docs/publication/ip_license_status.md`](docs/publication/ip_license_status.md).
 - **Tested kernels.** Information theory, Bayesian/variational inference, and a discrete
   active-inference agent are deterministic, no-mock reference implementations covered by
   the project-wide `src/` coverage gate.
@@ -310,14 +310,14 @@ its curriculum; the other two specify their own models.
 | `src/screenshots/` | Captured browser evidence: manifest, capture driver, build-time staging |
 | `src/publication/` | Zenodo DOI reservation and the separate, confirmation-gated publish path |
 | `scripts/` | Thin orchestrators (build / run kernels / export / seed / capture / validate) |
-| `manuscript/` | The platform write-up, its assets, and the captured dashboard screenshots |
+| `docs/manuscript/` | The platform write-up, its assets, and the captured dashboard screenshots |
 | `output/` | Committed generated artifacts: figures, data, audits, PDF, web, DOCX, EPUB, slides |
 | `data/` | Authored inputs: scholarship matrix, claim-support rows, course-material pins |
 | `gnn/` | The GNN specification of the discrete agent kernel and the pinned GNN revision |
 | `docs/` | Documentation, grouped by the question you arrived with ([index](docs/README.md)) |
 | `vendor/` | Runnable SkillTree instance wiring (see `vendor/README.md`) |
 | `run.sh` | Cold start to the learner surface, with offline and readiness modes |
-| `gates.sh` | The single gate entry point: every offline arm CI runs ([docs/gates.md](docs/gates.md)) |
+| `gates.sh` | The single gate entry point: every offline arm CI runs ([docs/validation/gates.md](docs/validation/gates.md)) |
 
 ## Quick start
 
@@ -419,7 +419,7 @@ and reset/show-credentials commands.
 For shared or deployed SkillTree instances, replace these local defaults with deployment
 auth, `SKILLTREE_TOKEN`, or a deployment-owned trusted-client authenticator.
 
-See [`docs/learner_dashboard.md`](docs/learner_dashboard.md) for routes, ownership
+See [`docs/architecture/learner_dashboard.md`](docs/architecture/learner_dashboard.md) for routes, ownership
 boundaries, and offline behavior.
 
 ### Validate the full local app stack (strict)
@@ -453,7 +453,7 @@ Released at
 [github.com/ActiveInferenceInstitute/Active_Skillference](https://github.com/ActiveInferenceInstitute/Active_Skillference),
 archived on Zenodo at
 [**10.5281/zenodo.21865644**](https://doi.org/10.5281/zenodo.21865644). The same DOI
-appears in `CITATION.cff`, `codemeta.json`, `.zenodo.json`, `manuscript/config.yaml`, and
+appears in `CITATION.cff`, `codemeta.json`, `.zenodo.json`, `docs/manuscript/config.yaml`, and
 on the manuscript cover page; `tests/test_publication_readiness.py` cross-checks every one
 of them against `data/zenodo_reservation.json` and fails on any divergence, so a wrong
 identifier cannot reach a citation. Cite with `CITATION.cff` or the DOI.
@@ -461,13 +461,13 @@ identifier cannot reach a citation. Cite with `CITATION.cff` or the DOI.
 Authored code and content are MIT licensed (`LICENSE`), copyright Daniel Ari Friedman.
 Vendored runtime dependencies and their separate notices live in
 [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md); the release boundary is tracked in
-[`docs/ip_license_status.md`](docs/ip_license_status.md) and
-[`docs/publication_readiness.md`](docs/publication_readiness.md).
+[`docs/publication/ip_license_status.md`](docs/publication/ip_license_status.md) and
+[`docs/publication/publication_readiness.md`](docs/publication/publication_readiness.md).
 
 ## Captured evidence of the running app
 
 Everything under `output/` is regenerable and committed for convenience. The
-learner-dashboard evidence in `manuscript/assets/screenshots/` is different in kind: a
+learner-dashboard evidence in `docs/manuscript/assets/screenshots/` is different in kind: a
 recording of a running system is not a function of project data and cannot be rebuilt from
 a checkout at all, so those images live beside a provenance record naming the dashboard
 address, viewport, live SkillTree counts, full-stack proof mode, capture timestamp, and a
@@ -486,8 +486,8 @@ uv run python scripts/capture_dashboard_screenshots.py
 One entry point runs every offline gate: `./gates.sh` (default: `lint`, `types`, `fast`) and
 `./gates.sh all` for the full set, with `./gates.sh gnn` for the pinned conformance check and
 `./gates.sh render` for the manuscript PDF. CI runs the same arms, so a command here is the
-command CI runs; [`docs/gates.md`](docs/gates.md) documents each arm and
-[`docs/gate_metrics.md`](docs/gate_metrics.md) carries the measured per-arm wall times.
+command CI runs; [`docs/validation/gates.md`](docs/validation/gates.md) documents each arm and
+[`docs/validation/gate_metrics.md`](docs/validation/gate_metrics.md) carries the measured per-arm wall times.
 
 Full test suite · ≥90% `src/` line coverage gate · ruff + mypy clean · no mock frameworks ·
 every `{{claim}}` resolves · provenance linter clean. Re-running the kernels regenerates
@@ -516,7 +516,7 @@ you are touching. The short version: numbers reach learners only through claim t
 prerequisite graph stays acyclic and connected, citations resolve in two places, and every
 gate fails closed. Run `./gates.sh all` (or the individual arms — `lint`, `types`,
 `artifacts`, `checks`, `test`, `docs`, `gnn`, `render`) before opening a pull request;
-[`docs/gates.md`](docs/gates.md) lists exactly what each arm runs.
+[`docs/validation/gates.md`](docs/validation/gates.md) lists exactly what each arm runs.
 
 ## InstituteOS sidecar
 

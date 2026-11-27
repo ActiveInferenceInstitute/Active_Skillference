@@ -65,7 +65,7 @@ prerequisite depth, and gray segments encode exported learning-path dependencies
 stratum chips report live skill totals, the two foundational roots are labeled, and the
 inset reports the live skill, subject, edge, and maximum-depth counts. This figure is an
 overview for structure and reachability; it does not by itself certify prose quality,
-assessment quality, or scholarship support.](../output/figures/curriculum_dag.png){#fig:curriculum_dag width=100%}
+assessment quality, or scholarship support.](../../output/figures/curriculum_dag.png){#fig:curriculum_dag width=100%}
 
 <!-- claim-support:results_dependency_flow -->
 The full DAG is the most faithful view, but it is intentionally dense: learners need to
@@ -81,7 +81,7 @@ Rows are prerequisite strata, columns are dependent strata, cell labels count ed
 the side bar reports how many skills live in each stratum. Diagonal cells show
 within-stratum reinforcement, upper-triangular cells show forward conceptual transitions,
 and a populated lower-triangular cell would expose a backward prerequisite that should be
-rejected before export.](../output/figures/dependency_strata_flow.png){#fig:dependency_strata_flow width=95%}
+rejected before export.](../../output/figures/dependency_strata_flow.png){#fig:dependency_strata_flow width=95%}
 
 <!-- claim-support:results_graph_diagnostics -->
 The same graph also needs diagnostic views for authors. [@fig:graph_bottlenecks]
@@ -97,7 +97,7 @@ dependent counts. Bars rank the top fan-out skills, y-axis labels pair skill ids
 readable names, hatching and stratum chips identify pedagogical layer, and annotations
 report dependent count and prerequisite depth for each high-impact node. The figure is a
 review-priority surface: it identifies where a weak explanation, stale citation, or thin
-quiz would propagate to many later skills even though the graph remains valid.](../output/figures/graph_bottlenecks.png){#fig:graph_bottlenecks width=92%}
+quiz would propagate to many later skills even though the graph remains valid.](../../output/figures/graph_bottlenecks.png){#fig:graph_bottlenecks width=92%}
 
 ![Representative skill-neighborhood path generated from the longest-path diagnostic in
 the current graph. The line orders skills by prerequisite depth, stratum bands and
@@ -105,7 +105,7 @@ vertical position encode pedagogical layer, and a checkpoint ledger names the st
 every stratum transition, and the endpoint. This view deliberately trades global
 completeness for readability: it lets authors audit one concrete
 foundation-to-application pathway without relying on the dense full-DAG overview or tiny
-rotated labels.](../output/figures/skill_neighborhood_paths.png){#fig:skill_neighborhood_paths width=100%}
+rotated labels.](../../output/figures/skill_neighborhood_paths.png){#fig:skill_neighborhood_paths width=100%}
 
 [@fig:semantic_prerequisite_coverage] audits the semantic-prerequisite gate, which checks
 that no skill is assessed on one of the gate's tracked load-bearing concepts unless a
@@ -122,7 +122,7 @@ concept map. For each load-bearing concept the open marker and stem report skill
 prerequisite closure reaches the concept's defining skill, while the filled marker and
 direct label report the assessed subset inside that reachable set. The subtitle and badge
 report the gate verdict so a passing curriculum shows zero skills tested on a concept they
-could not yet have learned.](../output/figures/semantic_prerequisite_coverage.png){#fig:semantic_prerequisite_coverage width=92%}
+could not yet have learned.](../../output/figures/semantic_prerequisite_coverage.png){#fig:semantic_prerequisite_coverage width=92%}
 
 <!-- claim-support:results_assessment_depth -->
 The quiz surface is itself part of the curriculum result rather than a decorative add-on.
@@ -135,7 +135,7 @@ quiz-bearing skills per pedagogical stratum, and the accompanying audit table re
 the minimum questions per skill, below-floor counts, questions per skill, and a PASS/REVIEW verdict
 against the configured {{failable_floor}}-question failable floor. The intended check is not average
 quiz length but minimum learner friction: any below-floor mass would show that a skill can be
-completed without the configured {{failable_floor}}-question floor.](../output/figures/assessment_depth_matrix.png){#fig:assessment_depth width=90%}
+completed without the configured {{failable_floor}}-question floor.](../../output/figures/assessment_depth_matrix.png){#fig:assessment_depth width=90%}
 
 <!-- claim-support:results_stratum_balance -->
 The latest expansion also needs a balance check. [@fig:stratum_balance] summarizes skills,
@@ -148,7 +148,7 @@ the left panel shows skills and subjects per pedagogical stratum, the middle pan
 volume and incoming prerequisite edges, and the right panel shows companion per-unit (per-skill and
 per-subject) normalized measures. Reading the panels together shows whether expansion is distributed across
 the learning path or whether one layer is absorbing disproportionate topic, quiz, or dependency load. The
-figure bounds the claim to catalog structure; it does not measure learner outcomes.](../output/figures/curriculum_stratum_balance.png){#fig:stratum_balance width=100%}
+figure bounds the claim to catalog structure; it does not measure learner outcomes.](../../output/figures/curriculum_stratum_balance.png){#fig:stratum_balance width=100%}
 
 Having established the graph surface, the next result is source support. These audits ask
 whether the manuscript's scholarly claims are connected to the roles its citations are

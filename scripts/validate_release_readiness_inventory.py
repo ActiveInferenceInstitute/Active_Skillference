@@ -23,7 +23,7 @@ def main() -> int:
     parser.add_argument(
         "--write",
         action="store_true",
-        help="rewrite docs/release_readiness_inventory.md from current git state",
+        help="rewrite docs/publication/release_readiness_inventory.md from current git state",
     )
     args = parser.parse_args()
     try:

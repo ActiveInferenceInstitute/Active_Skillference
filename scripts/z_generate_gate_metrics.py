@@ -22,7 +22,7 @@ from datetime import date
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-DOC = ROOT / "docs" / "gate_metrics.md"
+DOC = ROOT / "docs" / "validation" / "gate_metrics.md"
 DEFAULT_TIMINGS = ROOT / "docs" / "_generated" / "arm_timings.json"
 SCHEMA = "gate-arm-timings/v1"
 
@@ -161,7 +161,7 @@ def main(argv: list[str] | None = None) -> int:
             return 1
         if not DOC.is_file() or DOC.read_text(encoding="utf-8") != render(receipt):
             print(
-                "docs/gate_metrics.md is stale versus docs/_generated/arm_timings.json; "
+                "docs/validation/gate_metrics.md is stale versus docs/_generated/arm_timings.json; "
                 "run ./gates.sh record",
                 file=sys.stderr,
             )

@@ -7,7 +7,7 @@ publication of the manuscript, generated figures, curriculum export, dashboard s
 source tree snapshot, provided the release language stays inside the verified evidence
 boundary and the dirty worktree is intentionally committed or explicitly deferred. The
 repository now has a top-level MIT `LICENSE`, a third-party notice ledger in
-`THIRD_PARTY_NOTICES.md`, and an IP/license boundary page at `docs/ip_license_status.md`.
+`THIRD_PARTY_NOTICES.md`, and an IP/license boundary page at `docs/publication/ip_license_status.md`.
 The project owner has confirmed MIT for authored code/content/generated artifacts, the
 `Daniel Ari Friedman` copyright holder line, the
 `ActiveInferenceInstitute/Active_Skillference` public target, and the need for a
@@ -27,8 +27,8 @@ roadmap tasks are complete.
 - Live counts and generated roadmap surfaces (`TODO.md` plus `docs/todo/`) are checked by `scripts/validate_live_counts.py` and `scripts/validate_roadmap.py`.
 - Rendered web math is checked by `scripts/ensure_web_math.py` and `scripts/validate_web_math.py`.
 - License, third-party notice, citation metadata, DOI, and public-repository boundaries
-  are signposted in `LICENSE`, `THIRD_PARTY_NOTICES.md`, `docs/ip_license_status.md`,
-  `CITATION.cff`, `.zenodo.json`, `codemeta.json`, and `manuscript/config.yaml`.
+  are signposted in `LICENSE`, `THIRD_PARTY_NOTICES.md`, `docs/publication/ip_license_status.md`,
+  `CITATION.cff`, `.zenodo.json`, `codemeta.json`, and `docs/manuscript/config.yaml`.
 - The 2026-08-09 observation found a reachable public target with zero refs; that is historical evidence, not today's remote state. Later v1.0.0/DOI records below remain authoritative for their own identifiers. Current metadata must agree with actual records and a newly admitted observation, never a guessed blanket unpublished state.
 
 ## Release-Allowed Claims

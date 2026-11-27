@@ -41,11 +41,11 @@ def test_inventory_rejects_missing_untracked_path(tmp_path: Path) -> None:
 def test_inventory_rejects_stale_tracked_diff_summary(tmp_path: Path) -> None:
     root = _repo_with_dirty_release_state(tmp_path)
     _write_inventory(root)
-    text = (root / "docs" / "release_readiness_inventory.md").read_text(
+    text = (root / "docs" / "publication" / "release_readiness_inventory.md").read_text(
         encoding="utf-8"
     )
     stale = text.replace("1 file changed", "999 files changed")
-    (root / "docs" / "release_readiness_inventory.md").write_text(
+    (root / "docs" / "publication" / "release_readiness_inventory.md").write_text(
         stale, encoding="utf-8"
     )
 
@@ -56,10 +56,10 @@ def test_inventory_rejects_stale_tracked_diff_summary(tmp_path: Path) -> None:
 def test_stale_inventory_error_mentions_refresh_command(tmp_path: Path) -> None:
     root = _repo_with_dirty_release_state(tmp_path)
     _write_inventory(root)
-    text = (root / "docs" / "release_readiness_inventory.md").read_text(
+    text = (root / "docs" / "publication" / "release_readiness_inventory.md").read_text(
         encoding="utf-8"
     )
-    (root / "docs" / "release_readiness_inventory.md").write_text(
+    (root / "docs" / "publication" / "release_readiness_inventory.md").write_text(
         text.replace("1 file changed", "999 files changed"), encoding="utf-8"
     )
 
@@ -194,7 +194,7 @@ def _write_inventory(root: Path) -> None:
         date=dt.date(2026, 6, 19),
     )
     (root / "docs").mkdir(exist_ok=True)
-    (root / "docs" / "release_readiness_inventory.md").write_text(
+    (root / "docs" / "publication" / "release_readiness_inventory.md").write_text(
         text, encoding="utf-8"
     )
 
@@ -213,7 +213,7 @@ def _repo_with_dirty_release_state(
     (root / ".gitignore").write_text(ignore_text, encoding="utf-8")
     (root / "tracked.txt").write_text("old\n", encoding="utf-8")
     (root / "docs").mkdir()
-    (root / "docs" / "release_readiness_inventory.md").write_text(
+    (root / "docs" / "publication" / "release_readiness_inventory.md").write_text(
         "placeholder\n", encoding="utf-8"
     )
     _git(root, "add", ".gitignore", "tracked.txt")

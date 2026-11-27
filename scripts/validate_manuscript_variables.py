@@ -13,7 +13,7 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from src.artifacts.json_io import read_json_object
 
-MANUSCRIPT = ROOT / "manuscript"
+MANUSCRIPT = ROOT / "docs" / "manuscript"
 VARIABLES = ROOT / "output" / "data" / "manuscript_variables.json"
 CODE_SPAN_RE = re.compile(r"```.*?```|`[^`\n]*`", re.DOTALL)
 

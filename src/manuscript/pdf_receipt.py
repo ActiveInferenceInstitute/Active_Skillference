@@ -21,9 +21,9 @@ SECTION_EXCLUDE = frozenset(
 )
 PDF_NAME = "Active_Skillference_combined.pdf"
 _PRIMARY_INPUTS = {
-    "manuscript/config.yaml": "config",
-    "manuscript/preamble.md": "preamble",
-    "manuscript/references.bib": "bibliography",
+    "docs/manuscript/config.yaml": "config",
+    "docs/manuscript/preamble.md": "preamble",
+    "docs/manuscript/references.bib": "bibliography",
 }
 _IMAGE_RE = re.compile(r"\\includegraphics\*?(?:\[[^\]]*\])?\{([^{}]+)\}")
 

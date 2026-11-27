@@ -16,7 +16,7 @@
 #   ./gates.sh gnn          pinned-upstream GNN conformance (needs GNN_ROOT)
 #   ./gates.sh sync         install the locked environment (uv sync --frozen)
 #   ./gates.sh all          every CI arm, in CI order
-#   ./gates.sh record       time every arm, refresh docs/gate_metrics.md
+#   ./gates.sh record       time every arm, refresh docs/validation/gate_metrics.md
 #   ./gates.sh list         print the arms
 #
 # Arms are independently runnable and ordered only where one consumes another's
@@ -121,7 +121,7 @@ list_arms() {
 }
 
 # `record` is the only arm that writes the timing receipt; run it after changing
-# an arm so docs/gate_metrics.md reports numbers the script can reproduce.
+# an arm so docs/validation/gate_metrics.md reports numbers the script can reproduce.
 #
 # The `docs` arm verifies the very document `record` writes, so it cannot pass
 # mid-record: the receipt and document are written first, then `docs` is timed against

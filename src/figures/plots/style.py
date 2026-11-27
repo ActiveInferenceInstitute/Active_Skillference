@@ -121,7 +121,7 @@ def _style_axis(
     grid_axis: Literal["both", "x", "y"] | None = None,
     hide: tuple[str, ...] = ("top", "right"),
 ) -> None:
-    """Apply the shared manuscript/dashboard figure grammar to one axis."""
+    """Apply the shared docs/manuscript/dashboard figure grammar to one axis."""
     for spine in hide:
         ax.spines[spine].set_visible(False)
     if grid_axis:

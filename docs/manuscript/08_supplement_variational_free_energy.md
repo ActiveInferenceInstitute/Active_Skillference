@@ -45,7 +45,7 @@ ranges, representative skill IDs, and learn-route and quiz-route fragments that 
 the subject identifiers; color marks separate VFE-centered rows from EFE-centered rows.
 The figure connects the supplement's
 mathematical plots to quiz-gated curriculum nodes and prevents the derivation from being
-presented as a standalone artifact disconnected from the learning path.](../output/figures/vfe_efe_skilltree_bridge.png){#fig:vfe_efe_skilltree_bridge width=100%}
+presented as a standalone artifact disconnected from the learning path.](../../output/figures/vfe_efe_skilltree_bridge.png){#fig:vfe_efe_skilltree_bridge width=100%}
 
 ## Noisy-sensor posterior and the tight variational-free-energy bound
 
@@ -84,7 +84,7 @@ horizontal dashed line is $-\ln p(o)$, the vertical dotted line is the exact pos
 and the labeled points compare the looser uniform belief with the posterior value. The
 intended takeaway is bound tightness at the posterior for this one discrete model and
 observation; the plot does not establish that the model is true or that the same geometry
-holds for every recognition family.](../output/figures/free_energy_descent.png){#fig:free_energy width=100%}
+holds for every recognition family.](../../output/figures/free_energy_descent.png){#fig:free_energy width=100%}
 
 ## Expected free energy: epistemic value and bounded policy comparison
 
@@ -152,7 +152,7 @@ expected free energy and epistemic value for the two policies at sensor precisio
 the right panel sweeps sensor precision and marks the computed sample/commit switch. The
 visual encoding keeps policy score and epistemic value separate so the reader can see why
 sampling is preferred in the reference regime, while the right panel prevents the teaching
-example from being overgeneralized beyond the stated policy set and preferences.](../output/figures/efe_decomposition.png){#fig:efe width=100%}
+example from being overgeneralized beyond the stated policy set and preferences.](../../output/figures/efe_decomposition.png){#fig:efe width=100%}
 
 <!-- claim-support:supplement_kernel_sensitivity -->
 [@fig:kernel_sensitivity_profiles] broadens the sensitivity view without changing the
@@ -172,7 +172,7 @@ observation, the middle panel plots the VFE bound profile with posterior and evi
 references, and the right panel sweeps expected free energy for sample and commit
 policies across sensor precision while marking the computed policy switch. These panels
 identify deterministic regime boundaries for teaching examples; they are not empirical
-estimates, confidence intervals, or learner outcome statistics.](../output/figures/kernel_sensitivity_profiles.png){#fig:kernel_sensitivity_profiles width=100%}
+estimates, confidence intervals, or learner outcome statistics.](../../output/figures/kernel_sensitivity_profiles.png){#fig:kernel_sensitivity_profiles width=100%}
 
 ## Exact inference on a chain with sum-product belief propagation
 
@@ -285,7 +285,7 @@ and a coupled investment model, where paying a worse first step to unlock the go
 a positive gain. The right panel shows the cumulative expected free energy of every
 enumerated policy in the coupled model, with the greedy and optimal policies marked. The
 panel demonstrates that look-ahead value is a measured, model-dependent quantity, not a
-universal property of planning.](../output/figures/planning_lookahead.png){#fig:planning_lookahead width=100%}
+universal property of planning.](../../output/figures/planning_lookahead.png){#fig:planning_lookahead width=100%}
 
 ## Continuous predictive coding as model-specific prediction-error descent
 
@@ -321,4 +321,4 @@ precision-weighted posterior (dashed) as it balances the sensory and prior predi
 errors; the right panel shows the free energy descending monotonically to its analytic
 minimum. The figure supports a bounded claim that prediction-error descent implements
 exact Gaussian inference for this one model, not a universal convergence guarantee for
-all generative models.](../output/figures/predictive_coding_descent.png){#fig:predictive_coding width=100%}
+all generative models.](../../output/figures/predictive_coding_descent.png){#fig:predictive_coding width=100%}

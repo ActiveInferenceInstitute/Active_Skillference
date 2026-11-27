@@ -1,17 +1,17 @@
 # Rendering Pipeline: Kernels → Provenance → Manuscript → PDF
 
-The [`manuscript/`](../manuscript/) directory holds the platform write-up. It compiles to a
+The [`docs/manuscript/`](../manuscript/) directory holds the platform write-up. It compiles to a
 publication PDF, but — because Active Skillference is **provenance-bound** — the manuscript
 is not rendered in isolation. Every quantitative result in it is a `{{claim:NAME}}` token
 that must first be produced by a tested kernel. So the pipeline runs kernels → registers
 claims → validates the manuscript and scholarship matrix fail-closed → renders figures →
-audits manuscript/dashboard figure wiring → renders the PDF.
+audits docs/manuscript/dashboard figure wiring → renders the PDF.
 
-The render itself is in-repo: [`scripts/render_manuscript.py`](../scripts/render_manuscript.py)
+The render itself is in-repo: [`scripts/render_manuscript.py`](../../scripts/render_manuscript.py)
 hydrates the sections from the kernel-emitted variables and drives Pandoc → XeLaTeX with
 the manuscript's own configuration, preamble, and bibliography. It needs `pandoc`,
 `pandoc-crossref`, `xelatex` and `bibtex` on `PATH` and nothing from any other
-repository; the arm is `./gates.sh render` ([`gates.md`](gates.md)).
+repository; the arm is `./gates.sh render` ([`gates.md`](../validation/gates.md)).
 
 After finalizing the PDF, the renderer writes an `active-skillference-pdf/v2` receipt binding actual configuration, preamble, bibliography, ordered hydrated sections, literal TeX assets, and finalized output bytes. HEAD alone is not source identity. Legacy receipts require a new admitted render, never relabeling or restamping. Unknown prose placeholders fail while literal code examples survive.
 
@@ -54,7 +54,7 @@ SkillTree service.
 
 ### Step 1 — Run kernels, register claims, validate scholarship/claim support, render figures and lessons
 
-**Script**: [`scripts/run_kernels.py`](../scripts/run_kernels.py) (thin CLI wrapper over
+**Script**: [`scripts/run_kernels.py`](../../scripts/run_kernels.py) (thin CLI wrapper over
 `src.pipeline.generated_outputs`; logic stays in `src.*`).
 
 **Command**:
@@ -70,7 +70,7 @@ uv run python scripts/run_kernels.py
 2. `build_curriculum()` builds and validates the Active Inference DAG.
 3. `validate_curriculum(graph.skills, registry)` fails closed if any skill references an
    unbacked `{{claim:NAME}}`.
-4. `validate_manuscript_dir(manuscript/, registry)` walks every `manuscript/*.md` and fails
+4. `validate_manuscript_dir(manuscript/, registry)` walks every `docs/manuscript/*.md` and fails
    closed if any manuscript prose references an unbacked claim token — so a dead token can
    never render literally into the rendered PDF.
 5. `validate_scholarship(...)` checks manuscript citations against `references.bib` and
@@ -130,7 +130,7 @@ uv run python scripts/run_kernels.py
 | `visual_evidence_contract_ladder.png` | `output/figures/` | Curriculum-backed visual-evidence contract lifecycle from question through negative control (`plot_visual_evidence_contract_ladder`) |
 | `scientific_evidence_matrix.png` | `output/figures/` | Claim-support evidence-class matrix (`plot_scientific_evidence_matrix`) |
 | `roadmap_risk.png` | `output/figures/` | Roadmap status, external blockers, git-authorization hygiene and live metrics (`plot_roadmap_risk`) |
-| `figure_registry.json` | `output/figures/` | Labels, filenames, captions, alt text, semantic metadata, structured chart contracts, visual QA fields, claim tokens, and generators for every generated manuscript/dashboard figure |
+| `figure_registry.json` | `output/figures/` | Labels, filenames, captions, alt text, semantic metadata, structured chart contracts, visual QA fields, claim tokens, and generators for every generated docs/manuscript/dashboard figure |
 
 Figure data come from the `ClaimRegistry`, `CurriculumGraph`, validated scholarship
 audit, claim-support audit, or the canonical render configuration. The figure registry is
@@ -153,7 +153,7 @@ metadata and groups the first-read contract as Question / Grain / Boundary / Fai
 
 ### Step 2 — Hydrate the authored sections
 
-**Script**: [`scripts/z_generate_manuscript_variables.py`](../scripts/z_generate_manuscript_variables.py).
+**Script**: [`scripts/z_generate_manuscript_variables.py`](../../scripts/z_generate_manuscript_variables.py).
 
 By default it re-runs `scripts/run_kernels.py` first, so the variables file and every
 figure are current, then writes a resolved copy of every section to
@@ -171,16 +171,16 @@ leftover fails the run. `--skip-kernels` reuses the artifacts already on disk.
 uv run python scripts/render_manuscript.py --skip-kernels
 ```
 
-[`scripts/render_manuscript.py`](../scripts/render_manuscript.py) assembles
+[`scripts/render_manuscript.py`](../../scripts/render_manuscript.py) assembles
 `output/manuscript/*.md` in lexicographic order (`00_abstract.md` …
 `08_supplement_variational_free_energy.md` … `99_references.md`) with a page break
 between sections, prepends a title page generated from
-[`manuscript/config.yaml`](../manuscript/config.yaml) (cover image, title, subtitle,
+[`docs/manuscript/config.yaml`](../manuscript/config.yaml) (cover image, title, subtitle,
 authors, DOI, version), and then runs one Pandoc pass followed by the standard LaTeX
 citation cycle:
 
 1. `pandoc --to=latex --natbib --standalone --toc --number-sections` with
-   `pandoc-crossref` and the `manuscript/preamble.md` packages;
+   `pandoc-crossref` and the `docs/manuscript/preamble.md` packages;
 2. `xelatex`, `bibtex`, `xelatex`, `xelatex` — the second pass resolves the `.bbl`,
    the third settles cross-references.
 
@@ -209,11 +209,11 @@ escaped text. `./gates.sh render` runs both after the PDF.
 
 **Inputs the renderer consumes**:
 
-- The manuscript sections in `manuscript/*.md`, whose `{{claim:NAME}}` tokens resolve from
+- The manuscript sections in `docs/manuscript/*.md`, whose `{{claim:NAME}}` tokens resolve from
   the kernel-emitted values (`manuscript_variables.json` / the registry).
-- `manuscript/config.yaml` — title, book cover image, authors, DOI, keywords (see the table below).
-- `manuscript/preamble.md` — LaTeX packages (`amsmath`, `cleveref`, `natbib`, …).
-- `manuscript/references.bib` — BibTeX entries for `[@key]` citations.
+- `docs/manuscript/config.yaml` — title, book cover image, authors, DOI, keywords (see the table below).
+- `docs/manuscript/preamble.md` — LaTeX packages (`amsmath`, `cleveref`, `natbib`, …).
+- `docs/manuscript/references.bib` — BibTeX entries for `[@key]` citations.
 - `data/scholarship_sources.yaml` — source-role matrix for cited BibTeX keys.
 - The figures in `output/figures/`, referenced from the results sections
   `03a_results_curriculum_graph_and_assessment_quality.md`,
@@ -225,7 +225,7 @@ escaped text. `./gates.sh render` runs both after the PDF.
 
 ## config.yaml controls
 
-[`manuscript/config.yaml`](../manuscript/config.yaml) links the prose to the execution and
+[`docs/manuscript/config.yaml`](../manuscript/config.yaml) links the prose to the execution and
 publication layers:
 
 | YAML key | Controls | Consumed by |
@@ -241,7 +241,7 @@ publication layers:
 
 ### Optional publication features
 
-These are configured in `manuscript/config.yaml` and are **optional**; they engage only
+These are configured in `docs/manuscript/config.yaml` and are **optional**; they engage only
 through the wider publishing tooling and are not required to produce the
 combined PDF. **In this project both are disabled** — it is an open (MIT) educational
 manuscript, so no watermarking or transmission bookends are applied.
@@ -314,7 +314,7 @@ uv run python scripts/run_kernels.py
 **Symptom**: XeLaTeX fails with an undefined citation key or BibTeX error.
 
 **Cause**: A `[@key]` in a manuscript section has no matching entry in
-[`manuscript/references.bib`](../manuscript/references.bib), or the entry is malformed.
+[`docs/manuscript/references.bib`](../manuscript/references.bib), or the entry is malformed.
 
 **Fix**: Confirm every cited key exists and entries have at least `author`, `title`, `year`.
 
@@ -337,7 +337,7 @@ PDF.
 **Symptom**: `render_manuscript.py` exits with lines from `combined.log` naming an
 undefined citation or reference.
 
-**Cause**: A `[@key]` with no entry in `manuscript/references.bib`, a `[@fig:label]`
+**Cause**: A `[@key]` with no entry in `docs/manuscript/references.bib`, a `[@fig:label]`
 with no matching `{#fig:label}` image attribute, or a `[@sec:label]` with no matching
 section id.
 
@@ -347,7 +347,7 @@ publishing a PDF with `[??]` in it.
 
 ## See also
 
-- [`syntax_guide.md`](syntax_guide.md) — the `{{claim:NAME}}` token system and figure registry
-- [`style_guide.md`](style_guide.md) — kernel purity and claim-binding rules
-- [`testing_philosophy.md`](testing_philosophy.md) — the no-mocks testing standard
-- [`../AGENTS.md`](../AGENTS.md) — invariants and the provenance chain
+- [`syntax_guide.md`](../reference/syntax_guide.md) — the `{{claim:NAME}}` token system and figure registry
+- [`style_guide.md`](../reference/style_guide.md) — kernel purity and claim-binding rules
+- [`testing_philosophy.md`](../validation/testing_philosophy.md) — the no-mocks testing standard
+- [`../AGENTS.md`](../../AGENTS.md) — invariants and the provenance chain

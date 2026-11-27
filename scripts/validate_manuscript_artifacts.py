@@ -30,7 +30,7 @@ def main() -> list[Path]:
         if artifact.category == "figures"
     ]
     audit = validate_manuscript_artifacts(
-        manuscript_dir=_ROOT / "manuscript",
+        manuscript_dir=_ROOT / "docs" / "manuscript",
         figure_registry_path=dirs["figures"] / "figure_registry.json",
         figure_dir=dirs["figures"],
         dashboard_figure_paths=dashboard_figure_paths,
@@ -41,7 +41,7 @@ def main() -> list[Path]:
         dirs["data"] / "manuscript_artifacts.json",
     )
     cover_audit = validate_cover_asset(
-        config_path=_ROOT / "manuscript" / "config.yaml",
+        config_path=_ROOT / "docs" / "manuscript" / "config.yaml",
         project_root=_ROOT,
         figure_registry_path=dirs["figures"] / "figure_registry.json",
         dashboard_artifacts=ARTIFACTS,
@@ -51,7 +51,7 @@ def main() -> list[Path]:
         dirs["data"] / "cover_asset_audit.json",
     )
     front_matter_visual_audit = validate_front_matter_visual(
-        config_path=_ROOT / "manuscript" / "config.yaml",
+        config_path=_ROOT / "docs" / "manuscript" / "config.yaml",
         project_root=_ROOT,
         figure_registry_path=dirs["figures"] / "figure_registry.json",
         dashboard_artifacts=ARTIFACTS,

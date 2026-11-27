@@ -22,7 +22,7 @@ computes, validates, or converts.
    - `coverage.py`: load `data/scholarship_sources.yaml`, parse authored manuscript citations, validate them against `references.bib`, and write `scholarship_coverage.json`.
    - `source_health.py` / `source_health_network.py` / `source_health_report.py`: locator syntax, role specificity, and dead-link / bot-block / role-gap / boundary-source buckets.
    - `frontier_sources.py` / `gap_report.py`: separate frontier and boundary support from genuine source-health issues.
-4. **`manuscript/`** — generated figure-surface validation.
+4. **`docs/manuscript/`** — generated figure-surface validation.
    - `audit.py`: validate `figure_registry.json` against manuscript figure declarations,
      `[@fig:...]` references, readable nonblank PNGs, caption/alt-text specificity,
      semantic metadata, claim tokens, and dashboard figure artifacts; write

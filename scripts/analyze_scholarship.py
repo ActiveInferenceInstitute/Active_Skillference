@@ -45,9 +45,9 @@ from src.scholarship.source_health_report import (
 def main() -> list[Path]:
     dirs = project_output_dirs()
     audit = validate_scholarship(
-        _ROOT / "manuscript",
+        _ROOT / "docs" / "manuscript",
         _ROOT / "data" / "scholarship_sources.yaml",
-        _ROOT / "manuscript" / "references.bib",
+        _ROOT / "docs" / "manuscript" / "references.bib",
     )
     data_path = write_scholarship_audit(
         audit,
@@ -79,7 +79,7 @@ def main() -> list[Path]:
     )
     health = validate_source_health(
         _ROOT / "data" / "scholarship_sources.yaml",
-        _ROOT / "manuscript" / "references.bib",
+        _ROOT / "docs" / "manuscript" / "references.bib",
     )
     health_path = write_source_health_audit(
         health,
@@ -90,17 +90,17 @@ def main() -> list[Path]:
         dirs["figures"] / "scholarship_source_health.png",
     )
     claim_support = validate_claim_support(
-        manuscript_dir=_ROOT / "manuscript",
+        manuscript_dir=_ROOT / "docs" / "manuscript",
         support_path=_ROOT / "data" / "manuscript_claim_support.yaml",
         source_matrix_path=_ROOT / "data" / "scholarship_sources.yaml",
-        bib_path=_ROOT / "manuscript" / "references.bib",
+        bib_path=_ROOT / "docs" / "manuscript" / "references.bib",
         registry_claim_ids=registry.names(),
         project_root=_ROOT,
     )
     gap_report = validate_scholarship_gaps(
         audit,
         claim_support,
-        _ROOT / "manuscript" / "references.bib",
+        _ROOT / "docs" / "manuscript" / "references.bib",
     )
     gap_path = write_scholarship_gap_report(
         gap_report,

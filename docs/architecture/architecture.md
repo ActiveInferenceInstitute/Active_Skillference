@@ -34,7 +34,7 @@ hosts shared runtime validation findings, `src/pilot/` holds the protocol-only
 learner-pilot contract, and the release-surface modules `src/live_counts.py`,
 `src/roadmap.py`, `src/release_readiness.py` and `src/net_guard.py` back the
 count-drift, roadmap, release-inventory and URL-scheme gates (see
-[`docs/AGENTS.md`](AGENTS.md) for the full source layout).
+[`docs/AGENTS.md`](../AGENTS.md) for the full source layout).
 
 SkillTree is an NSA-origin open-source substrate. This layer boundary is attribution and
 integration guidance, not an endorsement or deployment guarantee: the dashboard keeps
@@ -127,10 +127,10 @@ them, and writes outputs. None contains domain logic.
 | `run_learning_dashboard.sh` | Docker SkillTree → regenerate/export → seed → dashboard server | (live SkillTree + local dashboard) |
 | `render_manuscript.py` | hydrates the manuscript, assembles the sections, and drives Pandoc → XeLaTeX → bibtex with `config.yaml`, `preamble.md` and `references.bib` | `output/pdf/Active_Skillference_combined.pdf` |
 | `check_docs_links.py` | resolves every relative Markdown link and image in the authored docs | (exit status only) |
-| `z_generate_gate_metrics.py` | renders or checks `docs/gate_metrics.md` from the recorded arm timings | `docs/gate_metrics.md` with `--write` |
+| `z_generate_gate_metrics.py` | renders or checks `docs/validation/gate_metrics.md` from the recorded arm timings | `docs/validation/gate_metrics.md` with `--write` |
 
 The table above is illustrative — the authoritative, complete `scripts/` inventory and
-its coverage gate live in [`docs/AGENTS.md`](AGENTS.md) (and `scripts/README.md`).
+its coverage gate live in [`docs/AGENTS.md`](../AGENTS.md) (and `scripts/README.md`).
 Validator-only scripts not shown here (e.g. `audit_scholarship_gaps.py`,
 `validate_full_app_stack.py`, `validate_skilltree_form_login.py`,
 `validate_live_skilltree_dashboard.py`, `validate_release_readiness_inventory.py`,
@@ -145,8 +145,8 @@ scripts/  ──→ src.*                  (import + call; I/O only)
 src/kernels/        ──→ [stdlib + numpy]   (pure; imports src.provenance.claims only, in examples.py)
 src/artifacts/      ──→ [stdlib json/pathlib] (shared generated-artifact JSON I/O)
 src/provenance/     ──→ src.curriculum, src.kernels
-src/scholarship/    ──→ data/scholarship_sources.yaml + manuscript/
-src/manuscript/     ──→ manuscript/ + data/manuscript_claim_support.yaml + output/figures/figure_registry.json + src/dashboard/artifacts.py
+src/scholarship/    ──→ data/scholarship_sources.yaml + docs/manuscript/
+src/manuscript/     ──→ docs/manuscript/ + data/manuscript_claim_support.yaml + output/figures/figure_registry.json + src/dashboard/artifacts.py
 src/curriculum/     ──→ (self-contained typed model + DAG engine + pinned material pointers)
 src/skilltree/      ──→ src.curriculum.model (via a structural Protocol; no hard graph dep)
 src/figures/        ──→ src.curriculum, src.provenance, src.scholarship audit payloads
@@ -190,7 +190,7 @@ graph TD
     FIG --> PNG[output/figures/*.png]
     FIG --> FREG[output/figures/figure_registry.json]
     FREG --> MA[src/manuscript/audit.py]
-    MAN[manuscript/*.md] --> MA
+    MAN[docs/manuscript/*.md] --> MA
     DASH --> MA
     MA --> MJSON[output/data/manuscript_artifacts.json]
 
@@ -207,11 +207,11 @@ dashboard artifact inventory no longer agrees.
 The project's own pipeline (kernels, DAG, export, figures, tests) and the PDF render have
 **no dependency** on any other repository. `scripts/render_manuscript.py` hydrates the
 sections from `output/data/manuscript_variables.json` and drives Pandoc → XeLaTeX →
-`bibtex` with the project's own `manuscript/config.yaml`, `manuscript/preamble.md` and
-`manuscript/references.bib`, so the PDF
+`bibtex` with the project's own `docs/manuscript/config.yaml`, `docs/manuscript/preamble.md` and
+`docs/manuscript/references.bib`, so the PDF
 (`output/pdf/Active_Skillference_combined.pdf`) is reproducible from this checkout plus
 `pandoc`, `pandoc-crossref`, `xelatex` and `bibtex`. See
-[`rendering_pipeline.md`](rendering_pipeline.md).
+[`rendering_pipeline.md`](../publication/rendering_pipeline.md).
 
 ## Forbidden patterns
 

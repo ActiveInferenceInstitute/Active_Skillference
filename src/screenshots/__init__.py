@@ -8,7 +8,7 @@ way: ``evidence_kind`` is ``captured`` rather than ``rendered``.
 That distinction is the point. A matplotlib figure is a pure function of
 validated project data and rebuilds byte-for-byte from a fresh checkout; a
 browser screenshot is a recording of a live system and cannot. Captured rows are
-therefore version-controlled under ``manuscript/assets/screenshots/`` instead of
+therefore version-controlled under ``docs/manuscript/assets/screenshots/`` instead of
 being generated into ``output/``, are excluded from the deterministic
 render/registry parity check, and are stamped with the provenance of the run
 that produced them — dashboard URL, viewport, live SkillTree counts, and the

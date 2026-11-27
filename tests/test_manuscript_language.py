@@ -310,4 +310,4 @@ def test_american_english_mapping_entries_are_normalized() -> None:
 
 
 def test_real_manuscript_uses_american_english() -> None:
-    validate_american_english(REPO / "manuscript")
+    validate_american_english(REPO / "docs" / "manuscript")

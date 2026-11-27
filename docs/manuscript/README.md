@@ -70,11 +70,11 @@ from `figure_registry.json`, so neither is cited as a numbered manuscript figure
 Final PDF assembly
 (`output/pdf/Active_Skillference_combined.pdf`) is
 performed by `scripts/render_manuscript.py`; see
-[`../docs/rendering_pipeline.md`](../docs/rendering_pipeline.md).
+[`../docs/publication/rendering_pipeline.md`](../publication/rendering_pipeline.md).
 
 ## Related authoring and rendering references
 
 - [`AGENTS.md`](AGENTS.md) — manuscript editing protocol and the provenance pipeline
 - [`SYNTAX.md`](SYNTAX.md) — citation, figure, equation, and `{{claim:NAME}}` syntax
-- [`../README.md`](../README.md) — project overview
-- [`../docs/rendering_pipeline.md`](../docs/rendering_pipeline.md) — manuscript → PDF flow
+- [`../README.md`](../../README.md) — project overview
+- [`../docs/publication/rendering_pipeline.md`](../publication/rendering_pipeline.md) — manuscript → PDF flow

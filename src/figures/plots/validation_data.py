@@ -94,7 +94,7 @@ _VALIDATION_SURFACE_BINDINGS: tuple[
             None,
             (
                 "scripts/validate_release_readiness_inventory.py",
-                "docs/release_readiness_inventory.md",
+                "docs/publication/release_readiness_inventory.md",
             ),
             None,
         ),

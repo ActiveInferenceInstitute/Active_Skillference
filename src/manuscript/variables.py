@@ -46,7 +46,7 @@ def build_manuscript_variables(
         if floor > skill_count:
             raise ValueError(
                 f"config min_skill_count {floor} exceeds actual skill count "
-                f"{skill_count}; update manuscript/config.yaml or the curriculum"
+                f"{skill_count}; update docs/manuscript/config.yaml or the curriculum"
             )
     roadmap_summary = _roadmap_summary(roadmap)
     export_summary = summarize_project(

@@ -29,9 +29,9 @@ def _receipt(project):
 @pytest.mark.parametrize(
     "relative",
     [
-        "manuscript/config.yaml",
-        "manuscript/preamble.md",
-        "manuscript/references.bib",
+        "docs/manuscript/config.yaml",
+        "docs/manuscript/preamble.md",
+        "docs/manuscript/references.bib",
         "output/manuscript/01_fixture.md",
         "output/manuscript/assets/cover.pdf",
         "output/manuscript/assets/atlas.pdf",

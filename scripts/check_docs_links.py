@@ -25,7 +25,6 @@ ROOT = Path(__file__).resolve().parents[1]
 # carry a dangling link into the published tree.
 SCAN_ROOTS = (
     "docs",
-    "manuscript",
     "scripts",
     "src",
     "tests",

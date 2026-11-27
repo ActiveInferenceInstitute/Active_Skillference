@@ -61,10 +61,10 @@ FRONTIER_UPGRADE_SOURCE_KEYS = {
 
 def _real_claim_support():
     return validate_claim_support(
-        manuscript_dir=REPO / "manuscript",
+        manuscript_dir=REPO / "docs" / "manuscript",
         support_path=REPO / "data" / "manuscript_claim_support.yaml",
         source_matrix_path=REPO / "data" / "scholarship_sources.yaml",
-        bib_path=REPO / "manuscript" / "references.bib",
+        bib_path=REPO / "docs" / "manuscript" / "references.bib",
         registry_claim_ids=build_claim_registry().names(),
         project_root=REPO,
     )
@@ -77,7 +77,7 @@ def _write_fixture(
     bib: str,
     matrix: str,
 ) -> tuple[Path, Path, Path]:
-    manuscript_dir = root / "manuscript"
+    manuscript_dir = root / "docs" / "manuscript"
     manuscript_dir.mkdir()
     (manuscript_dir / "01_fixture.md").write_text(manuscript, encoding="utf-8")
     bib_path = manuscript_dir / "references.bib"
@@ -241,9 +241,9 @@ sources:
 
 def test_real_manuscript_passes_scholarship_coverage() -> None:
     audit = validate_scholarship(
-        REPO / "manuscript",
+        REPO / "docs" / "manuscript",
         REPO / "data" / "scholarship_sources.yaml",
-        REPO / "manuscript" / "references.bib",
+        REPO / "docs" / "manuscript" / "references.bib",
     )
     payload = audit.to_dict()
 
@@ -257,9 +257,9 @@ def test_real_manuscript_passes_scholarship_coverage() -> None:
 
 def test_active_inference_institute_open_education_sources_are_covered() -> None:
     audit = validate_scholarship(
-        REPO / "manuscript",
+        REPO / "docs" / "manuscript",
         REPO / "data" / "scholarship_sources.yaml",
-        REPO / "manuscript" / "references.bib",
+        REPO / "docs" / "manuscript" / "references.bib",
     )
     payload = audit.to_dict()
     required = {
@@ -279,9 +279,9 @@ def test_active_inference_institute_open_education_sources_are_covered() -> None
 
 def test_current_review_and_critique_sources_are_covered() -> None:
     audit = validate_scholarship(
-        REPO / "manuscript",
+        REPO / "docs" / "manuscript",
         REPO / "data" / "scholarship_sources.yaml",
-        REPO / "manuscript" / "references.bib",
+        REPO / "docs" / "manuscript" / "references.bib",
     )
     payload = audit.to_dict()
     required = {
@@ -305,9 +305,9 @@ def test_current_review_and_critique_sources_are_covered() -> None:
 
 def test_expected_free_energy_unification_source_is_covered() -> None:
     audit = validate_scholarship(
-        REPO / "manuscript",
+        REPO / "docs" / "manuscript",
         REPO / "data" / "scholarship_sources.yaml",
-        REPO / "manuscript" / "references.bib",
+        REPO / "docs" / "manuscript" / "references.bib",
     )
     payload = audit.to_dict()
     required = {"champion2026reframing"}
@@ -322,9 +322,9 @@ def test_expected_free_energy_unification_source_is_covered() -> None:
 
 def test_accessibility_guidance_sources_are_covered() -> None:
     audit = validate_scholarship(
-        REPO / "manuscript",
+        REPO / "docs" / "manuscript",
         REPO / "data" / "scholarship_sources.yaml",
-        REPO / "manuscript" / "references.bib",
+        REPO / "docs" / "manuscript" / "references.bib",
     )
     payload = audit.to_dict()
     required = {"acm2023accessiblefigures", "section508alttext"}
@@ -340,9 +340,9 @@ def test_accessibility_guidance_sources_are_covered() -> None:
 
 def test_nsa_skilltree_and_security_posture_sources_are_covered() -> None:
     audit = validate_scholarship(
-        REPO / "manuscript",
+        REPO / "docs" / "manuscript",
         REPO / "data" / "scholarship_sources.yaml",
-        REPO / "manuscript" / "references.bib",
+        REPO / "docs" / "manuscript" / "references.bib",
     )
     payload = audit.to_dict()
     required = {
@@ -389,15 +389,15 @@ def test_report_recommended_scholarship_frontier_sources_are_contracts() -> None
 
 def test_frontier_scholarship_upgrade_sources_are_contract_bound() -> None:
     scholarship = validate_scholarship(
-        REPO / "manuscript",
+        REPO / "docs" / "manuscript",
         REPO / "data" / "scholarship_sources.yaml",
-        REPO / "manuscript" / "references.bib",
+        REPO / "docs" / "manuscript" / "references.bib",
     )
     claim_support = _real_claim_support()
     report = validate_scholarship_gaps(
         scholarship,
         claim_support,
-        REPO / "manuscript" / "references.bib",
+        REPO / "docs" / "manuscript" / "references.bib",
     )
     payload = scholarship.to_dict()
     cited = {key for section in payload["sections"] for key in section["citations"]}
@@ -428,16 +428,16 @@ def test_frontier_scholarship_upgrade_sources_are_contract_bound() -> None:
 
 def test_scholarship_frontier_gap_report_passes_and_writes() -> None:
     scholarship = validate_scholarship(
-        REPO / "manuscript",
+        REPO / "docs" / "manuscript",
         REPO / "data" / "scholarship_sources.yaml",
-        REPO / "manuscript" / "references.bib",
+        REPO / "docs" / "manuscript" / "references.bib",
     )
     claim_support = _real_claim_support()
 
     report = validate_scholarship_gaps(
         scholarship,
         claim_support,
-        REPO / "manuscript" / "references.bib",
+        REPO / "docs" / "manuscript" / "references.bib",
     )
     payload = report.to_dict()
 
@@ -453,14 +453,14 @@ def test_scholarship_frontier_gap_report_passes_and_writes() -> None:
 
 def test_scholarship_frontier_gap_report_is_deterministic(tmp_path: Path) -> None:
     scholarship = validate_scholarship(
-        REPO / "manuscript",
+        REPO / "docs" / "manuscript",
         REPO / "data" / "scholarship_sources.yaml",
-        REPO / "manuscript" / "references.bib",
+        REPO / "docs" / "manuscript" / "references.bib",
     )
     report = validate_scholarship_gaps(
         scholarship,
         _real_claim_support(),
-        REPO / "manuscript" / "references.bib",
+        REPO / "docs" / "manuscript" / "references.bib",
     )
 
     out = write_scholarship_gap_report(report, tmp_path / "gap.json")
@@ -473,18 +473,18 @@ def test_scholarship_frontier_gap_report_is_deterministic(tmp_path: Path) -> Non
 
 def test_scholarship_source_health_network_separates_issue_classes() -> None:
     scholarship = validate_scholarship(
-        REPO / "manuscript",
+        REPO / "docs" / "manuscript",
         REPO / "data" / "scholarship_sources.yaml",
-        REPO / "manuscript" / "references.bib",
+        REPO / "docs" / "manuscript" / "references.bib",
     )
     source_health_audit = validate_source_health(
         REPO / "data" / "scholarship_sources.yaml",
-        REPO / "manuscript" / "references.bib",
+        REPO / "docs" / "manuscript" / "references.bib",
     )
     gap_report = validate_scholarship_gaps(
         scholarship,
         _real_claim_support(),
-        REPO / "manuscript" / "references.bib",
+        REPO / "docs" / "manuscript" / "references.bib",
     )
 
     payload = scholarship_source_health_network(
@@ -508,9 +508,9 @@ def test_scholarship_source_health_network_separates_issue_classes() -> None:
 
 def test_scholarship_gap_report_rejects_missing_frontier_source() -> None:
     scholarship = validate_scholarship(
-        REPO / "manuscript",
+        REPO / "docs" / "manuscript",
         REPO / "data" / "scholarship_sources.yaml",
-        REPO / "manuscript" / "references.bib",
+        REPO / "docs" / "manuscript" / "references.bib",
     )
     missing_key = FRONTIER_SOURCE_CONTRACTS[0].source_key
     corrupted = replace(
@@ -526,15 +526,15 @@ def test_scholarship_gap_report_rejects_missing_frontier_source() -> None:
         validate_scholarship_gaps(
             corrupted,
             _real_claim_support(),
-            REPO / "manuscript" / "references.bib",
+            REPO / "docs" / "manuscript" / "references.bib",
         )
 
 
 def test_scholarship_gap_report_rejects_unbound_frontier_claim() -> None:
     scholarship = validate_scholarship(
-        REPO / "manuscript",
+        REPO / "docs" / "manuscript",
         REPO / "data" / "scholarship_sources.yaml",
-        REPO / "manuscript" / "references.bib",
+        REPO / "docs" / "manuscript" / "references.bib",
     )
     missing_key = "w3c2023wcag22"
     claim_support = _real_claim_support()
@@ -553,7 +553,7 @@ def test_scholarship_gap_report_rejects_unbound_frontier_claim() -> None:
     report = audit_scholarship_gaps(
         scholarship,
         corrupted,
-        REPO / "manuscript" / "references.bib",
+        REPO / "docs" / "manuscript" / "references.bib",
     )
 
     assert any("required claim-support" in issue for issue in report.issues())
@@ -561,14 +561,14 @@ def test_scholarship_gap_report_rejects_unbound_frontier_claim() -> None:
         validate_scholarship_gaps(
             scholarship,
             corrupted,
-            REPO / "manuscript" / "references.bib",
+            REPO / "docs" / "manuscript" / "references.bib",
         )
 
 
 def test_real_scholarship_sources_pass_offline_health_check() -> None:
     audit = validate_source_health(
         REPO / "data" / "scholarship_sources.yaml",
-        REPO / "manuscript" / "references.bib",
+        REPO / "docs" / "manuscript" / "references.bib",
     )
 
     assert audit.to_dict()["summary"]["issueCount"] == 0
@@ -578,13 +578,13 @@ def test_real_scholarship_sources_pass_offline_health_check() -> None:
 def test_real_scholarship_roles_pass_stronger_claim_specificity_gate() -> None:
     source_health_audit = audit_source_health(
         REPO / "data" / "scholarship_sources.yaml",
-        REPO / "manuscript" / "references.bib",
+        REPO / "docs" / "manuscript" / "references.bib",
         online=False,
     )
     scholarship_audit = audit_scholarship(
-        REPO / "manuscript",
+        REPO / "docs" / "manuscript",
         REPO / "data" / "scholarship_sources.yaml",
-        REPO / "manuscript" / "references.bib",
+        REPO / "docs" / "manuscript" / "references.bib",
     )
 
     role_issues = [
@@ -801,9 +801,9 @@ sources:
 
 def test_write_scholarship_audit_emits_deterministic_json(tmp_path: Path) -> None:
     audit = validate_scholarship(
-        REPO / "manuscript",
+        REPO / "docs" / "manuscript",
         REPO / "data" / "scholarship_sources.yaml",
-        REPO / "manuscript" / "references.bib",
+        REPO / "docs" / "manuscript" / "references.bib",
     )
     path = write_scholarship_audit(audit, tmp_path / "audit.json")
 
@@ -994,7 +994,7 @@ def test_validate_source_health_strict_requires_online() -> None:
     with pytest.raises(ValueError, match="strict_online requires online=True"):
         validate_source_health(
             REPO / "data" / "scholarship_sources.yaml",
-            REPO / "manuscript" / "references.bib",
+            REPO / "docs" / "manuscript" / "references.bib",
             online=False,
             strict_online=True,
         )
@@ -1003,7 +1003,7 @@ def test_validate_source_health_strict_requires_online() -> None:
 def test_write_source_health_audit_emits_sorted_json(tmp_path: Path) -> None:
     audit = audit_source_health(
         REPO / "data" / "scholarship_sources.yaml",
-        REPO / "manuscript" / "references.bib",
+        REPO / "docs" / "manuscript" / "references.bib",
         online=False,
     )
     out = tmp_path / "nested" / "health.json"
@@ -1405,14 +1405,14 @@ def test_online_source_failure_appears_once_in_network_report(
         matrix_path, bib_path, online=True, timeout=5.0, allow_private=True
     )
     scholarship = validate_scholarship(
-        REPO / "manuscript",
+        REPO / "docs" / "manuscript",
         REPO / "data" / "scholarship_sources.yaml",
-        REPO / "manuscript" / "references.bib",
+        REPO / "docs" / "manuscript" / "references.bib",
     )
     gaps = validate_scholarship_gaps(
         scholarship,
         _real_claim_support(),
-        REPO / "manuscript" / "references.bib",
+        REPO / "docs" / "manuscript" / "references.bib",
     )
 
     report = scholarship_source_health_network(

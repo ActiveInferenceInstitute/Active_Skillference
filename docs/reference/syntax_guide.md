@@ -12,12 +12,12 @@ sections 4–8 are reference material for common authoring operations.
 
 Hyperlinks must be informative. Never use placeholder text.
 
-- **BAD**: [this link](README.md) to read more.
-- **GOOD**: See the [project README](../README.md) and [AGENTS.md](../AGENTS.md).
+- **BAD**: [this link](../README.md) to read more.
+- **GOOD**: See the [project README](../../README.md) and [AGENTS.md](../../AGENTS.md).
 
 For internal cross-references, prefer relative paths to files that exist in this project,
-e.g. [`src/kernels/examples.py`](../src/kernels/examples.py) or
-[`src/provenance/binding.py`](../src/provenance/binding.py).
+e.g. [`src/kernels/examples.py`](../../src/kernels/examples.py) or
+[`src/provenance/binding.py`](../../src/provenance/binding.py).
 
 ---
 
@@ -31,7 +31,7 @@ unresolved token fails the build closed (`render` raises `ProvenanceError`). The
 generic free-form variable system — only kernel-backed claim tokens.
 
 The token grammar is defined by `CLAIM_TOKEN_RE` in
-[`src/curriculum/model.py`](../src/curriculum/model.py):
+[`src/curriculum/model.py`](../../src/curriculum/model.py):
 
 ```python
 CLAIM_TOKEN_RE = re.compile(r"\{\{claim:([A-Za-z0-9_.\-]+)\}\}")
@@ -39,7 +39,7 @@ CLAIM_TOKEN_RE = re.compile(r"\{\{claim:([A-Za-z0-9_.\-]+)\}\}")
 
 ### How a number becomes a claim
 
-The full provenance chain (also summarised in [`AGENTS.md`](../AGENTS.md)):
+The full provenance chain (also summarised in [`AGENTS.md`](../../AGENTS.md)):
 
 ```
 kernel fn → examples.register(...) → {{claim:NAME}} in content → render/export (fail-closed)
@@ -47,10 +47,10 @@ kernel fn → examples.register(...) → {{claim:NAME}} in content → render/ex
 ```
 
 1. **Compute it in a tested kernel.** The numeric primitives live in
-   [`src/kernels/`](../src/kernels/) (`information.py`, `distributions.py`, `inference.py`,
+   [`src/kernels/`](../../src/kernels/) (`information.py`, `distributions.py`, `inference.py`,
    `active_inference.py`). These are the *only* source of quantitative values.
 2. **Emit it from a worked example.** Add or extend a function in
-   [`src/kernels/examples.py`](../src/kernels/examples.py) that runs a kernel on a fixed,
+   [`src/kernels/examples.py`](../../src/kernels/examples.py) that runs a kernel on a fixed,
    documented input and returns the result in a dict keyed by claim name. For example
    `info_examples()` returns `{"entropy_fair_coin": entropy([0.5, 0.5]), ...}`.
 3. **Register it.** `build_claim_registry()` in the same file iterates every example
@@ -70,7 +70,7 @@ kernel fn → examples.register(...) → {{claim:NAME}} in content → render/ex
 ### The currently registered claims
 
 These are produced by `build_claim_registry()` in
-[`src/kernels/examples.py`](../src/kernels/examples.py). Re-run
+[`src/kernels/examples.py`](../../src/kernels/examples.py). Re-run
 `uv run python scripts/run_kernels.py` to regenerate them and write
 `output/data/claims.json`.
 
@@ -164,7 +164,7 @@ These are produced by `build_claim_registry()` in
 ### Where tokens are allowed, and where bare numbers are checked
 
 The provenance gate distinguishes carefully (see
-[`src/provenance/binding.py`](../src/provenance/binding.py)):
+[`src/provenance/binding.py`](../../src/provenance/binding.py)):
 
 - **Result numbers** (a decimal with two or more fractional digits, or scientific
   notation) appearing in plain prose are flagged by the linter as laundered numbers.
@@ -184,7 +184,7 @@ The linter scans every learner-facing expository field: skill **name**, **object
 
 ## 3. Pandoc cross-references
 
-Inside `manuscript/` files, use Pandoc-crossref `[@label]` syntax for cross-references.
+Inside `docs/manuscript/` files, use Pandoc-crossref `[@label]` syntax for cross-references.
 **Never** use raw LaTeX `\ref{}` macros in Markdown — they render literally in HTML/slide
 outputs and bypass auto-numbering. Never hardcode a figure or table number.
 
@@ -194,8 +194,8 @@ outputs and bypass auto-numbering. Never hardcode a figure or table number.
 ### Figure label registry
 
 Active Skillference renders deterministic publication visuals, all produced by
-[`src/figures/plots/`](../src/figures/plots/) and orchestrated by
-[`scripts/run_kernels.py`](../scripts/run_kernels.py). Numbered manuscript figures are
+[`src/figures/plots/`](../../src/figures/plots/) and orchestrated by
+[`scripts/run_kernels.py`](../../scripts/run_kernels.py). Numbered manuscript figures are
 rendered via `render_all`; the first-page cover and page-two named-skill atlas are
 generated separately by `plot_active_skillference_cover` and `plot_skill_name_atlas`.
 Every numeric input comes from the `ClaimRegistry` or the `CurriculumGraph`. `render_all` also writes
@@ -330,18 +330,18 @@ in Markdown — pandoc-crossref will not pick up the LaTeX label.
 
 Active Skillference keeps a data-driven figure set. To add one:
 
-1. Add a generator function to [`src/figures/plots/`](../src/figures/plots/) that takes
+1. Add a generator function to [`src/figures/plots/`](../../src/figures/plots/) that takes
    the `CurriculumGraph` and/or `ClaimRegistry` plus an output `path`, draws with the
    headless `Agg` backend, and returns the `Path`. Pull every number from the graph or
    registry — never hardcode a value.
 2. Wire numbered manuscript figures into `render_all(...)` so `scripts/run_kernels.py`
    renders and registers them. Cover or publication-shell assets should use a separate
    validator and must not enter `figure_registry.json`.
-3. Add a test in [`tests/test_figures.py`](../tests/test_figures.py) asserting the PNG is
+3. Add a test in [`tests/test_figures.py`](../../tests/test_figures.py) asserting the PNG is
    written (using `tmp_path`).
 4. Add the Pandoc image reference in the appropriate manuscript section:
    ```markdown
-   ![Caption describing the figure.](../output/figures/curriculum_dag.png){#fig:curriculum_dag width=80%}
+   ![Caption describing the figure.](../../output/figures/curriculum_dag.png){#fig:curriculum_dag width=80%}
    ```
    Replace both the filename and `{#fig:...}` anchor with the new registered values when
    adding a real figure.
@@ -352,8 +352,8 @@ Active Skillference keeps a data-driven figure set. To add one:
 ## 7. Citations (Pandoc)
 
 Cite with the bracket form; keys must exist in
-[`manuscript/references.bib`](../manuscript/references.bib) and
-[`data/scholarship_sources.yaml`](../data/scholarship_sources.yaml).
+[`docs/manuscript/references.bib`](../manuscript/references.bib) and
+[`data/scholarship_sources.yaml`](../../data/scholarship_sources.yaml).
 
 ```markdown
 Active inference minimises expected free energy [@friston2017].
@@ -394,6 +394,6 @@ grep -F "{{claim" output/data/skilltree_project.json && echo "UNRESOLVED" || ech
 
 - [`style_guide.md`](style_guide.md) — code & content style (kernel purity, `src.*`
   imports, claim-binding rules)
-- [`rendering_pipeline.md`](rendering_pipeline.md) — manuscript → PDF flow
-- [`testing_philosophy.md`](testing_philosophy.md) — the no-mocks testing standard
-- [`../AGENTS.md`](../AGENTS.md) — invariants and the provenance chain
+- [`rendering_pipeline.md`](../publication/rendering_pipeline.md) — manuscript → PDF flow
+- [`testing_philosophy.md`](../validation/testing_philosophy.md) — the no-mocks testing standard
+- [`../AGENTS.md`](../../AGENTS.md) — invariants and the provenance chain

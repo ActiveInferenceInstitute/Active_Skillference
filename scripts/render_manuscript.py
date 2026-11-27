@@ -9,9 +9,9 @@ generated title page, and then runs the standard LaTeX citation cycle:
 
     pandoc --natbib → xelatex → bibtex → xelatex → xelatex
 
-``manuscript/config.yaml`` supplies metadata (title, subtitle, authors, DOI,
-keywords), ``manuscript/preamble.md`` supplies the LaTeX packages, and
-``manuscript/references.bib`` supplies the bibliography. ``pandoc-crossref``
+``docs/manuscript/config.yaml`` supplies metadata (title, subtitle, authors, DOI,
+keywords), ``docs/manuscript/preamble.md`` supplies the LaTeX packages, and
+``docs/manuscript/references.bib`` supplies the bibliography. ``pandoc-crossref``
 resolves the manuscript's ``[@fig:label]`` / ``[@sec:label]`` references, which
 the preamble's ``cleveref`` prints.
 
@@ -19,9 +19,9 @@ Output: ``output/pdf/Active_Skillference_combined.pdf``.
 
 Everything intermediate (the combined Markdown, the ``.tex``, ``.aux``, ``.log``,
 ``.bbl``, the bibliography copy, and the first two PDF passes) stays in a scratch
-directory under the repository root. It has to live one level below the root, not
-under ``output/pdf/``, because the manuscript writes figure paths as
-``../output/figures/x.png`` — valid from a file one level below the root.
+directory directly under ``output/``. The scratch directory shares the
+source and hydrated manuscripts’ depth, so links to ``../../output/figures/``
+resolve during typesetting.
 
 Requires ``pandoc``, ``pandoc-crossref`` built for the same Pandoc major version,
 ``xelatex``, and ``bibtex`` on ``PATH``. A missing tool is named and the run stops;
@@ -39,7 +39,7 @@ import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-MANUSCRIPT = ROOT / "manuscript"
+MANUSCRIPT = ROOT / "docs" / "manuscript"
 OUTPUT_MANUSCRIPT = ROOT / "output" / "manuscript"
 OUTPUT_PDF = ROOT / "output" / "pdf"
 # Log lines that mean the PDF would ship with broken references or citations. A LaTeX
@@ -83,16 +83,16 @@ def _hydrate(skip_kernels: bool) -> None:
 
 
 def _latex_preamble() -> str:
-    """Return the ```latex fenced block from manuscript/preamble.md."""
+    """Return the ```latex fenced block from docs/manuscript/preamble.md."""
     text = (MANUSCRIPT / "preamble.md").read_text(encoding="utf-8")
     marker = "```latex"
     start = text.find(marker)
     if start == -1:
-        raise SystemExit("manuscript/preamble.md has no ```latex block")
+        raise SystemExit("docs/manuscript/preamble.md has no ```latex block")
     start = text.find("\n", start) + 1
     end = text.find("```", start)
     if end == -1:
-        raise SystemExit("manuscript/preamble.md has an unterminated ```latex block")
+        raise SystemExit("docs/manuscript/preamble.md has an unterminated ```latex block")
     return text[start:end]
 
 
@@ -101,7 +101,7 @@ def _config() -> dict[str, object]:
 
     payload = yaml.safe_load((MANUSCRIPT / "config.yaml").read_text(encoding="utf-8"))
     if not isinstance(payload, dict):
-        raise SystemExit("manuscript/config.yaml did not parse as a mapping")
+        raise SystemExit("docs/manuscript/config.yaml did not parse as a mapping")
     return payload
 
 
@@ -122,7 +122,7 @@ def _latex_escape(text: str) -> str:
 
 
 def _titlepage(config: dict[str, object]) -> str:
-    """Return the raw-LaTeX title page built from manuscript/config.yaml."""
+    """Return the raw-LaTeX title page built from docs/manuscript/config.yaml."""
     paper = config.get("paper") or {}
     book = config.get("book") or {}
     publication = config.get("publication") or {}
@@ -407,7 +407,7 @@ def main(argv: list[str] | None = None) -> int:
     inputs = capture_pdf_inputs(ROOT, _section_files())
     config = _config()
 
-    with tempfile.TemporaryDirectory(dir=ROOT, prefix=".render-") as scratch:
+    with tempfile.TemporaryDirectory(dir=OUTPUT_MANUSCRIPT.parent, prefix=".render-") as scratch:
         _render_pdf(Path(scratch), config, inputs=inputs)
     return 0
 

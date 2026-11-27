@@ -2,8 +2,8 @@
 
 How to author the Active Skillference manuscript: provenance-bound numbers, Pandoc
 citations, equations, figures, and the cross-reference conventions the renderer expects.
-The companion authoring guide is [`../docs/syntax_guide.md`](../docs/syntax_guide.md);
-the rendering flow is in [`../docs/rendering_pipeline.md`](../docs/rendering_pipeline.md).
+The companion authoring guide is [`../docs/reference/syntax_guide.md`](../reference/syntax_guide.md);
+the rendering flow is in [`../docs/publication/rendering_pipeline.md`](../publication/rendering_pipeline.md).
 
 ## Claim tokens and generated count variables for provenance-bound numbers
 
@@ -61,7 +61,7 @@ cross-reference.
 ## Figure declarations, references, and generated image paths
 
 ```markdown
-![Caption.](../output/figures/curriculum_dag.png){#fig:curriculum_dag width=95%}
+![Caption.](../../output/figures/curriculum_dag.png){#fig:curriculum_dag width=95%}
 
 [@fig:curriculum_dag] shows the prerequisite graph.
 ```
@@ -138,7 +138,7 @@ validate them separately from numbered manuscript figures.
 - Every entry needs at minimum `author`, `title`, `year`.
 - DOIs are added only once Crossref-verified (see the note in `references.bib`).
 - Every cited key also needs a source-role row in
-  [`../data/scholarship_sources.yaml`](../data/scholarship_sources.yaml). Run
+  [`../data/scholarship_sources.yaml`](../../data/scholarship_sources.yaml). Run
   `uv run python scripts/analyze_scholarship.py` after citation edits.
 
 ## Section assembly order and optional labels
@@ -173,7 +173,7 @@ Section H1s are plain headings; the References H1 carries `{#sec:references}`. A
 
 - [`README.md`](README.md) — directory orientation
 - [`AGENTS.md`](AGENTS.md) — agent editing protocol for the manuscript
-- [`../docs/rendering_pipeline.md`](../docs/rendering_pipeline.md) — manuscript → PDF flow
-- [`../docs/syntax_guide.md`](../docs/syntax_guide.md) — authoring guide
-- [`../src/provenance/binding.py`](../src/provenance/binding.py) — claim-token validation/substitution
+- [`../docs/publication/rendering_pipeline.md`](../publication/rendering_pipeline.md) — manuscript → PDF flow
+- [`../docs/reference/syntax_guide.md`](../reference/syntax_guide.md) — authoring guide
+- [`../src/provenance/binding.py`](../../src/provenance/binding.py) — claim-token validation/substitution
 - [`preamble.md`](preamble.md) — LaTeX preamble

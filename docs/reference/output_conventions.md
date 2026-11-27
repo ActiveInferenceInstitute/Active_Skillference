@@ -52,7 +52,7 @@ The figure registry is the chart-contract source of truth: it preserves source-r
 alt-text and semantic fields while adding `question`, `takeaway`, `data_sources`,
 `data_grain`, `encoding`, `palette_policy`, `palette_roots`, `non_color_encoding`,
 `static_read`, `mobile_read`, `failure_mode`, and optional `table_companion_id` for
-manuscript/dashboard parity checks. Dense table-like figures resolve those ids through
+docs/manuscript/dashboard parity checks. Dense table-like figures resolve those ids through
 `output/data/figure_table_companions.json`.
 
 ## Regeneration sequence
@@ -101,10 +101,10 @@ Run from the project root. Each script is a thin orchestrator over `src/`.
    # or, without re-running the kernels and without the web-math checks:
    uv run python scripts/render_manuscript.py --skip-kernels
    ```
-   Produces `output/pdf/Active_Skillference_combined.pdf` from `manuscript/config.yaml`,
-   `manuscript/preamble.md` and `manuscript/references.bib`. Renderer intermediates stay in
+   Produces `output/pdf/Active_Skillference_combined.pdf` from `docs/manuscript/config.yaml`,
+   `docs/manuscript/preamble.md` and `docs/manuscript/references.bib`. Renderer intermediates stay in
    a scratch directory and are not left in `output/`. See
-   [`rendering_pipeline.md`](rendering_pipeline.md) for the full flow.
+   [`rendering_pipeline.md`](../publication/rendering_pipeline.md) for the full flow.
 6. **Normalize and validate web math** after any HTML render.
    ```bash
    uv run python scripts/ensure_web_math.py
@@ -112,7 +112,7 @@ Run from the project root. Each script is a thin orchestrator over `src/`.
    ```
 
 To seed a live SkillTree instance from the exported project, see
-[`../README.md`](../README.md) and [`../scripts/run_skilltree.sh`](../scripts/run_skilltree.sh) (requires Docker).
+[`../README.md`](../../README.md) and [`../scripts/run_skilltree.sh`](../../scripts/run_skilltree.sh) (requires Docker).
 
 ## Version-control policy
 
@@ -133,7 +133,7 @@ To seed a live SkillTree instance from the exported project, see
 
 - **Missing file** — identify which script produces it (see [`output_inventory.md`](output_inventory.md)) and re-run that script.
 - **Stale file** — re-run the regeneration sequence in order; the JSON outputs are deterministic.
-- **Export refused / unbacked token** — the provenance gate failed; see [`troubleshooting.md`](troubleshooting.md#provenanceerror-unresolved-claim-token-claimname-export-refused).
+- **Export refused / unbacked token** — the provenance gate failed; see [`troubleshooting.md`](../guides/troubleshooting.md#provenanceerror-unresolved-claim-token-claimname-export-refused).
 - **Figure disagrees with the text or dashboard** — fix the producer (`src/figures/plots/`,
   manuscript label, or dashboard artifact entry) and re-run `run_kernels.py`; the
   manuscript artifact audit should fail until the registry, cross-references, PNG content,
@@ -142,6 +142,6 @@ To seed a live SkillTree instance from the exported project, see
 ## See also
 
 - [`output_inventory.md`](output_inventory.md) — the full artifact → producer table.
-- [`rendering_pipeline.md`](rendering_pipeline.md) — manuscript → PDF flow.
-- [`troubleshooting.md`](troubleshooting.md) — symptom-driven fixes.
-- [`faq.md`](faq.md) — figures, provenance, and authoring questions.
+- [`rendering_pipeline.md`](../publication/rendering_pipeline.md) — manuscript → PDF flow.
+- [`troubleshooting.md`](../guides/troubleshooting.md) — symptom-driven fixes.
+- [`faq.md`](../guides/faq.md) — figures, provenance, and authoring questions.

@@ -3,7 +3,7 @@
 > **Operational guide** for Active Skillference — a high-integrity micro-learning
 > platform for Active Inference (AIF) and the Free Energy Principle (FEP).
 
-**Quick Reference:** [Quickstart](quickstart.md) | [Gates](gates.md) | [Gate Metrics](gate_metrics.md) | [Documentation Index](documentation-index.md) | [Learner Dashboard](learner_dashboard.md) | [Architecture](architecture.md) | [Active TODO Details](todo/) | [Scholarship](scholarship_coverage.md) | [Learner Pilot](pilot/) | [IP/License](ip_license_status.md) | [Publication Readiness](publication_readiness.md) | [Release Inventory](release_readiness_inventory.md) | [Curriculum Audit](curriculum_expert_audit.md) | [Agent Instructions](agent_instructions.md) | [Testing](testing_philosophy.md) | [Rendering](rendering_pipeline.md) | [Style](style_guide.md) | [Syntax](syntax_guide.md) | [Index](AGENTS.md)
+**Quick Reference:** [Quickstart](guides/quickstart.md) | [Gates](validation/gates.md) | [Gate Metrics](validation/gate_metrics.md) | [Documentation Index](documentation-index.md) | [Learner Dashboard](architecture/learner_dashboard.md) | [Architecture](architecture/architecture.md) | [Active TODO Details](todo/) | [Scholarship](validation/scholarship_coverage.md) | [Learner Pilot](pilot/) | [IP/License](publication/ip_license_status.md) | [Publication Readiness](publication/publication_readiness.md) | [Release Inventory](publication/release_readiness_inventory.md) | [Curriculum Audit](validation/curriculum_expert_audit.md) | [Agent Instructions](guides/agent_instructions.md) | [Testing](validation/testing_philosophy.md) | [Rendering](publication/rendering_pipeline.md) | [Style](reference/style_guide.md) | [Syntax](reference/syntax_guide.md) | [Index](AGENTS.md)
 
 ## Purpose
 
@@ -63,7 +63,7 @@ The live path needs a running Docker daemon because SkillTree owns quizzes, comp
 points, and ranking. The offline path needs neither Docker nor a network and still serves
 the curriculum explorer, generated lesson records, dependency graph, and artifact browser.
 Individual pipeline commands are listed under Verification Commands below and in
-[`quickstart.md`](quickstart.md).
+[`quickstart.md`](guides/quickstart.md).
 
 ## Contents
 
@@ -75,53 +75,53 @@ fails if the two drift apart.
 
 | File | Purpose | Audience |
 |---|---|---|
-| [`quickstart.md`](quickstart.md) | 5-minute run: `uv sync` → build curriculum → run kernels → export → test | New users |
+| [`quickstart.md`](guides/quickstart.md) | 5-minute run: `uv sync` → build curriculum → run kernels → export → test | New users |
 | [`documentation-index.md`](documentation-index.md) | Flat index of every long-lived document and the fact it is authoritative for | All |
-| [`faq.md`](faq.md) | Recurring questions: provenance, DAG, SkillTree | All |
-| [`troubleshooting.md`](troubleshooting.md) | Diagnosed failures with fix commands | Developers |
+| [`faq.md`](guides/faq.md) | Recurring questions: provenance, DAG, SkillTree | All |
+| [`troubleshooting.md`](guides/troubleshooting.md) | Diagnosed failures with fix commands | Developers |
 
 ### Gates and verification
 
 | File | Purpose | Audience |
 |---|---|---|
-| [`gates.md`](gates.md) | The `./gates.sh` entry point: every arm, its command, ordering, and the CI job that runs it | Developers, maintainers |
-| [`gate_metrics.md`](gate_metrics.md) | Generated per-arm wall times plus the recorded test count and coverage | Developers, maintainers |
+| [`gates.md`](validation/gates.md) | The `./gates.sh` entry point: every arm, its command, ordering, and the CI job that runs it | Developers, maintainers |
+| [`gate_metrics.md`](validation/gate_metrics.md) | Generated per-arm wall times plus the recorded test count and coverage | Developers, maintainers |
 
 ### Architecture and conventions
 
 | File | Purpose | Audience |
 |---|---|---|
-| [`architecture.md`](architecture.md) | Thin-orchestrator layers (kernels → provenance → curriculum → skilltree → figures), dependency direction, how to add a skill/kernel | Developers |
-| [`style_guide.md`](style_guide.md) | Source-code rules: zero-mock, thin orchestrator, `src.*` imports, type hints, error messages | Developers |
-| [`testing_philosophy.md`](testing_philosophy.md) | Zero-mock policy, test-file inventory, coverage mechanics (≥90% gate) | Developers, testers |
-| [`agent_instructions.md`](agent_instructions.md) | Hard rules for AI agents: provenance, DAG, `src.*` imports, no mocks, coverage; verification checklist | AI agents, all developers |
+| [`architecture.md`](architecture/architecture.md) | Thin-orchestrator layers (kernels → provenance → curriculum → skilltree → figures), dependency direction, how to add a skill/kernel | Developers |
+| [`style_guide.md`](reference/style_guide.md) | Source-code rules: zero-mock, thin orchestrator, `src.*` imports, type hints, error messages | Developers |
+| [`testing_philosophy.md`](validation/testing_philosophy.md) | Zero-mock policy, test-file inventory, coverage mechanics (≥90% gate) | Developers, testers |
+| [`agent_instructions.md`](guides/agent_instructions.md) | Hard rules for AI agents: provenance, DAG, `src.*` imports, no mocks, coverage; verification checklist | AI agents, all developers |
 | [`AGENTS.md`](AGENTS.md) | Technical index of this `docs/` folder; verification commands | Developers, agents |
 
 ### Authoring content
 
 | File | Purpose | Audience |
 |---|---|---|
-| [`syntax_guide.md`](syntax_guide.md) | Markdown/LaTeX in skill + manuscript content; the `{{claim:NAME}}` token system; figure references | Content authors |
-| [`scholarship_coverage.md`](scholarship_coverage.md) | Citation source-role matrix, validator, outputs, and edit protocol | Content authors, developers |
-| [`rendering_pipeline.md`](rendering_pipeline.md) | Manuscript → PDF flow; preflight; `{{claim:NAME}}` token substitution | Content authors, developers |
-| [`curriculum_expert_audit.md`](curriculum_expert_audit.md) | Deterministic expert-review sample over high-depth, high-fanout and templated curriculum surfaces | Maintainers, curriculum reviewers |
-| [`forking_guide.md`](forking_guide.md) | Adapting the platform to a new curriculum domain | Developers, agents |
+| [`syntax_guide.md`](reference/syntax_guide.md) | Markdown/LaTeX in skill + manuscript content; the `{{claim:NAME}}` token system; figure references | Content authors |
+| [`scholarship_coverage.md`](validation/scholarship_coverage.md) | Citation source-role matrix, validator, outputs, and edit protocol | Content authors, developers |
+| [`rendering_pipeline.md`](publication/rendering_pipeline.md) | Manuscript → PDF flow; preflight; `{{claim:NAME}}` token substitution | Content authors, developers |
+| [`curriculum_expert_audit.md`](validation/curriculum_expert_audit.md) | Deterministic expert-review sample over high-depth, high-fanout and templated curriculum surfaces | Maintainers, curriculum reviewers |
+| [`forking_guide.md`](guides/forking_guide.md) | Adapting the platform to a new curriculum domain | Developers, agents |
 
 ### Delivery and runtime
 
 | File | Purpose | Audience |
 |---|---|---|
-| [`learner_dashboard.md`](learner_dashboard.md) | Local dashboard commands, routes, SkillTree ownership boundary, offline behavior | Learners, developers |
-| [`output_conventions.md`](output_conventions.md) | `output/` directory layout, what's disposable, regeneration rules | Developers |
-| [`output_inventory.md`](output_inventory.md) | Producer/consumer graph for pipeline artifacts | Developers |
+| [`learner_dashboard.md`](architecture/learner_dashboard.md) | Local dashboard commands, routes, SkillTree ownership boundary, offline behavior | Learners, developers |
+| [`output_conventions.md`](reference/output_conventions.md) | `output/` directory layout, what's disposable, regeneration rules | Developers |
+| [`output_inventory.md`](reference/output_inventory.md) | Producer/consumer graph for pipeline artifacts | Developers |
 
 ### Release and governance
 
 | File | Purpose | Audience |
 |---|---|---|
-| [`ip_license_status.md`](ip_license_status.md) | MIT declaration, third-party boundaries, DOI/public-repository blockers, and deployment review caveats | Maintainers, release reviewers |
-| [`publication_readiness.md`](publication_readiness.md) | Initial static publication readiness, allowed claims, and remaining release blockers | Maintainers, release reviewers |
-| [`release_readiness_inventory.md`](release_readiness_inventory.md) | Machine-checked dirty worktree, untracked-file, generated-output and blocker inventory for release isolation | Maintainers, release reviewers |
+| [`ip_license_status.md`](publication/ip_license_status.md) | MIT declaration, third-party boundaries, DOI/public-repository blockers, and deployment review caveats | Maintainers, release reviewers |
+| [`publication_readiness.md`](publication/publication_readiness.md) | Initial static publication readiness, allowed claims, and remaining release blockers | Maintainers, release reviewers |
+| [`release_readiness_inventory.md`](publication/release_readiness_inventory.md) | Machine-checked dirty worktree, untracked-file, generated-output and blocker inventory for release isolation | Maintainers, release reviewers |
 | [`pilot/`](pilot/) | Protocol-only learner-pilot contract, privacy boundary, export schema, and analysis sequence | Study designers, reviewers |
 | [`todo/`](todo/) | Generated active roadmap handoff pages, one per open TODO item | Maintainers, agents |
 
@@ -129,28 +129,28 @@ fails if the two drift apart.
 
 ### Before modifying any source code
 
-1. Read **[agent_instructions.md](agent_instructions.md)** — the invariants and the verification checklist.
-2. Read **[architecture.md](architecture.md)** — the `src/` layer boundaries before touching file structure.
-3. Read **[testing_philosophy.md](testing_philosophy.md)** — the zero-mock constraint before writing tests.
+1. Read **[agent_instructions.md](guides/agent_instructions.md)** — the invariants and the verification checklist.
+2. Read **[architecture.md](architecture/architecture.md)** — the `src/` layer boundaries before touching file structure.
+3. Read **[testing_philosophy.md](validation/testing_philosophy.md)** — the zero-mock constraint before writing tests.
 
 ### Before editing the curriculum (`src/curriculum/catalog_data/`)
 
-1. Read **[architecture.md](architecture.md) → How to add a skill / subject / kernel**.
+1. Read **[architecture.md](architecture/architecture.md) → How to add a skill / subject / kernel**.
 2. Any learner-facing number must arrive through a `{{claim:NAME}}` token backed by
-   `src/kernels/examples.py` — see **[syntax_guide.md](syntax_guide.md)**.
+   `src/kernels/examples.py` — see **[syntax_guide.md](reference/syntax_guide.md)**.
 3. Re-run `uv run python scripts/build_curriculum.py` after edits — it re-validates the DAG.
 
-### Before editing manuscript files (`manuscript/*.md`)
+### Before editing manuscript files (`docs/manuscript/*.md`)
 
-1. Read **[rendering_pipeline.md](rendering_pipeline.md)** — the manuscript → PDF flow.
-2. Read **[syntax_guide.md](syntax_guide.md)** — the `{{claim:NAME}}` token system and figure references.
-3. Read **[scholarship_coverage.md](scholarship_coverage.md)** before adding or changing citations.
+1. Read **[rendering_pipeline.md](publication/rendering_pipeline.md)** — the manuscript → PDF flow.
+2. Read **[syntax_guide.md](reference/syntax_guide.md)** — the `{{claim:NAME}}` token system and figure references.
+3. Read **[scholarship_coverage.md](validation/scholarship_coverage.md)** before adding or changing citations.
 4. Run `uv run python scripts/validate_american_english.py` before rendering if prose changed.
 
 ## Verification Commands
 
 Run from the project root. The gate arms and their exact commands are documented in
-[`gates.md`](gates.md); CI runs the same arms.
+[`gates.md`](validation/gates.md); CI runs the same arms.
 
 ```bash
 ./gates.sh            # lint, types, fast — the developer loop
@@ -189,7 +189,7 @@ uv run python scripts/serve_learner_dashboard.py --check
 - [`../README.md`](../README.md) — Project overview and quick start.
 - [`../AGENTS.md`](../AGENTS.md) — Project-level agent guidance and the provenance chain.
 - [`../ISA.md`](../ISA.md) — The Ideal State Artifact (problem, principles, criteria, verification).
-- [`../manuscript/AGENTS.md`](../manuscript/AGENTS.md) — Manuscript directory rules and the `{{claim:NAME}}` protocol.
+- [`../manuscript/AGENTS.md`](manuscript/AGENTS.md) — Manuscript directory rules and the `{{claim:NAME}}` protocol.
 - [`../vendor/README.md`](../vendor/README.md) — Running a live SkillTree instance (Docker / build-from-source).
 
 ## Local SkillTree login troubleshooting

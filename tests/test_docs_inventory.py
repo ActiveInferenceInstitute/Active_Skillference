@@ -36,7 +36,11 @@ def _script_names() -> set[str]:
 
 def test_docs_agents_inventory_lists_every_docs_markdown_file() -> None:
     docs_dir = REPO / "docs"
-    actual = {path.name for path in docs_dir.glob("*.md")}
+    actual = {
+        path.relative_to(docs_dir).as_posix()
+        for path in docs_dir.rglob("*.md")
+        if path.relative_to(docs_dir).parts[0] not in {"_generated", "manuscript", "pilot", "todo"}
+    }
     text = (docs_dir / "AGENTS.md").read_text(encoding="utf-8")
     rows = re.findall(r"^\|\s+`([^`]+\.md)`\s+\|\s+([^|]+?)\s+\|$", text, re.MULTILINE)
     documented = {name for name, _purpose in rows}
@@ -116,7 +120,7 @@ def test_output_inventory_lists_exact_planned_figure_outputs() -> None:
             "figure_registry.json",
         }
     )
-    text = (REPO / "docs" / "output_inventory.md").read_text(encoding="utf-8")
+    text = (REPO / "docs" / "reference" / "output_inventory.md").read_text(encoding="utf-8")
     documented = set(
         re.findall(r"^\|\s+`output/figures/([^`]+)`\s+\|", text, re.MULTILINE)
     )
@@ -134,13 +138,13 @@ def test_figure_documentation_mentions_planned_registry_outputs_and_qa_fields() 
     filenames = {str(entry["filename"]) for entry in entries}
     docs = {
         "docs/AGENTS.md": (REPO / "docs" / "AGENTS.md").read_text(encoding="utf-8"),
-        "docs/rendering_pipeline.md": (
-            REPO / "docs" / "rendering_pipeline.md"
+        "docs/publication/rendering_pipeline.md": (
+            REPO / "docs" / "publication" / "rendering_pipeline.md"
         ).read_text(encoding="utf-8"),
-        "docs/syntax_guide.md": (REPO / "docs" / "syntax_guide.md").read_text(
+        "docs/reference/syntax_guide.md": (REPO / "docs" / "reference" / "syntax_guide.md").read_text(
             encoding="utf-8"
         ),
-        "manuscript/AGENTS.md": (REPO / "manuscript" / "AGENTS.md").read_text(
+        "docs/manuscript/AGENTS.md": (REPO / "docs" / "manuscript" / "AGENTS.md").read_text(
             encoding="utf-8"
         ),
     }
@@ -151,7 +155,7 @@ def test_figure_documentation_mentions_planned_registry_outputs_and_qa_fields() 
     contract_docs = (
         "\n".join(docs.values())
         + "\n"
-        + (REPO / "docs" / "output_inventory.md").read_text(encoding="utf-8")
+        + (REPO / "docs" / "reference" / "output_inventory.md").read_text(encoding="utf-8")
     )
     missing_fields = sorted(
         field for field in VISUAL_QA_FIELDS if field not in contract_docs
@@ -160,7 +164,7 @@ def test_figure_documentation_mentions_planned_registry_outputs_and_qa_fields() 
 
 
 def test_syntax_guide_claim_table_matches_live_registry() -> None:
-    text = (REPO / "docs" / "syntax_guide.md").read_text(encoding="utf-8")
+    text = (REPO / "docs" / "reference" / "syntax_guide.md").read_text(encoding="utf-8")
     documented = {
         (name, source, units.strip())
         for name, source, units in re.findall(
@@ -180,13 +184,13 @@ def test_syntax_guide_claim_table_matches_live_registry() -> None:
 
 def test_docs_describe_current_visual_contract_without_stale_route_language() -> None:
     docs = {
-        "docs/output_conventions.md": (
-            REPO / "docs" / "output_conventions.md"
+        "docs/reference/output_conventions.md": (
+            REPO / "docs" / "reference" / "output_conventions.md"
         ).read_text(encoding="utf-8"),
-        "docs/forking_guide.md": (REPO / "docs" / "forking_guide.md").read_text(
+        "docs/guides/forking_guide.md": (REPO / "docs" / "guides" / "forking_guide.md").read_text(
             encoding="utf-8"
         ),
-        "docs/syntax_guide.md": (REPO / "docs" / "syntax_guide.md").read_text(
+        "docs/reference/syntax_guide.md": (REPO / "docs" / "reference" / "syntax_guide.md").read_text(
             encoding="utf-8"
         ),
     }
@@ -194,6 +198,6 @@ def test_docs_describe_current_visual_contract_without_stale_route_language() ->
         missing = sorted(field for field in VISUAL_QA_FIELDS if field not in text)
         assert missing == [], docs_path
 
-    syntax = docs["docs/syntax_guide.md"]
+    syntax = docs["docs/reference/syntax_guide.md"]
     assert "quiz IDs and route fragments" not in syntax
     assert "learn-route fragments and quiz-route fragments" in syntax

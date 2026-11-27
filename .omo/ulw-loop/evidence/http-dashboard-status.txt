@@ -25,7 +25,7 @@ Cache-Control: no-store
       "id": "quickstart",
       "mediaType": "text/markdown; charset=utf-8",
       "modified": 1781877749.7073984,
-      "path": "docs/quickstart.md",
+      "path": "docs/guides/quickstart.md",
       "title": "Quick Start",
       "url": "/artifacts/quickstart"
     },
@@ -36,7 +36,7 @@ Cache-Control: no-store
       "id": "rendering_pipeline",
       "mediaType": "text/markdown; charset=utf-8",
       "modified": 1781989340.0284693,
-      "path": "docs/rendering_pipeline.md",
+      "path": "docs/publication/rendering_pipeline.md",
       "title": "Rendering Pipeline",
       "url": "/artifacts/rendering_pipeline"
     },

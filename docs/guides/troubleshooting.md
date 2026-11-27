@@ -128,7 +128,7 @@ fully offline.
 
 - Install Docker Desktop / Engine + the Compose plugin, then re-run `./scripts/run_skilltree.sh`.
 - On first boot under arm64 Docker/Colima emulation, the pinned amd64 image can take several minutes. Increase the readiness window with `SKILLTREE_WAIT_ATTEMPTS=300 ./scripts/run_skilltree.sh` if the logs show Spring Boot is still starting.
-- Or build skills-service from source (see [`../vendor/README.md`](../vendor/README.md)) and seed against it with `uv run python scripts/bootstrap_local_skilltree.py --base-url http://localhost:8080`.
+- Or build skills-service from source (see [`../vendor/README.md`](../../vendor/README.md)) and seed against it with `uv run python scripts/bootstrap_local_skilltree.py --base-url http://localhost:8080`.
 - Either way, the exported JSON in `output/data/skilltree_project.json` is the canonical, verifiable artifact.
 
 ## Live SkillTree seed: admin auth required
@@ -367,7 +367,7 @@ Make sure the install location (e.g. `~/.local/bin`) is on your `PATH`.
 
 ## Manuscript references an unbacked claim token
 
-**Cause.** A `manuscript/*.md` section references a `{{claim:NAME}}` token that no kernel
+**Cause.** A `docs/manuscript/*.md` section references a `{{claim:NAME}}` token that no kernel
 emits (e.g. after a kernel rename). `scripts/run_kernels.py` runs
 `validate_manuscript_dir`, which fails closed so a dead token cannot render literally into
 the PDF.
@@ -378,8 +378,8 @@ inside code spans/fences in prose are treated as illustrative syntax and are exc
 
 ## See also
 
-- [`output_conventions.md`](output_conventions.md) — the `output/` tree and regeneration.
-- [`output_inventory.md`](output_inventory.md) — every artifact and its producer.
+- [`output_conventions.md`](../reference/output_conventions.md) — the `output/` tree and regeneration.
+- [`output_inventory.md`](../reference/output_inventory.md) — every artifact and its producer.
 - [`faq.md`](faq.md) — architecture, imports, and content-authoring questions.
 - [`quickstart.md`](quickstart.md) — basic run commands.
-- [`../AGENTS.md`](../AGENTS.md) — invariants and the provenance chain.
+- [`../AGENTS.md`](../../AGENTS.md) — invariants and the provenance chain.

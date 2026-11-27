@@ -10,4 +10,4 @@ The module talks to `https://zenodo.org/api` with a 60-second timeout and raises
 artifact builds.
 
 Parent guide: [`../AGENTS.md`](../AGENTS.md). Release status:
-[`../../docs/publication_readiness.md`](../../docs/publication_readiness.md).
+[`../../docs/publication/publication_readiness.md`](../../docs/publication/publication_readiness.md).

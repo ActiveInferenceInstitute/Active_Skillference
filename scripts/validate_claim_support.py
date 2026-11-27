@@ -19,7 +19,7 @@ from src.project_paths import project_output_dirs
 
 
 def main() -> Path:
-    manuscript_dir = _ROOT / "manuscript"
+    manuscript_dir = _ROOT / "docs" / "manuscript"
     audit = validate_claim_support(
         manuscript_dir=manuscript_dir,
         support_path=_ROOT / "data" / "manuscript_claim_support.yaml",

@@ -9,7 +9,7 @@ fail-closed provenance gate before reaching skill content, a figure, or the PDF.
 Breaking an invariant below — hand-typing a number, escaping the `src.*` namespace,
 introducing a mock, weakening the DAG checks — defeats that promise.
 
-Read this file (and [`../AGENTS.md`](../AGENTS.md)) before touching any other file.
+Read this file (and [`../AGENTS.md`](../../AGENTS.md)) before touching any other file.
 
 All commands below run from the **project root**.
 
@@ -19,12 +19,12 @@ All commands below run from the **project root**.
 
 | Document | Governs | Skip consequence |
 |---|---|---|
-| **This file** + [`../AGENTS.md`](../AGENTS.md) | All modifications | Risk every violation below |
-| [`architecture.md`](architecture.md) | Any `src/` boundary change | Risk logic in `scripts/` or a bare import |
-| [`testing_philosophy.md`](testing_philosophy.md) | Any test change | Risk a mock or a coverage drop |
-| [`syntax_guide.md`](syntax_guide.md) | Any skill/manuscript content | Risk a hand-typed number the linter rejects |
-| [`rendering_pipeline.md`](rendering_pipeline.md) | Any manuscript/output change | Risk an unresolved token or stale figure reference in the PDF/dashboard |
-| [`style_guide.md`](style_guide.md) | Any source modification | Risk wrong import layer, bad error messages |
+| **This file** + [`../AGENTS.md`](../../AGENTS.md) | All modifications | Risk every violation below |
+| [`architecture.md`](../architecture/architecture.md) | Any `src/` boundary change | Risk logic in `scripts/` or a bare import |
+| [`testing_philosophy.md`](../validation/testing_philosophy.md) | Any test change | Risk a mock or a coverage drop |
+| [`syntax_guide.md`](../reference/syntax_guide.md) | Any skill/manuscript content | Risk a hand-typed number the linter rejects |
+| [`rendering_pipeline.md`](../publication/rendering_pipeline.md) | Any docs/manuscript/output change | Risk an unresolved token or stale figure reference in the PDF/dashboard |
+| [`style_guide.md`](../reference/style_guide.md) | Any source modification | Risk wrong import layer, bad error messages |
 
 ---
 
@@ -142,9 +142,9 @@ Editing a file there has zero lasting effect. To change a generated artifact, ch
   `src/curriculum/materials/` or `data/course_material_sources.yaml` (re-run
   `build_course_materials.py`)
 - `output/data/skilltree_project.json` → the curriculum + the exporter (re-run `export_skilltree.py`)
-- `output/pdf/Active_Skillference_combined.pdf` → the `manuscript/*.md` sources, then re-render
+- `output/pdf/Active_Skillference_combined.pdf` → the `docs/manuscript/*.md` sources, then re-render
 
-See [`output_conventions.md`](output_conventions.md) for the full regeneration sequence.
+See [`output_conventions.md`](../reference/output_conventions.md) for the full regeneration sequence.
 
 ---
 
@@ -157,7 +157,7 @@ the quality-gated minimum `_q(...)` assessments, and prerequisites that already 
 the skill
 shows a new computed value, add a worked example in `src/kernels/examples.py`, register
 the claim, and reference it. `build_curriculum()` re-validates on every build. Full
-recipe: [`architecture.md`](architecture.md) → *How to add a skill / subject / kernel*.
+recipe: [`architecture.md`](../architecture/architecture.md) → *How to add a skill / subject / kernel*.
 
 ---
 
@@ -171,7 +171,7 @@ exporter (`src/skilltree/exporter.py`) is a thin field map; the seeder
 `tests/test_skilltree_client.py`. Local no-login learner display uses
 `src/skilltree/local_auth.py` to bootstrap a local `FORM` account and exchange
 trusted-client tokens server-side; browser JavaScript never receives SkillTree secrets.
-Live bring-up: [`../vendor/README.md`](../vendor/README.md) (Docker or build-from-source).
+Live bring-up: [`../vendor/README.md`](../../vendor/README.md) (Docker or build-from-source).
 
 ---
 

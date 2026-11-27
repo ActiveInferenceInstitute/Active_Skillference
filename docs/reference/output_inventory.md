@@ -103,12 +103,12 @@ src/kernels/examples.py (build_claim_registry)
 output/data/claims.json ──┐
         │                 │ same registry drives manuscript_variables.json
         ▼                 ▼
-{{claim:NAME}} tokens in src/curriculum/catalog_data/  +  manuscript/*.md
+{{claim:NAME}} tokens in src/curriculum/catalog_data/  +  docs/manuscript/*.md
         │  render (fail-closed) — every token must resolve, no bare numbers
         ▼
 output/data/skilltree_project.json  (+ figures read the same registry/graph)
 
-manuscript/*.md citations + references.bib + data/scholarship_sources.yaml
+docs/manuscript/*.md citations + references.bib + data/scholarship_sources.yaml
         │  validate_scholarship (fail-closed)
         ▼
 output/data/scholarship_coverage.json + output/data/scholarship_source_health.json
@@ -124,13 +124,13 @@ output/data/scholarship_coverage.json + data/manuscript_claim_support.yaml
         ▼
 output/data/scholarship_gap_report.json
 
-data/manuscript_claim_support.yaml + manuscript/*.md
+data/manuscript_claim_support.yaml + docs/manuscript/*.md
         │  validate_claim_support (fail-closed)
         ▼
 output/data/manuscript_claim_support.json + output/figures/scientific_evidence_matrix.png
 output/figures/validation_intent_mismatch_matrix.png
 
-output/figures/figure_registry.json + manuscript/*.md + src/dashboard/artifacts.py
+output/figures/figure_registry.json + docs/manuscript/*.md + src/dashboard/artifacts.py
         │  validate_manuscript_artifacts (fail-closed)
         ▼
 output/data/manuscript_artifacts.json
@@ -138,12 +138,12 @@ output/data/manuscript_artifacts.json
         │  dense figure companion ids must resolve
 output/data/figure_table_companions.json
 
-manuscript/config.yaml book.cover.image + output/figures/active_skillference_cover.png
+docs/manuscript/config.yaml book.cover.image + output/figures/active_skillference_cover.png
         │  validate_cover_asset (fail-closed)
         ▼
 output/data/cover_asset_audit.json
 
-manuscript/config.yaml front_matter.page_two_visual.image + output/figures/active_skillference_skill_atlas.png
+docs/manuscript/config.yaml front_matter.page_two_visual.image + output/figures/active_skillference_skill_atlas.png
         │  validate_front_matter_visual (fail-closed)
         ▼
 output/data/front_matter_visual_audit.json
@@ -198,6 +198,6 @@ uv run python scripts/bootstrap_local_skilltree.py --base-url http://localhost:8
 ## See also
 
 - [`output_conventions.md`](output_conventions.md) — the `output/` tree, regeneration, and policy.
-- [`rendering_pipeline.md`](rendering_pipeline.md) — manuscript → PDF flow.
-- [`troubleshooting.md`](troubleshooting.md) — symptom-driven fixes.
-- [`../AGENTS.md`](../AGENTS.md) — invariants and the provenance chain.
+- [`rendering_pipeline.md`](../publication/rendering_pipeline.md) — manuscript → PDF flow.
+- [`troubleshooting.md`](../guides/troubleshooting.md) — symptom-driven fixes.
+- [`../AGENTS.md`](../../AGENTS.md) — invariants and the provenance chain.

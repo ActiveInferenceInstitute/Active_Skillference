@@ -22,7 +22,7 @@ from src.scholarship.gap_report import (
 
 
 def main() -> int:
-    manuscript_dir = _ROOT / "manuscript"
+    manuscript_dir = _ROOT / "docs" / "manuscript"
     bib_path = manuscript_dir / "references.bib"
     matrix_path = _ROOT / "data" / "scholarship_sources.yaml"
     scholarship = validate_scholarship(manuscript_dir, matrix_path, bib_path)

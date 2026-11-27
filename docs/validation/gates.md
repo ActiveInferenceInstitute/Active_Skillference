@@ -47,9 +47,9 @@ revision pinned in `gnn/upstream.json` (required schema `gnn-importer-pin/v1`; m
 unsupported discriminators are rejected): tag `v5.1.0`,
 commit `75c834bd8519dc7b5adc4d24f16bf393cfd1ecdf`. It needs a prepared
 pinned checkout and fails — never skips — when `GNN_ROOT` is missing or unusable. The
-preparation commands are in [`../README.md`](../README.md#required-local-gnn-check); the
+preparation commands are in [`../README.md`](../../README.md#required-local-gnn-check); the
 job that runs this arm in CI is `gnn-conformance`, displayed as
-`gnn conformance (pinned)`, and [`.github/GNN.md`](../.github/GNN.md) records what it
+`gnn conformance (pinned)`, and [`.github/GNN.md`](../../.github/GNN.md) records what it
 parses.
 
 ## Render arm
@@ -62,10 +62,10 @@ It needs on `PATH`:
 - `pandoc` (3.x; the manuscript relies on `raw_attribute`, fenced divs and MathJax support),
 - `pandoc-crossref` built for the same Pandoc major version (it resolves `[@fig:label]`
   and `[@sec:label]`),
-- a XeLaTeX engine (`xelatex`) with the packages `manuscript/preamble.md` loads.
+- a XeLaTeX engine (`xelatex`) with the packages `docs/manuscript/preamble.md` loads.
 
 A missing tool is named and the arm stops; it never emits a partial PDF. See
-[`rendering_pipeline.md`](rendering_pipeline.md) for the file-by-file flow.
+[`rendering_pipeline.md`](../publication/rendering_pipeline.md) for the file-by-file flow.
 
 ## CI mapping
 
@@ -99,6 +99,6 @@ The 2026-11-13 full non-browser census failed: its native source binding changed
 Per-arm wall times and the test/coverage counts are generated, not written by hand:
 `./gates.sh record` times each arm (except `render`, which needs the LaTeX toolchain and is
 timed on its own) and refreshes [`gate_metrics.md`](gate_metrics.md) from
-the recorded receipt at [`_generated/arm_timings.json`](_generated/arm_timings.json).
+the recorded receipt at [`_generated/arm_timings.json`](../_generated/arm_timings.json).
 `./gates.sh docs` fails when the document and the receipt disagree, so a stale measurement
 cannot be published.
