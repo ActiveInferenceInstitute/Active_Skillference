@@ -322,7 +322,8 @@ def audit_release_readiness_inventory(root: Path) -> list[ReleaseReadinessIssue]
     except FileNotFoundError:
         return [
             ReleaseReadinessIssue(
-                "docs/publication/release_readiness_inventory.md", "inventory file is missing"
+                "docs/publication/release_readiness_inventory.md",
+                "inventory file is missing",
             )
         ]
 

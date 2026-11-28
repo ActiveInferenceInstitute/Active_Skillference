@@ -92,7 +92,9 @@ def _latex_preamble() -> str:
     start = text.find("\n", start) + 1
     end = text.find("```", start)
     if end == -1:
-        raise SystemExit("docs/manuscript/preamble.md has an unterminated ```latex block")
+        raise SystemExit(
+            "docs/manuscript/preamble.md has an unterminated ```latex block"
+        )
     return text[start:end]
 
 
@@ -407,7 +409,9 @@ def main(argv: list[str] | None = None) -> int:
     inputs = capture_pdf_inputs(ROOT, _section_files())
     config = _config()
 
-    with tempfile.TemporaryDirectory(dir=OUTPUT_MANUSCRIPT.parent, prefix=".render-") as scratch:
+    with tempfile.TemporaryDirectory(
+        dir=OUTPUT_MANUSCRIPT.parent, prefix=".render-"
+    ) as scratch:
         _render_pdf(Path(scratch), config, inputs=inputs)
     return 0
 

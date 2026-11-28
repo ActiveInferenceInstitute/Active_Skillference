@@ -1361,7 +1361,9 @@ def test_figure_image_metrics_grayscale_image_reports_single_channel(
 
 
 def test_vfe_and_efe_figures_live_in_supplement_not_results() -> None:
-    results = (REPO / "docs" / "manuscript" / "03_results.md").read_text(encoding="utf-8")
+    results = (REPO / "docs" / "manuscript" / "03_results.md").read_text(
+        encoding="utf-8"
+    )
     supplement = (
         REPO / "docs" / "manuscript" / "08_supplement_variational_free_energy.md"
     ).read_text(encoding="utf-8")

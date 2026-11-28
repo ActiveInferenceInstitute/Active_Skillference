@@ -39,7 +39,8 @@ def test_docs_agents_inventory_lists_every_docs_markdown_file() -> None:
     actual = {
         path.relative_to(docs_dir).as_posix()
         for path in docs_dir.rglob("*.md")
-        if path.relative_to(docs_dir).parts[0] not in {"_generated", "manuscript", "pilot", "todo"}
+        if path.relative_to(docs_dir).parts[0]
+        not in {"_generated", "manuscript", "pilot", "todo"}
     }
     text = (docs_dir / "AGENTS.md").read_text(encoding="utf-8")
     rows = re.findall(r"^\|\s+`([^`]+\.md)`\s+\|\s+([^|]+?)\s+\|$", text, re.MULTILINE)
@@ -120,7 +121,9 @@ def test_output_inventory_lists_exact_planned_figure_outputs() -> None:
             "figure_registry.json",
         }
     )
-    text = (REPO / "docs" / "reference" / "output_inventory.md").read_text(encoding="utf-8")
+    text = (REPO / "docs" / "reference" / "output_inventory.md").read_text(
+        encoding="utf-8"
+    )
     documented = set(
         re.findall(r"^\|\s+`output/figures/([^`]+)`\s+\|", text, re.MULTILINE)
     )
@@ -141,12 +144,12 @@ def test_figure_documentation_mentions_planned_registry_outputs_and_qa_fields() 
         "docs/publication/rendering_pipeline.md": (
             REPO / "docs" / "publication" / "rendering_pipeline.md"
         ).read_text(encoding="utf-8"),
-        "docs/reference/syntax_guide.md": (REPO / "docs" / "reference" / "syntax_guide.md").read_text(
-            encoding="utf-8"
-        ),
-        "docs/manuscript/AGENTS.md": (REPO / "docs" / "manuscript" / "AGENTS.md").read_text(
-            encoding="utf-8"
-        ),
+        "docs/reference/syntax_guide.md": (
+            REPO / "docs" / "reference" / "syntax_guide.md"
+        ).read_text(encoding="utf-8"),
+        "docs/manuscript/AGENTS.md": (
+            REPO / "docs" / "manuscript" / "AGENTS.md"
+        ).read_text(encoding="utf-8"),
     }
     for docs_path, text in docs.items():
         missing = sorted(filename for filename in filenames if filename not in text)
@@ -155,7 +158,9 @@ def test_figure_documentation_mentions_planned_registry_outputs_and_qa_fields() 
     contract_docs = (
         "\n".join(docs.values())
         + "\n"
-        + (REPO / "docs" / "reference" / "output_inventory.md").read_text(encoding="utf-8")
+        + (REPO / "docs" / "reference" / "output_inventory.md").read_text(
+            encoding="utf-8"
+        )
     )
     missing_fields = sorted(
         field for field in VISUAL_QA_FIELDS if field not in contract_docs
@@ -187,12 +192,12 @@ def test_docs_describe_current_visual_contract_without_stale_route_language() ->
         "docs/reference/output_conventions.md": (
             REPO / "docs" / "reference" / "output_conventions.md"
         ).read_text(encoding="utf-8"),
-        "docs/guides/forking_guide.md": (REPO / "docs" / "guides" / "forking_guide.md").read_text(
-            encoding="utf-8"
-        ),
-        "docs/reference/syntax_guide.md": (REPO / "docs" / "reference" / "syntax_guide.md").read_text(
-            encoding="utf-8"
-        ),
+        "docs/guides/forking_guide.md": (
+            REPO / "docs" / "guides" / "forking_guide.md"
+        ).read_text(encoding="utf-8"),
+        "docs/reference/syntax_guide.md": (
+            REPO / "docs" / "reference" / "syntax_guide.md"
+        ).read_text(encoding="utf-8"),
     }
     for docs_path, text in docs.items():
         missing = sorted(field for field in VISUAL_QA_FIELDS if field not in text)

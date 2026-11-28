@@ -14,7 +14,9 @@ RELEASE_REPO_SLUG = "ActiveInferenceInstitute/Active_Skillference"
 
 
 def test_publication_readiness_doc_preserves_release_boundaries() -> None:
-    text = (REPO / "docs" / "publication" / "publication_readiness.md").read_text(encoding="utf-8")
+    text = (REPO / "docs" / "publication" / "publication_readiness.md").read_text(
+        encoding="utf-8"
+    )
 
     assert "initial static public-review publication" in text
     assert "not ready to claim a live SkillTree deployment" in text
