@@ -15,4 +15,4 @@ views.
 
 Build: `uv run python scripts/build_curriculum.py`.
 Parent guide: [`../AGENTS.md`](../AGENTS.md). Architecture:
-[`../../docs/architecture.md`](../../docs/architecture.md).
+[`../../docs/architecture/architecture.md`](../../docs/architecture/architecture.md).

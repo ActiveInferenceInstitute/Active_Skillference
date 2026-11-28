@@ -211,7 +211,7 @@ cat <<BANNER
      username  active-skillference-admin@localhost.invalid
      password  active-skillference-local
    If that is rejected, the local volume predates these defaults — see
-   docs/troubleshooting.md and run reset_local_skilltree.py.
+   docs/guides/troubleshooting.md and run reset_local_skilltree.py.
 
    Prerequisite edges are seeded separately because they are slow:
      uv run python scripts/reconcile_live_dependencies.py --check-only

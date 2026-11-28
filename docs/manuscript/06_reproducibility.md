@@ -74,7 +74,7 @@ aggregate number as a property of the suite, not as evidence of uniform module c
 <!-- claim-support:reproducibility_release_evidence -->
 Release evidence is recorded as a local, machine-checked ledger rather than as a clean
 public-release assertion. During review, the checkout may intentionally contain dirty or
-untracked files; `docs/release_readiness_inventory.md` is the authoritative inventory for
+untracked files; `docs/publication/release_readiness_inventory.md` is the authoritative inventory for
 that state and is regenerated with
 `uv run python scripts/validate_release_readiness_inventory.py --write`.
 

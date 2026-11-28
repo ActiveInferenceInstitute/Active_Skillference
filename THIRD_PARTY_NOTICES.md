@@ -2,7 +2,7 @@
 
 This repository declares the Active Skillference code and authored documentation under
 the MIT License in `LICENSE`, `CITATION.cff`, `.zenodo.json`, `codemeta.json`, and
-`manuscript/config.yaml`. This notice file is an engineering inventory for public review;
+`docs/manuscript/config.yaml`. This notice file is an engineering inventory for public review;
 it is not legal advice.
 
 ## Vendored Browser Bundle

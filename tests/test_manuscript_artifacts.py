@@ -529,24 +529,24 @@ def test_real_manuscript_figure_surface_passes_with_generated_registry(
     graph = build_curriculum()
     registry = build_claim_registry()
     scholarship = validate_scholarship(
-        REPO / "manuscript",
+        REPO / "docs" / "manuscript",
         REPO / "data" / "scholarship_sources.yaml",
-        REPO / "manuscript" / "references.bib",
+        REPO / "docs" / "manuscript" / "references.bib",
     )
     source_health = validate_source_health(
         REPO / "data" / "scholarship_sources.yaml",
-        REPO / "manuscript" / "references.bib",
+        REPO / "docs" / "manuscript" / "references.bib",
     )
     claim_support = validate_claim_support(
-        manuscript_dir=REPO / "manuscript",
+        manuscript_dir=REPO / "docs" / "manuscript",
         support_path=REPO / "data" / "manuscript_claim_support.yaml",
         source_matrix_path=REPO / "data" / "scholarship_sources.yaml",
-        bib_path=REPO / "manuscript" / "references.bib",
+        bib_path=REPO / "docs" / "manuscript" / "references.bib",
     )
     gap_report = validate_scholarship_gaps(
         scholarship,
         claim_support,
-        REPO / "manuscript" / "references.bib",
+        REPO / "docs" / "manuscript" / "references.bib",
     )
     render_all(
         graph,
@@ -572,7 +572,7 @@ def test_real_manuscript_figure_surface_passes_with_generated_registry(
     ]
 
     audit = validate_manuscript_artifacts(
-        manuscript_dir=REPO / "manuscript",
+        manuscript_dir=REPO / "docs" / "manuscript",
         figure_registry_path=tmp_path / "figure_registry.json",
         figure_dir=tmp_path,
         dashboard_figure_paths=dashboard_paths,
@@ -581,10 +581,10 @@ def test_real_manuscript_figure_surface_passes_with_generated_registry(
     path = write_manuscript_artifact_audit(audit, tmp_path / "audit.json")
 
     assert audit.issues() == ()
-    assert set(extract_declared_figure_labels(REPO / "manuscript")) == {
+    assert set(extract_declared_figure_labels(REPO / "docs" / "manuscript")) == {
         entry.label for entry in audit.registry_entries
     }
-    assert set(extract_referenced_figure_labels(REPO / "manuscript")).issubset(
+    assert set(extract_referenced_figure_labels(REPO / "docs" / "manuscript")).issubset(
         {entry.label for entry in audit.registry_entries}
     )
     assert path.read_text(encoding="utf-8").endswith("\n")
@@ -592,7 +592,7 @@ def test_real_manuscript_figure_surface_passes_with_generated_registry(
 
 def test_real_manuscript_declared_figure_captions_are_substantive() -> None:
     captions: dict[str, str] = {}
-    for path in sorted((REPO / "manuscript").glob("[0-9][0-9]_*.md")):
+    for path in sorted((REPO / "docs" / "manuscript").glob("[0-9][0-9]_*.md")):
         text = path.read_text(encoding="utf-8")
         for caption, label in _DECLARED_FIGURE_CAPTION_RE.findall(text):
             captions[label] = " ".join(caption.split())
@@ -607,7 +607,7 @@ def test_real_manuscript_declared_figure_captions_are_substantive() -> None:
 
 
 def test_abstract_body_is_three_plain_text_paragraphs() -> None:
-    text = (REPO / "manuscript" / "00_abstract.md").read_text(encoding="utf-8")
+    text = (REPO / "docs" / "manuscript" / "00_abstract.md").read_text(encoding="utf-8")
     body = re.sub(r"^# .+\n", "", text, count=1).strip()
     visible_body = re.sub(r"<!--.*?-->", "", body).strip()
     paragraphs = [item.strip() for item in visible_body.split("\n\n") if item.strip()]
@@ -765,7 +765,7 @@ def test_real_front_matter_visual_config_resolves_to_generated_output() -> None:
         == "output/figures/active_skillference_skill_atlas.png"
     )
     image, title, caption = _configured_page_two_visual(
-        REPO / "manuscript" / "config.yaml"
+        REPO / "docs" / "manuscript" / "config.yaml"
     )
     assert image == "../figures/active_skillference_skill_atlas.png"
     assert title == "Named Skill Atlas"
@@ -1361,9 +1361,11 @@ def test_figure_image_metrics_grayscale_image_reports_single_channel(
 
 
 def test_vfe_and_efe_figures_live_in_supplement_not_results() -> None:
-    results = (REPO / "manuscript" / "03_results.md").read_text(encoding="utf-8")
+    results = (REPO / "docs" / "manuscript" / "03_results.md").read_text(
+        encoding="utf-8"
+    )
     supplement = (
-        REPO / "manuscript" / "08_supplement_variational_free_energy.md"
+        REPO / "docs" / "manuscript" / "08_supplement_variational_free_energy.md"
     ).read_text(encoding="utf-8")
 
     assert (

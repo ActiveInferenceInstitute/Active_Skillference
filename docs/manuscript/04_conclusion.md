@@ -84,7 +84,7 @@ middle panel groups remaining open or blocked work by surface and release class 
 direct EXT/GIT segment labels, hatching, and surface totals, and the final panel reports
 current curriculum, assessment, scholarship, and figure metrics. The figure separates
 external blockers from git-authorization hygiene using machine-readable roadmap data, so
-release-readiness text must agree with the same source.](../output/figures/roadmap_risk.png){#fig:roadmap_risk width=88%}
+release-readiness text must agree with the same source.](../../output/figures/roadmap_risk.png){#fig:roadmap_risk width=88%}
 
 The limitations are therefore substantive rather than cosmetic. The kernels cover fixed,
 small discrete teaching cases and bounded predictive-coding or planning demonstrations;

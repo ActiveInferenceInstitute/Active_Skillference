@@ -4,10 +4,10 @@ type: "manuscript_guide"
 version: "1.0.0"
 ---
 
-# Manuscript (`manuscript/`)
+# Manuscript (`docs/manuscript/`)
 
-Project-wide agent rules live in [`../AGENTS.md`](../AGENTS.md) and
-[`../docs/agent_instructions.md`](../docs/agent_instructions.md). This file covers
+Project-wide agent rules live in [`../AGENTS.md`](../../AGENTS.md) and
+[`../docs/guides/agent_instructions.md`](../guides/agent_instructions.md). This file covers
 **manuscript-specific** editing: file roles, the `{{claim:NAME}}` provenance protocol, the
 figure protocol, and the section-modification workflow.
 
@@ -98,7 +98,7 @@ hardcoded number or raw `\ref{}`:
 A sixth family sits in the same registry but is *captured*, not rendered: the five
 learner-dashboard recordings below. They are declared and cross-referenced exactly like
 the plots, and are held to the same caption, alt-text, and chart-contract floors, but
-they carry `evidence_kind: captured` and `asset_root: manuscript/assets/screenshots`,
+they carry `evidence_kind: captured` and `asset_root: docs/manuscript/assets/screenshots`,
 are version-controlled rather than generated, are staged into `output/figures/` at build
 time so the renderer resolves them, and are exempt from the render/registry parity check
 because no generator emits them. Refresh with
@@ -107,11 +107,11 @@ whenever the dashboard display changes, because no gate detects a stale recordin
 
 | Label | Tracked PNG | Produced by |
 |---|---|---|
-| `{#fig:app_operational_snapshot}` | `manuscript/assets/screenshots/app_operational_snapshot.png` | `capture_dashboard_screenshots.py` |
-| `{#fig:app_official_learner_view}` | `manuscript/assets/screenshots/app_official_learner_view.png` | `capture_dashboard_screenshots.py` |
-| `{#fig:app_curriculum_learn_material}` | `manuscript/assets/screenshots/app_curriculum_learn_material.png` | `capture_dashboard_screenshots.py` |
-| `{#fig:app_dependency_graph}` | `manuscript/assets/screenshots/app_dependency_graph.png` | `capture_dashboard_screenshots.py` |
-| `{#fig:app_runtime_deployment_matrix}` | `manuscript/assets/screenshots/app_runtime_deployment_matrix.png` | `capture_dashboard_screenshots.py` |
+| `{#fig:app_operational_snapshot}` | `docs/manuscript/assets/screenshots/app_operational_snapshot.png` | `capture_dashboard_screenshots.py` |
+| `{#fig:app_official_learner_view}` | `docs/manuscript/assets/screenshots/app_official_learner_view.png` | `capture_dashboard_screenshots.py` |
+| `{#fig:app_curriculum_learn_material}` | `docs/manuscript/assets/screenshots/app_curriculum_learn_material.png` | `capture_dashboard_screenshots.py` |
+| `{#fig:app_dependency_graph}` | `docs/manuscript/assets/screenshots/app_dependency_graph.png` | `capture_dashboard_screenshots.py` |
+| `{#fig:app_runtime_deployment_matrix}` | `docs/manuscript/assets/screenshots/app_runtime_deployment_matrix.png` | `capture_dashboard_screenshots.py` |
 
 Current semantics: the DAG figure uses direct stratum labels, root labels, quiet edge
 context, and graph stats; the dependency-flow figure summarizes prerequisite traffic
@@ -158,7 +158,7 @@ complete name ledger and full dependency chain remain in the generated graph art
 **To add a figure:** add a `plot_*` function to `src/figures/plots/`, wire it into
 `render_all()`, add the Pandoc image line in the right section (alt text, relative path
 under `../output/figures/`, `{#fig:…}`), reference it in prose, and record it in
-[`../docs/output_inventory.md`](../docs/output_inventory.md). Re-run
+[`../docs/reference/output_inventory.md`](../reference/output_inventory.md). Re-run
 `uv run python scripts/run_kernels.py` or
 `uv run python scripts/validate_manuscript_artifacts.py` so the generated figure registry,
 manuscript references, readable PNG content, caption/alt-text fields, and dashboard
@@ -190,7 +190,7 @@ are emitted.
    ```
    (The render hydrates the sections, drives `pandoc --natbib` → `xelatex` → `bibtex`,
    and fails on any unresolved citation or reference; see
-   [`../docs/rendering_pipeline.md`](../docs/rendering_pipeline.md).)
+   [`../docs/publication/rendering_pipeline.md`](../publication/rendering_pipeline.md).)
 5. Confirm the generated figures and the cited references appear; check the render log for
    LaTeX/citation errors.
 
@@ -214,6 +214,6 @@ are emitted.
 
 - [`README.md`](README.md) — quick orientation
 - [`SYNTAX.md`](SYNTAX.md) — Pandoc + provenance-token syntax
-- [`../docs/rendering_pipeline.md`](../docs/rendering_pipeline.md) — manuscript → PDF flow
-- [`../src/provenance/binding.py`](../src/provenance/binding.py) — claim-token validation/substitution
-- [`../scripts/run_kernels.py`](../scripts/run_kernels.py) — regenerates claims and figures
+- [`../docs/publication/rendering_pipeline.md`](../publication/rendering_pipeline.md) — manuscript → PDF flow
+- [`../src/provenance/binding.py`](../../src/provenance/binding.py) — claim-token validation/substitution
+- [`../scripts/run_kernels.py`](../../scripts/run_kernels.py) — regenerates claims and figures

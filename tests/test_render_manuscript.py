@@ -31,9 +31,9 @@ def test_pdf_receipt_records_finalized_output_and_actual_inputs(pdf_project) -> 
     assert payload["sha256"] == hashlib.sha256(content).hexdigest()
     assert payload["source_revision"] == pdf_project["revision"]
     expected = {
-        "manuscript/config.yaml",
-        "manuscript/preamble.md",
-        "manuscript/references.bib",
+        "docs/manuscript/config.yaml",
+        "docs/manuscript/preamble.md",
+        "docs/manuscript/references.bib",
         "output/manuscript/01_fixture.md",
         "output/manuscript/assets/cover.pdf",
         "output/manuscript/assets/atlas.pdf",
@@ -58,7 +58,7 @@ def test_real_render_places_configured_atlas_on_physical_page_two(
         pytest.skip("existing render tools unavailable: " + ", ".join(missing))
     root = pdf_project["root"]
     monkeypatch.setattr(renderer, "ROOT", root)
-    monkeypatch.setattr(renderer, "MANUSCRIPT", root / "manuscript")
+    monkeypatch.setattr(renderer, "MANUSCRIPT", root / "docs" / "manuscript")
     monkeypatch.setattr(renderer, "OUTPUT_MANUSCRIPT", root / "output" / "manuscript")
     monkeypatch.setattr(renderer, "OUTPUT_PDF", root / "output" / "pdf")
     scratch = root / "build"

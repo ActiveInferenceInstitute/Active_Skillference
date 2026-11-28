@@ -16,7 +16,7 @@ _WORD_RE = re.compile(r"\b[A-Za-z][A-Za-z-]*\b")
 # own row; hyphenated compounds are additionally checked part by part. Forms that
 # are also accepted American usage are deliberately absent (for example "dialogue",
 # "analyses", and "acknowledgement"), as are tokens that double as technical
-# literals -- "capitalise" is a cleveref package option in manuscript/preamble.md.
+# literals -- "capitalise" is a cleveref package option in docs/manuscript/preamble.md.
 BRITISH_TO_AMERICAN: dict[str, str] = {
     "aluminium": "aluminum",
     "amongst": "among",

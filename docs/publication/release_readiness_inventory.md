@@ -8,11 +8,11 @@ Scope: local `Active_Skillference` checkout only. This inventory records the cur
 
 `git status --short` currently reports 1 rows outside this inventory file. The detailed file lists below contain 1 modified tracked paths and 0 untracked paths requiring intentional add or exclusion before a release commit.
 
-Tracked diff summary outside this inventory file from `git diff --stat -- . ':(exclude)docs/release_readiness_inventory.md'`: `1 file changed, 2 insertions(+), 1 deletion(-)`.
+Tracked diff summary outside this inventory file from `git diff --stat -- . ':(exclude)docs/publication/release_readiness_inventory.md'`: `1 file changed, 2 insertions(+), 1 deletion(-)`.
 
 ## Modified Tracked Files
 
-- `manuscript/README.md`
+- `docs/manuscript/README.md`
 
 ## Untracked Files Requiring Intentional Add Later
 
@@ -68,10 +68,10 @@ These SHA-256 rows are local reproducibility evidence for generated bundle artif
 
 ## Evidence Commands
 
-- `git status --short (excluding docs/release_readiness_inventory.md)`
+- `git status --short (excluding docs/publication/release_readiness_inventory.md)`
 - `git ls-files -o --exclude-standard`
 - `git diff --check`
-- `git diff --stat -- . ':(exclude)docs/release_readiness_inventory.md'`
+- `git diff --stat -- . ':(exclude)docs/publication/release_readiness_inventory.md'`
 - `uv run python scripts/validate_release_readiness_inventory.py`
 
 ## Remaining Release Blockers

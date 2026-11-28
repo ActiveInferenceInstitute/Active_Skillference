@@ -153,11 +153,11 @@ exported SkillTree project 'Active Skillference' (<skills> skills, <dependencies
 ```
 
 Expected: every arm exits 0 with zero mocks and `src/` line coverage at or above the 90%
-gate. [`gates.md`](gates.md) lists every arm and the exact command it runs; CI runs the
+gate. [`gates.md`](../validation/gates.md) lists every arm and the exact command it runs; CI runs the
 same arms.
 
 The discrete active-inference agent's generative model is also specified in
-[`../gnn/discrete_active_inference_agent.gnn.md`](../gnn/discrete_active_inference_agent.gnn.md)
+[`../gnn/discrete_active_inference_agent.gnn.md`](../../gnn/discrete_active_inference_agent.gnn.md)
 (Generalized Notation Notation). With the pinned GNN checkout available (`GNN_ROOT`, or the
 sibling clone), `uv run python scripts/validate_gnn_spec.py` re-parses that specification
 with the pinned GNN parser and checks it against the kernel; without the checkout the
@@ -191,7 +191,7 @@ bootstrap path creates/reuses local admin state, seeds the project, and verifies
 trusted-client token exchange for `local-learner`.
 Standalone `seed_skilltree.py` invocations skip cleanly when no server is listening, so
 the render pipeline remains usable without Docker. See
-[`../vendor/README.md`](../vendor/README.md) for the Docker and build-from-source paths.
+[`../vendor/README.md`](../../vendor/README.md) for the Docker and build-from-source paths.
 Set `ACTIVE_SKILLFERENCE_LOCAL_AUTH=0 SKILLTREE_TOKEN=...` only when targeting a
 deployment that already supports bearer-token admin writes.
 
@@ -211,7 +211,7 @@ It does not store ranking, progress, self-reporting, or quiz state; those remain
 SkillTree-owned. The page paints from `/api/status?defer_live=1` and swaps in the live
 dependency-parity result when it lands, so scripts that need the parity check must call
 `/api/status` without `defer_live`.
-See [`learner_dashboard.md`](learner_dashboard.md) for the full route map.
+See [`learner_dashboard.md`](../architecture/learner_dashboard.md) for the full route map.
 
 For an artifact-only check without Docker:
 
@@ -229,13 +229,13 @@ uv run python scripts/serve_learner_dashboard.py
   Re-run step 1.
 - **Add a computed value**: add a worked example to `src/kernels/examples.py`, register
   its claim, and reference it via `{{claim:NAME}}` in the curriculum. Re-run steps 2–3.
-- **See the manuscript flow**: [`rendering_pipeline.md`](rendering_pipeline.md).
+- **See the manuscript flow**: [`rendering_pipeline.md`](../publication/rendering_pipeline.md).
 
 ## Getting help
 
-- **Docs hub**: [`README.md`](README.md)
+- **Docs hub**: [`README.md`](../README.md)
 - **Agent rules**: [`agent_instructions.md`](agent_instructions.md)
-- **Architecture**: [`architecture.md`](architecture.md)
+- **Architecture**: [`architecture.md`](../architecture/architecture.md)
 - **Troubleshooting**: [`troubleshooting.md`](troubleshooting.md)
 
 ## Quick command reference

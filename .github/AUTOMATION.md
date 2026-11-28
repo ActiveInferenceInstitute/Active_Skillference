@@ -4,7 +4,7 @@
 is the only workflow: it runs the offline gate arms of [`../gates.sh`](../gates.sh),
 plus the pinned-GNN conformance lane, on pushes to `main`, pull requests and
 manual dispatch. Each workflow step is one arm, so CI carries no second copy of
-a gate command — see [`../docs/gates.md`](../docs/gates.md).
+a gate command — see [`../docs/validation/gates.md`](../docs/validation/gates.md).
 
 The live Docker + SkillTree + browser proofs are deliberately not simulated
 here; see [`workflows/README.md`](workflows/README.md) and the project

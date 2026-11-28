@@ -10,4 +10,4 @@ their logic.
 this package, and maps the result to a process status.
 
 Parent guide: [`../AGENTS.md`](../AGENTS.md). Output layout:
-[`../../docs/output_conventions.md`](../../docs/output_conventions.md).
+[`../../docs/reference/output_conventions.md`](../../docs/reference/output_conventions.md).

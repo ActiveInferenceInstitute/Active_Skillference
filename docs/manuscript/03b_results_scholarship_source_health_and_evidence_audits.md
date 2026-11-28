@@ -18,7 +18,7 @@ scholarly support surface.
 source-role matrix. The left panel compares cited versus matrixed sources by scholarship
 lane; the right panel maps manuscript sections to citation lanes. This figure makes
 support distribution inspectable: a large bibliography is not treated as sufficient unless
-sources are cited in the sections and roles where they support specific claims.](../output/figures/scholarship_coverage.png){#fig:scholarship_coverage width=100%}
+sources are cited in the sections and roles where they support specific claims.](../../output/figures/scholarship_coverage.png){#fig:scholarship_coverage width=100%}
 
 <!-- claim-support:results_open_science_sources -->
 The open-science education layer is also explicit. Active Skillference cites the Active
@@ -39,7 +39,7 @@ rows distinguish the course repository, cognitive knowledge-base source, Institu
 homepage, website repository, and START source with locator and role text. The website
 repository is a community/resource-hub pointer rather than a course or knowledge-base
 record. The figure records pinned links and cited support surfaces; it does not claim
-endorsement, completeness, or copied ownership of the public education ecosystem.](../output/figures/open_science_source_map.png){#fig:open_science_sources width=88%}
+endorsement, completeness, or copied ownership of the public education ecosystem.](../../output/figures/open_science_source_map.png){#fig:open_science_sources width=88%}
 
 <!-- claim-support:results_source_health -->
 The source matrix is then checked a second way: source locators must be syntactically
@@ -54,7 +54,7 @@ support-role checks. Status cards separate matrixed source count, offline valida
 issues, and online-check mode, while the ledger rows distinguish local metadata health
 from optional network reachability. The figure separates two different claims: a source
 can be present in the matrix and still require locator, role, or currentness repair before
-release.](../output/figures/scholarship_source_health.png){#fig:scholarship_source_health width=88%}
+release.](../../output/figures/scholarship_source_health.png){#fig:scholarship_source_health width=88%}
 
 <!-- claim-support:results_validation_surface -->
 The validation surface is intentionally visible rather than left as a hidden CI detail.
@@ -76,7 +76,7 @@ dependencies, assessment questions, claims, cited sources, and registered figure
 directly from the graph, claim registry, scholarship audit, and figure inventory. The
 interpretation boundary is important: a bound cell means a named validator file exists
 for that artifact surface (not that the gate is guaranteed sound), while an unbound cell
-marks a surface that is out of scope for that gate.](../output/figures/validation_surface_matrix.png){#fig:validation_surface_matrix width=100%}
+marks a surface that is out of scope for that gate.](../../output/figures/validation_surface_matrix.png){#fig:validation_surface_matrix width=100%}
 
 [@fig:validation_intent_mismatch_matrix] makes the negative controls behind that release
 view explicit. It separates missing registry rows, missing files, missing manuscript
@@ -91,7 +91,7 @@ registered figure omitted from the dashboard artifact roster, a missing roadmap 
 metric, and a stale generated manifest. Columns show whether the source-of-truth,
 manuscript gate, or dashboard gate is expected to reject each mismatch before release.
 The right panel records the planned registered-figure count and which optional audit
-surfaces were enabled for the render.](../output/figures/validation_intent_mismatch_matrix.png){#fig:validation_intent_mismatch_matrix width=98%}
+surfaces were enabled for the render.](../../output/figures/validation_intent_mismatch_matrix.png){#fig:validation_intent_mismatch_matrix width=98%}
 
 The same contract is now represented inside the curriculum rather than only enforced at
 release time. The visual-evidence slice adds a prerequisite-gated authoring path for
@@ -108,7 +108,7 @@ encoding strength, annotation boundary, static/mobile survival, and negative-con
 validation. Each rung names the skill identifier that carries the review obligation and
 reports whether the skill is registered in the graph. The figure documents the authoring
 and validation lifecycle for visual evidence; it does not claim learner effectiveness or
-external deployment performance.](../output/figures/visual_evidence_contract_ladder.png){#fig:visual_evidence_contract_ladder width=98%}
+external deployment performance.](../../output/figures/visual_evidence_contract_ladder.png){#fig:visual_evidence_contract_ladder width=98%}
 
 <!-- claim-support:results_scientific_evidence_matrix -->
 The scientific-claim layer adds one more audit view. [@fig:scientific_evidence_matrix]
@@ -126,7 +126,7 @@ evidence classes, cell counts show how many anchored claims use each evidence cl
 the side panel counts claims per type. The purpose is epistemic classification rather than
 statistical inference: computed, descriptive, simulation, literature, scope-limit,
 delivery, and visual claims are forced to declare the kind of support they actually
-have.](../output/figures/scientific_evidence_matrix.png){#fig:scientific_evidence_matrix width=96%}
+have.](../../output/figures/scientific_evidence_matrix.png){#fig:scientific_evidence_matrix width=96%}
 
 The platform evidence above is intentionally separated from the small mathematical
 examples. Those examples are still central teaching artifacts, but their scientific

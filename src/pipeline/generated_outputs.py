@@ -91,7 +91,7 @@ def build_generated_outputs(project_root: Path | None = None) -> GeneratedOutput
         data_dir / "curriculum_diagnostic_gap_map.json",
         diagnostic_gap_map,
     )
-    manuscript_dir = root / "manuscript"
+    manuscript_dir = root / "docs" / "manuscript"
     if manuscript_dir.is_dir():
         validate_manuscript_dir(manuscript_dir, registry)
         validate_american_english(manuscript_dir)

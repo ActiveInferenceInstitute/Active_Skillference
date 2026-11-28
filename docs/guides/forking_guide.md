@@ -139,8 +139,8 @@ dashboard, and validator surfaces describe the same evidence boundary.
 
 ## See also
 
-- [`architecture.md`](architecture.md) — module boundaries.
+- [`architecture.md`](../architecture/architecture.md) — module boundaries.
 - [`faq.md`](faq.md) — imports, provenance, and authoring questions.
 - [`troubleshooting.md`](troubleshooting.md) — symptom-driven fixes.
-- [`output_inventory.md`](output_inventory.md) — every artifact and its producer.
-- [`../AGENTS.md`](../AGENTS.md) — invariants and the provenance chain.
+- [`output_inventory.md`](../reference/output_inventory.md) — every artifact and its producer.
+- [`../AGENTS.md`](../../AGENTS.md) — invariants and the provenance chain.

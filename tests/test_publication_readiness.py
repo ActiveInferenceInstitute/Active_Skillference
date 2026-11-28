@@ -14,14 +14,16 @@ RELEASE_REPO_SLUG = "ActiveInferenceInstitute/Active_Skillference"
 
 
 def test_publication_readiness_doc_preserves_release_boundaries() -> None:
-    text = (REPO / "docs" / "publication_readiness.md").read_text(encoding="utf-8")
+    text = (REPO / "docs" / "publication" / "publication_readiness.md").read_text(
+        encoding="utf-8"
+    )
 
     assert "initial static public-review publication" in text
     assert "not ready to claim a live SkillTree deployment" in text
     assert "Do not claim empirical learner effectiveness" in text
     assert "Do not claim national-security-grade security" in text
     assert "Do not publish DOI" in text
-    assert "docs/ip_license_status.md" in text
+    assert "docs/publication/ip_license_status.md" in text
     assert "THIRD_PARTY_NOTICES.md" in text
     assert "owner has confirmed MIT" in text
     assert "counsel-review checklist" in text
@@ -39,7 +41,7 @@ def test_publication_metadata_matches_the_published_release() -> None:
     citation = (REPO / "CITATION.cff").read_text(encoding="utf-8")
     codemeta = json.loads((REPO / "codemeta.json").read_text(encoding="utf-8"))
     zenodo = json.loads((REPO / ".zenodo.json").read_text(encoding="utf-8"))
-    config = yaml.safe_load((REPO / "manuscript" / "config.yaml").read_text())
+    config = yaml.safe_load((REPO / "docs" / "manuscript" / "config.yaml").read_text())
     publication = config["publication"]
 
     assert RELEASE_DOI in citation
@@ -64,7 +66,7 @@ def test_cover_doi_matches_the_recorded_zenodo_deposit() -> None:
     a plausible-looking but wrong DOI off the cover page, and it also catches a
     stale reserved-state placeholder left behind after publication.
     """
-    config = yaml.safe_load((REPO / "manuscript" / "config.yaml").read_text())
+    config = yaml.safe_load((REPO / "docs" / "manuscript" / "config.yaml").read_text())
     publication = config["publication"]
     record = json.loads(
         (REPO / "data" / "zenodo_reservation.json").read_text(encoding="utf-8")

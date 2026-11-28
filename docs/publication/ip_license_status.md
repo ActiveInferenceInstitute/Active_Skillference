@@ -10,7 +10,7 @@ deposit.
 The project owner has confirmed the following release-governance decisions for this
 static public-review posture:
 
-- MIT is the intended license for all authored repository code, manuscript/documentation,
+- MIT is the intended license for all authored repository code, docs/manuscript/documentation,
   and generated artifacts.
 - The current copyright holder line should remain `Daniel Ari Friedman`.
 - The intended public repository target remains
@@ -27,7 +27,7 @@ Active Skillference declares MIT for repository code and authored content in:
 - `CITATION.cff`
 - `.zenodo.json`
 - `codemeta.json`
-- `manuscript/config.yaml`
+- `docs/manuscript/config.yaml`
 
 The SPDX and OSI MIT texts are the reference boundary for this declaration. DOI, public
 archive fields, renderer-facing repository links, and release-date metadata remain
@@ -50,7 +50,7 @@ any of those fields.
 
 The repository is suitable only for a static public-review posture after the dirty
 worktree is intentionally committed or explicitly deferred and
-`docs/release_readiness_inventory.md` is regenerated from the current checkout.
+`docs/publication/release_readiness_inventory.md` is regenerated from the current checkout.
 
 It is not ready for:
 

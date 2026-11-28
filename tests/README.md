@@ -51,9 +51,9 @@ missing/default settings must not be mistaken for a missing export-only percenta
 | `test_curriculum_catalog.py` | `curriculum/catalog.py` — the Active Inference catalog builds, validates, and enforces the current catalog floors across all eight strata |
 | `test_provenance.py` | `provenance/claims.py` + `provenance/binding.py` — claim registry round-trip, `{{claim:NAME}}` render/resolve, fail-closed export, the bare-number linter, and manuscript-token validation |
 | `test_scholarship.py` | `scholarship/coverage.py` and source health — citation source-role matrix validation, stale matrix/BibTeX rejection, online-timeout status handling, real manuscript coverage, and audit JSON |
-| `test_claim_support.py` | `manuscript/claim_support.py` — claim-support anchors, evidence-class requirements, real manuscript support, and unsupported strong scientific language |
-| `test_manuscript_language.py` | `manuscript/american_english.py` — American English spelling validation for authored manuscript prose, including negative controls for British spelling variants |
-| `test_manuscript_artifacts.py` | `manuscript/audit.py` — figure registry, manuscript label/cross-reference, PNG readability/information content, caption/alt text, semantic metadata, claim tokens, and dashboard artifact drift validation |
+| `test_claim_support.py` | `docs/manuscript/claim_support.py` — claim-support anchors, evidence-class requirements, real manuscript support, and unsupported strong scientific language |
+| `test_manuscript_language.py` | `docs/manuscript/american_english.py` — American English spelling validation for authored manuscript prose, including negative controls for British spelling variants |
+| `test_manuscript_artifacts.py` | `docs/manuscript/audit.py` — figure registry, manuscript label/cross-reference, PNG readability/information content, caption/alt text, semantic metadata, claim tokens, and dashboard artifact drift validation |
 | `test_skilltree_model.py` | `skilltree/model.py` — SkillTree schema dataclasses, camelCase export dicts, id/field validation |
 | `test_skilltree_exporter.py` | `skilltree/exporter.py` — curriculum→SkillTree projection, edge direction, quiz building, deterministic JSON |
 | `test_skilltree_client.py` | `skilltree/client.py` — REST client against a real `pytest-httpserver` (path/method/bearer/body, error mapping) |

@@ -14,7 +14,7 @@ from src.manuscript.american_english import audit_american_english
 
 
 def main() -> int:
-    issues = audit_american_english(_ROOT / "manuscript")
+    issues = audit_american_english(_ROOT / "docs" / "manuscript")
     if issues:
         print("British spelling variants found in manuscript prose:", file=sys.stderr)
         for issue in issues:

@@ -14,7 +14,7 @@ DEFAULT_ASSET_ROOT = "output/figures"
 #: Where captured browser evidence is tracked. It is version-controlled rather
 #: than generated because a screenshot of a running system is a recording, not a
 #: pure function of project data, so it cannot be rebuilt from a fresh checkout.
-CAPTURED_ASSET_ROOT = "manuscript/assets/screenshots"
+CAPTURED_ASSET_ROOT = "docs/manuscript/assets/screenshots"
 RENDERED_EVIDENCE = "rendered"
 CAPTURED_EVIDENCE = "captured"
 

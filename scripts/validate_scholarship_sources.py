@@ -44,7 +44,7 @@ def main() -> int:
         if args.online:
             audit = validate_source_health(
                 _ROOT / "data" / "scholarship_sources.yaml",
-                _ROOT / "manuscript" / "references.bib",
+                _ROOT / "docs" / "manuscript" / "references.bib",
                 online=True,
                 strict_online=args.strict_online,
                 timeout=args.timeout,
@@ -52,7 +52,7 @@ def main() -> int:
         else:
             audit = validate_source_health(
                 _ROOT / "data" / "scholarship_sources.yaml",
-                _ROOT / "manuscript" / "references.bib",
+                _ROOT / "docs" / "manuscript" / "references.bib",
                 online=False,
             )
     except SourceHealthError as exc:

@@ -29,7 +29,7 @@ server via `pytest-httpserver`. Imports use the `src.*` namespace.
 ## Directory Structure
 
 A representative slice of the suite — the full file-by-file table lives in
-[`../docs/testing_philosophy.md`](../docs/testing_philosophy.md), and `ls tests/` is the
+[`../docs/validation/testing_philosophy.md`](../docs/validation/testing_philosophy.md), and `ls tests/` is the
 authoritative list.
 
 ```mermaid
@@ -92,7 +92,7 @@ uv run pytest tests/test_kernels_information.py::TestEntropy::test_uniform_distr
 ## Test inventory
 
 Grouped highlights, not the complete list; see
-[`../docs/testing_philosophy.md`](../docs/testing_philosophy.md) for every file.
+[`../docs/validation/testing_philosophy.md`](../docs/validation/testing_philosophy.md) for every file.
 
 ### Kernels (the source of every claim)
 

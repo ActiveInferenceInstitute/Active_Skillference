@@ -23,33 +23,34 @@ misleads future contributors even when the code gates are green.
 | `README.md` | Quick navigation and audience-targeted entry points for this folder |
 | `AGENTS.md` | This index — technical overview of `docs/` + verification commands |
 | `documentation-index.md` | Flat index of every long-lived document, its authoritative subject, and the generated ones |
-| `gates.md` | The `./gates.sh` entry point: arm-by-arm commands, ordering, CI job mapping, render toolchain |
-| `gate_metrics.md` | Generated per-arm wall times and the test/coverage counts from the recorded run |
-| `quickstart.md` | 5-minute first-run walkthrough (build → kernels → export → test) |
-| `learner_dashboard.md` | Local learner dashboard route map, SkillTree ownership boundary, offline behavior |
-| `architecture.md` | Thin-orchestrator flow: the `src/` layers, dependency direction, how to add a skill/subject/kernel |
-| `agent_instructions.md` | Behavioral invariants for agents (provenance, DAG, `src.*` imports, no mocks, coverage) + checklist |
-| `testing_philosophy.md` | Zero-mock policy; coverage mechanics; test-file inventory |
-| `syntax_guide.md` | Markdown/LaTeX in skill + manuscript content; the `{{claim:NAME}}` token system; figure references |
-| `rendering_pipeline.md` | Manuscript → PDF flow; preflight; claim-token substitution |
-| `scholarship_coverage.md` | Citation source-role matrix, validator, outputs, and edit protocol |
+| `validation/gates.md` | The `./gates.sh` entry point: arm-by-arm commands, ordering, CI job mapping, render toolchain |
+| `validation/gate_metrics.md` | Generated per-arm wall times and the test/coverage counts from the recorded run |
+| `guides/quickstart.md` | 5-minute first-run walkthrough (build → kernels → export → test) |
+| `architecture/learner_dashboard.md` | Local learner dashboard route map, SkillTree ownership boundary, offline behavior |
+| `architecture/architecture.md` | Thin-orchestrator flow: the `src/` layers, dependency direction, how to add a skill/subject/kernel |
+| `guides/agent_instructions.md` | Behavioral invariants for agents (provenance, DAG, `src.*` imports, no mocks, coverage) + checklist |
+| `validation/testing_philosophy.md` | Zero-mock policy; coverage mechanics; test-file inventory |
+| `reference/syntax_guide.md` | Markdown/LaTeX in skill + manuscript content; the `{{claim:NAME}}` token system; figure references |
+| `publication/rendering_pipeline.md` | Manuscript → PDF flow; preflight; claim-token substitution |
+| `validation/scholarship_coverage.md` | Citation source-role matrix, validator, outputs, and edit protocol |
+| `manuscript/` | Numbered source, bibliography, and build instructions for the paper |
 | `pilot/` | Protocol-only learner-pilot contract, privacy boundary, export schema, and analysis sequence |
-| `ip_license_status.md` | MIT declaration, third-party boundaries, DOI/public-repository blockers, and deployment review caveats |
-| `publication_readiness.md` | Initial static publication readiness, allowed claims, and release blockers |
-| `release_readiness_inventory.md` | Machine-checked dirty worktree, untracked-file, generated-output and blocker inventory for release isolation |
+| `publication/ip_license_status.md` | MIT declaration, third-party boundaries, DOI/public-repository blockers, and deployment review caveats |
+| `publication/publication_readiness.md` | Initial static publication readiness, allowed claims, and release blockers |
+| `publication/release_readiness_inventory.md` | Machine-checked dirty worktree, untracked-file, generated-output and blocker inventory for release isolation |
 | `todo/` | Generated active roadmap handoff folder with one scoped Markdown page per open TODO |
-| `curriculum_expert_audit.md` | Deterministic expert-review sample over high-depth, high-fanout and templated curriculum surfaces |
-| `style_guide.md` | Source-code rules: zero-mock, thin orchestrator, `src.*` imports, type hints, error messages |
-| `output_conventions.md` | `output/` directory layout and regeneration |
-| `output_inventory.md` | Producer/consumer graph for pipeline artifacts |
-| `forking_guide.md` | Adapting the platform to a new curriculum domain |
-| `troubleshooting.md` | Symptom-driven recipes for common failures |
-| `faq.md` | Frequently asked questions: provenance, DAG, SkillTree |
+| `validation/curriculum_expert_audit.md` | Deterministic expert-review sample over high-depth, high-fanout and templated curriculum surfaces |
+| `reference/style_guide.md` | Source-code rules: zero-mock, thin orchestrator, `src.*` imports, type hints, error messages |
+| `reference/output_conventions.md` | `output/` directory layout and regeneration |
+| `reference/output_inventory.md` | Producer/consumer graph for pipeline artifacts |
+| `guides/forking_guide.md` | Adapting the platform to a new curriculum domain |
+| `guides/troubleshooting.md` | Symptom-driven recipes for common failures |
+| `guides/faq.md` | Frequently asked questions: provenance, DAG, SkillTree |
 
 ## Key conventions
 
 > These invariants are summarized here for a quick orientation; the authoritative,
-> complete rules live in [agent_instructions.md](agent_instructions.md), with the
+> complete rules live in [agent_instructions.md](guides/agent_instructions.md), with the
 > repo-root [`../AGENTS.md`](../AGENTS.md) as the top-level landing page.
 
 **Provenance over assertion.** Learner-facing numbers reach skill content, figures, and
@@ -66,7 +67,7 @@ confirms every applications skill traces back to a foundational root. Run
 `scripts/build_curriculum.py` after any catalog edit.
 
 **Scholarship coverage.** `src/scholarship/coverage.py` checks authored manuscript
-citations against `manuscript/references.bib` and `data/scholarship_sources.yaml`. Every
+citations against `docs/manuscript/references.bib` and `data/scholarship_sources.yaml`. Every
 cited key needs a source-role matrix row with a lane, kind, locator, and role. Run
 `scripts/analyze_scholarship.py` after citation edits. `src/scholarship/gap_report.py`
 adds a frontier-source report so added formal-provenance, knowledge-space, pedagogy,
@@ -81,7 +82,7 @@ metadata, claim tokens, and dashboard figure artifacts. Run
 `scripts/validate_manuscript_artifacts.py` after changing a figure label, figure output,
 or dashboard artifact entry.
 
-**Claim support.** Anchored manuscript claims in `manuscript/*.md` must have rows in
+**Claim support.** Anchored manuscript claims in `docs/manuscript/*.md` must have rows in
 `data/manuscript_claim_support.yaml`. Run `scripts/validate_claim_support.py` after
 changing scientific wording, citations, figure references, or limitation language.
 
@@ -117,7 +118,7 @@ pass while the math is wrong.
 
 **Coverage ≥90%.** `pyproject.toml` gates `src/` coverage at 90%; use the coverage run
 as the source of truth. The recorded test count and coverage from the last
-`./gates.sh record` run live in the generated [`gate_metrics.md`](gate_metrics.md) — do not
+`./gates.sh record` run live in the generated [`gate_metrics.md`](validation/gate_metrics.md) — do not
 copy them here.
 
 **Roadmap surfaces.** `tasks.yaml` is the canonical roadmap/history source.
@@ -137,7 +138,7 @@ copy them here.
 ## Verification commands
 
 Run from the project root. Every one of these is an arm of the single gate entry point,
-[`gates.md`](gates.md); CI runs the same arms, so these commands and the workflow cannot
+[`gates.md`](validation/gates.md); CI runs the same arms, so these commands and the workflow cannot
 drift apart.
 
 ```bash
@@ -183,7 +184,7 @@ grep -rnE "^(from|import) (kernels|curriculum|skilltree|provenance|figures)\b" s
 | `src/project_paths.py` | Project root + `output/` directory resolution |
 | `scripts/` | Thin orchestrators (see list above) |
 | `tests/` | Zero-mock test suite (every `test_*.py` in `tests/`, e.g. `test_kernels_*`, `test_curriculum_*`, `test_skilltree_*`, `test_dashboard*`, `test_pilot_contract`, `test_net_guard`, `test_full_app_stack`, `test_publication_readiness`, `test_release_readiness_inventory`, `test_pipeline_generated_outputs`, `test_docs_inventory`, `test_figures`, `test_roadmap`, `test_scripts_smoke`, `test_course_materials`, `test_claim_support`) |
-| `manuscript/` | The platform write-up rendered to PDF (`{{claim:NAME}}` tokens substituted) |
+| `docs/manuscript/` | The platform write-up rendered to PDF (`{{claim:NAME}}` tokens substituted) |
 | `vendor/` | Runnable SkillTree instance wiring (`vendor/README.md`) |
 
 ## Generated figures
@@ -252,5 +253,5 @@ reserved for source/caveat notes.
 - [`../AGENTS.md`](../AGENTS.md) — Project-level agent guidance and the auditable provenance chain.
 - [`../ISA.md`](../ISA.md) — The Ideal State Artifact (problem, principles, criteria, verification).
 - [`../pyproject.toml`](../pyproject.toml) — Coverage gate, pytest options (`pythonpath = [".", "src"]`), dependencies.
-- [`../manuscript/AGENTS.md`](../manuscript/AGENTS.md) — Manuscript directory rules and the `{{claim:NAME}}` protocol.
+- [`../manuscript/AGENTS.md`](manuscript/AGENTS.md) — Manuscript directory rules and the `{{claim:NAME}}` protocol.
 - [`../vendor/README.md`](../vendor/README.md) — Live SkillTree instance (Docker / build-from-source).

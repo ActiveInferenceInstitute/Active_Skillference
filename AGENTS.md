@@ -14,7 +14,7 @@ All logic lives in `src/`; `scripts/` only coordinate I/O. Layers, bottom-up:
    quantitative values. Deterministic; nats units.
 2. `src/provenance/` — `ClaimRegistry` (kernels register named claims) and `binding`
    (resolve `{{claim:NAME}}` tokens, fail closed on unbacked tokens, lint bare numbers).
-3. `src/scholarship/` — citation source-role coverage over `manuscript/references.bib`
+3. `src/scholarship/` — citation source-role coverage over `docs/manuscript/references.bib`
    and `data/scholarship_sources.yaml`.
 4. `src/manuscript/` — figure registry / manuscript / dashboard artifact validation.
 5. `src/curriculum/` — typed `Stratum`/`Subject`/`Skill`/`AssessmentQuestion`, the

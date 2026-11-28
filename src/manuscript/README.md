@@ -14,4 +14,4 @@ Drivers: `scripts/validate_manuscript_artifacts.py`,
 `scripts/validate_american_english.py`.
 
 Parent guide: [`../AGENTS.md`](../AGENTS.md). Writing rules:
-[`../../docs/agent_instructions.md`](../../docs/agent_instructions.md).
+[`../../docs/guides/agent_instructions.md`](../../docs/guides/agent_instructions.md).

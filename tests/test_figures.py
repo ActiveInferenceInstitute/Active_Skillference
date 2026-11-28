@@ -313,26 +313,26 @@ def test_curriculum_dag_figure_written(tmp_path) -> None:
 def test_figure_table_companions_cover_dense_figure_labels() -> None:
     graph = build_curriculum()
     scholarship = validate_scholarship(
-        REPO / "manuscript",
+        REPO / "docs" / "manuscript",
         REPO / "data" / "scholarship_sources.yaml",
-        REPO / "manuscript" / "references.bib",
+        REPO / "docs" / "manuscript" / "references.bib",
     )
     claim_support = validate_claim_support(
-        manuscript_dir=REPO / "manuscript",
+        manuscript_dir=REPO / "docs" / "manuscript",
         support_path=REPO / "data" / "manuscript_claim_support.yaml",
         source_matrix_path=REPO / "data" / "scholarship_sources.yaml",
-        bib_path=REPO / "manuscript" / "references.bib",
+        bib_path=REPO / "docs" / "manuscript" / "references.bib",
         registry_claim_ids=build_claim_registry().names(),
         project_root=REPO,
     )
     source_health = validate_source_health(
         REPO / "data" / "scholarship_sources.yaml",
-        REPO / "manuscript" / "references.bib",
+        REPO / "docs" / "manuscript" / "references.bib",
     )
     gap_report = validate_scholarship_gaps(
         scholarship,
         claim_support,
-        REPO / "manuscript" / "references.bib",
+        REPO / "docs" / "manuscript" / "references.bib",
     )
 
     payload = figure_table_companions(
@@ -440,13 +440,13 @@ def test_active_skillference_cover_written_without_registry_entry(tmp_path) -> N
         reg,
         tmp_path,
         scholarship_audit=validate_scholarship(
-            REPO / "manuscript",
+            REPO / "docs" / "manuscript",
             REPO / "data" / "scholarship_sources.yaml",
-            REPO / "manuscript" / "references.bib",
+            REPO / "docs" / "manuscript" / "references.bib",
         ).to_dict(),
         source_health_audit=validate_source_health(
             REPO / "data" / "scholarship_sources.yaml",
-            REPO / "manuscript" / "references.bib",
+            REPO / "docs" / "manuscript" / "references.bib",
         ).to_dict(),
         roadmap=roadmap,
     )
@@ -493,13 +493,13 @@ def test_skill_name_atlas_written_without_registry_entry(tmp_path) -> None:
         reg,
         tmp_path,
         scholarship_audit=validate_scholarship(
-            REPO / "manuscript",
+            REPO / "docs" / "manuscript",
             REPO / "data" / "scholarship_sources.yaml",
-            REPO / "manuscript" / "references.bib",
+            REPO / "docs" / "manuscript" / "references.bib",
         ).to_dict(),
         source_health_audit=validate_source_health(
             REPO / "data" / "scholarship_sources.yaml",
-            REPO / "manuscript" / "references.bib",
+            REPO / "docs" / "manuscript" / "references.bib",
         ).to_dict(),
         roadmap=roadmap,
     )
@@ -532,9 +532,9 @@ def test_vfe_efe_skilltree_bridge_figure_written(tmp_path) -> None:
 
 def test_scholarship_coverage_figure_written(tmp_path) -> None:
     audit = validate_scholarship(
-        REPO / "manuscript",
+        REPO / "docs" / "manuscript",
         REPO / "data" / "scholarship_sources.yaml",
-        REPO / "manuscript" / "references.bib",
+        REPO / "docs" / "manuscript" / "references.bib",
     )
     path = plot_scholarship_coverage(audit.to_dict(), tmp_path / "scholarship.png")
     assert path.exists() and path.stat().st_size > 0
@@ -543,9 +543,9 @@ def test_scholarship_coverage_figure_written(tmp_path) -> None:
 
 def test_open_science_source_map_figure_written(tmp_path) -> None:
     audit = validate_scholarship(
-        REPO / "manuscript",
+        REPO / "docs" / "manuscript",
         REPO / "data" / "scholarship_sources.yaml",
-        REPO / "manuscript" / "references.bib",
+        REPO / "docs" / "manuscript" / "references.bib",
     )
     material_index, material_audit = _course_material_payload()
     path = plot_open_science_source_map(
@@ -571,7 +571,7 @@ def test_graph_diagnostic_figures_written(tmp_path) -> None:
 def test_scholarship_source_health_figure_written(tmp_path) -> None:
     audit = validate_source_health(
         REPO / "data" / "scholarship_sources.yaml",
-        REPO / "manuscript" / "references.bib",
+        REPO / "docs" / "manuscript" / "references.bib",
     )
     path = plot_scholarship_source_health(audit.to_dict(), tmp_path / "health.png")
     assert path.exists() and path.stat().st_size > 0
@@ -589,9 +589,9 @@ def test_validation_surface_matrix_figure_written(tmp_path) -> None:
     graph = build_curriculum()
     reg = build_claim_registry()
     audit = validate_scholarship(
-        REPO / "manuscript",
+        REPO / "docs" / "manuscript",
         REPO / "data" / "scholarship_sources.yaml",
-        REPO / "manuscript" / "references.bib",
+        REPO / "docs" / "manuscript" / "references.bib",
     )
     path = plot_validation_surface_matrix(
         graph,
@@ -668,7 +668,7 @@ def test_figure_typography_rejects_subminimum_hard_coded_font_sizes() -> None:
 def test_figure_text_does_not_hardcode_a_stale_assessment_floor() -> None:
     """The figure caption/panel layer must bind to the enforced assessment floor.
 
-    The manuscript-variable linter only scans manuscript/*.md, so a stale floor in a
+    The manuscript-variable linter only scans docs/manuscript/*.md, so a stale floor in a
     Python figure string (e.g. "three-question floor" while the enforced floor is 4)
     would bypass every other gate and contradict the manuscript. Bind the figure layer
     to MIN_ASSESSMENTS_PER_SKILL and reject the old hard-coded floor phrases.
@@ -693,10 +693,10 @@ def test_figure_text_does_not_hardcode_a_stale_assessment_floor() -> None:
 
 def test_scientific_evidence_matrix_figure_written(tmp_path) -> None:
     audit = validate_claim_support(
-        manuscript_dir=REPO / "manuscript",
+        manuscript_dir=REPO / "docs" / "manuscript",
         support_path=REPO / "data" / "manuscript_claim_support.yaml",
         source_matrix_path=REPO / "data" / "scholarship_sources.yaml",
-        bib_path=REPO / "manuscript" / "references.bib",
+        bib_path=REPO / "docs" / "manuscript" / "references.bib",
     )
     path = plot_scientific_evidence_matrix(
         audit.to_dict(),
@@ -710,19 +710,19 @@ def test_render_all_emits_registered_figures(tmp_path) -> None:
     graph = build_curriculum()
     reg = build_claim_registry()
     audit = validate_scholarship(
-        REPO / "manuscript",
+        REPO / "docs" / "manuscript",
         REPO / "data" / "scholarship_sources.yaml",
-        REPO / "manuscript" / "references.bib",
+        REPO / "docs" / "manuscript" / "references.bib",
     )
     health = validate_source_health(
         REPO / "data" / "scholarship_sources.yaml",
-        REPO / "manuscript" / "references.bib",
+        REPO / "docs" / "manuscript" / "references.bib",
     )
     claim_support = validate_claim_support(
-        manuscript_dir=REPO / "manuscript",
+        manuscript_dir=REPO / "docs" / "manuscript",
         support_path=REPO / "data" / "manuscript_claim_support.yaml",
         source_matrix_path=REPO / "data" / "scholarship_sources.yaml",
-        bib_path=REPO / "manuscript" / "references.bib",
+        bib_path=REPO / "docs" / "manuscript" / "references.bib",
     )
     roadmap = load_roadmap(REPO / "tasks.yaml")
     material_index, material_audit = _course_material_payload()

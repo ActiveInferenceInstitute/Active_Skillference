@@ -1,7 +1,7 @@
 # Scholarship Coverage
 
 Active Skillference treats scholarship as a checked build input. A citation that merely
-exists in `manuscript/references.bib` is not enough; every authored citation must also
+exists in `docs/manuscript/references.bib` is not enough; every authored citation must also
 have a declared source role in `data/scholarship_sources.yaml`. The reverse is checked as
 well: source-matrix rows and BibTeX entries are expected to be cited by the current
 manuscript, so stale support claims cannot linger after prose changes.
@@ -12,7 +12,7 @@ manuscript, so stale support claims cannot linger after prose changes.
 
 | Field | Meaning |
 |---|---|
-| `key` | BibTeX key cited from `manuscript/*.md` |
+| `key` | BibTeX key cited from `docs/manuscript/*.md` |
 | `lane` | One of the expected scholarship lanes |
 | `kind` | Source kind: primary, review, tutorial, textbook, methods, software, documentation, or historical |
 | `locator` | DOI, URL, ISBN, arXiv id, JSTOR URL, or book identifier |
@@ -64,13 +64,13 @@ The audit emits:
 | `output/figures/open_science_source_map.png` | Active Inference Institute learning-source ledger combining scholarship rows with generated course-material and cognitive knowledge-base pointer coverage |
 | `output/figures/scholarship_source_health.png` | Source-health status summary used in the manuscript and dashboard |
 
-The figures are referenced in `manuscript/03b_results_scholarship_source_health_and_evidence_audits.md` as
+The figures are referenced in `docs/manuscript/03b_results_scholarship_source_health_and_evidence_audits.md` as
 `{#fig:scholarship_coverage}`, `{#fig:open_science_sources}`, and
 `{#fig:scholarship_source_health}`.
 
 ## Adding A Citation
 
-1. Add the BibTeX entry to `manuscript/references.bib`.
+1. Add the BibTeX entry to `docs/manuscript/references.bib`.
 2. Add the citation to the manuscript using Pandoc syntax, for example
    `[@smith2022tutorial]`.
 3. Add a row for the same key in `data/scholarship_sources.yaml`.

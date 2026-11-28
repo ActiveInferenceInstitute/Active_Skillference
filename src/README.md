@@ -12,7 +12,7 @@ provenance gate guarantees no number reaches a learner without a tested kernel b
 | `kernels/` | Tested computational kernels — the **only** source of quantitative values |
 | `provenance/` | The claim registry and the content-provenance binding/lint gate |
 | `scholarship/` | Citation source-role coverage, source health, and gap reporting for the manuscript |
-| `manuscript/` | Generated figure registry / manuscript / dashboard artifact drift validation, claim support, variables, spelling, web math |
+| `docs/manuscript/` | Generated figure registry / manuscript / dashboard artifact drift validation, claim support, variables, spelling, web math |
 | `curriculum/` | The typed skill model, the prerequisite-DAG engine, the catalog, quality gates, diagnostics, recommendations, and lesson materials |
 | `skilltree/` | Curriculum → SkillTree data model, exporter, REST clients, live dependency reconciler, local auth bridge, and seeder |
 | `figures/` | Deterministic, data-driven figures and the typed figure registry |
@@ -48,14 +48,14 @@ Pure, deterministic, side-effect-free math in nats:
 
 ### `scholarship/` — citation coverage
 `coverage.py` — loads `data/scholarship_sources.yaml`, parses authored manuscript
-citations, checks them against `manuscript/references.bib`, and writes the deterministic
+citations, checks them against `docs/manuscript/references.bib`, and writes the deterministic
 scholarship audit JSON. This protects source-role coverage separately from numeric claim
 provenance. `source_health.py`, `source_health_network.py` and `source_health_report.py`
 audit locator syntax, role specificity, and dead-link / bot-block / role-gap /
 boundary-source buckets; `frontier_sources.py` and `gap_report.py` separate frontier and
 boundary support from genuine source-health issues.
 
-### `manuscript/` — artifact surface validation
+### `docs/manuscript/` — artifact surface validation
 `audit.py` — validates `output/figures/figure_registry.json` against the manuscript's
 Pandoc figure declarations, `[@fig:...]` cross-references, readable nonblank PNG files,
 caption/alt-text specificity, semantic metadata, claim tokens, and dashboard figure

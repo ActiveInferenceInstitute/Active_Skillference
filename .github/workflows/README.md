@@ -20,4 +20,4 @@ names stable. The required GNN merge status is
 [`gnn conformance (local)`](../../README.md#required-local-gnn-check).
 
 Arm-by-arm detail, measured runtimes, and the pinned action SHAs:
-[`../../docs/gates.md`](../../docs/gates.md).
+[`../../docs/validation/gates.md`](../../docs/validation/gates.md).

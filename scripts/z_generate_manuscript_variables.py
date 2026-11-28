@@ -17,7 +17,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-MANUSCRIPT = ROOT / "manuscript"
+MANUSCRIPT = ROOT / "docs" / "manuscript"
 OUTPUT_MANUSCRIPT = ROOT / "output" / "manuscript"
 RENDER_SKIP = {"AGENTS.md", "README.md", "SYNTAX.md", "preamble.md"}
 

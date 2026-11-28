@@ -13,7 +13,7 @@ from pathlib import Path
 PUBLIC_REPOSITORY_URL = (
     "https://github.com/ActiveInferenceInstitute/Active_Skillference.git"
 )
-INVENTORY_PATH = "docs/release_readiness_inventory.md"
+INVENTORY_PATH = "docs/publication/release_readiness_inventory.md"
 # Surfaces that must stay out of version control. Generated deliverables under
 # output/ are now committed on purpose so a reader can inspect them without
 # running the pipeline, so what remains here is the two families that must never
@@ -28,10 +28,10 @@ IGNORED_OUTPUT_EXAMPLES = (
     ".active_skillference_local/skilltree_auth.json",
 )
 REQUIRED_EVIDENCE_COMMANDS = (
-    "git status --short (excluding docs/release_readiness_inventory.md)",
+    "git status --short (excluding docs/publication/release_readiness_inventory.md)",
     "git ls-files -o --exclude-standard",
     "git diff --check",
-    "git diff --stat -- . ':(exclude)docs/release_readiness_inventory.md'",
+    "git diff --stat -- . ':(exclude)docs/publication/release_readiness_inventory.md'",
     "uv run python scripts/validate_release_readiness_inventory.py",
 )
 ARTIFACT_HASH_TARGETS = (
@@ -228,7 +228,7 @@ def render_release_readiness_inventory(
         "",
         (
             "Tracked diff summary outside this inventory file from "
-            "`git diff --stat -- . ':(exclude)docs/release_readiness_inventory.md'`: "
+            "`git diff --stat -- . ':(exclude)docs/publication/release_readiness_inventory.md'`: "
             f"`{snapshot.diff_summary}`."
         ),
         "",
@@ -314,7 +314,7 @@ def render_release_readiness_inventory(
 def audit_release_readiness_inventory(root: Path) -> list[ReleaseReadinessIssue]:
     """Return release-readiness inventory drift issues without raising."""
     root = Path(root)
-    inventory_path = root / "docs" / "release_readiness_inventory.md"
+    inventory_path = root / "docs" / "publication" / "release_readiness_inventory.md"
     snapshot = build_release_readiness_snapshot(root)
     issues: list[ReleaseReadinessIssue] = []
     try:
@@ -322,7 +322,8 @@ def audit_release_readiness_inventory(root: Path) -> list[ReleaseReadinessIssue]
     except FileNotFoundError:
         return [
             ReleaseReadinessIssue(
-                "docs/release_readiness_inventory.md", "inventory file is missing"
+                "docs/publication/release_readiness_inventory.md",
+                "inventory file is missing",
             )
         ]
 
@@ -390,7 +391,7 @@ def write_release_readiness_inventory(
 ) -> Path:
     """Refresh the inventory Markdown from current git state and blocker probes."""
     root = Path(root)
-    path = root / "docs" / "release_readiness_inventory.md"
+    path = root / "docs" / "publication" / "release_readiness_inventory.md"
     path.parent.mkdir(parents=True, exist_ok=True)
     if not path.exists():
         path.write_text("", encoding="utf-8")
